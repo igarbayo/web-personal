@@ -1,9 +1,9 @@
 import {
-  SiJava,
+  SiOpenjdk,
   SiPython,
   SiJavascript,
   SiHtml5,
-  SiCss3,
+  SiCss,
   SiNestjs,
   SiAngular,
   SiNextdotjs,
@@ -19,11 +19,11 @@ import {
 import type { IconType } from 'react-icons'
 
 const iconMap: Record<string, IconType> = {
-  Java: SiJava,
+  Java: SiOpenjdk,
   Python: SiPython,
   JavaScript: SiJavascript,
   HTML: SiHtml5,
-  CSS: SiCss3,
+  CSS: SiCss,
   NestJS: SiNestjs,
   Angular: SiAngular,
   'Next.js': SiNextdotjs,
