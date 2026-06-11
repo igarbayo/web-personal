@@ -80,6 +80,15 @@ export default function Navbar({ dict, lang }: NavbarProps) {
       {/* Mobile overlay — outside <nav> to avoid backdrop-filter containing block issues */}
       {menuOpen && (
         <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center gap-10">
+          <button
+            className="absolute top-4 right-5 text-muted hover:text-foreground transition-colors p-1"
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.path}
