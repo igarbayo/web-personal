@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
+const basePath = '/web-personal'
+
 const nextConfig = {
   output: 'export',
-  basePath: '/web-personal',
+  basePath,
   images: { unoptimized: true },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
 }
 
 module.exports = nextConfig
