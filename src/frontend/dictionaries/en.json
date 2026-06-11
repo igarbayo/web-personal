@@ -1,0 +1,288 @@
+{
+  "meta": {
+    "title": "Ignacio Garbayo — CV",
+    "description": "Software Engineer with a dual foundation in Computer Engineering and Mathematics."
+  },
+  "nav": {
+    "home": "Home",
+    "summary": "Summary",
+    "skills": "Skills",
+    "education": "Education",
+    "experience": "Experience",
+    "leadership": "Leadership",
+    "projects": "Projects",
+    "languages": "Languages",
+    "volunteering": "Volunteering",
+    "certifications": "Certifications"
+  },
+  "header": {
+    "name": "Ignacio Garbayo Fernández",
+    "title": "Computer Engineering · Mathematics",
+    "email": "iggarbayo@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/ignaciogarbayo",
+    "github": "https://github.com/igarbayo",
+    "devpost": "https://devpost.com/igarbayo"
+  },
+  "summary": {
+    "title": "Summary",
+    "content": "Software Engineer with a dual foundation in Computer Engineering and Mathematics. Proven experience building predictive classification models for medical research and integrating real-time data flows to optimize decision-making. Engineered complex optimization solutions, including a scheduling engine and an AI/IoT water management system. Led the development of a Business Intelligence algorithm awarded 1st prize nationwide by Bankinter."
+  },
+  "skills": {
+    "title": "Skills",
+    "categories": [
+      {
+        "name": "Languages & Frameworks",
+        "items": ["C", "Java", "Python", "R", "SQL", "JavaScript", "HTML", "CSS", "NestJS", "Angular", "Next.js", "Fortran"]
+      },
+      {
+        "name": "Databases",
+        "items": ["PostgreSQL", "MongoDB"]
+      },
+      {
+        "name": "Technologies & Tools",
+        "items": ["Bash", "Docker", "Kubernetes", "Jenkins", "RabbitMQ", "MQTT", "Kafka"]
+      }
+    ]
+  },
+  "education": {
+    "pageTitle": "Foundations",
+    "title": "Education",
+    "entries": [
+      {
+        "date": "09/21 – 06/27",
+        "degree": "Bachelor's Degree in Computer Engineering",
+        "institution": "University of Santiago de Compostela",
+        "bullets": [
+          "Relevant Courses: Algorithms and Data Structures (C), Computer Architecture, Object Oriented Programming (Java), Formal Languages and Automata Theory, Intelligent Systems and Artificial Intelligence (Python), Cybersecurity",
+          "Final thesis: Computer Vision & Artificial Intelligence",
+          "Grade: 8.1/10"
+        ],
+        "logo": ["usc.png"]
+      },
+      {
+        "date": "09/21 – 06/27",
+        "degree": "Bachelor's Degree in Mathematics",
+        "institution": "University of Santiago de Compostela",
+        "bullets": [
+          "Relevant Courses: Linear and Multilinear Algebra, Numerical Methods in Optimization and Differential Equations, General Topology, Probability and Statistics, Inference and Multivariate Analysis (R)",
+          "Final thesis: Advanced classification models for epidemiological research",
+          "Grade: 7.7/10",
+          "Courses finished with honours: Statistical Inference"
+        ],
+        "logo": ["usc.png"]
+      }
+    ]
+  },
+  "experience": {
+    "pageTitle": "Professional Journey",
+    "title": "Where I've Worked",
+    "entries": [
+      {
+        "date": "07/25 – 09/25",
+        "title": "Intern, Full Stack Development",
+        "company": "[IGM WEB](https://www.igmweb.com/) ([Hotusa Group](https://www.grupohotusa.com/))",
+        "bullets": [
+          "Developed a monitoring web app using NestJS, Angular, MongoDB, RabbitMQ, and Kafka to visualize hotel room data flows, significantly reducing incidents.",
+          "Secured the consistency of availability data for Online Travel Agencies, improving decision-making and reducing debugging hours by exposing performance metrics, errors, and anomaly detection.",
+          "Managed the entire product lifecycle, from requirements planning to CI/CD automation using Docker, Kubernetes, and Jenkins."
+        ],
+        "logo": ["igm.svg", "hotusa.svg"],
+        "links": [
+          { "label": "Report", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDFVuHltslLTZIGsdfMzvP9AS2MTQ54M-2YY_97IMvYvR4?e=xCr8c2" }
+        ]
+      },
+      {
+        "date": "06/24 – 07/24",
+        "title": "Intern, Machine Learning",
+        "company": "[Health Research Institute (IDIS)](https://www.idisantiago.es/)",
+        "bullets": [
+          "Optimized supervised classification models in R (caret, caretEnsemble) and Python, mitigating overfitting to achieve a robust accuracy of 88%.",
+          "Developed static and dynamic classifier ensembles for breast cancer prediction, encompassing data preparation, feature selection, threshold tuning, model training, and metric analysis.",
+          "Leveraged caretStack, DESLib, and KNORA to evaluate the accuracy of various base and mixed models."
+        ],
+        "logo": ["idis.png"],
+        "links": [
+          { "label": "Report", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb" }
+        ]
+      },
+      {
+        "date": "03/16 – present",
+        "title": "Basketball Referee & Tutor",
+        "company": "[Galician Basketball Federation](https://fegaba.com/)",
+        "bullets": [
+          "Demonstrated decision-making under pressure, effective communication, teamwork, and attention to detail by refereeing in the 1st regional division and four Spanish Championships (U12/U14 Regional Teams, U14/U16 Clubs).",
+          "Training new officials as a referee tutor by conducting performance reviews and teaching rules, mechanics, and conflict resolution on the court, preparing them for weekly assignments and high-stress situations."
+        ],
+        "logo": ["fegaba.png"]
+      }
+    ]
+  },
+  "leadership": {
+    "title": "Leadership & Awards",
+    "entries": [
+      {
+        "date": "10/23 – 06/24",
+        "title": "[Akademia](https://www.fundacionbankinter.org/nuestras-iniciativas/akademia-future-builders/) winner and mentor",
+        "organization": "[Bankinter Innovation Foundation](https://www.fundacionbankinter.org/)",
+        "bullets": [
+          "Selected as one of 80 participants nationwide for a 4-month tech innovation program featuring expert debates. Led the ML development of an impactful Business Intelligence algorithm for a real-world business case, winning first prize. Later selected as a mentor, guiding another team to win the subsequent edition."
+        ],
+        "logo": ["bankinter.jpg"],
+        "images": ["/akademia-1.JPG", "/akademia-2.jfif"]
+      },
+      {
+        "date": "2024",
+        "title": "3rd Prize, Best Essay on AI Applications",
+        "organization": "USC",
+        "bullets": []
+      },
+      {
+        "date": "2021",
+        "title": "Honors Distinction, High & Secondary School",
+        "organization": "",
+        "bullets": [
+          "Highest university entrance exam score in the Province of Ourense (13.92/14)."
+        ],
+        "links": [
+          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/ourense/ourense/2021/06/18/ignacio-garbayo-me-esperaba-buena-nota-mejor/00031624026839469801180.htm" },
+          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/galicia/2021/07/24/remontar-crisis-covid-dejar-politica-gestionar-generar-confianza/00031627129453717451495.htm" },
+          { "label": "ABC", "url": "https://www.abc.es/espana/galicia/abci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html?ref=https%3A%2F%2Fwww.abc.es%2Fespana%2Fgalicia%2Fabci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html" },
+          { "label": "Faro de Vigo", "url": "https://www.farodevigo.es/ourense/2021/06/19/9-92-puertas-abiertas-53924029.html" },
+          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html" }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "pageTitle": "Portfolio",
+    "title": "Projects & Competitions",
+    "entries": [
+      {
+        "date": "2026",
+        "title": "Hackathons",
+        "organization": "[HackUDC](https://hackudc.gpul.org/), [HackUPC](https://hackupc.com/)",
+        "bullets": [
+          "Won the Alén Space Challenge and 2nd Best Open Source Project at HackUDC 2026 (400+ participants) with BFG-I. Selected from 1,700+ applicants to participate in HackUPC 2026 with XEITECH. Both projects were developed under 36-hour constraints.",
+          "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): Built a satellite-to-ground DOOM streaming system over simulated LEO links in C, using H.264 video compression, RTP/UDP packetization, and a lock-free ring buffer.",
+          "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): Developed an automated warehouse simulator with a heuristics-driven I/O algorithm, SSTF instruction reordering, and a 3D digital twin using C++, Python, and React."
+        ],
+        "images": ["/hack-1.jpg", "/hack-2.jpg", "/hack-3.jpeg", "/hack-4.jpg", "/hack-5.jpg"]
+      },
+      {
+        "date": "2026",
+        "title": "Automated Referee Assignment System",
+        "bullets": [
+          "Engineered an optimization engine in Python to efficiently schedule up to 800 weekly matches, combining personnel scheduling and vehicle routing problems.",
+          "Resolved complex constraints including schedule overlaps, conflict vetoes, and skill-level matching through weighted greedy selection, complemented by local search and geometric approximations."
+        ]
+      },
+      {
+        "date": "2025 – present",
+        "title": "Smart Water Management System",
+        "organization": "[egswater.com](https://egswater.com)",
+        "bullets": [
+          "Developing an AI/IoT platform (NestJS, R, React) with two Bankinter Akademia colleagues for small Galician municipalities, aiming to optimize natural resources and reduce Non-Revenue Water leaks.",
+          "The solution, an anomaly detection algorithm based on an unsupervised ensemble, is currently being prototyped ahead of planned municipal pilot tests."
+        ],
+        "logo": ["egs.png"]
+      },
+      {
+        "date": "2023 – 2025",
+        "title": "Student Magazine",
+        "organization": "[Más Mates](https://www.usc.gal/es/node/42511) (USC)",
+        "bullets": [
+          "Editor and contributor for a monthly Math Faculty magazine at the University of Santiago de Compostela.",
+          "Collaborated closely to publish high-quality technical and outreach content, expanding my skillset by exploring topics beyond the standard curriculum.",
+          "Published in [Minerva](https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d)."
+        ],
+        "images": ["/mais-mates-1.JPG", "/mais-mates-2.JPG", "/mais-mates-3.jpeg"]
+      }
+    ]
+  },
+  "languages": {
+    "title": "Languages",
+    "entries": [
+      { "language": "English", "level": "C1 Advanced (Cambridge Certificate)", "certification": { "name": "Cambridge C1 Advanced", "issuer": "Cambridge Assessment English", "overallScore": 199, "overallLevel": "C1", "skillsLabel": "Skill Scores · Cambridge English Scale", "skills": [{ "name": "Reading", "score": 197 }, { "name": "Use of English", "score": 210 }, { "name": "Writing", "score": 193 }, { "name": "Listening", "score": 203 }, { "name": "Speaking", "score": 194 }], "scaleMin": 150, "scaleMax": 210, "threshold": 180, "thresholdLabel": "C1 Pass Threshold · 180" } },
+      { "language": "Spanish", "level": "native" },
+      { "language": "Galician", "level": "native" }
+    ]
+  },
+  "volunteering": {
+    "title": "Volunteering",
+    "entries": [
+      {
+        "date": "10/25 – 02/26",
+        "title": "Refugees volunteering",
+        "location": "Santiago de Compostela, Galicia, Spain",
+        "description": "Taught refugees basketball rules and refereeing values as a representative of the Galician Basketball Federation in the Basket Bridges program, in collaboration with NGO Rescate & ADB Fontiñas.",
+        "images": ["/volunt-fegaba-1.jfif", "/volunt-fegaba-2.jpg"]
+      },
+      {
+        "date": "2016 – 2022",
+        "title": "Social volunteering",
+        "location": "Ourense, Galicia, Spain",
+        "description": "Organized and distributed food, assisted in community dining programs, and provided presents and clothing to children in need as part of the school-based NGO \"10%\" of Maristas Ourense."
+      }
+    ]
+  },
+  "certifications": {
+    "title": "Certifications & Courses",
+    "entries": [
+      {
+        "date": "12/2025",
+        "title": "McKinsey Forward Program",
+        "issuer": "McKinsey & Company",
+        "logo": ["mckinsey.png"]
+      },
+      {
+        "date": "09/2025",
+        "title": "AWS Cloud Practitioner Training Badge",
+        "issuer": "Amazon Web Services",
+        "bullets": [
+          "Worked in several cases with foundational cloud computing tools in AWS Cloud.",
+          "Developed practical expertise by learning core concepts in computing, networking, security, and storage."
+        ],
+        "logo": ["aws.webp"]
+      },
+      {
+        "date": "09/2025",
+        "title": "AWS Generative AI Practitioner Training Badge",
+        "issuer": "Amazon Web Services",
+        "bullets": [
+          "Applied hands-on skills in prompt engineering, code generation, chatbot development, content moderation systems and fine-tuning models to optimize performance using AWS AI services."
+        ],
+        "logo": ["aws.webp"]
+      },
+      {
+        "date": "09/2025",
+        "title": "AI Agents Fundamentals",
+        "issuer": "Hugging Face",
+        "bullets": [
+          "Demonstrated practical knowledge of AI agents, including tools, actions, observations, and data formats.",
+          "Worked with large language models (LLMs), messages, special tokens and chat templates."
+        ],
+        "logo": ["huuging-face.png"]
+      },
+      {
+        "date": "08/2025",
+        "title": "Apache Kafka from Scratch",
+        "issuer": "Udemy"
+      },
+      {
+        "date": "07/2025",
+        "title": "Kubernetes: Complete Guide",
+        "issuer": "Udemy"
+      },
+      {
+        "date": "07/2025",
+        "title": "NestJS: Scalable Backend Development with Node",
+        "issuer": "Udemy"
+      },
+      {
+        "date": "02/2024",
+        "title": "Quantum-Inspired Computing Workshop",
+        "issuer": "FUJITSU, USC"
+      }
+    ]
+  }
+}

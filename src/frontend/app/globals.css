@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FAFAFA;
+    color: #1A1A1A;
+  }
+}
+
+@layer utilities {
+  .cursor-blink::after {
+    content: '_';
+    color: #2563EB;
+    animation: blink 1s step-start infinite;
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "meta": {
+    "title": "Ignacio Garbayo — CV",
+    "description": "Ingeniero de Software con doble formación en Ingeniería Informática y Matemáticas."
+  },
+  "nav": {
+    "home": "Inicio",
+    "summary": "Sobre mí",
+    "skills": "Aptitudes",
+    "education": "Educación",
+    "experience": "Experiencia",
+    "leadership": "Premios",
+    "projects": "Proyectos",
+    "languages": "Idiomas",
+    "volunteering": "Voluntariado",
+    "certifications": "Certificados"
+  },
+  "header": {
+    "name": "Ignacio Garbayo Fernández",
+    "title": "Ingeniería Informática · Matemáticas",
+    "email": "iggarbayo@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/ignaciogarbayo",
+    "github": "https://github.com/igarbayo",
+    "devpost": "https://devpost.com/igarbayo"
+  },
+  "summary": {
+    "title": "Sobre mí",
+    "content": "Soy estudiante del doble grado en Ingeniería Informática y Matemáticas. Tengo experiencia en el desarrollo de modelos predictivos para investigación médica y en la integración de flujos de datos para optimizar la toma de decisiones. He diseñado soluciones de optimización, incluyendo un motor de scheduling y un sistema de gestión hídrica basado en IA. Lideré el desarrollo de un algoritmo de Business Intelligence galardonado con el 1.º premio nacional por Bankinter."
+  },
+  "skills": {
+    "title": "Aptitudes",
+    "categories": [
+      {
+        "name": "Lenguajes y frameworks",
+        "items": ["C", "Java", "Python", "R", "SQL", "JavaScript", "HTML", "CSS", "NestJS", "Angular", "Next.js", "Fortran"]
+      },
+      {
+        "name": "Bases de datos",
+        "items": ["PostgreSQL", "MongoDB"]
+      },
+      {
+        "name": "Tecnologías y herramientas",
+        "items": ["Bash", "Docker", "Kubernetes", "Jenkins", "RabbitMQ", "MQTT", "Kafka"]
+      }
+    ]
+  },
+  "education": {
+    "pageTitle": "Bases",
+    "title": "Educación",
+    "entries": [
+      {
+        "date": "09/21 – 06/27",
+        "degree": "Grado en Ingeniería Informática",
+        "institution": "Universidade de Santiago de Compostela",
+        "bullets": [
+          "Asignaturas relevantes: Algoritmos y Estructuras de Datos (C), Arquitectura de Computadores, Programación Orientada a Objetos (Java), Lenguajes Formales y Teoría de Autómatas, Sistemas Inteligentes e Inteligencia Artificial (Python), Ciberseguridad",
+          "Trabajo Fin de Grado: Visión por Computador e Inteligencia Artificial",
+          "Nota: 8,1/10"
+        ],
+        "logo": ["usc.png"]
+      },
+      {
+        "date": "09/21 – 06/27",
+        "degree": "Grado en Matemáticas",
+        "institution": "Universidade de Santiago de Compostela",
+        "bullets": [
+          "Asignaturas relevantes: Álgebra Lineal y Multilineal, Métodos Numéricos en Optimización y Ecuaciones Diferenciales, Topología General, Probabilidad y Estadística, Inferencia y Análisis Multivariante (R)",
+          "Trabajo Fin de Grado: Revisión de modelos de clasificación avanzados para datos epidemiológicos",
+          "Nota: 7,7/10",
+          "Asignaturas con Matrícula de Honor: Inferencia Estadística"
+        ],
+        "logo": ["usc.png"]
+      }
+    ]
+  },
+  "experience": {
+    "pageTitle": "Trayectoria profesional",
+    "title": "Dónde He Trabajado",
+    "entries": [
+      {
+        "date": "07/25 – 09/25",
+        "title": "Prácticas en Desarrollo Full Stack",
+        "company": "[IGM WEB](https://www.igmweb.com/) ([Grupo Hotusa](https://www.grupohotusa.com/))",
+        "bullets": [
+          "Desarrollé una aplicación web de monitorización usando NestJS, Angular, MongoDB, RabbitMQ y Kafka para visualizar los flujos de datos de las habitaciones de hoteles, reduciendo las incidencias.",
+          "Garanticé la consistencia de los datos de disponibilidad para las agencias de viajes online (OTA), mejorando la toma de decisiones y reduciendo las horas de depuración mediante la exposición de métricas de rendimiento, errores y detección de anomalías.",
+          "Gestioné el ciclo de vida completo del producto, desde la definición de requisitos hasta la automatización CI/CD con Docker, Kubernetes y Jenkins."
+        ],
+        "logo": ["igm.svg", "hotusa.svg"],
+        "links": [
+          { "label": "Memoria", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDFVuHltslLTZIGsdfMzvP9AS2MTQ54M-2YY_97IMvYvR4?e=xCr8c2" }
+        ]
+      },
+      {
+        "date": "06/24 – 07/24",
+        "title": "Prácticas en Machine Learning",
+        "company": "[Instituto de Investigación Sanitaria (IDIS)](https://www.idisantiago.es/)",
+        "bullets": [
+          "Optimicé modelos de clasificación supervisada en R (caret, caretEnsemble) y Python, mitigando el sobreajuste para alcanzar una precisión robusta del 88%.",
+          "Desarrollé ensamblados de clasificadores estáticos y dinámicos para la predicción del cáncer de mama, abarcando la preparación de datos, selección de características, ajuste de umbrales, entrenamiento de modelos y análisis de métricas.",
+          "Utilicé caretStack, DESLib y KNORA para evaluar la precisión de varios modelos base y mixtos."
+        ],
+        "logo": ["idis.png"],
+        "links": [
+          { "label": "Memoria", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb" }
+        ]
+      },
+      {
+        "date": "03/16 – presente",
+        "title": "Árbitro de Baloncesto y Formador Arbitral",
+        "company": "[Federación Galega de Baloncesto](https://fegaba.com/)",
+        "bullets": [
+          "Demuestro capacidad de toma de decisiones bajo presión, comunicación efectiva, trabajo en equipo y atención al detalle arbitrando en la 1.ª división autonómica y en cuatro Campeonatos de España (Selecciones Autonómicas U12/U14, Clubes U14/U16).",
+          "Formo a nuevos colegiados como tutor arbitral, realizando evaluaciones y enseñando reglamento, mecánica arbitral y resolución de conflictos en pista, preparándolos para sus designaciones semanales."
+        ],
+        "logo": ["fegaba.png"]
+      }
+    ]
+  },
+  "leadership": {
+    "title": "Premios y Liderazgo",
+    "entries": [
+      {
+        "date": "10/23 – 06/24",
+        "title": "Ganador y mentor de [Akademia](https://www.fundacionbankinter.org/nuestras-iniciativas/akademia-future-builders/)",
+        "organization": "[Fundación Innovación Bankinter](https://www.fundacionbankinter.org/)",
+        "bullets": [
+          "Fui seleccionado entre 80 participantes a nivel nacional para un programa de innovación tecnológica de 4 meses que incluyó debates con expertos. Lideré el desarrollo de Machine Learning de un algoritmo de Business Intelligence para un caso de negocio real, obteniendo el primer premio. Posteriormente, fui elegido como mentor, guiando a otro equipo a ganar la siguiente edición."
+        ],
+        "logo": ["bankinter.jpg"],
+        "images": ["/akademia-1.JPG", "/akademia-2.jfif"]
+      },
+      {
+        "date": "2024",
+        "title": "3.º Premio, Mejor Ensayo sobre IA",
+        "organization": "USC",
+        "bullets": []
+      },
+      {
+        "date": "2021",
+        "title": "Matrículas de Honor, Bachillerato y ESO",
+        "organization": "",
+        "bullets": [
+          "Mejor nota de acceso a la universidad en la provincia de Ourense (13,92/14)."
+        ],
+        "links": [
+          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/ourense/ourense/2021/06/18/ignacio-garbayo-me-esperaba-buena-nota-mejor/00031624026839469801180.htm" },
+          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/galicia/2021/07/24/remontar-crisis-covid-dejar-politica-gestionar-generar-confianza/00031627129453717451495.htm" },
+          { "label": "ABC", "url": "https://www.abc.es/espana/galicia/abci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html?ref=https%3A%2F%2Fwww.abc.es%2Fespana%2Fgalicia%2Fabci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html" },
+          { "label": "Faro de Vigo", "url": "https://www.farodevigo.es/ourense/2021/06/19/9-92-puertas-abiertas-53924029.html" },
+          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html" }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "pageTitle": "Portafolio",
+    "title": "Proyectos y Competiciones",
+    "entries": [
+      {
+        "date": "2026",
+        "title": "Hackathons",
+        "organization": "[HackUDC](https://hackudc.gpul.org/), [HackUPC](https://hackupc.com/)",
+        "bullets": [
+          "Gané el reto Alén Space y el 2.º mejor proyecto Open Source en HackUDC 2026 (400+ participantes) con BFG-I. Fui seleccionado entre 1.700+ solicitantes para participar en HackUPC 2026 con XEITECH. Ambos proyectos se desarrollaron en menos de 36 horas.",
+          "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): implementé un sistema de streaming de DOOM desde satélite sobre enlaces LEO en C, usando compresión de vídeo H.264, empaquetado RTP/UDP y un búfer circular lock-free.",
+          "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): desarrollé un simulador de almacén automatizado con un algoritmo de E/S basado en heurísticas, reordenación de instrucciones SSTF y un gemelo digital en 3D con C++, Python y React."
+        ],
+        "images": ["/hack-1.jpg", "/hack-2.jpg", "/hack-3.jpeg", "/hack-4.jpg", "/hack-5.jpg"]
+      },
+      {
+        "date": "2026",
+        "title": "Sistema automático de designaciones arbitrales",
+        "bullets": [
+          "Diseñé un motor de optimización en Python para planificar eficientemente hasta 800 partidos semanales, combinando problemas de planificación de personal y enrutamiento de vehículos.",
+          "Resolví restricciones complejas, incluyendo solapamientos de horarios, vetos y emparejamientos por nivel, mediante una weighted greedy selection con búsqueda local y aproximaciones geométricas."
+        ]
+      },
+      {
+        "date": "2025 – presente",
+        "title": "Sistema de gestión inteligente del agua",
+        "organization": "[egswater.com](https://egswater.com)",
+        "bullets": [
+          "Desarrollo una plataforma de IA/IoT (NestJS, R, React) junto a dos compañeros de Akademia para pequeños municipios gallegos, con el objetivo de optimizar los recursos naturales y reducir las pérdidas de agua no registrada.",
+          "La solución, un algoritmo de detección de anomalías basado en un ensemble no supervisado, se encuentra en fase de prototipado previa a las pruebas piloto municipales planificadas."
+        ],
+        "logo": ["egs.png"]
+      },
+      {
+        "date": "2023 – 2025",
+        "title": "Revista estudiantil",
+        "organization": "[Máis Mates](https://www.usc.gal/es/node/42511) (USC)",
+        "bullets": [
+          "Editor y colaborador de una revista mensual de la Facultad de Matemáticas de la USC.",
+          "Colaboré para publicar contenido técnico y de divulgación de calidad, ampliando mis competencias al explorar temas más allá del plan de estudios oficial.",
+          "Publicaciones disponibles en [Minerva](https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d)."
+        ],
+        "images": ["/mais-mates-1.JPG", "/mais-mates-2.JPG", "/mais-mates-3.jpeg"]
+      }
+    ]
+  },
+  "languages": {
+    "title": "Idiomas",
+    "entries": [
+      { "language": "Inglés", "level": "C1 Advanced (Cambridge)", "certification": { "name": "Cambridge C1 Advanced", "issuer": "Cambridge Assessment English", "overallScore": 199, "overallLevel": "C1", "skillsLabel": "Puntuaciones · Escala Cambridge English", "skills": [{ "name": "Lectura", "score": 197 }, { "name": "Uso del inglés", "score": 210 }, { "name": "Escritura", "score": 193 }, { "name": "Comprensión auditiva", "score": 203 }, { "name": "Expresión oral", "score": 194 }], "scaleMin": 150, "scaleMax": 210, "threshold": 180, "thresholdLabel": "Umbral C1 · 180" } },
+      { "language": "Español", "level": "nativo" },
+      { "language": "Gallego", "level": "nativo" }
+    ]
+  },
+  "volunteering": {
+    "title": "Voluntariado",
+    "entries": [
+      {
+        "date": "10/25 – 02/26",
+        "title": "Voluntario con refugiados",
+        "location": "Santiago de Compostela, Galicia, España",
+        "description": "Enseñé reglas de baloncesto y valores arbitrales a refugiados como representante de la Federación Galega de Baloncesto en el programa Basket Bridges, en colaboración con la ONG Rescate y ADB Fontiñas.",
+        "images": ["/volunt-fegaba-1.jfif", "/volunt-fegaba-2.jpg"]
+      },
+      {
+        "date": "2016 – 2022",
+        "title": "Voluntariado social",
+        "location": "Ourense, Galicia, España",
+        "description": "Organicé y distribuí alimentos, colaboré en el comedor social y repartí regalos y ropa a menores en situación de vulnerabilidad como parte de la ONG escolar \"10%\" de Maristas Ourense."
+      }
+    ]
+  },
+  "certifications": {
+    "title": "Certificados y Cursos",
+    "entries": [
+      {
+        "date": "12/2025",
+        "title": "McKinsey Forward Program",
+        "issuer": "McKinsey & Company",
+        "logo": ["mckinsey.png"]
+      },
+      {
+        "date": "09/2025",
+        "title": "AWS Cloud Practitioner Training Badge",
+        "issuer": "Amazon Web Services",
+        "bullets": [
+          "Trabajé en varios casos con herramientas fundamentales de computación en la nube de AWS.",
+          "Desarrollé experiencia práctica aprendiendo conceptos básicos de computación, redes, seguridad y almacenamiento."
+        ],
+        "logo": ["aws.webp"]
+      },
+      {
+        "date": "09/2025",
+        "title": "AWS Generative AI Practitioner Training Badge",
+        "issuer": "Amazon Web Services",
+        "bullets": [
+          "Apliqué habilidades prácticas en ingeniería de prompts, generación de código, desarrollo de chatbots, sistemas de moderación de contenido y ajuste fino de modelos usando servicios de IA de AWS."
+        ],
+        "logo": ["aws.webp"]
+      },
+      {
+        "date": "09/2025",
+        "title": "AI Agents Fundamentals",
+        "issuer": "Hugging Face",
+        "bullets": [
+          "Demostré conocimiento práctico de agentes de IA, incluyendo herramientas, acciones, observaciones y formatos de datos.",
+          "Trabajé con modelos de lenguaje de gran tamaño (LLMs), mensajes, tokens especiales y plantillas de chat."
+        ],
+        "logo": ["huuging-face.png"]
+      },
+      {
+        "date": "08/2025",
+        "title": "Apache Kafka desde cero",
+        "issuer": "Udemy"
+      },
+      {
+        "date": "07/2025",
+        "title": "Kubernetes al completo",
+        "issuer": "Udemy"
+      },
+      {
+        "date": "07/2025",
+        "title": "NestJS: desarrollo backend escalable con Node",
+        "issuer": "Udemy"
+      },
+      {
+        "date": "02/2024",
+        "title": "Quantum-Inspired Computing Workshop",
+        "issuer": "FUJITSU, USC"
+      }
+    ]
+  }
+}
