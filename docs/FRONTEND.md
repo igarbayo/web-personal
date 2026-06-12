@@ -99,7 +99,7 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 | `title` | `string` | Título en negrita |
 | `subtitle` | `string` | Organización/empresa/institución |
 | `subtitleUrl?` | `string` | Convierte el subtitle en enlace externo |
-| `bullets?` | `string[]` | Lista con `·` como marcador |
+| `bullets?` | `string[]` | Lista con viñeta `•` en color accent (`text-accent text-lg`) como marcador |
 | `description?` | `string` | Párrafo (para Volunteering) |
 | `note?` | `string` | Nota italic monospace al pie (ej: "Report available.") |
 

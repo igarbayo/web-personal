@@ -68,8 +68,8 @@ export default function TimelineEntry({
       {bullets && bullets.length > 0 && (
         <ul className="space-y-1.5">
           {bullets.map((b, i) => (
-            <li key={i} className="text-base text-foreground leading-relaxed flex gap-2 items-baseline">
-              <span className="text-muted shrink-0">·</span>
+            <li key={i} className="text-base text-foreground leading-relaxed flex gap-[0.6875rem] items-baseline">
+              <span className="text-accent text-lg leading-none shrink-0">•</span>
               <span>{renderText(b)}</span>
             </li>
           ))}
