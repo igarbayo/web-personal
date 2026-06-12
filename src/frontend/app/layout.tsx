@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     url: `${base}/`,
     images: [
       {
-        url: `${base}/me-movil.png`,
-        width: 943,
-        height: 943,
+        url: `${base}/me-movil-compressed.png`,
+        width: 600,
+        height: 600,
         alt: 'Ignacio Garbayo Fernández',
       },
     ],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'Ignacio Garbayo Fernández',
     description,
-    images: [`${base}/me-movil.png`],
+    images: [`${base}/me-movil-compressed.png`],
   },
 }
 

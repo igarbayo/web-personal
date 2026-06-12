@@ -38,9 +38,9 @@ export async function generateMetadata({
       url: `${base}/${params.lang}`,
       images: [
         {
-          url: `${base}/me-movil.png`,
-          width: 943,
-          height: 943,
+          url: `${base}/me-movil-compressed.png`,
+          width: 600,
+          height: 600,
           alt: 'Ignacio Garbayo Fernández',
         },
       ],
@@ -49,7 +49,7 @@ export async function generateMetadata({
       card: 'summary',
       title: 'Ignacio Garbayo Fernández',
       description: dict.meta.description,
-      images: [`${base}/me-movil.png`],
+      images: [`${base}/me-movil-compressed.png`],
     },
   }
 }
