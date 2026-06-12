@@ -1,6 +1,6 @@
 # Frontend — Documentación técnica
 
-Web CV personal de Ignacio Garbayo Fernández. Stack: **Next.js 14** (App Router) + **Tailwind CSS** + **TypeScript**. Deploy en Vercel.
+Web CV personal de Ignacio Garbayo Fernández. Stack: **Next.js 14** (App Router) + **Tailwind CSS** + **TypeScript**. Deploy en **GitHub Pages** con `basePath: '/web-personal'`.
 
 ---
 
@@ -8,9 +8,19 @@ Web CV personal de Ignacio Garbayo Fernández. Stack: **Next.js 14** (App Router
 
 ### Routing
 
+App multi-página con 4 rutas por idioma:
+
+| Ruta | Secciones renderizadas |
+|---|---|
+| `/[lang]` | Home: foto de perfil + Header + Summary |
+| `/[lang]/experience` | Experience, Skills, Volunteering |
+| `/[lang]/education` | Education, LeadershipAwards, Languages, Certifications |
+| `/[lang]/projects` | ProjectsCompetitions |
+
 - `/` → redirect a `/en` (via `app/page.tsx`)
-- `/en`, `/es`, `/gl` → generados estáticamente con `generateStaticParams` en `app/[lang]/layout.tsx`
+- Rutas generadas estáticamente con `generateStaticParams` en `app/[lang]/layout.tsx`
 - No se usa ninguna librería de i18n; el contenido está en JSONs por idioma
+- Las imágenes en `public/` se referencian con el prefijo `${process.env.NEXT_PUBLIC_BASE_PATH}/` (necesario por el basePath de GitHub Pages)
 
 ### i18n
 
@@ -27,9 +37,12 @@ Los diccionarios incluyen **todas** las certificaciones de ambos CVs en los 3 id
 ### Layout chain
 
 ```
-app/layout.tsx           → <>{children}</> (pass-through, html/body en [lang]/layout.tsx)
-app/[lang]/layout.tsx    → <html lang={params.lang}><body>...</body></html>
-app/[lang]/page.tsx      → carga dict + renderiza todas las secciones
+app/layout.tsx              → <>{children}</> (pass-through)
+app/[lang]/layout.tsx       → <html><body>{children}<footer><SocialSidebar/></footer></body></html>
+app/[lang]/page.tsx         → Home (foto + Header + Summary)
+app/[lang]/experience/      → Experience + Skills + Volunteering
+app/[lang]/education/       → Education + LeadershipAwards + Languages + Certifications
+app/[lang]/projects/        → ProjectsCompetitions
 ```
 
 ---
@@ -56,7 +69,8 @@ app/[lang]/page.tsx      → carga dict + renderiza todas las secciones
 
 ```
 components/
-├── Navbar.tsx              # 'use client' — fixed nav + hamburger + IntersectionObserver
+├── Navbar.tsx              # 'use client' — fixed nav + active route (usePathname) + hamburger
+├── SocialSidebar.tsx       # Sidebar vertical fijo (xl+) / fila horizontal en footer (móvil)
 ├── LanguageSwitcher.tsx    # 'use client' — links EN|ES|GL, usa usePathname
 ├── ui/
 │   ├── SectionTitle.tsx    # H2 monospace uppercase + línea decorativa
@@ -93,26 +107,27 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 
 ## Navbar
 
-- **Desktop (`md+`):** links horizontales con `IntersectionObserver` para sección activa (highlight en `text-accent`)
-- **Mobile:** botón hamburger que despliega menú vertical; se cierra al hacer click en un link
-- **Language switcher:** EN | ES | GL siempre visible. Reemplaza el segmento `[lang]` en el pathname actual usando `usePathname()`
-- Offset de scroll: todas las secciones tienen `scroll-mt-20` para compensar el navbar fijo
+- **Desktop (`md+`):** links horizontales. Ruta activa detectada con `usePathname()` (highlight en `text-accent font-semibold`)
+- **Mobile:** botón hamburger → overlay full-screen con links centrados grandes + botón X para cerrar. Se cierra también al hacer click en un link
+- **Language switcher:** EN | ES | GL siempre visible. En mobile aparece al pie del overlay
+
+## SocialSidebar
+
+- **Desktop (`xl+`):** sidebar vertical fijo centrado en la izquierda, iconos SVG con tooltip al hover
+- **Mobile/tablet:** fila horizontal en el footer del layout
+- Links: email, LinkedIn, GitHub, Devpost
+- Renderizado en `app/[lang]/layout.tsx` dentro del `<footer>`
 
 ---
 
-## Secciones incluidas
+## Secciones por página
 
-| ID | Sección |
+| Página | Secciones |
 |---|---|
-| `#summary` | Resumen profesional |
-| `#skills` | 3 categorías de skills con badges |
-| `#education` | 2 grados USC |
-| `#experience` | 3 entradas (IGM WEB, IDIS, Federación Baloncesto) |
-| `#leadership` | Akademia + premios adicionales |
-| `#projects` | Hackathons, Sistema arbitral, Smart Water, Revista |
-| `#languages` | Inglés C1, Español nativo, Gallego nativo |
-| `#volunteering` | Refugiados, Social |
-| `#certifications` | 8 entradas (McKinsey, AWS ×2, HuggingFace, Udemy ×3, Fujitsu) |
+| `/[lang]` | Header (nombre + título + links), Summary |
+| `/[lang]/experience` | Experience (IGM WEB, IDIS, Fegaba), Skills (3 categorías), Volunteering |
+| `/[lang]/education` | Education (2 grados USC), LeadershipAwards, Languages, Certifications |
+| `/[lang]/projects` | ProjectsCompetitions (hackathons, proyectos) |
 
 ---
 
@@ -121,13 +136,14 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 ```bash
 # Desde src/frontend/
 pnpm dev        # → localhost:3000 (redirect a /en)
-pnpm build      # Debe generar /en, /es, /gl estáticamente
+pnpm build      # Debe generar /en, /es, /gl + sub-rutas estáticamente
 ```
 
 Rutas a verificar:
-- `localhost:3000/en` → contenido inglés
-- `localhost:3000/es` → contenido español
-- `localhost:3000/gl` → contenido gallego
-- Language switcher: cambiar entre idiomas preserva la posición del scroll
-- Navbar: active section se actualiza al hacer scroll
-- Mobile (DevTools): hamburger funciona, diseño responsive correcto
+- `localhost:3000/en`, `/es`, `/gl` → home con foto + Header + Summary
+- `localhost:3000/en/experience` → Experience + Skills + Volunteering
+- `localhost:3000/en/education` → Education + LeadershipAwards + Languages + Certifications
+- `localhost:3000/en/projects` → ProjectsCompetitions
+- Language switcher: cambia idioma manteniendo la ruta actual
+- Navbar: ruta activa resaltada; mobile: overlay full-screen con X para cerrar
+- SocialSidebar: visible en sidebar izquierdo (xl+) o footer (menor)

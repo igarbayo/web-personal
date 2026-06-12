@@ -9,7 +9,7 @@ export default async function CVPage({ params }: { params: { lang: string } }) {
   return (
     <>
       <Navbar dict={dict} lang={params.lang} />
-      <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-24 pt-28">
+      <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-16 pt-28">
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 sm:items-center">
           <img
             src={`${process.env.NEXT_PUBLIC_BASE_PATH}/me-movil.png`}

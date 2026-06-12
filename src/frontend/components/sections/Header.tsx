@@ -12,7 +12,7 @@ export default function Header({ data }: HeaderProps) {
         <span className="block">
           {data.name.split(' ')[1]}
           <span className="text-accent">_</span>
-          <br className="sm:hidden" />
+          <br className="lg:hidden" />
           {data.name.split(' ')[2]}
         </span>
       </h1>

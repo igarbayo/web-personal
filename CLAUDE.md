@@ -6,7 +6,17 @@ En el proyecto se usa pnpm, no npm.
 
 ## Setup
 
-<Comandos relevantes de setup>
+**Stack:** Next.js 14 (static export), Tailwind CSS, TypeScript. Package manager: pnpm.
+
+**`src/frontend/`** — toda la aplicación:
+- `app/[lang]/` — routing con i18n (en/es/gl), layout y página principal
+- `components/sections/` — secciones del CV (Header, Summary, Experience, Education, Skills, etc.)
+- `components/ui/` — componentes reutilizables (SectionTitle, SkillBadge, TimelineEntry)
+- `components/` — Navbar, SocialSidebar, LanguageSwitcher
+- `dictionaries/` — traducciones JSON (en/es/gl)
+- `lib/` — utilidades (dictionaries loader, renderText, skillIcons, types)
+
+**`docs/`** — CVs en PDF + documentación técnica (`FRONTEND.md`).
 
 ## Instrucciones para el agente
 
@@ -23,12 +33,7 @@ En el proyecto se usa pnpm, no npm.
 - Sin openers aduladores ni fluff de cierre.
 - Mantén las soluciones simples y directas.
 - Las instrucciones del usuario siempre tienen prioridad sobre este archivo.
-
-
-
-## Comandos importantes para probar los tests
-
-<Comandos>
+- pnpm run dev lo ejecuto yo.
 
 ## Estructura relevante
 

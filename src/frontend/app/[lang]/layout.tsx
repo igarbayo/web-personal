@@ -15,14 +15,38 @@ export async function generateMetadata({
 }: {
   params: { lang: string }
 }): Promise<Metadata> {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
   const dict = await getDictionary(params.lang)
   return {
     title: 'Ignacio Garbayo Fernández',
     description: dict.meta.description,
+    icons: {
+      icon: [
+        { url: `${base}/favicon.ico`, sizes: 'any' },
+        { url: `${base}/favicon.svg`, type: 'image/svg+xml' },
+        { url: `${base}/favicon-96x96.png`, sizes: '96x96', type: 'image/png' },
+      ],
+      apple: `${base}/apple-touch-icon.png`,
+    },
+    manifest: `${base}/site.webmanifest`,
     openGraph: {
       title: 'Ignacio Garbayo Fernández',
       description: dict.meta.description,
       type: 'profile',
+      images: [
+        {
+          url: `${base}/me-movil.png`,
+          width: 1200,
+          height: 630,
+          alt: 'Ignacio Garbayo Fernández',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Ignacio Garbayo Fernández',
+      description: dict.meta.description,
+      images: [`${base}/me-movil.png`],
     },
   }
 }
@@ -47,7 +71,7 @@ export default async function LangLayout({
         <footer className="border-t border-border mt-8 py-6">
           <SocialSidebar data={dict.header} />
           <p className="text-center text-sm text-muted font-mono">
-            © 2026 Ignacio Garbayo Fernández
+            Ignacio Garbayo Fernández © 2026
           </p>
         </footer>
       </body>
