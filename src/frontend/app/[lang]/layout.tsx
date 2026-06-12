@@ -18,6 +18,7 @@ export async function generateMetadata({
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
   const dict = await getDictionary(params.lang)
   return {
+    metadataBase: new URL('https://igarbayo.github.io'),
     title: 'Ignacio Garbayo Fernández',
     description: dict.meta.description,
     icons: {
@@ -33,17 +34,19 @@ export async function generateMetadata({
       title: 'Ignacio Garbayo Fernández',
       description: dict.meta.description,
       type: 'profile',
+      siteName: 'Ignacio Garbayo Fernández',
+      url: `${base}/${params.lang}`,
       images: [
         {
           url: `${base}/me-movil.png`,
-          width: 1200,
-          height: 630,
+          width: 943,
+          height: 943,
           alt: 'Ignacio Garbayo Fernández',
         },
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       title: 'Ignacio Garbayo Fernández',
       description: dict.meta.description,
       images: [`${base}/me-movil.png`],
