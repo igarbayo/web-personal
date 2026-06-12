@@ -1,4 +1,7 @@
 import {
+  SiC,
+  SiR,
+  SiFortran,
   SiOpenjdk,
   SiPython,
   SiJavascript,
@@ -15,10 +18,16 @@ import {
   SiJenkins,
   SiRabbitmq,
   SiApachekafka,
+  SiMqtt,
 } from 'react-icons/si'
+import { FaDatabase } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
 
 const iconMap: Record<string, IconType> = {
+  C: SiC,
+  R: SiR,
+  SQL: FaDatabase,
+  Fortran: SiFortran,
   Java: SiOpenjdk,
   Python: SiPython,
   JavaScript: SiJavascript,
@@ -35,6 +44,7 @@ const iconMap: Record<string, IconType> = {
   Jenkins: SiJenkins,
   RabbitMQ: SiRabbitmq,
   Kafka: SiApachekafka,
+  MQTT: SiMqtt,
 }
 
 export function getSkillIcon(label: string): IconType | null {
