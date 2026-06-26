@@ -15,7 +15,6 @@ export async function generateMetadata({
 }: {
   params: { lang: string }
 }): Promise<Metadata> {
-  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
   const dict = await getDictionary(params.lang)
   return {
     metadataBase: new URL('https://igarbayo.github.io'),
@@ -23,22 +22,22 @@ export async function generateMetadata({
     description: dict.meta.description,
     icons: {
       icon: [
-        { url: `${base}/favicon.ico`, sizes: 'any' },
-        { url: `${base}/favicon.svg`, type: 'image/svg+xml' },
-        { url: `${base}/favicon-96x96.png`, sizes: '96x96', type: 'image/png' },
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+        { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
       ],
-      apple: `${base}/apple-touch-icon.png`,
+      apple: '/apple-touch-icon.png',
     },
-    manifest: `${base}/site.webmanifest`,
+    manifest: '/site.webmanifest',
     openGraph: {
       title: 'Ignacio Garbayo Fernández',
       description: dict.meta.description,
       type: 'profile',
       siteName: 'Ignacio Garbayo Fernández',
-      url: `${base}/${params.lang}`,
+      url: `/${params.lang}`,
       images: [
         {
-          url: `${base}/me-movil-compressed.png`,
+          url: '/me-movil-compressed.png',
           width: 600,
           height: 600,
           alt: 'Ignacio Garbayo Fernández',
@@ -49,7 +48,7 @@ export async function generateMetadata({
       card: 'summary',
       title: 'Ignacio Garbayo Fernández',
       description: dict.meta.description,
-      images: [`${base}/me-movil-compressed.png`],
+      images: ['/me-movil-compressed.png'],
     },
   }
 }

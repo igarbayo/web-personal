@@ -40,7 +40,7 @@ export default function TimelineEntry({
         {logo && logo.length > 0 && (
           <div className="flex flex-row flex-wrap sm:flex-col sm:flex-nowrap items-center justify-center gap-3 w-full sm:w-32 shrink-0">
             {logo.map((src) => (
-              <img key={src} src={`${process.env.NEXT_PUBLIC_BASE_PATH}/${src}`} alt="" className="h-10 sm:h-auto sm:w-full object-contain" />
+              <img key={src} src={`/${src}`} alt="" className="h-10 sm:h-auto sm:w-full object-contain" />
             ))}
           </div>
         )}
@@ -115,16 +115,16 @@ export default function TimelineEntry({
         images.length === 5 ? (
           <div className="grid grid-cols-1 sm:grid-cols-6 gap-2 mt-4">
             {images.slice(0, 3).map((src) => (
-              <img key={src} src={`${process.env.NEXT_PUBLIC_BASE_PATH}${src}`} alt="" className="sm:col-span-2 w-full h-64 rounded-lg object-cover" />
+              <img key={src} src={src} alt="" className="sm:col-span-2 w-full h-64 rounded-lg object-cover" />
             ))}
             {images.slice(3).map((src) => (
-              <img key={src} src={`${process.env.NEXT_PUBLIC_BASE_PATH}${src}`} alt="" className="sm:col-span-3 w-full h-64 rounded-lg object-cover" />
+              <img key={src} src={src} alt="" className="sm:col-span-3 w-full h-64 rounded-lg object-cover" />
             ))}
           </div>
         ) : (
           <div className={`grid grid-cols-1 gap-2 mt-4 ${images.length === 2 ? 'sm:grid-cols-2' : images.length >= 3 ? 'sm:grid-cols-3' : ''}`}>
             {images.map((src) => (
-              <img key={src} src={`${process.env.NEXT_PUBLIC_BASE_PATH}${src}`} alt="" className="w-full h-64 rounded-lg object-cover" />
+              <img key={src} src={src} alt="" className="w-full h-64 rounded-lg object-cover" />
             ))}
           </div>
         )

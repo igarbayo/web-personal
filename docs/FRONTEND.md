@@ -1,6 +1,6 @@
 # Frontend — Documentación técnica
 
-Web CV personal de Ignacio Garbayo Fernández. Stack: **Next.js 14** (App Router) + **Tailwind CSS** + **TypeScript**. Deploy en **GitHub Pages** con `basePath: '/web-personal'`.
+Web CV personal de Ignacio Garbayo Fernández. Stack: **Next.js 14** (App Router) + **Tailwind CSS** + **TypeScript**. Las rutas se sirven desde la raíz del dominio (sin basePath). El antiguo `basePath: '/web-personal'` ya no se usa.
 
 ---
 
@@ -20,7 +20,7 @@ App multi-página con 4 rutas por idioma:
 - `/` → redirect a `/en` (via `app/page.tsx`)
 - Rutas generadas estáticamente con `generateStaticParams` en `app/[lang]/layout.tsx`
 - No se usa ninguna librería de i18n; el contenido está en JSONs por idioma
-- Las imágenes en `public/` se referencian con el prefijo `${process.env.NEXT_PUBLIC_BASE_PATH}/` (necesario por el basePath de GitHub Pages)
+- Las imágenes en `public/` se referencian con rutas absolutas desde la raíz (`/imagen.png`). El antiguo prefijo `${process.env.NEXT_PUBLIC_BASE_PATH}/` (ligado al basePath de GitHub Pages) ya no se usa
 
 ### i18n
 

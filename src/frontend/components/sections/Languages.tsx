@@ -14,7 +14,7 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
-          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/cambridge.svg`} alt="Cambridge" className="h-10 w-auto object-contain shrink-0" />
+          <img src="/cambridge.svg" alt="Cambridge" className="h-10 w-auto object-contain shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="font-bold text-foreground leading-tight">{cert.name}</p>
             <p className="text-sm text-muted">{cert.issuer}</p>
