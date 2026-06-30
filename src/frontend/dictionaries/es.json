@@ -166,7 +166,7 @@
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): implementé un sistema de streaming de DOOM desde satélite sobre enlaces LEO en C, usando compresión de vídeo H.264, empaquetado RTP/UDP y un búfer circular lock-free.",
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): desarrollé un simulador de almacén automatizado con un algoritmo de E/S basado en heurísticas, reordenación de instrucciones SSTF y un gemelo digital en 3D con C++, Python y React."
         ],
-        "images": ["/hack-1.jpg", "/hack-2.jpg", "/hack-3.jpeg", "/hack-4.jpg", "/hack-5.jpg"]
+        "images": ["/hack-1-compressed.jpg", "/hack-2-compressed.jpg", "/hack-3-compressed.jpeg", "/hack-4-compressed.jpg", "/hack-5-compressed.jpg"]
       },
       {
         "date": "2026",
