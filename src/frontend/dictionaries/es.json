@@ -57,7 +57,7 @@
           "Trabajo Fin de Grado: Visión por Computador e Inteligencia Artificial",
           "Nota: 8,1/10"
         ],
-        "logo": ["usc.png"]
+        "logo": ["usc.webp"]
       },
       {
         "date": "09/21 – 06/27",
@@ -69,7 +69,7 @@
           "Nota: 7,7/10",
           "Asignaturas con Matrícula de Honor: Inferencia Estadística"
         ],
-        "logo": ["usc.png"]
+        "logo": ["usc.webp"]
       }
     ]
   },
@@ -100,7 +100,7 @@
           "Desarrollé ensamblados de clasificadores estáticos y dinámicos para la predicción del cáncer de mama, abarcando la preparación de datos, selección de características, ajuste de umbrales, entrenamiento de modelos y análisis de métricas.",
           "Utilicé caretStack, DESLib y KNORA para evaluar la precisión de varios modelos base y mixtos."
         ],
-        "logo": ["idis.png"],
+        "logo": ["idis.webp"],
         "links": [
           { "label": "Memoria", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb" }
         ]
@@ -113,7 +113,7 @@
           "Demuestro capacidad de toma de decisiones bajo presión, comunicación efectiva, trabajo en equipo y atención al detalle arbitrando en la 1.ª división autonómica y en cuatro Campeonatos de España (Selecciones Autonómicas U12/U14, Clubes U14/U16).",
           "Formo a nuevos colegiados como tutor arbitral, realizando evaluaciones y enseñando reglamento, mecánica arbitral y resolución de conflictos en pista, preparándolos para sus designaciones semanales."
         ],
-        "logo": ["fegaba.png"]
+        "logo": ["fegaba.webp"]
       }
     ]
   },
@@ -127,8 +127,8 @@
         "bullets": [
           "Fui seleccionado entre 80 participantes a nivel nacional para un programa de innovación tecnológica de 4 meses que incluyó debates con expertos. Lideré el desarrollo de Machine Learning de un algoritmo de Business Intelligence para un caso de negocio real, obteniendo el primer premio. Posteriormente, fui elegido como mentor, guiando a otro equipo a ganar la siguiente edición."
         ],
-        "logo": ["bankinter.jpg"],
-        "images": ["/akademia-1.JPG", "/akademia-2.jfif"]
+        "logo": ["bankinter.webp"],
+        "images": ["/akademia-1.webp", "/akademia-2.webp"]
       },
       {
         "date": "2024",
@@ -166,7 +166,7 @@
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): implementé un sistema de streaming de DOOM desde satélite sobre enlaces LEO en C, usando compresión de vídeo H.264, empaquetado RTP/UDP y un búfer circular lock-free.",
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): desarrollé un simulador de almacén automatizado con un algoritmo de E/S basado en heurísticas, reordenación de instrucciones SSTF y un gemelo digital en 3D con C++, Python y React."
         ],
-        "images": ["/hack-1-compressed.jpg", "/hack-2-compressed.jpg", "/hack-3-compressed.jpeg", "/hack-4-compressed.jpg", "/hack-5-compressed.jpg"]
+        "images": ["/hack-1-compressed.webp", "/hack-2-compressed.webp", "/hack-3-compressed.webp", "/hack-4-compressed.webp", "/hack-5-compressed.webp"]
       },
       {
         "date": "2026",
@@ -184,7 +184,7 @@
           "Desarrollo una plataforma de IA/IoT (NestJS, R, React) junto a dos compañeros de Akademia para pequeños municipios gallegos, con el objetivo de optimizar los recursos naturales y reducir las pérdidas de agua no registrada.",
           "La solución, un algoritmo de detección de anomalías basado en un ensemble no supervisado, se encuentra en fase de prototipado previa a las pruebas piloto municipales planificadas."
         ],
-        "logo": ["egs.png"]
+        "logo": ["egs.webp"]
       },
       {
         "date": "2023 – 2025",
@@ -195,7 +195,7 @@
           "Colaboré para publicar contenido técnico y de divulgación de calidad, ampliando mis competencias al explorar temas más allá del plan de estudios oficial.",
           "Publicaciones disponibles en [Minerva](https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d)."
         ],
-        "images": ["/mais-mates-1.JPG", "/mais-mates-2.JPG", "/mais-mates-3.jpeg"]
+        "images": ["/mais-mates-1.webp", "/mais-mates-2.webp", "/mais-mates-3.webp"]
       }
     ]
   },
@@ -215,7 +215,7 @@
         "title": "Voluntario con refugiados",
         "location": "Santiago de Compostela, Galicia, España",
         "description": "Enseñé reglas de baloncesto y valores arbitrales a refugiados como representante de la Federación Galega de Baloncesto en el programa Basket Bridges, en colaboración con la ONG Rescate y ADB Fontiñas.",
-        "images": ["/volunt-fegaba-1.jfif", "/volunt-fegaba-2.jpg"]
+        "images": ["/volunt-fegaba-1.webp", "/volunt-fegaba-2.webp"]
       },
       {
         "date": "2016 – 2022",
@@ -232,7 +232,7 @@
         "date": "12/2025",
         "title": "McKinsey Forward Program",
         "issuer": "McKinsey & Company",
-        "logo": ["mckinsey.png"]
+        "logo": ["mckinsey.webp"]
       },
       {
         "date": "09/2025",
@@ -261,7 +261,7 @@
           "Demostré conocimiento práctico de agentes de IA, incluyendo herramientas, acciones, observaciones y formatos de datos.",
           "Trabajé con modelos de lenguaje de gran tamaño (LLMs), mensajes, tokens especiales y plantillas de chat."
         ],
-        "logo": ["huuging-face.png"]
+        "logo": ["huuging-face.webp"]
       },
       {
         "date": "08/2025",

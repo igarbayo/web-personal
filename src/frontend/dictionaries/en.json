@@ -57,7 +57,7 @@
           "Final thesis: Computer Vision & Artificial Intelligence",
           "Grade: 8.1/10"
         ],
-        "logo": ["usc.png"]
+        "logo": ["usc.webp"]
       },
       {
         "date": "09/21 – 06/27",
@@ -69,7 +69,7 @@
           "Grade: 7.7/10",
           "Courses finished with honours: Statistical Inference"
         ],
-        "logo": ["usc.png"]
+        "logo": ["usc.webp"]
       }
     ]
   },
@@ -100,7 +100,7 @@
           "Developed static and dynamic classifier ensembles for breast cancer prediction, encompassing data preparation, feature selection, threshold tuning, model training, and metric analysis.",
           "Leveraged caretStack, DESLib, and KNORA to evaluate the accuracy of various base and mixed models."
         ],
-        "logo": ["idis.png"],
+        "logo": ["idis.webp"],
         "links": [
           { "label": "Report", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb" }
         ]
@@ -113,7 +113,7 @@
           "Demonstrated decision-making under pressure, effective communication, teamwork, and attention to detail by refereeing in the 1st regional division and four Spanish Championships (U12/U14 Regional Teams, U14/U16 Clubs).",
           "Training new officials as a referee tutor by conducting performance reviews and teaching rules, mechanics, and conflict resolution on the court, preparing them for weekly assignments and high-stress situations."
         ],
-        "logo": ["fegaba.png"]
+        "logo": ["fegaba.webp"]
       }
     ]
   },
@@ -127,8 +127,8 @@
         "bullets": [
           "Selected as one of 80 participants nationwide for a 4-month tech innovation program featuring expert debates. Led the ML development of an impactful Business Intelligence algorithm for a real-world business case, winning first prize. Later selected as a mentor, guiding another team to win the subsequent edition."
         ],
-        "logo": ["bankinter.jpg"],
-        "images": ["/akademia-1.JPG", "/akademia-2.jfif"]
+        "logo": ["bankinter.webp"],
+        "images": ["/akademia-1.webp", "/akademia-2.webp"]
       },
       {
         "date": "2024",
@@ -166,7 +166,7 @@
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): Built a satellite-to-ground DOOM streaming system over simulated LEO links in C, using H.264 video compression, RTP/UDP packetization, and a lock-free ring buffer.",
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): Developed an automated warehouse simulator with a heuristics-driven I/O algorithm, SSTF instruction reordering, and a 3D digital twin using C++, Python, and React."
         ],
-        "images": ["/hack-1-compressed.jpg", "/hack-2-compressed.jpg", "/hack-3-compressed.jpeg", "/hack-4-compressed.jpg", "/hack-5-compressed.jpg"]
+        "images": ["/hack-1-compressed.webp", "/hack-2-compressed.webp", "/hack-3-compressed.webp", "/hack-4-compressed.webp", "/hack-5-compressed.webp"]
       },
       {
         "date": "2026",
@@ -184,7 +184,7 @@
           "Developing an AI/IoT platform (NestJS, R, React) with two Bankinter Akademia colleagues for small Galician municipalities, aiming to optimize natural resources and reduce Non-Revenue Water leaks.",
           "The solution, an anomaly detection algorithm based on an unsupervised ensemble, is currently being prototyped ahead of planned municipal pilot tests."
         ],
-        "logo": ["egs.png"]
+        "logo": ["egs.webp"]
       },
       {
         "date": "2023 – 2025",
@@ -195,7 +195,7 @@
           "Collaborated closely to publish high-quality technical and outreach content, expanding my skillset by exploring topics beyond the standard curriculum.",
           "Published in [Minerva](https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d)."
         ],
-        "images": ["/mais-mates-1.JPG", "/mais-mates-2.JPG", "/mais-mates-3.jpeg"]
+        "images": ["/mais-mates-1.webp", "/mais-mates-2.webp", "/mais-mates-3.webp"]
       }
     ]
   },
@@ -215,7 +215,7 @@
         "title": "Refugees volunteering",
         "location": "Santiago de Compostela, Galicia, Spain",
         "description": "Taught refugees basketball rules and refereeing values as a representative of the Galician Basketball Federation in the Basket Bridges program, in collaboration with NGO Rescate & ADB Fontiñas.",
-        "images": ["/volunt-fegaba-1.jfif", "/volunt-fegaba-2.jpg"]
+        "images": ["/volunt-fegaba-1.webp", "/volunt-fegaba-2.webp"]
       },
       {
         "date": "2016 – 2022",
@@ -232,7 +232,7 @@
         "date": "12/2025",
         "title": "McKinsey Forward Program",
         "issuer": "McKinsey & Company",
-        "logo": ["mckinsey.png"]
+        "logo": ["mckinsey.webp"]
       },
       {
         "date": "09/2025",
@@ -261,7 +261,7 @@
           "Demonstrated practical knowledge of AI agents, including tools, actions, observations, and data formats.",
           "Worked with large language models (LLMs), messages, special tokens and chat templates."
         ],
-        "logo": ["huuging-face.png"]
+        "logo": ["huuging-face.webp"]
       },
       {
         "date": "08/2025",
