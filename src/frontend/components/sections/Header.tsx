@@ -11,12 +11,12 @@ export default function Header({ data }: HeaderProps) {
         <span className="block">{data.name.split(' ')[0]}</span>
         <span className="block">
           {data.name.split(' ')[1]}
-          <span className="text-accent">_</span>
+          <span className="text-accent animate-blink">_</span>
           <br className="lg:hidden" />
           {data.name.split(' ')[2]}
         </span>
       </h1>
-      <p className="text-xl text-muted mt-3">{data.title}</p>
+      <p className="text-xl text-muted italic mt-3">{data.title}</p>
     </header>
   )
 }

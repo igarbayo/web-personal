@@ -4,12 +4,13 @@ import TimelineEntry from '@/components/ui/TimelineEntry'
 
 interface ProjectsCompetitionsProps {
   data: ProjectsData
+  number?: string
 }
 
-export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps) {
+export default function ProjectsCompetitions({ data, number }: ProjectsCompetitionsProps) {
   return (
     <section id="projects" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
+      <SectionTitle number={number}>{data.title}</SectionTitle>
       <div>
         {data.entries.map((entry, i) => (
           <TimelineEntry
@@ -21,6 +22,7 @@ export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps
             logo={entry.logo}
             links={entry.links}
             images={entry.images}
+            imagesCaption={entry.imagesCaption}
             timeline={false}
           />
         ))}

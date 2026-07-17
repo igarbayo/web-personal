@@ -4,12 +4,13 @@ import TimelineEntry from '@/components/ui/TimelineEntry'
 
 interface ExperienceProps {
   data: ExperienceData
+  number?: string
 }
 
-export default function Experience({ data }: ExperienceProps) {
+export default function Experience({ data, number }: ExperienceProps) {
   return (
     <section id="experience" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
+      <SectionTitle number={number}>{data.title}</SectionTitle>
       <div>
         {data.entries.map((entry, i) => (
           <TimelineEntry
@@ -22,6 +23,7 @@ export default function Experience({ data }: ExperienceProps) {
             logo={entry.logo}
             links={entry.links}
             images={entry.images}
+            imagesCaption={entry.imagesCaption}
           />
         ))}
       </div>

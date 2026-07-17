@@ -1,13 +1,20 @@
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { STIX_Two_Text, JetBrains_Mono } from 'next/font/google'
 import { getDictionary } from '@/lib/dictionaries'
 import SocialSidebar from '@/components/SocialSidebar'
 import '../globals.css'
 
-const inter = Inter({
+const stix = STIX_Two_Text({
   subsets: ['latin'],
-  variable: '--font-inter',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  variable: '--font-mono',
 })
 
 export async function generateMetadata({
@@ -67,13 +74,13 @@ export default async function LangLayout({
   const dict = await getDictionary(params.lang)
 
   return (
-    <html lang={params.lang} className={inter.variable}>
-      <body className="bg-background text-foreground font-sans antialiased">
+    <html lang={params.lang} className={`${stix.variable} ${jetbrainsMono.variable}`}>
+      <body className="bg-background text-foreground font-serif antialiased">
         {children}
         <footer className="border-t border-border mt-8 py-6">
           <SocialSidebar data={dict.header} />
           <p className="text-center text-sm text-muted font-mono">
-            Ignacio Garbayo Fernández © 2026
+            {dict.labels.lastRevised} · Ignacio Garbayo Fernández © 2026
           </p>
         </footer>
       </body>

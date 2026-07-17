@@ -4,12 +4,13 @@ import SkillBadge from '@/components/ui/SkillBadge'
 
 interface SkillsProps {
   data: SkillsData
+  number?: string
 }
 
-export default function Skills({ data }: SkillsProps) {
+export default function Skills({ data, number }: SkillsProps) {
   return (
     <section id="skills" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
+      <SectionTitle number={number}>{data.title}</SectionTitle>
       <div className="space-y-4">
         {data.categories.map((cat) => (
           <div key={cat.name} className="space-y-1.5">

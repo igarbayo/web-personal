@@ -9,15 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#FAFAFA',
-        foreground: '#1A1A1A',
-        muted: '#6B7280',
-        accent: '#2563EB',
-        border: '#E5E7EB',
+        background: '#FBFAF7',
+        foreground: '#1C1B18',
+        muted: '#6E6A63',
+        accent: '#C13127',
+        border: '#D9D5CC',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'monospace'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
+      },
+      fontSize: {
+        base: ['17px', '1.75'],
       },
       keyframes: {
         blink: {

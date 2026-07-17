@@ -23,11 +23,15 @@ export interface HeaderData {
   linkedin: string
   github: string
   devpost: string
+  photoCaption: string
 }
 
 export interface SummaryData {
   title: string
   content: string
+  keywordsLabel: string
+  keywords: string[]
+  metrics: string[]
 }
 
 export interface SkillCategory {
@@ -48,6 +52,7 @@ export interface EducationEntry {
   logo?: string[]
   links?: EntryLink[]
   images?: string[]
+  imagesCaption?: string
 }
 
 export interface EducationData {
@@ -70,6 +75,7 @@ export interface ExperienceEntry {
   logo?: string[]
   links?: EntryLink[]
   images?: string[]
+  imagesCaption?: string
 }
 
 export interface ExperienceData {
@@ -86,10 +92,13 @@ export interface LeadershipEntry {
   logo?: string[]
   links?: EntryLink[]
   images?: string[]
+  imagesCaption?: string
+  highlight?: boolean
 }
 
 export interface LeadershipData {
   title: string
+  resultLabel: string
   entries: LeadershipEntry[]
 }
 
@@ -101,6 +110,7 @@ export interface ProjectEntry {
   logo?: string[]
   links?: EntryLink[]
   images?: string[]
+  imagesCaption?: string
 }
 
 export interface ProjectsData {
@@ -144,6 +154,7 @@ export interface VolunteeringEntry {
   location: string
   description: string
   images?: string[]
+  imagesCaption?: string
 }
 
 export interface VolunteeringData {
@@ -166,6 +177,10 @@ export interface CertificationsData {
   entries: CertificationEntry[]
 }
 
+export interface Labels {
+  lastRevised: string
+}
+
 export interface Dictionary {
   meta: MetaData
   nav: NavLabels
@@ -179,4 +194,5 @@ export interface Dictionary {
   languages: LanguagesData
   volunteering: VolunteeringData
   certifications: CertificationsData
+  labels: Labels
 }

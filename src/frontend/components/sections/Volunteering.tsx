@@ -4,12 +4,13 @@ import TimelineEntry from '@/components/ui/TimelineEntry'
 
 interface VolunteeringProps {
   data: VolunteeringData
+  number?: string
 }
 
-export default function Volunteering({ data }: VolunteeringProps) {
+export default function Volunteering({ data, number }: VolunteeringProps) {
   return (
     <section id="volunteering" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
+      <SectionTitle number={number}>{data.title}</SectionTitle>
       <div>
         {data.entries.map((entry, i) => (
           <TimelineEntry
@@ -19,6 +20,7 @@ export default function Volunteering({ data }: VolunteeringProps) {
             subtitle={entry.location}
             description={entry.description}
             images={entry.images}
+            imagesCaption={entry.imagesCaption}
             timeline={false}
           />
         ))}

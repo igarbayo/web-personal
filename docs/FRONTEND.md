@@ -34,6 +34,12 @@ App multi-página con 4 rutas por idioma:
 
 Los diccionarios incluyen **todas** las certificaciones de ambos CVs en los 3 idiomas. Los nombres propios de instituciones gallegas se usan en gallego (ej: "Universidade de Santiago de Compostela", "Federación Galega de Baloncesto").
 
+Claves añadidas para la estética "paper" (deben estar presentes y con la misma forma en los 3 JSON, validado por `tsc` vía `lib/types.ts`):
+- `header.photoCaption`, `summary.keywordsLabel`, `summary.keywords[]`, `summary.metrics[]`
+- `leadership.resultLabel`; entradas con `imagesCaption?` y `highlight?` (booleano, activa la caja de resultado destacado)
+- `education` / `experience` / `projects` / `volunteering`: entradas con `imagesCaption?` opcional junto a `images[]`
+- `labels.lastRevised` (texto del footer)
+
 ### Layout chain
 
 ```
@@ -47,21 +53,28 @@ app/[lang]/projects/        → ProjectsCompetitions
 
 ---
 
-## Diseño visual
+## Diseño visual — «El paper»
 
-| Token | Valor |
-|---|---|
-| Background | `#FAFAFA` |
-| Foreground | `#1A1A1A` |
-| Muted (secondary) | `#6B7280` |
-| Accent | `#2563EB` |
-| Border | `#E5E7EB` |
-| Font (sans) | Inter (via `next/font/google`, variable `--font-inter`) |
-| Font (mono) | system monospace (variable `--font-mono`) |
+Estética de paper académico / LaTeX: papel, tinta y un único acento rojo de corrección. La web se lee como un documento con capítulos numerados (1. Inicio, 2. Experiencia, 3. Educación, 4. Proyectos) en lugar de páginas sueltas.
 
-**Toques nerd:** skill badges en `font-mono`, cursor parpadeante (`_`) tras el nombre en el Header usando `cursor-blink::after` (CSS animation + Tailwind `animate-blink`).
+| Token | Valor | Rol |
+|---|---|---|
+| `background` | `#FBFAF7` | blanco papel |
+| `foreground` | `#1C1B18` | tinta |
+| `muted` | `#6E6A63` | pies de figura, metadatos |
+| `accent` | `#C13127` | boli rojo: links, cursor, notas al margen, activo |
+| `border` | `#D9D5CC` | filetes (hairlines) |
+| Font (serif) | STIX Two Text (via `next/font/google`, variable `--font-serif`, `font-serif`) | display + cuerpo |
+| Font (mono) | JetBrains Mono (via `next/font/google`, variable `--font-mono`) | fechas, labels, stack, numeración |
 
-**Layout:** `max-w-4xl` centrado, `px-4 sm:px-6`, secciones con `py-8`. El navbar es `fixed top-0` con `backdrop-blur-md` y `bg-background/80`.
+**Elementos firma:**
+- **Home = portada de paper:** nombre como título con `_` parpadeante en rojo (`animate-blink`), Summary como bloque **Abstract** justificado (`text-justify hyphens-auto`) con línea de `keywords` y fila de métricas en mono; foto envuelta en `<figure>` con `figcaption`.
+- **Numeración estructural:** Navbar = índice con números mono (`1. Inicio`, `2. Experiencia`…); `h1` de cada página lleva el número del capítulo; `SectionTitle` acepta prop `number` para subsecciones (`2.1`, `3.2`…), pasada desde cada `app/[lang]/*/page.tsx` a través del componente de sección correspondiente.
+- **TimelineEntry sin tarjeta:** sin `bg-white/rounded/shadow`; entradas planas separadas por `border-b`. Links como referencias mono `[label ↗]`. Imágenes envueltas en `<figure>` con `figcaption` opcional (prop `imagesCaption`, viene del diccionario). Prop `highlightLabel` dibuja una caja con borde de tinta para resultados destacados (ej. premio Bankinter).
+- **Notas al margen:** el campo `note` se muestra en rojo mono itálica; en `2xl+` se posiciona como nota al margen derecha (`absolute left-full`), inline en pantallas menores.
+- `prefers-reduced-motion: reduce` desactiva el parpadeo del cursor (`app/globals.css`).
+
+**Layout:** `max-w-5xl` centrado, `px-6 sm:px-3`, secciones con `py-8`. El navbar es `fixed top-0` con `backdrop-blur-md` y `bg-background/90`.
 
 ---
 
@@ -73,9 +86,9 @@ components/
 ├── SocialSidebar.tsx       # Sidebar vertical fijo (xl+) / fila horizontal en footer (móvil)
 ├── LanguageSwitcher.tsx    # 'use client' — links EN|ES|GL, usa usePathname
 ├── ui/
-│   ├── SectionTitle.tsx    # H2 monospace uppercase + línea decorativa
-│   ├── TimelineEntry.tsx   # Grid date|content, reutilizable en todas las secciones
-│   └── SkillBadge.tsx      # Pill font-mono con hover accent
+│   ├── SectionTitle.tsx    # H2 serif + número mono opcional (prop `number`) + filete
+│   ├── TimelineEntry.tsx   # Entrada plana date|content, reutilizable en todas las secciones
+│   └── SkillBadge.tsx      # Texto font-mono plano con icono, hover accent
 └── sections/
     ├── Header.tsx          # Nombre + título + 4 links con iconos SVG inline
     ├── Summary.tsx
@@ -91,17 +104,20 @@ components/
 
 ### TimelineEntry
 
-Componente genérico para todas las secciones con estructura fecha/título/subtítulo. Props:
+Componente genérico para todas las secciones con estructura fecha/título/subtítulo. Sin tarjeta: entradas planas separadas por `border-b`. Props:
 
 | Prop | Tipo | Uso |
 |---|---|---|
-| `date` | `string` | Columna izquierda (7rem) |
+| `date` | `string` | Columna izquierda (7rem) en modo `timeline` |
 | `title` | `string` | Título en negrita |
-| `subtitle` | `string` | Organización/empresa/institución |
-| `subtitleUrl?` | `string` | Convierte el subtitle en enlace externo |
-| `bullets?` | `string[]` | Lista con viñeta `•` en color accent (`text-accent text-lg`) como marcador |
+| `subtitle` | `string` | Organización/empresa/institución, en serif itálica muted |
+| `bullets?` | `string[]` | Lista con viñeta `•` muted |
 | `description?` | `string` | Párrafo (para Volunteering) |
-| `note?` | `string` | Nota italic monospace al pie (ej: "Report available.") |
+| `note?` | `string` | Nota roja mono itálica; margen derecho en `2xl+`, inline debajo |
+| `links?` | `EntryLink[]` | Referencias mono `[label ↗]` |
+| `images?` / `imagesCaption?` | `string[]` / `string` | Galería envuelta en `<figure>` con `figcaption` |
+| `highlightLabel?` | `string` | Si se pasa, dibuja caja con borde de tinta y la etiqueta arriba (resultado destacado) |
+| `timeline?` | `boolean` | `true` = columna de fecha + raíl con punto; `false` = fecha inline en el header |
 
 ---
 
@@ -140,10 +156,12 @@ pnpm build      # Debe generar /en, /es, /gl + sub-rutas estáticamente
 ```
 
 Rutas a verificar:
-- `localhost:3000/en`, `/es`, `/gl` → home con foto + Header + Summary
-- `localhost:3000/en/experience` → Experience + Skills + Volunteering
-- `localhost:3000/en/education` → Education + LeadershipAwards + Languages + Certifications
-- `localhost:3000/en/projects` → ProjectsCompetitions
+- `localhost:3000/en`, `/es`, `/gl` → home con abstract, keywords, métricas y `Fig. 1` de la foto
+- `localhost:3000/en/experience` → h1 "2 …" + Experience (2.1) + Skills (2.2) + Volunteering (2.3)
+- `localhost:3000/en/education` → h1 "3 …" + Education (3.1) + LeadershipAwards (3.2, caja de resultado en Akademia) + Languages (3.3) + Certifications (3.4)
+- `localhost:3000/en/projects` → h1 "4 …" + ProjectsCompetitions (4.1), pies de figura en las galerías
 - Language switcher: cambia idioma manteniendo la ruta actual
-- Navbar: ruta activa resaltada; mobile: overlay full-screen con X para cerrar
+- Navbar: índice numerado, ruta activa en rojo; mobile: overlay full-screen (fondo papel) con X para cerrar
 - SocialSidebar: visible en sidebar izquierdo (xl+) o footer (menor)
+- Cursor `_` parpadea en rojo; con `prefers-reduced-motion` no parpadea
+- Typecheck: `pnpm exec tsc --noEmit` sin errores

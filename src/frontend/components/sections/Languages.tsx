@@ -3,6 +3,7 @@ import SectionTitle from '@/components/ui/SectionTitle'
 
 interface LanguagesProps {
   data: LanguagesData
+  number?: string
 }
 
 function CertCard({ cert }: { cert: LanguageCertification }) {
@@ -10,24 +11,24 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
   const thresholdPct = ((cert.threshold - cert.scaleMin) / range) * 100
 
   return (
-    <div className="rounded-xl border border-border bg-white p-5 transition-colors hover:border-accent/20">
+    <div className="border border-border p-5">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
           <img src="/cambridge.svg" alt="Cambridge" className="h-10 w-auto object-contain shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="font-bold text-foreground leading-tight">{cert.name}</p>
-            <p className="text-sm text-muted">{cert.issuer}</p>
+            <p className="text-sm text-muted italic">{cert.issuer}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="flex flex-col items-center rounded-lg bg-accent/10 px-3 py-1.5">
-            <span className="font-mono font-bold text-accent text-lg leading-none">{cert.overallScore}</span>
-            <span className="font-mono text-accent/70 text-[10px] uppercase tracking-wider mt-0.5">Overall</span>
+        <div className="flex items-center gap-4 flex-shrink-0 font-mono">
+          <div className="flex flex-col items-center">
+            <span className="font-bold text-accent text-lg leading-none">{cert.overallScore}</span>
+            <span className="text-muted text-[10px] uppercase tracking-wider mt-0.5">Overall</span>
           </div>
-          <div className="flex flex-col items-center rounded-lg bg-accent/10 px-3 py-1.5">
-            <span className="font-mono font-bold text-accent text-lg leading-none">{cert.overallLevel}</span>
-            <span className="font-mono text-accent/70 text-[10px] uppercase tracking-wider mt-0.5">Level</span>
+          <div className="flex flex-col items-center">
+            <span className="font-bold text-accent text-lg leading-none">{cert.overallLevel}</span>
+            <span className="text-muted text-[10px] uppercase tracking-wider mt-0.5">Level</span>
           </div>
         </div>
       </div>
@@ -43,9 +44,9 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
           className="absolute top-0 bottom-7 z-10 flex flex-col items-center"
           style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))`, transform: 'translateX(-50%)' }}
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-800 shrink-0" />
-          <div className="flex-1 w-[3px] bg-blue-800 rounded-full" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-800 shrink-0" />
+          <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+          <div className="flex-1 w-[3px] bg-accent" />
+          <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
         </div>
         <div className="space-y-2.5">
           {cert.skills.map((skill) => {
@@ -53,9 +54,9 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
             return (
               <div key={skill.name} className="flex items-center gap-3">
                 <span className="text-sm text-foreground w-32 shrink-0">{skill.name}</span>
-                <div className="flex-1 relative h-2 rounded-full bg-border">
+                <div className="flex-1 relative h-2 bg-border">
                   <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-accent"
+                    className="absolute inset-y-0 left-0 bg-foreground"
                     style={{ width: `${fillPct}%` }}
                   />
                 </div>
@@ -67,7 +68,7 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
         {/* Threshold label aligned under the line */}
         <div className="relative h-6 mt-1">
           <span
-            className="absolute -translate-x-1/2 text-[10px] font-mono text-blue-800 font-semibold whitespace-nowrap"
+            className="absolute -translate-x-1/2 text-[10px] font-mono text-accent font-semibold whitespace-nowrap"
             style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))` }}
           >
             {cert.thresholdLabel}
@@ -78,13 +79,13 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
   )
 }
 
-export default function Languages({ data }: LanguagesProps) {
+export default function Languages({ data, number }: LanguagesProps) {
   const certEntries = data.entries.filter((e) => e.certification)
   const plainEntries = data.entries.filter((e) => !e.certification)
 
   return (
     <section id="languages" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
+      <SectionTitle number={number}>{data.title}</SectionTitle>
       <div className="space-y-4">
         {certEntries.map((entry) => (
           <CertCard key={entry.language} cert={entry.certification!} />

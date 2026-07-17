@@ -21,11 +21,15 @@
     "email": "iggarbayo@gmail.com",
     "linkedin": "https://www.linkedin.com/in/ignaciogarbayo",
     "github": "https://github.com/igarbayo",
-    "devpost": "https://devpost.com/igarbayo"
+    "devpost": "https://devpost.com/igarbayo",
+    "photoCaption": "Fig. 1 — O autor. HackUDC 2026, A Coruña."
   },
   "summary": {
-    "title": "Sobre min",
-    "content": "Son estudante do dobre grao en Enxeñaría Informática e Matemáticas. Teño experiencia no desenvolvemento de modelos preditivos para investigación médica e na integración de fluxos de datos para optimizar a toma de decisións. Deseñei solucións de optimización, incluíndo un motor de scheduling e un sistema de xestión hídrica baseado en IA. Liderei o desenvolvemento dun algoritmo de Business Intelligence galardoado co 1.º premio nacional por Bankinter."
+    "title": "Abstract",
+    "content": "Construín un sistema que retransmite DOOM desde un satélite en C, liderei o algoritmo de Business Intelligence que gañou o 1.º premio nacional de Bankinter, e deseño motores de optimización para scheduling e xestión hídrica. Curso o dobre grao en Enxeñaría Informática e Matemáticas na USC, onde unifico o meu interese polos sistemas coa formalización matemática. Interésanme especialmente a optimización combinatoria, os sistemas distribuídos e a visión por computador.",
+    "keywordsLabel": "Palabras clave:",
+    "keywords": ["C", "Python", "optimización combinatoria", "sistemas distribuídos", "visión por computador", "business intelligence", "IA/IoT"],
+    "metrics": ["1.º premio nacional Bankinter", "400+ participantes · HackUDC", "36 h por proxecto", "1.700+ solicitantes · HackUPC"]
   },
   "skills": {
     "title": "Aptitudes",
@@ -119,6 +123,7 @@
   },
   "leadership": {
     "title": "Premios e Liderado",
+    "resultLabel": "Resultado",
     "entries": [
       {
         "date": "10/23 – 06/24",
@@ -128,7 +133,9 @@
           "Fun seleccionado entre 80 participantes a nivel nacional para un programa de innovación tecnolóxica de 4 meses con debates con expertos. Liderei o desenvolvemento de Machine Learning dun algoritmo de Business Intelligence para un caso de negocio real, obtendo o primeiro premio. Posteriormente, fun elixido como mentor, guiando a outro equipo a gañar a seguinte edición."
         ],
         "logo": ["bankinter.webp"],
-        "images": ["/akademia-1.webp", "/akademia-2.webp"]
+        "images": ["/akademia-1.webp", "/akademia-2.webp"],
+        "imagesCaption": "Fig. 1 — Equipo gañador na fase final de Akademia, Fundación Bankinter.",
+        "highlight": true
       },
       {
         "date": "2024",
@@ -166,7 +173,8 @@
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): implementei un sistema de streaming de DOOM desde satélite sobre enlaces LEO en C, usando compresión de vídeo H.264, empaquetado RTP/UDP e un búfer circular lock-free.",
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): desenvolvín un simulador de almacén automatizado cun algoritmo de E/S baseado en heurísticas, reordenación de instrucións SSTF e un xemelgo dixital en 3D con C++, Python e React."
         ],
-        "images": ["/hack-1-compressed.webp", "/hack-2-compressed.webp", "/hack-3-compressed.webp", "/hack-4-compressed.webp", "/hack-5-compressed.webp"]
+        "images": ["/hack-1-compressed.webp", "/hack-2-compressed.webp", "/hack-3-compressed.webp", "/hack-4-compressed.webp", "/hack-5-compressed.webp"],
+        "imagesCaption": "Fig. 1 — HackUDC 2026 e HackUPC 2026: equipos, entrega e demo en directo."
       },
       {
         "date": "2026",
@@ -195,7 +203,8 @@
           "Colaborei para publicar contido técnico e de divulgación de calidade, ampliando as miñas competencias ao explorar temas máis alá do plan de estudos oficial.",
           "Publicacións dispoñibles en [Minerva](https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d)."
         ],
-        "images": ["/mais-mates-1.webp", "/mais-mates-2.webp", "/mais-mates-3.webp"]
+        "images": ["/mais-mates-1.webp", "/mais-mates-2.webp", "/mais-mates-3.webp"],
+        "imagesCaption": "Fig. 2 — Portadas de Máis Mates, revista da Facultade de Matemáticas."
       }
     ]
   },
@@ -215,7 +224,8 @@
         "title": "Voluntariado con refuxiados",
         "location": "Santiago de Compostela, Galicia, España",
         "description": "Ensinei regras de baloncesto e valores arbitrais a refuxiados como representante da Federación Galega de Baloncesto no programa Basket Bridges, en colaboración coa ONG Rescate e ADB Fontiñas.",
-        "images": ["/volunt-fegaba-1.webp", "/volunt-fegaba-2.webp"]
+        "images": ["/volunt-fegaba-1.webp", "/volunt-fegaba-2.webp"],
+        "imagesCaption": "Fig. 1 — Programa Basket Bridges, Federación Galega de Baloncesto."
       },
       {
         "date": "2016 – 2022",
@@ -284,5 +294,8 @@
         "issuer": "FUJITSU, USC"
       }
     ]
+  },
+  "labels": {
+    "lastRevised": "Última revisión: xullo 2026"
   }
 }

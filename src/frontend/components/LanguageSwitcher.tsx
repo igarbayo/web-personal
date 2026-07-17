@@ -63,7 +63,7 @@ export default function LanguageSwitcher({ currentLang, inline = false }: { curr
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1 bg-background border border-border rounded shadow-sm py-1 min-w-[60px] z-50">
+        <div className="absolute right-0 top-full mt-1 bg-background border border-border py-1 min-w-[60px] z-50">
           {LANGS.map((lang) => (
             <Link
               key={lang}

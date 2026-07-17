@@ -4,12 +4,13 @@ import TimelineEntry from '@/components/ui/TimelineEntry'
 
 interface EducationProps {
   data: EducationData
+  number?: string
 }
 
-export default function Education({ data }: EducationProps) {
+export default function Education({ data, number }: EducationProps) {
   return (
     <section id="education" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
+      <SectionTitle number={number}>{data.title}</SectionTitle>
       <div>
         {data.entries.map((entry, i) => (
           <TimelineEntry

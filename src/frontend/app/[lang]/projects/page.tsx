@@ -10,9 +10,10 @@ export default async function ProjectsPage({ params }: { params: { lang: string 
       <Navbar dict={dict} lang={params.lang} />
       <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-4 pt-28">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6">
+          <span className="font-mono text-accent mr-3">4</span>
           {dict.projects.pageTitle}
         </h1>
-        <ProjectsCompetitions data={dict.projects} />
+        <ProjectsCompetitions data={dict.projects} number="4.1" />
       </main>
     </>
   )

@@ -29,16 +29,16 @@ export default function Navbar({ dict, lang }: NavbarProps) {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border [box-shadow:0_8px_32px_rgba(0,0,0,0.06)]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="max-w-5xl mx-auto px-5 sm:px-3 min-h-14 py-2 flex items-center justify-between gap-6">
-          {/* Left: name */}
-          <Link href={`/${lang}`} className="text-xl font-semibold text-foreground leading-tight min-w-0 hover:text-accent transition-colors">
+          {/* Left: name as running head */}
+          <Link href={`/${lang}`} className="text-xl font-semibold [font-variant-caps:small-caps] tracking-wide text-foreground leading-tight min-w-0 hover:text-accent transition-colors">
             {dict.header.name}
           </Link>
 
-          {/* Right: desktop nav links + lang switcher */}
+          {/* Right: desktop table of contents + lang switcher */}
           <div className="hidden md:flex items-center gap-6">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.map((item, i) => (
               <Link
                 key={item.path}
                 href={`/${lang}${item.path}`}
@@ -48,6 +48,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                     : 'text-muted hover:text-foreground'
                 }`}
               >
+                <span className="font-mono text-sm mr-1">{i + 1}.</span>
                 {dict.nav[item.labelKey]}
               </Link>
             ))}
@@ -79,7 +80,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
 
       {/* Mobile overlay — outside <nav> to avoid backdrop-filter containing block issues */}
       {menuOpen && (
-        <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center gap-10">
+        <div className="md:hidden fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center gap-10">
           <button
             className="absolute top-4 right-5 text-muted hover:text-foreground transition-colors p-1"
             aria-label="Close menu"
@@ -89,7 +90,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               <path d="M18 6 6 18M6 6l12 12" />
             </svg>
           </button>
-          {NAV_ITEMS.map((item) => (
+          {NAV_ITEMS.map((item, i) => (
             <Link
               key={item.path}
               href={`/${lang}${item.path}`}
@@ -98,6 +99,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               }`}
               onClick={() => setMenuOpen(false)}
             >
+              <span className="font-mono text-xl text-muted mr-2">{i + 1}.</span>
               {dict.nav[item.labelKey]}
             </Link>
           ))}
