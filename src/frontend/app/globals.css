@@ -8,15 +8,65 @@
   }
 
   body {
-    background-color: #FAFAFA;
-    color: #1A1A1A;
+    background-color: #FBFAF7;
+    color: #1C1E26;
+    /* papel milimetrado: rejilla fina + rejilla mayor en azul tinta muy tenue */
+    background-image:
+      linear-gradient(to right, rgba(39, 67, 192, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(39, 67, 192, 0.045) 1px, transparent 1px),
+      linear-gradient(to right, rgba(39, 67, 192, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(39, 67, 192, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
   }
 }
 
 @layer utilities {
   .cursor-blink::after {
     content: '_';
-    color: #2563EB;
+    color: #2743C0;
     animation: blink 1s step-start infinite;
+  }
+
+  .fade-up {
+    animation: fade-up 0.6s ease-out both;
+  }
+
+  .fade-up-delay-1 {
+    animation: fade-up 0.6s ease-out 0.15s both;
+  }
+
+  .fade-up-delay-2 {
+    animation: fade-up 0.6s ease-out 0.3s both;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-up,
+  .fade-up-delay-1,
+  .fade-up-delay-2 {
+    animation: none;
+  }
+
+  .cursor-blink::after {
+    animation: none;
+  }
+
+  .animate-blink {
+    animation: none;
   }
 }

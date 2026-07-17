@@ -33,7 +33,7 @@ export default function TimelineEntry({
   const hasBody = (bullets && bullets.length > 0) || !!description || !!note
 
   const card = (
-    <div className="rounded-xl border border-border bg-white p-5 transition-colors hover:border-accent/20">
+    <div className="rounded-xl border border-border bg-white p-5 transition-all hover:border-accent/30 hover:shadow-[0_4px_20px_rgba(39,67,192,0.07)]">
 
       {/* Header: logo + title + subtitle (+ date when no timeline) */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -46,7 +46,7 @@ export default function TimelineEntry({
         )}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-            <span className="font-bold text-lg text-foreground block leading-snug">
+            <span className="font-serif font-bold text-xl text-foreground block leading-snug">
               {renderText(title)}
             </span>
             {!timeline && (

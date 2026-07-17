@@ -17,7 +17,12 @@
   },
   "header": {
     "name": "Ignacio Garbayo Fernández",
-    "title": "Enxeñaría Informática · Matemáticas",
+    "title": "Enxeñaría Informática ∩ Matemáticas",
+    "hooks": [
+      "1.º premio nacional de Bankinter en Business Intelligence",
+      "Streaming de DOOM desde satélite en 36 horas (HackUDC 2026)",
+      "Motor de optimización para 800 partidos semanais"
+    ],
     "email": "iggarbayo@gmail.com",
     "linkedin": "https://www.linkedin.com/in/ignaciogarbayo",
     "github": "https://github.com/igarbayo",
@@ -75,7 +80,7 @@
   },
   "experience": {
     "pageTitle": "Traxectoria profesional",
-    "title": "Onde Traballei",
+    "title": "Onde traballei",
     "entries": [
       {
         "date": "07/25 – 09/25",
@@ -118,7 +123,7 @@
     ]
   },
   "leadership": {
-    "title": "Premios e Liderado",
+    "title": "Premios e liderado",
     "entries": [
       {
         "date": "10/23 – 06/24",
@@ -155,12 +160,20 @@
   },
   "projects": {
     "pageTitle": "Portfolio",
-    "title": "Proxectos e Competicións",
+    "title": "Proxectos e competicións",
     "entries": [
       {
         "date": "2026",
         "title": "Hackathons",
         "organization": "[HackUDC](https://hackudc.gpul.org/), [HackUPC](https://hackupc.com/)",
+        "featured": true,
+        "caption": "Streaming de DOOM desde satélite (BFG-I) e simulador de almacén automatizado cun xemelgo dixital 3D (XEITECH).",
+        "awards": ["1.º Alén Space", "2.º Open Source"],
+        "tags": ["C", "H.264", "RTP/UDP", "C++", "Python", "React"],
+        "links": [
+          { "label": "BFG-I", "url": "https://github.com/YagoFalgueras/HackUDC-2026" },
+          { "label": "XEITECH", "url": "https://github.com/igarbayo/HackUPC-2026" }
+        ],
         "bullets": [
           "Gañei o reto Alén Space e o 2.º mellor proxecto Open Source en HackUDC 2026 (400+ participantes) con BFG-I. Fun seleccionado entre 1.700+ solicitantes para participar en HackUPC 2026 con XEITECH. Ambos os proxectos foron desenvolvidos en menos de 36 horas.",
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): implementei un sistema de streaming de DOOM desde satélite sobre enlaces LEO en C, usando compresión de vídeo H.264, empaquetado RTP/UDP e un búfer circular lock-free.",
@@ -171,6 +184,9 @@
       {
         "date": "2026",
         "title": "Sistema automático de designacións arbitrais",
+        "schematic": "graph",
+        "caption": "Motor de optimización que planifica ata 800 partidos semanais combinando scheduling de persoal e enrutamento de vehículos.",
+        "tags": ["Python"],
         "bullets": [
           "Deseñei un motor de optimización en Python para planificar eficientemente ata 800 partidos semanais, combinando problemas de planificación de persoal e enrutamento de vehículos.",
           "Resolvin restricións complexas, incluíndo solapamentos de horarios, vetos e emparellamentos por nivel, mediante unha weighted greedy selection con busca local e aproximacións xeométricas."
@@ -180,6 +196,10 @@
         "date": "2025 – presente",
         "title": "Sistema intelixente de xestión da auga",
         "organization": "[egswater.com](https://egswater.com)",
+        "schematic": "sparkline",
+        "status": "En curso",
+        "caption": "Plataforma de IA/IoT para detectar anomalías e reducir as perdas de auga non rexistrada en municipios galegos.",
+        "tags": ["NestJS", "R", "React"],
         "bullets": [
           "Desenvolvo unha plataforma de IA/IoT (NestJS, R, React) con dous compañeiros de Akademia para pequenos municipios galegos, co obxectivo de optimizar os recursos naturais e reducir as perdas de auga non rexistrada.",
           "A solución, un algoritmo de detección de anomalías baseado nun ensemble non supervisado, atópase en fase de prototipado previa ás probas piloto municipais planificadas."
@@ -190,6 +210,11 @@
         "date": "2023 – 2025",
         "title": "Revista estudantil",
         "organization": "[Máis Mates](https://www.usc.gal/es/node/42511) (USC)",
+        "caption": "Editor e colaborador da revista mensual da Facultade de Matemáticas da USC.",
+        "tags": ["Editorial", "Divulgación"],
+        "links": [
+          { "label": "Minerva", "url": "https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d" }
+        ],
         "bullets": [
           "Editor e colaborador dunha revista mensual da Facultade de Matemáticas da USC.",
           "Colaborei para publicar contido técnico e de divulgación de calidade, ampliando as miñas competencias ao explorar temas máis alá do plan de estudos oficial.",
@@ -226,7 +251,7 @@
     ]
   },
   "certifications": {
-    "title": "Certificacións e Cursos",
+    "title": "Certificacións e cursos",
     "entries": [
       {
         "date": "12/2025",

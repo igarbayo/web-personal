@@ -17,7 +17,12 @@
   },
   "header": {
     "name": "Ignacio Garbayo Fernández",
-    "title": "Computer Engineering · Mathematics",
+    "title": "Computer Engineering ∩ Mathematics",
+    "hooks": [
+      "1st prize nationwide by Bankinter in Business Intelligence",
+      "DOOM streamed from a satellite in 36 hours (HackUDC 2026)",
+      "Optimization engine scheduling 800 weekly matches"
+    ],
     "email": "iggarbayo@gmail.com",
     "linkedin": "https://www.linkedin.com/in/ignaciogarbayo",
     "github": "https://github.com/igarbayo",
@@ -161,6 +166,14 @@
         "date": "2026",
         "title": "Hackathons",
         "organization": "[HackUDC](https://hackudc.gpul.org/), [HackUPC](https://hackupc.com/)",
+        "featured": true,
+        "caption": "Satellite-to-ground DOOM streaming (BFG-I) and an automated warehouse simulator with a 3D digital twin (XEITECH).",
+        "awards": ["1st Alén Space", "2nd Open Source"],
+        "tags": ["C", "H.264", "RTP/UDP", "C++", "Python", "React"],
+        "links": [
+          { "label": "BFG-I", "url": "https://github.com/YagoFalgueras/HackUDC-2026" },
+          { "label": "XEITECH", "url": "https://github.com/igarbayo/HackUPC-2026" }
+        ],
         "bullets": [
           "Won the Alén Space Challenge and 2nd Best Open Source Project at HackUDC 2026 (400+ participants) with BFG-I. Selected from 1,700+ applicants to participate in HackUPC 2026 with XEITECH. Both projects were developed under 36-hour constraints.",
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): Built a satellite-to-ground DOOM streaming system over simulated LEO links in C, using H.264 video compression, RTP/UDP packetization, and a lock-free ring buffer.",
@@ -171,6 +184,9 @@
       {
         "date": "2026",
         "title": "Automated Referee Assignment System",
+        "schematic": "graph",
+        "caption": "Optimization engine scheduling up to 800 weekly matches by combining personnel scheduling and vehicle routing.",
+        "tags": ["Python"],
         "bullets": [
           "Engineered an optimization engine in Python to efficiently schedule up to 800 weekly matches, combining personnel scheduling and vehicle routing problems.",
           "Resolved complex constraints including schedule overlaps, conflict vetoes, and skill-level matching through weighted greedy selection, complemented by local search and geometric approximations."
@@ -180,6 +196,10 @@
         "date": "2025 – present",
         "title": "Smart Water Management System",
         "organization": "[egswater.com](https://egswater.com)",
+        "schematic": "sparkline",
+        "status": "In progress",
+        "caption": "AI/IoT platform detecting anomalies to cut non-revenue water losses across small Galician municipalities.",
+        "tags": ["NestJS", "R", "React"],
         "bullets": [
           "Developing an AI/IoT platform (NestJS, R, React) with two Bankinter Akademia colleagues for small Galician municipalities, aiming to optimize natural resources and reduce Non-Revenue Water leaks.",
           "The solution, an anomaly detection algorithm based on an unsupervised ensemble, is currently being prototyped ahead of planned municipal pilot tests."
@@ -190,6 +210,11 @@
         "date": "2023 – 2025",
         "title": "Student Magazine",
         "organization": "[Más Mates](https://www.usc.gal/es/node/42511) (USC)",
+        "caption": "Editor and contributor for the monthly magazine of the USC Faculty of Mathematics.",
+        "tags": ["Editorial", "Outreach"],
+        "links": [
+          { "label": "Minerva", "url": "https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d" }
+        ],
         "bullets": [
           "Editor and contributor for a monthly Math Faculty magazine at the University of Santiago de Compostela.",
           "Collaborated closely to publish high-quality technical and outreach content, expanding my skillset by exploring topics beyond the standard curriculum.",

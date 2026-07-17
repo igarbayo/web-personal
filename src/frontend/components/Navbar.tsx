@@ -32,7 +32,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border [box-shadow:0_8px_32px_rgba(0,0,0,0.06)]">
         <div className="max-w-5xl mx-auto px-5 sm:px-3 min-h-14 py-2 flex items-center justify-between gap-6">
           {/* Left: name */}
-          <Link href={`/${lang}`} className="text-xl font-semibold text-foreground leading-tight min-w-0 hover:text-accent transition-colors">
+          <Link href={`/${lang}`} className="font-serif text-xl font-semibold text-foreground leading-tight min-w-0 hover:text-accent transition-colors">
             {dict.header.name}
           </Link>
 
@@ -42,7 +42,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               <Link
                 key={item.path}
                 href={`/${lang}${item.path}`}
-                className={`text-base transition-colors ${
+                className={`font-serif text-base transition-colors ${
                   isActive(item.path)
                     ? 'text-accent font-semibold'
                     : 'text-muted hover:text-foreground'
@@ -79,7 +79,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
 
       {/* Mobile overlay — outside <nav> to avoid backdrop-filter containing block issues */}
       {menuOpen && (
-        <div className="md:hidden fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center gap-10">
+        <div className="md:hidden fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center gap-10">
           <button
             className="absolute top-4 right-5 text-muted hover:text-foreground transition-colors p-1"
             aria-label="Close menu"
@@ -93,7 +93,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
             <Link
               key={item.path}
               href={`/${lang}${item.path}`}
-              className={`text-3xl font-semibold transition-colors ${
+              className={`font-serif text-3xl font-semibold transition-colors ${
                 isActive(item.path) ? 'text-accent' : 'text-foreground hover:text-accent'
               }`}
               onClick={() => setMenuOpen(false)}

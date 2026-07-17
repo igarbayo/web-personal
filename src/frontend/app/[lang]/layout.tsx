@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, STIX_Two_Text, IBM_Plex_Mono } from 'next/font/google'
 import { getDictionary } from '@/lib/dictionaries'
 import SocialSidebar from '@/components/SocialSidebar'
 import '../globals.css'
@@ -8,6 +8,19 @@ import '../globals.css'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+})
+
+const stix = STIX_Two_Text({
+  subsets: ['latin'],
+  variable: '--font-stix',
+  weight: ['400', '600', '700'],
+  style: ['normal', 'italic'],
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  weight: ['400', '500', '600'],
 })
 
 export async function generateMetadata({
@@ -67,8 +80,8 @@ export default async function LangLayout({
   const dict = await getDictionary(params.lang)
 
   return (
-    <html lang={params.lang} className={inter.variable}>
-      <body className="bg-background text-foreground font-sans antialiased">
+    <html lang={params.lang} className={`${inter.variable} ${stix.variable} ${plexMono.variable}`}>
+      <body className="bg-background text-foreground font-serif antialiased">
         {children}
         <footer className="border-t border-border mt-8 py-6">
           <SocialSidebar data={dict.header} />

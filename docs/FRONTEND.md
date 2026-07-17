@@ -49,17 +49,28 @@ app/[lang]/projects/        → ProjectsCompetitions
 
 ## Diseño visual
 
+Identidad **"paper matemático"**: papel milimetrado, serif de publicación científica y azul tinta, sobre la base minimalista original.
+
 | Token | Valor |
 |---|---|
-| Background | `#FAFAFA` |
-| Foreground | `#1A1A1A` |
-| Muted (secondary) | `#6B7280` |
-| Accent | `#2563EB` |
-| Border | `#E5E7EB` |
-| Font (sans) | Inter (via `next/font/google`, variable `--font-inter`) |
-| Font (mono) | system monospace (variable `--font-mono`) |
+| Background | `#FBFAF7` (papel cálido) |
+| Foreground | `#1C1E26` (tinta) |
+| Muted (secondary) | `#63697A` |
+| Accent | `#2743C0` (azul pluma) |
+| Border | `#E3E2DB` |
+| Font (serif, base) | STIX Two Text (variable `--font-stix`): fuente base del `<body>` — cuerpo de texto, tarjetas, nombre, H1, títulos de sección/tarjeta, navbar |
+| Font (sans) | Inter (variable `--font-inter`): disponible como `font-sans`, ya no es la fuente por defecto |
+| Font (mono, datos) | IBM Plex Mono (variable `--font-mono`): fechas, marcador `//`, footer, skill badges |
 
-**Toques nerd:** skill badges en `font-mono`, cursor parpadeante (`_`) tras el nombre en el Header usando `cursor-blink::after` (CSS animation + Tailwind `animate-blink`).
+Como STIX tiene menor altura-x que Inter, en `tailwind.config.ts` se sobrescribe la escala `fontSize` de los tamaños de lectura (`xs`–`3xl`) con un +~6%. Los tamaños de display (`4xl`/`5xl`/`6xl`), que usan los títulos grandes (H1 de página `text-4xl sm:text-5xl`, nombre del hero `text-5xl sm:text-6xl`), se dejan con los valores por defecto de Tailwind.
+
+**Elementos de identidad:**
+- Fondo de papel milimetrado en `globals.css` (`background-image` con 4 `linear-gradient`: rejilla fina de 24px + rejilla mayor de 120px en azul tinta muy tenue)
+- Cursor `_` parpadeante tras el nombre del Header (`animate-blink`)
+- Subtítulo del Header con `∩` ("Ingeniería Informática ∩ Matemáticas")
+- `header.hooks` en los diccionarios (opcional en `HeaderData`): 3 datos duros bajo el subtítulo del hero, en mono con marcador `▸`
+- Títulos de sección con prefijo `//` (comentario de código) en mono + accent (SectionTitle)
+- Animación de entrada `fade-up` (+ variantes `-delay-1`, `-delay-2`) en hero y H1 de páginas. Todas las animaciones se desactivan con `prefers-reduced-motion`
 
 **Layout:** `max-w-4xl` centrado, `px-4 sm:px-6`, secciones con `py-8`. El navbar es `fixed top-0` con `backdrop-blur-md` y `bg-background/80`.
 
@@ -73,8 +84,9 @@ components/
 ├── SocialSidebar.tsx       # Sidebar vertical fijo (xl+) / fila horizontal en footer (móvil)
 ├── LanguageSwitcher.tsx    # 'use client' — links EN|ES|GL, usa usePathname
 ├── ui/
-│   ├── SectionTitle.tsx    # H2 monospace uppercase + línea decorativa
-│   ├── TimelineEntry.tsx   # Grid date|content, reutilizable en todas las secciones
+│   ├── SectionTitle.tsx    # H2 serif con prefijo // en accent + línea decorativa
+│   ├── TimelineEntry.tsx   # Grid date|content, reutilizable en la mayoría de secciones
+│   ├── ProjectPlate.tsx    # Lámina "Fig. N" para la página de proyectos (bento)
 │   └── SkillBadge.tsx      # Pill font-mono con hover accent
 └── sections/
     ├── Header.tsx          # Nombre + título + 4 links con iconos SVG inline
@@ -88,6 +100,21 @@ components/
     ├── Volunteering.tsx
     └── Certifications.tsx
 ```
+
+### ProjectPlate (página de proyectos)
+
+La página `/[lang]/projects` **no** usa `TimelineEntry`; usa un grid bento de láminas tipo figura de paper. `ProjectsCompetitions.tsx` renderiza un `grid md:grid-cols-12` donde cada proyecto ocupa un span alterno (`SPANS = [7, 5, 5, 7]`), dando 2 filas asimétricas con ritmo 7/5 → 5/7. Las tarjetas de una misma fila se igualan en altura (`items-stretch` + `h-full` + un spacer `flex-1` que empuja el pie).
+
+Cada `ProjectPlate` muestra:
+- **`Fig. N`** (mono, accent) + fecha en la cabecera.
+- **Figura:** la primera imagen (`images[0]`) con zoom sutil al hover; o, si el proyecto no tiene imagen, un **esquema SVG** con retícula milimetrada embebida según `schematic`:
+  - `graph` → grafo de nodos/aristas con un camino resaltado (motor de scheduling + enrutamiento).
+  - `sparkline` → serie temporal con una anomalía marcada en accent (detección de anomalías).
+- Título (serif) + organización (accent), **estado** (`● En curso`) y **premios** como pills, **caption** de una línea, **tags** en mono.
+- **`<details>` "Detalle técnico"** plegable que conserva los `bullets` completos del CV (nada de información se pierde).
+- Enlaces con la flecha `↗`.
+
+Campos opcionales añadidos a `ProjectEntry`: `caption`, `tags`, `awards`, `status`, `schematic` (`'graph' | 'sparkline'`), `featured` (la primera lámina, con figura más alta).
 
 ### TimelineEntry
 

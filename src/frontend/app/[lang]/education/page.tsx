@@ -12,7 +12,7 @@ export default async function EducationPage({ params }: { params: { lang: string
     <>
       <Navbar dict={dict} lang={params.lang} />
       <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-4 pt-28">
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6">
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6 fade-up">
           {dict.education.pageTitle}
         </h1>
         <Education data={dict.education} />

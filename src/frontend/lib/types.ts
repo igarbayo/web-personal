@@ -19,6 +19,7 @@ export interface MetaData {
 export interface HeaderData {
   name: string
   title: string
+  hooks?: string[]
   email: string
   linkedin: string
   github: string
@@ -98,6 +99,12 @@ export interface ProjectEntry {
   title: string
   organization: string
   bullets: string[]
+  caption?: string
+  tags?: string[]
+  awards?: string[]
+  status?: string
+  schematic?: 'graph' | 'sparkline'
+  featured?: boolean
   logo?: string[]
   links?: EntryLink[]
   images?: string[]

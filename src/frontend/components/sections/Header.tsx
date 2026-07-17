@@ -7,7 +7,7 @@ interface HeaderProps {
 export default function Header({ data }: HeaderProps) {
   return (
     <header className="pb-4 mb-2">
-      <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-foreground mb-1 leading-tight">
+      <h1 className="font-serif text-5xl sm:text-6xl font-bold tracking-tight text-foreground mb-1 leading-tight fade-up">
         <span className="block">{data.name.split(' ')[0]}</span>
         <span className="block">
           {data.name.split(' ')[1]}
@@ -16,7 +16,7 @@ export default function Header({ data }: HeaderProps) {
           {data.name.split(' ')[2]}
         </span>
       </h1>
-      <p className="text-xl text-muted mt-3">{data.title}</p>
+      <p className="text-xl text-muted mt-3 fade-up-delay-1">{data.title}</p>
     </header>
   )
 }
