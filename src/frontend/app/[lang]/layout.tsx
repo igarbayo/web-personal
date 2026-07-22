@@ -17,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const dict = await getDictionary(params.lang)
   return {
-    metadataBase: new URL('https://igarbayo.github.io'),
+    metadataBase: new URL('https://ignaciogarbayo.com'),
     title: 'Ignacio Garbayo Fernández',
     description: dict.meta.description,
     icons: {

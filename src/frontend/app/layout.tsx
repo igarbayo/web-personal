@@ -5,7 +5,7 @@ const description =
   'Software Engineer with a dual foundation in Computer Engineering and Mathematics.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://igarbayo.github.io'),
+  metadataBase: new URL('https://ignaciogarbayo.com'),
   title: 'Ignacio Garbayo Fernández',
   description,
   icons: {
