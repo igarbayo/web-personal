@@ -9,8 +9,8 @@ export default async function CVPage({ params }: { params: { lang: string } }) {
   return (
     <>
       <Navbar dict={dict} lang={params.lang} />
-      <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-16 pt-28">
-        <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 sm:items-center">
+      <main className="max-w-5xl w-full mx-auto px-6 sm:px-3 py-28 flex-1 flex flex-col">
+        <div className="my-auto flex flex-col sm:flex-row gap-6 sm:gap-12 sm:items-center">
           <img
             src="/me-movil.webp"
             alt={dict.header.name}

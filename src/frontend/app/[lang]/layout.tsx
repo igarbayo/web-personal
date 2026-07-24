@@ -68,9 +68,9 @@ export default async function LangLayout({
 
   return (
     <html lang={params.lang} className={inter.variable}>
-      <body className="bg-background text-foreground font-sans antialiased">
+      <body className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col">
         {children}
-        <footer className="border-t border-border mt-8 py-6">
+        <footer className="border-t border-border mt-auto py-6">
           <SocialSidebar data={dict.header} />
           <p className="text-center text-sm text-muted font-mono">
             Ignacio Garbayo Fernández © 2026
