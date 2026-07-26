@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import { renderText } from '@/lib/renderText'
+import { getImageDimensions } from '@/lib/imageDimensions'
 
 interface EntryLink {
   label: string
@@ -16,6 +18,8 @@ interface TimelineEntryProps {
   links?: EntryLink[]
   images?: string[]
   timeline?: boolean
+  /** Nº de imágenes (logos primero, luego galería, en orden de aparición) a cargar con priority. */
+  priorityImages?: number
 }
 
 export default function TimelineEntry({
@@ -29,8 +33,11 @@ export default function TimelineEntry({
   links,
   images,
   timeline = true,
+  priorityImages = 0,
 }: TimelineEntryProps) {
   const hasBody = (bullets && bullets.length > 0) || !!description || !!note
+  const logoPriorityCount = Math.min(priorityImages, logo?.length ?? 0)
+  const imagesPriorityCount = Math.min(priorityImages - logoPriorityCount, images?.length ?? 0)
 
   const card = (
     <div className="rounded-xl border border-border bg-white p-5 transition-colors hover:border-accent/20">
@@ -39,9 +46,20 @@ export default function TimelineEntry({
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         {logo && logo.length > 0 && (
           <div className="flex flex-row flex-wrap sm:flex-col sm:flex-nowrap items-center justify-center gap-3 w-full sm:w-32 shrink-0">
-            {logo.map((src) => (
-              <img key={src} src={`/${src}`} alt="" className="h-10 sm:h-auto sm:w-full object-contain" />
-            ))}
+            {logo.map((src, i) => {
+              const { width, height } = getImageDimensions(src)
+              return (
+                <Image
+                  key={src}
+                  src={`/${src}`}
+                  alt=""
+                  width={width}
+                  height={height}
+                  priority={i < logoPriorityCount}
+                  className="h-10 w-auto sm:h-auto sm:w-full object-contain"
+                />
+              )
+            })}
           </div>
         )}
         <div className="flex-1 min-w-0">
@@ -114,18 +132,27 @@ export default function TimelineEntry({
       {images && images.length > 0 && (
         images.length === 5 ? (
           <div className="grid grid-cols-1 sm:grid-cols-6 gap-2 mt-4">
-            {images.slice(0, 3).map((src) => (
-              <img key={src} src={src} alt="" className="sm:col-span-2 w-full h-64 rounded-lg object-cover" />
-            ))}
-            {images.slice(3).map((src) => (
-              <img key={src} src={src} alt="" className="sm:col-span-3 w-full h-64 rounded-lg object-cover" />
-            ))}
+            {images.slice(0, 3).map((src, i) => {
+              const { width, height } = getImageDimensions(src)
+              return (
+                <Image key={src} src={src} alt="" width={width} height={height} priority={i < imagesPriorityCount} className="sm:col-span-2 w-full h-64 rounded-lg object-cover" />
+              )
+            })}
+            {images.slice(3).map((src, i) => {
+              const { width, height } = getImageDimensions(src)
+              return (
+                <Image key={src} src={src} alt="" width={width} height={height} priority={i + 3 < imagesPriorityCount} className="sm:col-span-3 w-full h-64 rounded-lg object-cover" />
+              )
+            })}
           </div>
         ) : (
           <div className={`grid grid-cols-1 gap-2 mt-4 ${images.length === 2 ? 'sm:grid-cols-2' : images.length >= 3 ? 'sm:grid-cols-3' : ''}`}>
-            {images.map((src) => (
-              <img key={src} src={src} alt="" className="w-full h-64 rounded-lg object-cover" />
-            ))}
+            {images.map((src, i) => {
+              const { width, height } = getImageDimensions(src)
+              return (
+                <Image key={src} src={src} alt="" width={width} height={height} priority={i < imagesPriorityCount} className="w-full h-64 rounded-lg object-cover" />
+              )
+            })}
           </div>
         )
       )}

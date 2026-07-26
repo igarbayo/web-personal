@@ -48,6 +48,6 @@ src/
 
 ## Lo que no debes tocar
 
-- la carpeta docs/
+- dentro de la carpeta docs/, ninguno de los .pdf
 
 

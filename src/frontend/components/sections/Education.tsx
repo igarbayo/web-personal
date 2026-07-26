@@ -22,6 +22,7 @@ export default function Education({ data }: EducationProps) {
             links={entry.links}
             images={entry.images}
             timeline={false}
+            priorityImages={i < 2 ? 1 : 0}
           />
         ))}
       </div>

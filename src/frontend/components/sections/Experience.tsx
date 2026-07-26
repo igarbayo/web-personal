@@ -22,6 +22,7 @@ export default function Experience({ data }: ExperienceProps) {
             logo={entry.logo}
             links={entry.links}
             images={entry.images}
+            priorityImages={i === 0 ? 2 : 0}
           />
         ))}
       </div>

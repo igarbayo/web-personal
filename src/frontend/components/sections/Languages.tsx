@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { LanguagesData, LanguageCertification } from '@/lib/types'
 import SectionTitle from '@/components/ui/SectionTitle'
 
@@ -14,7 +15,7 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
-          <img src="/cambridge.svg" alt="Cambridge" className="h-10 w-auto object-contain shrink-0" />
+          <Image src="/cambridge.svg" alt="Cambridge" width={2000} height={2339} className="h-10 w-auto object-contain shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="font-bold text-foreground leading-tight">{cert.name}</p>
             <p className="text-sm text-muted">{cert.issuer}</p>

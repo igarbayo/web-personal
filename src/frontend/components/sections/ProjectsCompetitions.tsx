@@ -22,6 +22,7 @@ export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps
             links={entry.links}
             images={entry.images}
             timeline={false}
+            priorityImages={i === 0 ? 5 : 0}
           />
         ))}
       </div>

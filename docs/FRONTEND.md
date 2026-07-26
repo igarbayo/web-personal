@@ -131,6 +131,24 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 
 ---
 
+## Optimización de imágenes
+
+Scripts en `scripts/` (requieren `sharp`, ya en devDependencies):
+
+| Script | Uso |
+|---|---|
+| `to-webp.mjs` | Convierte a WebP los rasters referenciados en la web (solo cambia formato, sin redimensionar) |
+| `compress-hack-images.mjs` | Redimensiona las fotos de hackathons (`hack-1..5-compressed`) a un ancho máximo de 1200px antes de generar el WebP — los originales son fotos de cámara de hasta 8000px de ancho mostradas como thumbnails de 256px de alto, así que la mayor parte del peso era resolución desperdiciada |
+
+```bash
+node scripts/to-webp.mjs
+node scripts/compress-hack-images.mjs
+```
+
+Ambos escriben `<nombre>.webp` junto al original sin borrar nada.
+
+---
+
 ## Verificación
 
 ```bash
