@@ -45,6 +45,7 @@ src/
 
 ## Convenciones
 - al hacer algo, documentarás como funciona en `docs/`, en  `FRONTEND.md`. En esos documentos es donde aparecerán los detalles técnicos del proyecto.
+- Los años se escriben siempre completos: `2026`, nunca abreviados como `26`. Esto aplica también a rangos y fechas `MM/AAAA` (p. ej. `09/2021 – 06/2027`, no `09/21 – 06/27`).
 
 ## Lo que no debes tocar
 
