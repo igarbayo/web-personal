@@ -99,6 +99,8 @@ export interface ProjectEntry {
   organization: string
   bullets: string[]
   logo?: string[]
+  logoDark?: string[]
+  logoBorderColor?: string
   links?: EntryLink[]
   images?: string[]
 }

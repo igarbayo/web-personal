@@ -8,9 +8,11 @@ export const imageDimensions: Record<string, { width: number; height: number }> 
   'fegaba.webp': { width: 1800, height: 812 },
   'usc.webp': { width: 500, height: 326 },
   'egs.webp': { width: 1626, height: 341 },
+  'egs-white.webp': { width: 1626, height: 341 },
+  'maismates.webp': { width: 694, height: 529 },
   'mckinsey.webp': { width: 381, height: 132 },
   'aws.webp': { width: 1200, height: 630 },
-  'huuging-face.webp': { width: 1926, height: 512 },
+  'huuging-face.webp': { width: 1738, height: 394 },
   // Galería
   'volunt-fegaba-1.webp': { width: 2048, height: 1366 },
   'volunt-fegaba-2.webp': { width: 1080, height: 810 },

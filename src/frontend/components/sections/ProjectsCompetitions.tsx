@@ -19,6 +19,9 @@ export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps
             subtitle={entry.organization}
             bullets={entry.bullets}
             logo={entry.logo}
+            logoDark={entry.logoDark}
+            logoRounded
+            logoBorderColor={entry.logoBorderColor}
             links={entry.links}
             images={entry.images}
             timeline={false}

@@ -19,6 +19,7 @@ export default function LeadershipAwards({ data }: LeadershipAwardsProps) {
             subtitle={entry.organization}
             bullets={entry.bullets}
             logo={entry.logo}
+            logoRounded
             links={entry.links}
             images={entry.images}
             timeline={false}

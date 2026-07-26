@@ -19,6 +19,7 @@ export default function Certifications({ data }: CertificationsProps) {
             subtitle={entry.issuer}
             bullets={entry.bullets}
             logo={entry.logo}
+            logoBoxed
             links={entry.links}
             images={entry.images}
           />

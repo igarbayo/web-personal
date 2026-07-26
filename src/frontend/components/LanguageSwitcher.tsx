@@ -35,7 +35,7 @@ export default function LanguageSwitcher({ currentLang, inline = false }: { curr
             key={lang}
             href={getLangHref(lang)}
             className={`text-sm font-mono font-semibold transition-colors ${
-              currentLang === lang ? 'text-accent' : 'text-muted hover:text-foreground'
+              currentLang === lang ? 'text-accent' : 'text-muted hover:text-accent'
             }`}
           >
             {lang.toUpperCase()}
@@ -49,7 +49,7 @@ export default function LanguageSwitcher({ currentLang, inline = false }: { curr
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1 text-muted hover:text-foreground transition-colors p-1"
+        className="flex items-center gap-1 text-muted hover:text-accent transition-colors p-1"
         aria-label="Change language"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
@@ -72,7 +72,7 @@ export default function LanguageSwitcher({ currentLang, inline = false }: { curr
               className={`block px-3 py-1 text-sm font-mono transition-colors ${
                 currentLang === lang
                   ? 'text-accent font-semibold'
-                  : 'text-muted hover:text-foreground'
+                  : 'text-muted hover:text-accent'
               }`}
             >
               {lang.toUpperCase()}

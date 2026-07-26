@@ -11,7 +11,7 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
   const thresholdPct = ((cert.threshold - cert.scaleMin) / range) * 100
 
   return (
-    <div className="rounded-xl border border-border bg-white p-5 transition-colors hover:border-accent/20">
+    <div className="rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/20">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
@@ -44,9 +44,9 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
           className="absolute top-0 bottom-7 z-10 flex flex-col items-center"
           style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))`, transform: 'translateX(-50%)' }}
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-800 shrink-0" />
-          <div className="flex-1 w-[3px] bg-blue-800 rounded-full" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-800 shrink-0" />
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
+          <div className="flex-1 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full" />
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
         </div>
         <div className="space-y-2.5">
           {cert.skills.map((skill) => {
@@ -68,7 +68,7 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
         {/* Threshold label aligned under the line */}
         <div className="relative h-6 mt-1">
           <span
-            className="absolute -translate-x-1/2 text-[10px] font-mono text-blue-800 font-semibold whitespace-nowrap"
+            className="absolute -translate-x-1/2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold whitespace-nowrap"
             style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))` }}
           >
             {cert.thresholdLabel}

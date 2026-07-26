@@ -26,6 +26,7 @@ const FILES = [
   'egs.png',
   'mckinsey.png',
   'huuging-face.png',
+  'maismates.jpg',
   // Imágenes de experiencias / proyectos / voluntariado
   'akademia-1.JPG',
   'akademia-2.jfif',

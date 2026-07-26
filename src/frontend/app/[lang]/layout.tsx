@@ -2,7 +2,9 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { getDictionary } from '@/lib/dictionaries'
+import Navbar from '@/components/Navbar'
 import SocialSidebar from '@/components/SocialSidebar'
+import ThemeSync from '@/components/ThemeSync'
 import '../globals.css'
 
 const inter = Inter({
@@ -67,8 +69,18 @@ export default async function LangLayout({
   const dict = await getDictionary(params.lang)
 
   return (
-    <html lang={params.lang} className={inter.variable}>
+    <html lang={params.lang} className={inter.variable} suppressHydrationWarning>
+      <head>
+        <meta name="color-scheme" content="light dark" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col">
+        <ThemeSync />
+        <Navbar dict={dict} lang={params.lang} />
         {children}
         <footer className="border-t border-border mt-auto py-6">
           <SocialSidebar data={dict.header} />

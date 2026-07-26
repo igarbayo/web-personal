@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Image from 'next/image'
 import { renderText } from '@/lib/renderText'
 import { getImageDimensions } from '@/lib/imageDimensions'
@@ -15,9 +16,17 @@ interface TimelineEntryProps {
   description?: string
   note?: string
   logo?: string[]
+  /** Variante por índice del logo mostrada solo en modo oscuro (misma dimensión que `logo[i]`). */
+  logoDark?: string[]
   links?: EntryLink[]
   images?: string[]
   timeline?: boolean
+  /** Envuelve el/los logo(s) en un contenedor de fondo blanco con borde redondeado (legible en modo oscuro). */
+  logoBoxed?: boolean
+  /** Redondea las esquinas del propio logo (sin caja ni fondo). Para logos que ya traen su fondo. */
+  logoRounded?: boolean
+  /** Borde fino (1px) alrededor del logo con este color (p. ej. el propio color de fondo de la imagen). */
+  logoBorderColor?: string
   /** Nº de imágenes (logos primero, luego galería, en orden de aparición) a cargar con priority. */
   priorityImages?: number
 }
@@ -30,9 +39,13 @@ export default function TimelineEntry({
   description,
   note,
   logo,
+  logoDark,
   links,
   images,
   timeline = true,
+  logoBoxed = false,
+  logoRounded = false,
+  logoBorderColor,
   priorityImages = 0,
 }: TimelineEntryProps) {
   const hasBody = (bullets && bullets.length > 0) || !!description || !!note
@@ -40,24 +53,40 @@ export default function TimelineEntry({
   const imagesPriorityCount = Math.min(priorityImages - logoPriorityCount, images?.length ?? 0)
 
   const card = (
-    <div className="rounded-xl border border-border bg-white p-5 transition-colors hover:border-accent/20">
+    <div className="rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/20">
 
       {/* Header: logo + title + subtitle (+ date when no timeline) */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         {logo && logo.length > 0 && (
-          <div className="flex flex-row flex-wrap sm:flex-col sm:flex-nowrap items-center justify-center gap-3 w-full sm:w-32 shrink-0">
+          <div className={`flex flex-row flex-wrap sm:flex-col sm:flex-nowrap items-center justify-center gap-3 w-full sm:w-32 shrink-0${logoBoxed ? ' rounded-lg border border-transparent dark:border-border bg-white p-3' : ''}`}>
             {logo.map((src, i) => {
               const { width, height } = getImageDimensions(src)
+              const darkSrc = logoDark?.[i]
+              const imgClass = `h-10 w-auto sm:h-auto sm:w-full object-contain${logoRounded ? ' rounded-lg' : ''}${logoBorderColor ? ' border-[3px]' : ''}`
+              const borderStyle = logoBorderColor ? { borderColor: logoBorderColor } : undefined
               return (
-                <Image
-                  key={src}
-                  src={`/${src}`}
-                  alt=""
-                  width={width}
-                  height={height}
-                  priority={i < logoPriorityCount}
-                  className="h-10 w-auto sm:h-auto sm:w-full object-contain"
-                />
+                <Fragment key={src}>
+                  <Image
+                    src={`/${src}`}
+                    alt=""
+                    width={width}
+                    height={height}
+                    priority={i < logoPriorityCount}
+                    style={borderStyle}
+                    className={darkSrc ? `${imgClass} dark:hidden` : imgClass}
+                  />
+                  {darkSrc && (
+                    <Image
+                      src={`/${darkSrc}`}
+                      alt=""
+                      width={width}
+                      height={height}
+                      priority={i < logoPriorityCount}
+                      style={borderStyle}
+                      className={`${imgClass} hidden dark:block`}
+                    />
+                  )}
+                </Fragment>
               )
             })}
           </div>
@@ -165,19 +194,22 @@ export default function TimelineEntry({
   }
 
   return (
-    <div className="relative flex gap-5 pb-8 last:pb-0">
+    <div className="relative flex gap-5 pb-8 last:pb-0 [&:last-child_.tl-line]:hidden">
 
       {/* Left: date */}
-      <div className="hidden sm:block w-28 shrink-0 text-right pt-2">
+      <div className="hidden sm:block w-16 shrink-0 text-right pt-2">
         <span className="text-sm text-muted font-mono leading-snug whitespace-pre-line">
           {date.replace(' – ', '\n')}
         </span>
       </div>
 
-      {/* Timeline: dot + line */}
-      <div className="hidden sm:flex flex-col items-center">
-        <div className="w-2.5 h-2.5 rounded-full border-2 border-accent bg-background mt-2 shrink-0 z-10" />
-        <div className="flex-1 w-px bg-border mt-1" />
+      {/* Timeline: dot + continuous line.
+          La línea arranca en el centro del punto (0.8125rem = mt-2 + medio punto)
+          y se prolonga 2.8125rem por debajo del content-box (pb-8 2rem + 0.8125rem)
+          para alcanzar el punto de la siguiente entrada, quedando continua. */}
+      <div className="hidden sm:flex flex-col items-center relative">
+        <div className="w-2.5 h-2.5 rounded-full border-2 border-accent bg-accent mt-2 shrink-0 z-10" />
+        <div className="tl-line absolute top-[0.8125rem] -bottom-[2.8125rem] left-1/2 -translate-x-1/2 w-px bg-accent" />
       </div>
 
       {/* Card */}

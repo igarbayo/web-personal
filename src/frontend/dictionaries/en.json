@@ -78,7 +78,7 @@
     "title": "Where I've Worked",
     "entries": [
       {
-        "date": "07/25 – 09/25",
+        "date": "07/2025 – 09/2025",
         "title": "Intern, Full Stack Development",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Hotusa Group](https://www.grupohotusa.com/))",
         "bullets": [
@@ -92,7 +92,7 @@
         ]
       },
       {
-        "date": "06/24 – 07/24",
+        "date": "06/2024 – 07/2024",
         "title": "Intern, Machine Learning",
         "company": "[Health Research Institute (IDIS)](https://www.idisantiago.es/)",
         "bullets": [
@@ -106,7 +106,7 @@
         ]
       },
       {
-        "date": "03/16 – present",
+        "date": "03/2016 – present",
         "title": "Basketball Referee & Tutor",
         "company": "[Galician Basketball Federation](https://fegaba.com/)",
         "bullets": [
@@ -148,7 +148,8 @@
           { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/galicia/2021/07/24/remontar-crisis-covid-dejar-politica-gestionar-generar-confianza/00031627129453717451495.htm" },
           { "label": "ABC", "url": "https://www.abc.es/espana/galicia/abci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html?ref=https%3A%2F%2Fwww.abc.es%2Fespana%2Fgalicia%2Fabci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html" },
           { "label": "Faro de Vigo", "url": "https://www.farodevigo.es/ourense/2021/06/19/9-92-puertas-abiertas-53924029.html" },
-          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html" }
+          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html" },
+          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/abau-2021_1_20210618-2218959.html" }
         ]
       }
     ]
@@ -184,12 +185,15 @@
           "Developing an AI/IoT platform (NestJS, R, React) with two Bankinter Akademia colleagues for small Galician municipalities, aiming to optimize natural resources and reduce Non-Revenue Water leaks.",
           "The solution, an anomaly detection algorithm based on an unsupervised ensemble, is currently being prototyped ahead of planned municipal pilot tests."
         ],
-        "logo": ["egs.webp"]
+        "logo": ["egs.webp"],
+        "logoDark": ["egs-white.webp"]
       },
       {
         "date": "2023 – 2025",
         "title": "Student Magazine",
         "organization": "[Más Mates](https://www.usc.gal/es/node/42511) (USC)",
+        "logo": ["maismates.webp"],
+        "logoBorderColor": "#1C52A6",
         "bullets": [
           "Editor and contributor for a monthly Math Faculty magazine at the University of Santiago de Compostela.",
           "Collaborated closely to publish high-quality technical and outreach content, expanding my skillset by exploring topics beyond the standard curriculum.",

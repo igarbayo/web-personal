@@ -19,6 +19,7 @@ export default function Education({ data }: EducationProps) {
             subtitle={entry.institution}
             bullets={entry.bullets}
             logo={entry.logo}
+            logoBoxed
             links={entry.links}
             images={entry.images}
             timeline={false}

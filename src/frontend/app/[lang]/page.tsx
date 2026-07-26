@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { getDictionary } from '@/lib/dictionaries'
-import Navbar from '@/components/Navbar'
 import Header from '@/components/sections/Header'
 import Summary from '@/components/sections/Summary'
 
@@ -9,7 +8,6 @@ export default async function CVPage({ params }: { params: { lang: string } }) {
 
   return (
     <>
-      <Navbar dict={dict} lang={params.lang} />
       <main className="max-w-5xl w-full mx-auto px-6 sm:px-3 py-28 flex-1 flex flex-col">
         <div className="my-auto flex flex-col sm:flex-row gap-6 sm:gap-12 sm:items-center">
           <Image
