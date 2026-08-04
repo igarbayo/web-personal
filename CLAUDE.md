@@ -24,6 +24,7 @@ En el proyecto se usa pnpm, no npm.
 - No ejecutes el `build` en cada modificación de código, ya ejecuto yo en formato dev o manualmente.
 - No hagas ningún commit ni PR ni nada en Github. Cuando te pida algo de Github, dame los comandos exactos para hacerlo.
 - Ante una tarea ambigua, pregunta antes de implementar
+- No inventes contenido que no te he pedido. Si te pido añadir una entrada (curso, experiencia, proyecto...), añade solo los campos que te he dado. No añadas bullets, descripciones ni notas por tu cuenta: si crees que hacen falta, pregunta antes.
 - Si necesitas contexto de un archivo que no has leído, pídelo antes de asumir su contenido
 - Piensa antes de actuar. Lee los archivos existentes antes de escribir código.
 - Sé conciso en el output pero exhaustivo en el razonamiento.

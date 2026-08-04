@@ -233,6 +233,12 @@
     "title": "Certificacións e Cursos",
     "entries": [
       {
+        "date": "08/2026",
+        "title": "Claude Code in Action",
+        "issuer": "Anthropic",
+        "logo": ["anthropic.webp"]
+      },
+      {
         "date": "12/2025",
         "title": "McKinsey Forward Program",
         "issuer": "McKinsey & Company",

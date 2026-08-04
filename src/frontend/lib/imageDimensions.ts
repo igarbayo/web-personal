@@ -13,6 +13,7 @@ export const imageDimensions: Record<string, { width: number; height: number }> 
   'mckinsey.webp': { width: 381, height: 132 },
   'aws.webp': { width: 1200, height: 630 },
   'huuging-face.webp': { width: 1738, height: 394 },
+  'anthropic.webp': { width: 800, height: 90 },
   // Galería
   'volunt-fegaba-1.webp': { width: 2048, height: 1366 },
   'volunt-fegaba-2.webp': { width: 1080, height: 810 },

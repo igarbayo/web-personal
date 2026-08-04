@@ -99,6 +99,14 @@ Muchos logos son PNG/WebP con fondo transparente y tinta oscura, que se pierden 
 magick public/egs.png -channel RGB -fuzz 35% -fill white -opaque "srgb(20,51,93)" +channel public/egs-white.webp
 ```
 
+**Logo de Anthropic (`anthropic.webp`):** wordmark negro con fondo transparente, así que no necesita variante oscura — la `logoBoxed` de **Certifications** le da fondo blanco en ambos modos y el borde `dark:border-border` lo delimita en oscuro, igual que McKinsey, AWS o Hugging Face. El original (`Anthropic_logo.svg.webp`, 3840×432, 22 KB) se redimensionó a 800px de ancho conservando el canal alfa:
+
+```bash
+magick Anthropic_logo.svg.webp -resize 800x -define webp:method=6 -quality 85 anthropic.webp
+```
+
+Resultado: 800×90, 6,1 KB (−72 %). Como todos los logos de `TimelineEntry`, sus dimensiones intrínsecas se registran en `lib/imageDimensions.ts` (requisito de `next/image` al referenciar rutas dinámicas desde los diccionarios). Al ser un wordmark muy apaisado (8,9:1) se ve más fino que el resto dentro de la caja de `sm:w-32`, que es su proporción real.
+
 **Marcador de umbral (Languages):** la línea/etiqueta "C1 Pass Threshold" usa `emerald-600 dark:emerald-400` (antes `blue-800`, ilegible en oscuro) — verde "aprobado", distinto del azul del acento y legible en ambos modos.
 
 ---
