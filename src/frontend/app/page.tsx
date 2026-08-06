@@ -18,7 +18,7 @@ function detectLang(): 'en' | 'es' | 'gl' {
 export default function RootPage() {
   const router = useRouter()
   useEffect(() => {
-    router.replace(`/${detectLang()}`)
+    router.replace(`/${detectLang()}/`)
   }, [router])
   return null
 }

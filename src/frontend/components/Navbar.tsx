@@ -25,8 +25,11 @@ export default function Navbar({ dict, lang }: NavbarProps) {
   const pathname = usePathname()
 
   function isActive(path: string): boolean {
+    // `trailingSlash: true` hace que usePathname devuelva `/en/education/`,
+    // así que se normaliza antes de comparar con `/en/education`.
+    const current = pathname.replace(/\/$/, '') || '/'
     const fullPath = `/${lang}${path}`
-    return path === '' ? pathname === fullPath : pathname.startsWith(fullPath)
+    return path === '' ? current === fullPath : current.startsWith(fullPath)
   }
 
   // Sliding underline indicator for the desktop nav.

@@ -36,7 +36,7 @@ export async function generateMetadata({
       description: dict.meta.description,
       type: 'profile',
       siteName: 'Ignacio Garbayo Fernández',
-      url: `/${params.lang}`,
+      url: `/${params.lang}/`,
       images: [
         {
           url: '/me-movil-compressed.png',

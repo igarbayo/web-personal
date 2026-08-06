@@ -19,7 +19,8 @@ App multi-página con 4 rutas por idioma:
 | `/[lang]/education` | Education, LeadershipAwards, Languages, Certifications |
 | `/[lang]/projects` | ProjectsCompetitions |
 
-- `/` → redirect a `/en` (via `app/page.tsx`)
+- `/` → redirect a `/en/` (via `app/page.tsx`)
+- **`trailingSlash: true`** en `next.config.js`: el export genera `en/index.html` en vez de `en.html`, de modo que GitHub Pages sirve `/en/` con `200` y redirige `/en` → `/en/` con `301`. Sin esta opción, cualquier URL con barra final devolvía `404`. Consecuencias: `next/link` emite los `href` con barra final automáticamente, y `usePathname()` la incluye — por eso `Navbar.isActive()` normaliza el path antes de comparar
 - Rutas generadas estáticamente con `generateStaticParams` en `app/[lang]/layout.tsx`
 - No se usa ninguna librería de i18n; el contenido está en JSONs por idioma
 - Las imágenes en `public/` se referencian con rutas absolutas desde la raíz (`/imagen.png`). El antiguo prefijo `${process.env.NEXT_PUBLIC_BASE_PATH}/` (ligado al basePath de GitHub Pages) ya no se usa
