@@ -39,5 +39,9 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: src/frontend/out
+      # timeout: 20 min (por defecto 10). Con el dominio proxied por Cloudflare
+      # la deployment tarda mucho más en salir de `deployment_queued`.
       - uses: actions/deploy-pages@v4
         id: deployment
+        with:
+          timeout: 1200000
