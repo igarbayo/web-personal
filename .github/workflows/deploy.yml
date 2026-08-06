@@ -9,6 +9,13 @@ permissions:
   pages: write
   id-token: write
 
+# Un solo despliegue a la vez. Los runs encolados entre el que está en curso y
+# el último se descartan, pero el que ya está desplegando NO se cancela: es
+# producción y debe terminar.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
     environment:
