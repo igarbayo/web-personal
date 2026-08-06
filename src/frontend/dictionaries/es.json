@@ -78,6 +78,20 @@
     "title": "Dónde He Trabajado",
     "entries": [
       {
+        "date": "07/2026",
+        "title": "Becario de investigación",
+        "company": "[Centro Singular de Investigación en Tecnoloxías Intelixentes (CiTIUS)](https://citius.gal/)",
+        "bullets": [
+          "Beca de investigación de verano centrada en visión por computador. Diseñaré pipelines de anclaje semántico multimodal y aplicaré foundation models para avanzar en el descubrimiento de objetos en mundo abierto."
+        ],
+        "logo": [
+          "citius.webp"
+        ],
+        "logoDark": [
+          "citius-white.webp"
+        ]
+      },
+      {
         "date": "07/2025 – 09/2025",
         "title": "Prácticas en Desarrollo Full Stack",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Grupo Hotusa](https://www.grupohotusa.com/))",

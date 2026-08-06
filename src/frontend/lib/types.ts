@@ -68,6 +68,7 @@ export interface ExperienceEntry {
   bullets: string[]
   note?: string
   logo?: string[]
+  logoDark?: string[]
   links?: EntryLink[]
   images?: string[]
 }

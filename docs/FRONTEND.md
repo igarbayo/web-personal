@@ -91,10 +91,13 @@ Paleta **slate frío** (blueprint). Coherente con el acento azul, que se aclara 
 
 Muchos logos son PNG/WebP con fondo transparente y tinta oscura, que se pierden sobre el fondo oscuro. Dos estrategias:
 
-- **Caja blanca (`logoBoxed`):** prop de `TimelineEntry` que envuelve el grupo de logos en un contenedor `bg-white rounded-lg p-3` con borde `border-transparent dark:border-border` — es decir, **sin borde visible en claro** (la caja blanca se funde con la card blanca) y **con borde solo en oscuro** (para delimitar la caja sobre el fondo oscuro). Activado en **Experience**, **Education** y **Certifications**. Cuando una entrada tiene varios logos (ej. IGM + Hotusa, o las dos titulaciones USC), todos comparten la misma caja. Da un aspecto uniforme por sección.
+- **Caja blanca (`logoBoxed`):** prop de `TimelineEntry` que envuelve el grupo de logos en un contenedor `bg-white rounded-lg p-3` con borde `border-transparent dark:border-border` — es decir, **sin borde visible en claro** (la caja blanca se funde con la card blanca) y **con borde solo en oscuro** (para delimitar la caja sobre el fondo oscuro). Activado en **Education** y **Certifications** (siempre), y en **Experience** de forma condicional: `logoBoxed={!entry.logoDark}`, es decir, una entrada que trae variante oscura propia se salta la caja. Cuando una entrada tiene varios logos (ej. IGM + Hotusa, o las dos titulaciones USC), todos comparten la misma caja. Da un aspecto uniforme por sección, con CiTIUS como única excepción en Experience (ver `logoDark`).
 - **Esquinas redondeadas sin caja (`logoRounded`):** prop de `TimelineEntry` que aplica `rounded-lg` al propio `<Image>` (sin fondo ni borde). Para logos que ya traen su propio fondo y no necesitan caja. Usado en **Leadership & Awards** (Bankinter, cuadrado naranja) y en **Projects** (Máis Mates en Student Magazine, imagen JPG con fondo). En Projects también lo lleva el logo de EGS, pero al ser transparente el redondeo no tiene efecto visible.
 - **Borde fino de color (`logoBorderColor`):** campo de dato por entrada (en `ProjectEntry`) que dibuja un borde `1px` alrededor del logo con el color indicado, vía `style={{ borderColor }}`. Se usa en **Máis Mates** con el propio azul de fondo de la imagen (`#1C52A6`) para enmarcarla limpiamente. Solo lo lleva esa entrada, así que no afecta a EGS.
-- **Variante por tema (`logoDark`):** prop de `TimelineEntry` (array paralelo a `logo`, por índice). Si existe, el logo claro se muestra con `dark:hidden` y la variante oscura con `hidden dark:block`. Se usa en **Projects** para el logo de EGS (`egs.webp` marino en claro / `egs-white.webp` con letras blancas en oscuro), manteniendo el logo "suelto" sobre el fondo sin caja.
+- **Variante por tema (`logoDark`):** prop de `TimelineEntry` (array paralelo a `logo`, por índice). Si existe, el logo claro se muestra con `dark:hidden` y la variante oscura con `hidden dark:block`. Se usa en dos sitios, siempre con el logo "suelto" sobre el fondo, sin caja:
+
+  - **Projects** → EGS (`egs.webp` marino en claro / `egs-white.webp` con letras blancas en oscuro).
+  - **Experience** → CiTIUS (`citius.webp` negro en claro / `citius-white.webp` en oscuro). Ambos PNG originales vienen del centro con fondo transparente, así que aquí no hubo que recolorear nada: solo convertirlos a WebP. Es la razón de que `logoBoxed` pasara a ser condicional en Experience — un logo blanco dentro de la caja blanca sería invisible.
 
 `egs-white.webp` se generó recoloreando solo las letras (el azul-verde de la onda se conserva) con ImageMagick:
 
@@ -187,7 +190,7 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 | Página | Secciones |
 |---|---|
 | `/[lang]` | Header (nombre + título + links), Summary |
-| `/[lang]/experience` | Experience (IGM WEB, IDIS, Fegaba), Skills (3 categorías), Volunteering |
+| `/[lang]/experience` | Experience (CiTIUS, IGM WEB, IDIS, Fegaba), Skills (3 categorías), Volunteering |
 | `/[lang]/education` | Education (2 grados USC), LeadershipAwards, Languages, Certifications |
 | `/[lang]/projects` | ProjectsCompetitions (hackathons, skill open source, proyectos) |
 

@@ -5,6 +5,8 @@ export const imageDimensions: Record<string, { width: number; height: number }> 
   'igm.svg': { width: 102, height: 34 },
   'hotusa.svg': { width: 227, height: 69 },
   'idis.webp': { width: 263, height: 191 },
+  'citius.webp': { width: 1981, height: 526 },
+  'citius-white.webp': { width: 1981, height: 526 },
   'fegaba.webp': { width: 1800, height: 812 },
   'usc.webp': { width: 500, height: 326 },
   'egs.webp': { width: 1626, height: 341 },

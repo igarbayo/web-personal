@@ -78,6 +78,20 @@
     "title": "Onde Traballei",
     "entries": [
       {
+        "date": "07/2026",
+        "title": "Bolseiro de investigación",
+        "company": "[Centro Singular de Investigación en Tecnoloxías Intelixentes (CiTIUS)](https://citius.gal/)",
+        "bullets": [
+          "Bolsa de investigación de verán centrada na visión por computador. Deseñarei pipelines de ancoraxe semántica multimodal e aplicarei foundation models para avanzar no descubrimento de obxectos en mundo aberto."
+        ],
+        "logo": [
+          "citius.webp"
+        ],
+        "logoDark": [
+          "citius-white.webp"
+        ]
+      },
+      {
         "date": "07/2025 – 09/2025",
         "title": "Prácticas en Desenvolvemento Full Stack",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Grupo Hotusa](https://www.grupohotusa.com/))",

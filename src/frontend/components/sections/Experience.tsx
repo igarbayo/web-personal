@@ -20,7 +20,8 @@ export default function Experience({ data }: ExperienceProps) {
             bullets={entry.bullets}
             note={entry.note}
             logo={entry.logo}
-            logoBoxed
+            logoDark={entry.logoDark}
+            logoBoxed={!entry.logoDark}
             links={entry.links}
             images={entry.images}
             priorityImages={i === 0 ? 2 : 0}

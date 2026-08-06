@@ -78,6 +78,20 @@
     "title": "Where I've Worked",
     "entries": [
       {
+        "date": "07/2026",
+        "title": "Research Intern",
+        "company": "[Research Center in Intelligent Technologies (CiTIUS)](https://citius.gal/)",
+        "bullets": [
+          "Summer Research Fellow, focused on Computer Vision. Architecting multimodal semantic grounding pipelines and leveraging foundation models to advance open-world object discovery."
+        ],
+        "logo": [
+          "citius.webp"
+        ],
+        "logoDark": [
+          "citius-white.webp"
+        ]
+      },
+      {
         "date": "07/2025 – 09/2025",
         "title": "Intern, Full Stack Development",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Hotusa Group](https://www.grupohotusa.com/))",
