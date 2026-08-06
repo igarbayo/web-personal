@@ -151,6 +151,13 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 | `bullets?` | `string[]` | Lista con viñeta `•` en color accent (`text-accent text-lg`) como marcador |
 | `description?` | `string` | Párrafo (para Volunteering) |
 | `note?` | `string` | Nota italic monospace al pie (ej: "Report available.") |
+| `links?` | `EntryLink[]` | Píldoras de enlace externo al pie de la card |
+| `images?` | `string[]` | Galería bajo los links (grid según el nº de imágenes) |
+
+**Enlaces externos (`links`):** array de `{ label, url }` (tipo `EntryLink` en `lib/types.ts`) que se pinta como una fila de píldoras `rounded-lg` con borde, texto en accent, icono SVG de flecha diagonal y `hover:bg-accent hover:text-white`. Todas abren en pestaña nueva (`target="_blank" rel="noopener noreferrer"`). El `label` es el nombre de la fuente, no una llamada a la acción. Se usa en:
+
+- **Leadership & Awards** → entrada "Honors Distinction" (se renderiza en la página de Educación): recortes de prensa, con el nombre del medio como label (La Voz de Galicia, ABC, Faro de Vigo, La Región).
+- **Projects** → entrada "Open Source Governance Skill": enlace al repo, con label `GitHub`.
 
 **Línea del timeline continua (`sm+`):** los puntos (`w-2.5` con borde accent) se mantienen en su sitio, pero la línea vertical gris ya **no se corta entre tarjetas**. En lugar de un `flex-1` confinado al content-box de cada fila, cada entrada dibuja su línea como elemento `absolute` (clase `.tl-line`): arranca en el centro de su propio punto (`top-[0.8125rem]` = `mt-2` + medio punto) y se prolonga `-bottom-[2.8125rem]` (= `pb-8` 2rem + 0.8125rem) para alcanzar el centro del punto de la siguiente entrada, atravesando el padding de la fila. Los tramos se solapan y se ven como un único trazo continuo, con los puntos por encima (`z-10`). La última entrada oculta su prolongación con `[&:last-child_.tl-line]:hidden` para que no cuelgue una línea muerta. Nota: el `2.8125rem` depende de que el `pb-8` de la fila siga siendo 2rem.
 
@@ -182,7 +189,7 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 | `/[lang]` | Header (nombre + título + links), Summary |
 | `/[lang]/experience` | Experience (IGM WEB, IDIS, Fegaba), Skills (3 categorías), Volunteering |
 | `/[lang]/education` | Education (2 grados USC), LeadershipAwards, Languages, Certifications |
-| `/[lang]/projects` | ProjectsCompetitions (hackathons, proyectos) |
+| `/[lang]/projects` | ProjectsCompetitions (hackathons, skill open source, proyectos) |
 
 ---
 

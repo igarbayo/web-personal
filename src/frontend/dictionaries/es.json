@@ -171,6 +171,17 @@
       },
       {
         "date": "2026",
+        "title": "Skill de gobernanza open source",
+        "bullets": [
+          "Skill en formato Agent Skills para Claude Code y OpenCode que configura la gobernanza open source completa de un proyecto, generando la licencia, los metadatos REUSE y los artefactos de contribución, seguridad y CI que siguen las buenas prácticas de la FSF y la OSI.",
+          "Nace como una utilidad para liberar un proyecto de un hackathon, pero sirve para todo tipo de proyectos."
+        ],
+        "links": [
+          { "label": "GitHub", "url": "https://github.com/igarbayo/open-source" }
+        ]
+      },
+      {
+        "date": "2026",
         "title": "Sistema automático de designaciones arbitrales",
         "bullets": [
           "Diseñé un motor de optimización en Python para planificar eficientemente hasta 800 partidos semanales, combinando problemas de planificación de personal y enrutamiento de vehículos.",

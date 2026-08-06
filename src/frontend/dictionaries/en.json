@@ -171,6 +171,17 @@
       },
       {
         "date": "2026",
+        "title": "Open Source Governance Skill",
+        "bullets": [
+          "A skill in the Agent Skills format for Claude Code and OpenCode that sets up the complete open source governance of a project, generating the license, the REUSE metadata and the contributing, security and CI artifacts that follow FSF and OSI best practices.",
+          "It was born as a utility to release a hackathon project, but it works for any kind of project."
+        ],
+        "links": [
+          { "label": "GitHub", "url": "https://github.com/igarbayo/open-source" }
+        ]
+      },
+      {
+        "date": "2026",
         "title": "Automated Referee Assignment System",
         "bullets": [
           "Engineered an optimization engine in Python to efficiently schedule up to 800 weekly matches, combining personnel scheduling and vehicle routing problems.",
