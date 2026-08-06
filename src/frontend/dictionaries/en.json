@@ -92,13 +92,13 @@
         ]
       },
       {
-        "date": "07/2025 – 09/2025",
+        "date": "07/2025 – 09/2025 & 06/2026 – 09/2026",
         "title": "Intern, Full Stack Development",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Hotusa Group](https://www.grupohotusa.com/))",
         "bullets": [
-          "Developed a monitoring web app using NestJS, Angular, MongoDB, RabbitMQ, and Kafka to visualize hotel room data flows, significantly reducing incidents.",
-          "Secured the consistency of availability data for Online Travel Agencies, improving decision-making and reducing debugging hours by exposing performance metrics, errors, and anomaly detection.",
-          "Managed the entire product lifecycle, from requirements planning to CI/CD automation using Docker, Kubernetes, and Jenkins."
+          "Secured OTA data consistency and reduced debugging hours by developing a NestJS, Angular, and MongoDB web app to visualize RabbitMQ/Kafka data flows, later expanding it into a Redpanda-powered monitor to expose performance metrics and anomalies.",
+          "Minimized initial Kafka queue lag by architecting a horizontal autoscaling microservice from scratch using Docker to dynamically provision specialized consumers on demand, separating by topics.",
+          "Managed the full lifecycle from requirements to CI/CD automation (Docker, Kubernetes, Jenkins), and optimized development cycle times by engineering custom Git/AI automation hooks."
         ],
         "logo": ["igm.svg", "hotusa.svg"],
         "links": [

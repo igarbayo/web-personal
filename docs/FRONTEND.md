@@ -147,7 +147,7 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 
 | Prop | Tipo | Uso |
 |---|---|---|
-| `date` | `string` | Columna izquierda (7rem) |
+| `date` | `string` | Columna izquierda (`w-16`). Admite varios rangos separados por ` & ` |
 | `title` | `string` | Título en negrita |
 | `subtitle` | `string` | Organización/empresa/institución |
 | `subtitleUrl?` | `string` | Convierte el subtitle en enlace externo |
@@ -161,6 +161,13 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 
 - **Leadership & Awards** → entrada "Honors Distinction" (se renderiza en la página de Educación): recortes de prensa, con el nombre del medio como label (La Voz de Galicia, ABC, Faro de Vigo, La Región).
 - **Projects** → entrada "Open Source Governance Skill": enlace al repo, con label `GitHub`.
+
+**Fechas con varios rangos:** una entrada con estancias discontinuas (IGM WEB: `07/2025 – 09/2025 & 06/2026 – 09/2026`) guarda los rangos en un único string separados por ` & `. El render difiere por breakpoint:
+
+- **Desktop (`sm+`):** la columna de fecha hace `date.split(' & ')` y pinta cada rango en su propio `<span>` (`block`), con `mt-2` a partir del segundo para separar los pares. Dentro de cada rango se mantiene el `replace(' – ', '\n')` de siempre, porque `07/2025 – 09/2025` no cabe en los `w-16` (4rem) de la columna. Resultado: cuatro líneas, el segundo par debajo del primero. El `split` va antes del `replace` **a propósito**: `String.replace` con un string solo sustituye la primera ocurrencia, así que sobre la cadena completa dejaría el segundo rango sin partir y desbordado.
+- **Mobile (`sm:hidden`):** se pinta el string en crudo, así que los dos rangos quedan en línea unidos por el `&`.
+
+Retrocompatible: una fecha sin ` & ` produce un array de un elemento y se renderiza igual que antes. Las secciones con `timeline={false}` (Projects, Education) pintan la fecha inline en la cabecera y no usan este formato.
 
 **Línea del timeline continua (`sm+`):** los puntos (`w-2.5` con borde accent) se mantienen en su sitio, pero la línea vertical gris ya **no se corta entre tarjetas**. En lugar de un `flex-1` confinado al content-box de cada fila, cada entrada dibuja su línea como elemento `absolute` (clase `.tl-line`): arranca en el centro de su propio punto (`top-[0.8125rem]` = `mt-2` + medio punto) y se prolonga `-bottom-[2.8125rem]` (= `pb-8` 2rem + 0.8125rem) para alcanzar el centro del punto de la siguiente entrada, atravesando el padding de la fila. Los tramos se solapan y se ven como un único trazo continuo, con los puntos por encima (`z-10`). La última entrada oculta su prolongación con `[&:last-child_.tl-line]:hidden` para que no cuelgue una línea muerta. Nota: el `2.8125rem` depende de que el `pb-8` de la fila siga siendo 2rem.
 

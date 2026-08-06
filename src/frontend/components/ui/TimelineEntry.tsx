@@ -198,9 +198,14 @@ export default function TimelineEntry({
 
       {/* Left: date */}
       <div className="hidden sm:block w-16 shrink-0 text-right pt-2">
-        <span className="text-sm text-muted font-mono leading-snug whitespace-pre-line">
-          {date.replace(' – ', '\n')}
-        </span>
+        {date.split(' & ').map((range, i) => (
+          <span
+            key={range}
+            className={`block text-sm text-muted font-mono leading-snug whitespace-pre-line${i > 0 ? ' mt-2' : ''}`}
+          >
+            {range.replace(' – ', '\n')}
+          </span>
+        ))}
       </div>
 
       {/* Timeline: dot + continuous line.

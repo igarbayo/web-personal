@@ -92,13 +92,13 @@
         ]
       },
       {
-        "date": "07/2025 – 09/2025",
+        "date": "07/2025 – 09/2025 & 06/2026 – 09/2026",
         "title": "Prácticas en Desarrollo Full Stack",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Grupo Hotusa](https://www.grupohotusa.com/))",
         "bullets": [
-          "Desarrollé una aplicación web de monitorización usando NestJS, Angular, MongoDB, RabbitMQ y Kafka para visualizar los flujos de datos de las habitaciones de hoteles, reduciendo las incidencias.",
-          "Garanticé la consistencia de los datos de disponibilidad para las agencias de viajes online (OTA), mejorando la toma de decisiones y reduciendo las horas de depuración mediante la exposición de métricas de rendimiento, errores y detección de anomalías.",
-          "Gestioné el ciclo de vida completo del producto, desde la definición de requisitos hasta la automatización CI/CD con Docker, Kubernetes y Jenkins."
+          "Garanticé la consistencia de los datos para las agencias de viajes online (OTA) y reduje las horas de depuración desarrollando una aplicación web con NestJS, Angular y MongoDB para visualizar los flujos de datos de RabbitMQ/Kafka, que después amplié a un monitor sobre Redpanda para exponer métricas de rendimiento y anomalías.",
+          "Minimicé el lag inicial de las colas de Kafka diseñando desde cero un microservicio de autoescalado horizontal con Docker, capaz de aprovisionar consumidores especializados bajo demanda, separados por topics.",
+          "Gestioné el ciclo de vida completo, desde la definición de requisitos hasta la automatización CI/CD (Docker, Kubernetes, Jenkins), y optimicé los tiempos del ciclo de desarrollo creando hooks propios de automatización con Git e IA."
         ],
         "logo": ["igm.svg", "hotusa.svg"],
         "links": [
