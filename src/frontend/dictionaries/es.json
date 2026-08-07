@@ -82,7 +82,7 @@
         "title": "Becario de investigación",
         "company": "[Centro Singular de Investigación en Tecnoloxías Intelixentes (CiTIUS)](https://citius.gal/)",
         "bullets": [
-          "Beca de investigación de verano centrada en visión por computador. Diseñaré pipelines de anclaje semántico multimodal y aplicaré foundation models para avanzar en el descubrimiento de objetos en mundo abierto."
+          "Beca de investigación de verano centrada en visión por computador. Diseñé pipelines de grounding semántico multimodal y apliqué modelos fundacionales para avanzar en el descubrimiento open-world de objetos."
         ],
         "logo": [
           "citius.webp"

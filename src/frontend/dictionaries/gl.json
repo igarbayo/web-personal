@@ -82,7 +82,7 @@
         "title": "Bolseiro de investigación",
         "company": "[Centro Singular de Investigación en Tecnoloxías Intelixentes (CiTIUS)](https://citius.gal/)",
         "bullets": [
-          "Bolsa de investigación de verán centrada na visión por computador. Deseñarei pipelines de ancoraxe semántica multimodal e aplicarei foundation models para avanzar no descubrimento de obxectos en mundo aberto."
+          "Bolsa de investigación de verán centrada na visión por computador. Deseñei pipelines de grounding semántico multimodal e apliquei modelos fundacionais para avanzar no descubrimento open-world de obxectos."
         ],
         "logo": [
           "citius.webp"
