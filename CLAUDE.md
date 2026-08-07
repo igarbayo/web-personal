@@ -23,6 +23,7 @@ En el proyecto se usa pnpm, no npm.
 - No vuelvas a leer archivos ya leídos en esta sesión a menos que te lo pida. Minimiza las llamadas a herramientas y trabaja con lo que ya tienes en contexto.
 - No ejecutes el `build` en cada modificación de código, ya ejecuto yo en formato dev o manualmente.
 - No hagas ningún commit ni PR ni nada en Github. Cuando te pida algo de Github, dame los comandos exactos para hacerlo.
+- **Nunca relances (`re-run`) ni lances un workflow de Actions sin preguntarme antes.** Consultar el estado y leer logs sí, sin pedir permiso; disparar ejecuciones no. Esto incluye los pushes a `main`, que disparan el deploy.
 - Ante una tarea ambigua, pregunta antes de implementar
 - No inventes contenido que no te he pedido. Si te pido añadir una entrada (curso, experiencia, proyecto...), añade solo los campos que te he dado. No añadas bullets, descripciones ni notas por tu cuenta: si crees que hacen falta, pregunta antes.
 - Si necesitas contexto de un archivo que no has leído, pídelo antes de asumir su contenido
