@@ -238,8 +238,38 @@ node scripts/compress-hack-images.mjs
 ```bash
 # Desde src/frontend/
 pnpm dev        # → localhost:3000 (redirect a /en)
+pnpm check      # verify + lint + typecheck (rápido, ~5 s)
 pnpm build      # Debe generar /en, /es, /gl + sub-rutas estáticamente
 ```
+
+### Hooks de git
+
+Viven en `.githooks/`, versionados. **Requieren activación una vez por clon:**
+
+```bash
+git config core.hooksPath .githooks
+```
+
+| Hook | Qué corre | Por qué ahí |
+|---|---|---|
+| `pre-commit` | `pnpm check` → verify + lint + typecheck | Rápido; `tsc --noEmit` caza los errores de tipo sin pagar el build entero |
+| `pre-push` | `pnpm build` | ~40 s, pero es la última red antes de que un push a `main` dispare el deploy |
+
+`SKIP_HOOKS=1` delante del comando salta ambos. Si falta `node_modules`, los hooks fallan con un mensaje claro en vez de un error críptico.
+
+### `scripts/verify.mjs`
+
+Comprueba invariantes que ni ESLint ni `next build` ven, porque los diccionarios son JSON y las rutas de imagen se resuelven en ejecución:
+
+1. Los tres diccionarios parsean como JSON.
+2. Los tres tienen las mismas secciones de primer nivel.
+3. Toda imagen referenciada (diccionarios, código y `site.webmanifest`) existe en `public/`. Caza el caso de mover un original a `assets/` y olvidar generar el `.webp`.
+4. Toda fuente listada en el `FILES` de los dos scripts de imagen existe en `assets/`.
+5. `public/` se mantiene por debajo de 8 MB. Es un presupuesto de peso: Next la copia entera al artefacto de deploy, y llegó a pesar 44 MB.
+6. Los campos `date` usan años de 4 cifras (`09/2021`, no `09/21`). Se mira solo la clave `date` a propósito: sobre texto libre el patrón chocaría con las notas (`8.1/10`) y con las fechas dentro de las URLs de prensa.
+7. Siguen en `public/` los ficheros que el sitio sirve sin que ningún import los mencione: `CNAME`, `.nojekyll` y los dos `web-app-manifest-*.png`.
+
+No tiene dependencias: es Node puro, así que corre sin `node_modules`.
 
 Rutas a verificar:
 - `localhost:3000/en`, `/es`, `/gl` → home con foto + Header + Summary

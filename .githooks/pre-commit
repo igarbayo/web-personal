@@ -1,0 +1,27 @@
+#!/bin/sh
+# Comprobaciones rápidas antes de cada commit: verify + lint + typecheck.
+# El build completo va en pre-push, porque tarda ~40 s y aquí molestaría.
+#
+# Activar (una vez por clon):  git config core.hooksPath .githooks
+# Saltar puntualmente:         SKIP_HOOKS=1 git commit ...
+set -e
+
+[ "$SKIP_HOOKS" = "1" ] && { echo "pre-commit: saltado (SKIP_HOOKS=1)"; exit 0; }
+
+cd "$(git rev-parse --show-toplevel)/src/frontend"
+
+if [ ! -d node_modules ]; then
+  echo "pre-commit: falta node_modules en src/frontend — ejecuta 'pnpm install'" >&2
+  exit 1
+fi
+
+echo "pre-commit: verify"
+pnpm run --silent verify
+
+echo "pre-commit: lint"
+pnpm run --silent lint
+
+echo "pre-commit: typecheck"
+pnpm run --silent typecheck
+
+echo "pre-commit: ok"

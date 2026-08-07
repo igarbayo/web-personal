@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "verify": "node scripts/verify.mjs",
+    "check": "pnpm verify && pnpm lint && pnpm typecheck"
   },
   "dependencies": {
     "next": "14.2.29",
