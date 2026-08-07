@@ -10,6 +10,8 @@ import { stat } from 'node:fs/promises'
 import sharp from 'sharp'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+// Lee los originales de `assets/` (fuera del export) y escribe el WebP en `public/`.
+const ASSETS = join(__dirname, '..', 'assets')
 const PUBLIC = join(__dirname, '..', 'public')
 
 const FILES = [
@@ -29,7 +31,7 @@ let totalIn = 0
 let totalOut = 0
 
 for (const file of FILES) {
-  const src = join(PUBLIC, file)
+  const src = join(ASSETS, file)
   const out = join(PUBLIC, parse(file).name + '.webp')
   const before = (await stat(src)).size
   await sharp(src)

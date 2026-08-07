@@ -10,9 +10,13 @@ import { stat } from 'node:fs/promises'
 import sharp from 'sharp'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+// Los originales viven en `assets/`, fuera de `public/`, para que no acaben
+// en el export estático ni en el artefacto de deploy. El WebP resultante sí
+// se escribe en `public/`, que es lo único que la web sirve.
+const ASSETS = join(__dirname, '..', 'assets')
 const PUBLIC = join(__dirname, '..', 'public')
 
-// Solo los ficheros que la web referencia de verdad.
+// Originales de los que se genera cada WebP servido por la web.
 // SVGs, favicons, manifest icons, apple-touch y la OG image se quedan como están.
 const FILES = [
   // Foto de perfil
@@ -52,7 +56,7 @@ let totalIn = 0
 let totalOut = 0
 
 for (const file of FILES) {
-  const src = join(PUBLIC, file)
+  const src = join(ASSETS, file)
   const out = join(PUBLIC, parse(file).name + '.webp')
   try {
     const before = (await stat(src)).size

@@ -102,7 +102,7 @@ Muchos logos son PNG/WebP con fondo transparente y tinta oscura, que se pierden 
 `egs-white.webp` se generó recoloreando solo las letras (el azul-verde de la onda se conserva) con ImageMagick:
 
 ```bash
-magick public/egs.png -channel RGB -fuzz 35% -fill white -opaque "srgb(20,51,93)" +channel public/egs-white.webp
+magick assets/egs.png -channel RGB -fuzz 35% -fill white -opaque "srgb(20,51,93)" +channel public/egs-white.webp
 ```
 
 **Logo de Anthropic (`anthropic.webp`):** wordmark negro con fondo transparente, así que no necesita variante oscura — la `logoBoxed` de **Certifications** le da fondo blanco en ambos modos y el borde `dark:border-border` lo delimita en oscuro, igual que McKinsey, AWS o Hugging Face. El original (`Anthropic_logo.svg.webp`, 3840×432, 22 KB) se redimensionó a 800px de ancho conservando el canal alfa:
@@ -175,7 +175,7 @@ Retrocompatible: una fecha sin ` & ` produce un array de un elemento y se render
 
 ## Navbar
 
-- **Avatar junto al nombre (COMENTADO, desactivado):** actualmente está comentado en `Navbar.tsx` (import de `next/image` incluido), pendiente de decisión. Cuando se reactiva, a la izquierda del nombre se muestra `public/silueta.webp` (retrato ilustrado). El `<Link>` del nombre es `flex items-center gap-2` y la imagen usa `h-[1.25em] w-auto` para igualar la altura de la línea del texto (`text-xl leading-tight`); escala con el nombre. Lleva `priority` por estar above-the-fold. El WebP se generó desde `silueta.png` quitándole el fondo blanco (umbral de blanco casi-neutro con feather en los bordes → alfa), por lo que funciona en claro y oscuro sin halo. **Ojo:** este fichero **no** está en `scripts/to-webp.mjs` a propósito — ese script hace conversión plana y sobrescribiría la transparencia; si hay que regenerarlo, usar un script de recorte con alfa.
+- **Avatar junto al nombre (COMENTADO, desactivado):** actualmente está comentado en `Navbar.tsx` (import de `next/image` incluido), pendiente de decisión. Cuando se reactiva, a la izquierda del nombre se muestra `silueta.webp` (retrato ilustrado). **Ese WebP no existe hoy en el repo**: solo está el original `assets/silueta.png`, así que hay que regenerarlo a `public/` antes de descomentar nada. El `<Link>` del nombre es `flex items-center gap-2` y la imagen usa `h-[1.25em] w-auto` para igualar la altura de la línea del texto (`text-xl leading-tight`); escala con el nombre. Lleva `priority` por estar above-the-fold. El WebP se generó desde `silueta.png` quitándole el fondo blanco (umbral de blanco casi-neutro con feather en los bordes → alfa), por lo que funciona en claro y oscuro sin halo. **Ojo:** este fichero **no** está en `scripts/to-webp.mjs` a propósito — ese script hace conversión plana y sobrescribiría la transparencia; si hay que regenerarlo, usar un script de recorte con alfa.
 - El Navbar se renderiza **una sola vez en `app/[lang]/layout.tsx`** (no en cada página), para que persista entre navegaciones cliente y el subrayado pueda deslizarse en lugar de re-montarse.
 - **Desktop (`md+`):** links horizontales. Ruta activa detectada con `usePathname()`. El subrayado activo es un **único elemento deslizante** (barra `bg-accent` posicionada en absoluto): un `useEffect` mide `offsetLeft`/`offsetWidth` de la pestaña activa (con re-medición en `resize` y en `document.fonts.ready`) y actualiza su `left`/`width` con `transition-all` → al cambiar de ruta la barra se mueve entre pestañas. Sigue la estética de la barra baja `_`.
 - **Negrita sin salto:** la pestaña activa y cualquiera en hover van en `font-semibold`. Para que el cambio de peso no desplace el layout (ni descoloque el subrayado), cada label lleva una copia fantasma en negrita (`invisible`, apilada con grid) que reserva el ancho.
@@ -205,7 +205,19 @@ Retrocompatible: una fecha sin ` & ` produce un array de un elemento y se render
 
 ## Optimización de imágenes
 
-Scripts en `scripts/` (requieren `sharp`, ya en devDependencies):
+### `assets/` vs `public/`
+
+Separación importante: **`public/` contiene solo lo que el sitio sirve; los originales viven en `src/frontend/assets/`**.
+
+Motivo: con `output: 'export'`, Next copia `public/` entera a `out/`, y `out/` es el artefacto que sube `upload-pages-artifact`. Todo raster que esté en `public/` viaja en cada despliegue aunque ningún componente lo referencie. Los originales (JPG de cámara de hasta 8000px, PNG previos a la conversión) sumaban 42 MB de los 44 MB de `public/`, mientras que los WebP que la web sirve de verdad ocupan ~2 MB. Al moverlos, `public/` bajó a 2,5 MB.
+
+`assets/` está versionado en git — no se borra nada, simplemente queda fuera del export. Regla al añadir una imagen nueva: **el original va a `assets/`, el `.webp` generado va a `public/`**, y solo el segundo se referencia desde los diccionarios.
+
+Se quedan en `public/` aunque no aparezcan referenciados en el TypeScript: `CNAME`, `.nojekyll` y `web-app-manifest-192x192.png` / `-512x512.png` (los referencia `site.webmanifest`, no el código).
+
+### Scripts
+
+En `scripts/` (requieren `sharp`, ya en devDependencies). Ambos **leen de `assets/` y escriben el `.webp` en `public/`**, sin borrar el original:
 
 | Script | Uso |
 |---|---|
@@ -217,7 +229,7 @@ node scripts/to-webp.mjs
 node scripts/compress-hack-images.mjs
 ```
 
-Ambos escriben `<nombre>.webp` junto al original sin borrar nada.
+**Ojo con el orden:** los cinco `hack-N-compressed.*` están en el `FILES` de los dos scripts y ambos escriben el mismo `hack-N-compressed.webp`. `compress-hack-images.mjs` redimensiona a 1200px; `to-webp.mjs` no. Ejecutar `to-webp` después deshace el redimensionado. Si hay que lanzar los dos, `compress-hack-images.mjs` va el último.
 
 ---
 
