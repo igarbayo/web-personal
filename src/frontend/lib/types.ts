@@ -182,4 +182,10 @@ export interface Dictionary {
   languages: LanguagesData
   volunteering: VolunteeringData
   certifications: CertificationsData
+  footer: FooterData
+}
+
+export interface FooterData {
+  /** Etiqueta del enlace al repositorio. La URL no se traduce: vive en el layout. */
+  repo: string
 }

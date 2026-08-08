@@ -190,6 +190,15 @@ Retrocompatible: una fecha sin ` & ` produce un array de un elemento y se render
 - Links: email, LinkedIn, GitHub, Devpost
 - Renderizado en `app/[lang]/layout.tsx` dentro del `<footer>`
 
+## Footer
+
+Vive en `app/[lang]/layout.tsx`, no en un componente aparte. Tres elementos apilados: la fila de iconos de `SocialSidebar`, la línea de copyright y el enlace al repositorio.
+
+- **Enlace «Ver en GitHub»:** apunta a `github.com/igarbayo/web-personal`. Está escrito **directamente en el layout y no dentro de `SocialSidebar`** a propósito: la fila de iconos de ese componente lleva `xl:hidden` porque en escritorio pasa a ser barra lateral fija, así que un enlace colocado ahí desaparecería del footer justo en escritorio. En el layout se renderiza igual en los dos modos.
+- La etiqueta se traduce (`footer.repo` en los diccionarios); la URL no, va fija en el layout, porque es idéntica en los tres idiomas y triplicarla solo daría ocasión de que se desincronizara.
+- Reutiliza `GitHubIcon`, exportado desde `SocialSidebar.tsx`, con `size={16}` para casar con el `text-sm` del enlace. El resto de usos mantienen el tamaño por defecto de 20.
+- No aparece en `out/404.html` ni en `out/index.html`: esas páginas no pasan por el layout de `[lang]`.
+
 ---
 
 ## Secciones por página

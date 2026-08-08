@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { getDictionary } from '@/lib/dictionaries'
 import Navbar from '@/components/Navbar'
-import SocialSidebar from '@/components/SocialSidebar'
+import SocialSidebar, { GitHubIcon } from '@/components/SocialSidebar'
 import ThemeSync from '@/components/ThemeSync'
 import '../globals.css'
 
@@ -86,6 +86,20 @@ export default async function LangLayout({
           <SocialSidebar data={dict.header} />
           <p className="text-center text-sm text-muted font-mono">
             Ignacio Garbayo Fernández © 2026
+          </p>
+          {/* Va en el footer y no en SocialSidebar: en xl+ la fila de iconos
+              lleva `xl:hidden` (pasa a ser barra lateral fija), así que un
+              enlace ahí no se vería en escritorio. */}
+          <p className="mt-2 text-center">
+            <a
+              href="https://github.com/igarbayo/web-personal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
+            >
+              <GitHubIcon size={16} />
+              {dict.footer.repo}
+            </a>
           </p>
         </footer>
       </body>
