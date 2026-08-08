@@ -39,3 +39,7 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# Documentación personal y operativa: fuera del repositorio público
+docs/*.pdf
+docs/CLOUDFLARE.md

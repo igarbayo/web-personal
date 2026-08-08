@@ -16,7 +16,7 @@ En el proyecto se usa pnpm, no npm.
 - `dictionaries/` — traducciones JSON (en/es/gl)
 - `lib/` — utilidades (dictionaries loader, renderText, skillIcons, types)
 
-**`docs/`** — CVs en PDF + documentación técnica (`FRONTEND.md`).
+**`docs/`** — documentación técnica del proyecto. Parte de su contenido está fuera del control de versiones (ver `.gitignore`).
 
 ## Instrucciones para el agente
 
@@ -39,18 +39,16 @@ En el proyecto se usa pnpm, no npm.
 
 ## Estructura relevante
 
-docs/  
-    CV English.pdf
-    CV Spanish.pdf
+docs/
 src/
     frontend/
 
 ## Convenciones
-- al hacer algo, documentarás como funciona en `docs/`, en  `FRONTEND.md`. En esos documentos es donde aparecerán los detalles técnicos del proyecto.
+- al hacer algo, documentarás como funciona en la documentación técnica de `docs/`. Ahí es donde aparecen los detalles técnicos del proyecto.
 - Los años se escriben siempre completos: `2026`, nunca abreviados como `26`. Esto aplica también a rangos y fechas `MM/AAAA` (p. ej. `09/2021 – 06/2027`, no `09/21 – 06/27`).
 
 ## Lo que no debes tocar
 
-- dentro de la carpeta docs/, ninguno de los .pdf
+- ningún fichero de `docs/` que esté ignorado por git: son documentos personales y operativos, y deben quedarse fuera del repositorio público.
 
 

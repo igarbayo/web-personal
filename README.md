@@ -151,11 +151,6 @@ El punto de corte entre móvil y escritorio es el breakpoint `sm` de Tailwind, *
 | Una URL sin barra final da 404 | Lo resuelve `trailingSlash: true` en `next.config.js`, que genera `en/index.html` en vez de `en.html`. Si vuelve a pasar, comprueba que esa opción sigue puesta. |
 | El modo oscuro se pierde al cambiar de idioma | Cambiar de idioma es navegación cliente y re-renderiza `<html>`, pisando la clase `.dark`. Lo reaplica `components/ThemeSync.tsx`; si falla, comprueba que sigue montado en el layout. |
 
-## Documentación
-
-- **[docs/FRONTEND.md](docs/FRONTEND.md)** — arquitectura, routing, i18n, diseño, modo oscuro, componentes, scripts y hooks.
-- **[docs/CLOUDFLARE.md](docs/CLOUDFLARE.md)** — DNS, TLS, caché de edge, analíticas y notas operativas del despliegue.
-
 ## Soporte
 
 ¿Dudas, fallos o ideas? Abre un [issue en GitHub](https://github.com/igarbayo/web-personal/issues).

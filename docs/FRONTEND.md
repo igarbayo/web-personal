@@ -2,7 +2,7 @@
 
 Web CV personal de Ignacio Garbayo Fernández. Stack: **Next.js 14** (App Router) + **Tailwind CSS** + **TypeScript**. Las rutas se sirven desde la raíz del dominio (sin basePath). El antiguo `basePath: '/web-personal'` ya no se usa.
 
-La configuración de DNS, TLS, caché de edge y analíticas del dominio está documentada aparte, en [CLOUDFLARE.md](CLOUDFLARE.md).
+La configuración de red del dominio (DNS, TLS, caché de edge y analíticas) está documentada aparte, fuera de este repositorio.
 
 ---
 
