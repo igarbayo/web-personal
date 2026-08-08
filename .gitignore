@@ -43,3 +43,6 @@ Thumbs.db
 # Documentación personal y operativa: fuera del repositorio público
 docs/*.pdf
 docs/CLOUDFLARE.md
+
+# Instrucciones del agente: personales, fuera del repositorio público
+CLAUDE.md
