@@ -10,7 +10,7 @@ La configuración de red del dominio (DNS, TLS, caché de edge y analíticas) es
 
 ### Routing
 
-App multi-página con 4 rutas por idioma:
+App multi-página con 4 secciones, servidas por **dos familias de rutas**:
 
 | Ruta | Secciones renderizadas |
 |---|---|
@@ -19,9 +19,9 @@ App multi-página con 4 rutas por idioma:
 | `/[lang]/education` | Education, LeadershipAwards, Languages, Certifications |
 | `/[lang]/projects` | ProjectsCompetitions |
 
-- `/` → redirect a `/en/` (via `app/page.tsx`)
+Las 12 rutas prefijadas por idioma son las **canónicas**. Además existen 4 rutas **sin prefijo** (`/`, `/experience/`, `/education/`, `/projects/`) que sirven el mismo contenido en inglés y declaran `canonical` hacia su equivalente `/en/…`. Son puertas de entrada para crawlers y para quien teclee la URL obvia; ver la sección [SEO](#seo).
 - **`trailingSlash: true`** en `next.config.js`: el export genera `en/index.html` en vez de `en.html`, de modo que GitHub Pages sirve `/en/` con `200` y redirige `/en` → `/en/` con `301`. Sin esta opción, cualquier URL con barra final devolvía `404`. Consecuencias: `next/link` emite los `href` con barra final automáticamente, y `usePathname()` la incluye — por eso `Navbar.isActive()` normaliza el path antes de comparar
-- Rutas generadas estáticamente con `generateStaticParams` en `app/[lang]/layout.tsx`
+- Rutas generadas estáticamente con `generateStaticParams` en `app/(i18n)/[lang]/layout.tsx`
 - No se usa ninguna librería de i18n; el contenido está en JSONs por idioma
 - Las imágenes en `public/` se referencian con rutas absolutas desde la raíz (`/imagen.png`). El antiguo prefijo `${process.env.NEXT_PUBLIC_BASE_PATH}/` (ligado al basePath de GitHub Pages) ya no se usa
 
@@ -40,13 +40,52 @@ Los diccionarios incluyen **todas** las certificaciones de ambos CVs en los 3 id
 ### Layout chain
 
 ```
-app/layout.tsx              → <>{children}</> (pass-through)
-app/[lang]/layout.tsx       → <html><body><Navbar/>{children}<footer><SocialSidebar/></footer></body></html>
-app/[lang]/page.tsx         → Home (foto + Header + Summary)
-app/[lang]/experience/      → Experience + Skills + Volunteering
-app/[lang]/education/       → Education + LeadershipAwards + Languages + Certifications
-app/[lang]/projects/        → ProjectsCompetitions
+app/layout.tsx                  → <>{children}</> (pasarela, sin <html>)
+app/not-found.tsx               → out/404.html — monta su propio SiteShell
+app/robots.ts, app/sitemap.ts   → out/robots.txt, out/sitemap.xml
+│
+├── app/(default)/              → rutas SIN prefijo, contenido inglés
+│   layout.tsx                    SiteShell lang="en" + script de detección de idioma
+│   page.tsx                      /
+│   experience|education|projects/page.tsx
+│
+└── app/(i18n)/[lang]/          → rutas prefijadas, las canónicas
+    layout.tsx                    SiteShell lang={params.lang}
+    page.tsx                      /[lang]
+    experience|education|projects/page.tsx
+
+components/SiteShell.tsx        → <html><head>…</head><body><Navbar/>{children}<footer/></body></html>
+components/pages/*.tsx          → cuerpo de cada sección, compartido por ambos grupos
 ```
+
+Los **route groups** `(default)` y `(i18n)` no aparecen en las URLs. Existen para poder tener **dos layouts raíz** con distinto `<html lang>`: `app/layout.tsx` es una pasarela que no renderiza `<html>`, y de eso se encarga cada layout de grupo a través de `SiteShell`.
+
+`components/pages/` existe para que la versión prefijada y la sin prefijo rendericen exactamente lo mismo desde una sola fuente. Las `page.tsx` quedan en cinco líneas: cargar el diccionario y pasarlo al componente.
+
+---
+
+## SEO
+
+El punto de partida: dos chatbots distintos intentaron leer el sitio y fallaron. La raíz era una cáscara —`app/page.tsx` era `'use client'`, devolvía `null` y redirigía desde un `useEffect`, así que el export producía un `/index.html` con `<title>` y `<body>` vacío— y las rutas sin prefijo (`/experience`) devolvían 404, porque solo existían las 12 con prefijo. Sin `robots.txt` ni `sitemap.xml`, un buscador no tenía forma de descubrir nada salvo siguiendo un redirect JS que solo se ejecuta en una segunda pasada diferida.
+
+**Rutas sin prefijo.** Las 4 del grupo `(default)` sirven contenido inglés completo y prerenderizado. No son canónicas: cada una declara `<link rel="canonical">` hacia `/en/…`. No se listan en el sitemap.
+
+**Detección de idioma.** El grupo `(default)` inyecta en el `<head>` un `<script>` inline y **bloqueante** que lee `navigator.languages`: gana el primer idioma que matchee gl/es/en, y el inglés se queda donde está. Dos propiedades que importan:
+
+- Al ser síncrono y estar antes del `<body>`, corre **antes del primer paint**: cero parpadeo de inglés para usuarios es/gl. El `useEffect` anterior corría después de pintar, y por eso la página tenía que ir vacía.
+- **Preserva el pathname**, así que `/experience/` lleva a `/es/experience/` y no a `/es/`.
+
+Lleva una guarda `if (/^\/(en|es|gl)(\/|$)/.test(location.pathname)) return`. No es decorativa: `404.html` se sirve también para rutas que ya llevan prefijo, y sin ella `/es/loquesea` entraría en un bucle infinito de prefijado (`/es/es/…`). El script no existe en el grupo `(i18n)` ni en la 404.
+
+**Canonical, hreflang y `og:url`.** Los construye `lib/seo.ts`. Cada una de las 8 páginas exporta un `generateMetadata` que llama a `buildPageMetadata(subpath, lang, description)`. No pueden vivir en el layout: se heredarían a las subpáginas con el canonical de la home, que es exactamente el bug que tenía `og:url` (todas las páginas de un idioma declaraban `og:url` = home de ese idioma).
+
+`buildPageMetadata` repite el bloque `openGraph` **entero**, no solo `url`. Es obligatorio: Next hace merge **superficial** de la metadata, así que un `openGraph` definido en la página reemplaza al del layout en vez de fusionarse, y definir solo `url` dejaría la página sin título, descripción ni imagen.
+
+**`sitemap.ts` y `robots.ts`.** Generan las 12 URLs canónicas con su bloque de `alternates`, y el `robots.txt` apuntando al sitemap. Con `output: 'export'` + `trailingSlash: true` había riesgo de que Next los emitiera como `out/sitemap.xml/index.html`; **no ocurre** con 14.2.29 — salen como ficheros. Si una actualización lo rompiera, el fallback es `public/robots.txt` y `public/sitemap.xml` estáticos, que se copian verbatim y son inmunes al `trailingSlash`.
+
+**404.** `app/not-found.tsx` alimenta `out/404.html`, que GitHub Pages sirve ante cualquier ruta desconocida. Tiene que estar en la raíz de `app/`: una not-found dentro de un route group **no** alimenta ese fichero — Next emite ahí su 404 genérica, comprobado. Y como el layout raíz es una pasarela sin `<html>`, esta página monta su propio `SiteShell`. Ese es además el único motivo por el que `app/layout.tsx` sigue existiendo: sin él, el build falla con «not-found.tsx doesn't have a root layout».
+
+**Navbar y LanguageSwitcher.** Ambos asumían que el primer segmento del path era siempre un idioma. `Navbar.isActive` acepta ahora las dos formas, prefijada y sin prefijar, o en `/experience/` no se marcaría ningún ítem activo. `LanguageSwitcher.getLangHref` sustituye el segmento si es un idioma conocido y **prefija** si no lo es; antes convertía `/experience/` en `/es/` y perdía la sección. Los enlaces del Navbar siguen apuntando a `/${lang}${path}`: al primer clic el usuario pasa a las rutas canónicas.
 
 ---
 

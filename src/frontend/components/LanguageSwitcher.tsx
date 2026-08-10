@@ -13,8 +13,15 @@ export default function LanguageSwitcher({ currentLang, inline = false }: { curr
 
   function getLangHref(lang: string) {
     const segments = pathname.split('/')
-    segments[1] = lang
-    return segments.join('/')
+    // En las rutas prefijadas (`/es/experience/`) se sustituye el idioma. En las
+    // rutas sin prefijo del grupo (default) (`/experience/`) hay que prefijar,
+    // no sustituir: si no, `segments[1] = lang` convertiría `/experience/` en
+    // `/es/` y se perdería la sección.
+    if ((LANGS as readonly string[]).includes(segments[1])) {
+      segments[1] = lang
+      return segments.join('/')
+    }
+    return pathname === '/' ? `/${lang}/` : `/${lang}${pathname}`
   }
 
   useEffect(() => {

@@ -28,8 +28,14 @@ export default function Navbar({ dict, lang }: NavbarProps) {
     // `trailingSlash: true` hace que usePathname devuelva `/en/education/`,
     // así que se normaliza antes de comparar con `/en/education`.
     const current = pathname.replace(/\/$/, '') || '/'
-    const fullPath = `/${lang}${path}`
-    return path === '' ? current === fullPath : current.startsWith(fullPath)
+    // Se aceptan las dos formas: la prefijada por idioma (`/en/education`) y la
+    // sin prefijo (`/education`), que son las puertas de entrada del grupo
+    // (default). Sin esto, en `/experience/` no se marcaría ningún ítem activo
+    // y el subrayado deslizante desaparecería.
+    const prefixed = `/${lang}${path}`
+    return path === ''
+      ? current === prefixed || current === '/'
+      : current.startsWith(prefixed) || current.startsWith(path)
   }
 
   // Sliding underline indicator for the desktop nav.

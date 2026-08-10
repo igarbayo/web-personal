@@ -1,75 +1,41 @@
 import type { ReactNode } from 'react'
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { getDictionary } from '@/lib/dictionaries'
+import type { Dictionary } from '@/lib/types'
 import Navbar from '@/components/Navbar'
 import SocialSidebar, { GitHubIcon } from '@/components/SocialSidebar'
 import ThemeSync from '@/components/ThemeSync'
-import '../globals.css'
+import '../app/globals.css'
 
+// A nivel de módulo, como exige `next/font`. Al importarse SiteShell desde los
+// dos layouts raíz, la instancia sigue siendo única.
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 })
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { lang: string }
-}): Promise<Metadata> {
-  const dict = await getDictionary(params.lang)
-  return {
-    metadataBase: new URL('https://ignaciogarbayo.com'),
-    title: 'Ignacio Garbayo Fernández',
-    description: dict.meta.description,
-    icons: {
-      icon: [
-        { url: '/favicon.ico', sizes: 'any' },
-        { url: '/favicon.svg', type: 'image/svg+xml' },
-        { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
-      ],
-      apple: '/apple-touch-icon.png',
-    },
-    manifest: '/site.webmanifest',
-    openGraph: {
-      title: 'Ignacio Garbayo Fernández',
-      description: dict.meta.description,
-      type: 'profile',
-      siteName: 'Ignacio Garbayo Fernández',
-      url: `/${params.lang}/`,
-      images: [
-        {
-          url: '/me-movil-compressed.png',
-          width: 600,
-          height: 600,
-          alt: 'Ignacio Garbayo Fernández',
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary',
-      title: 'Ignacio Garbayo Fernández',
-      description: dict.meta.description,
-      images: ['/me-movil-compressed.png'],
-    },
-  }
-}
-
-export function generateStaticParams() {
-  return [{ lang: 'en' }, { lang: 'es' }, { lang: 'gl' }]
-}
-
-export default async function LangLayout({
-  children,
-  params,
-}: {
+interface SiteShellProps {
+  lang: string
+  dict: Dictionary
   children: ReactNode
-  params: { lang: string }
-}) {
-  const dict = await getDictionary(params.lang)
+  /** Se inyecta al final del `<head>`. Lo usa el grupo (default) para el script
+   *  bloqueante de detección de idioma. */
+  headExtra?: ReactNode
+}
 
+/**
+ * `<html>` + `<head>` + `<body>` del sitio. Vive aquí y no en un layout porque
+ * hay **dos layouts raíz** —`(default)` para las rutas sin prefijo y `(i18n)`
+ * para las prefijadas por idioma— y ambos necesitan exactamente el mismo shell
+ * con distinto `lang`.
+ */
+export default function SiteShell({ lang, dict, children, headExtra }: SiteShellProps) {
   return (
-    <html lang={params.lang} className={inter.variable} suppressHydrationWarning>
+    <html lang={lang} className={inter.variable} suppressHydrationWarning>
+      {/* `no-head-element` es una regla del Pages Router, donde había que usar
+          `next/head`. En App Router el layout raíz renderiza `<head>` de forma
+          nativa, que es justo lo que se hace aquí. La regla no saltaba mientras
+          este JSX vivía dentro de `app/`; al extraerlo a `components/` sí. */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
         <meta name="color-scheme" content="light dark" />
         <script
@@ -77,10 +43,11 @@ export default async function LangLayout({
             __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
           }}
         />
+        {headExtra}
       </head>
       <body className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col">
         <ThemeSync />
-        <Navbar dict={dict} lang={params.lang} />
+        <Navbar dict={dict} lang={lang} />
         {children}
         <footer className="border-t border-border mt-auto py-6">
           <SocialSidebar data={dict.header} />
