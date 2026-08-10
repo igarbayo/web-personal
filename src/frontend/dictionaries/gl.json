@@ -196,7 +196,7 @@
       },
       {
         "date": "2026",
-        "title": "Sistema automático de designacións arbitrais",
+        "title": "Designacións arbitrais automáticas",
         "bullets": [
           "Deseñei un motor de optimización en Python para planificar eficientemente ata 800 partidos semanais, combinando problemas de planificación de persoal e enrutamento de vehículos.",
           "Resolvin restricións complexas, incluíndo solapamentos de horarios, vetos e emparellamentos por nivel, mediante unha weighted greedy selection con busca local e aproximacións xeométricas."
@@ -204,7 +204,7 @@
       },
       {
         "date": "2025 – presente",
-        "title": "Sistema intelixente de xestión da auga",
+        "title": "Xestión intelixente da auga",
         "organization": "[egswater.com](https://egswater.com)",
         "bullets": [
           "Desenvolvo unha plataforma de IA/IoT (NestJS, R, React) con dous compañeiros de Akademia para pequenos municipios galegos, co obxectivo de optimizar os recursos naturais e reducir as perdas de auga non rexistrada.",

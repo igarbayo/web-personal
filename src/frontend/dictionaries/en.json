@@ -196,7 +196,7 @@
       },
       {
         "date": "2026",
-        "title": "Automated Referee Assignment System",
+        "title": "Automated Referee Assignments",
         "bullets": [
           "Engineered an optimization engine in Python to efficiently schedule up to 800 weekly matches, combining personnel scheduling and vehicle routing problems.",
           "Resolved complex constraints including schedule overlaps, conflict vetoes, and skill-level matching through weighted greedy selection, complemented by local search and geometric approximations."
@@ -204,7 +204,7 @@
       },
       {
         "date": "2025 – present",
-        "title": "Smart Water Management System",
+        "title": "Smart Water Management",
         "organization": "[egswater.com](https://egswater.com)",
         "bullets": [
           "Developing an AI/IoT platform (NestJS, R, React) with two Bankinter Akademia colleagues for small Galician municipalities, aiming to optimize natural resources and reduce Non-Revenue Water leaks.",
