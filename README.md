@@ -20,15 +20,13 @@ El contenido no vive en el código: está en tres ficheros JSON, uno por idioma.
 
 ## Características
 
-| | |
-|---|---|
-| **Trilingüe** | Inglés, español y gallego, sin librería de i18n: rutas `/[lang]` y diccionarios JSON |
-| **Estático** | `output: 'export'` — HTML plano, sin servidor ni base de datos |
-| **Modo oscuro** | Sigue la preferencia del sistema, con toggle manual persistente y sin parpadeo inicial |
-| **Contenido en datos** | Todo el CV en `dictionaries/*.json`; los componentes solo lo pintan |
-| **Imágenes optimizadas** | WebP generado desde los originales, que quedan fuera del artefacto de deploy |
-| **Deploy automático** | GitHub Actions → GitHub Pages en cada push a `main`, ~60 s |
-| **Verificación local** | Hooks de git con lint, typecheck, build y comprobaciones propias |
+- **Trilingüe** — inglés, español y gallego, sin librería de i18n: rutas `/[lang]` y diccionarios JSON.
+- **Estático** — `output: 'export'`, HTML plano, sin servidor ni base de datos.
+- **Modo oscuro** — sigue la preferencia del sistema, con toggle manual persistente y sin parpadeo inicial.
+- **Contenido en datos** — todo el CV en `dictionaries/*.json`; los componentes solo lo pintan.
+- **Imágenes optimizadas** — WebP generado desde los originales, que quedan fuera del artefacto de deploy.
+- **Deploy automático** — GitHub Actions → GitHub Pages en cada push a `main`, ~60 s.
+- **Verificación local** — hooks de git con lint, typecheck, build y comprobaciones propias.
 
 ## Arquitectura
 
