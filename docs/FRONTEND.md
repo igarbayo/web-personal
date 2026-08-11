@@ -85,6 +85,14 @@ Lleva una guarda `if (/^\/(en|es|gl)(\/|$)/.test(location.pathname)) return`. No
 
 **404.** `app/not-found.tsx` alimenta `out/404.html`, que GitHub Pages sirve ante cualquier ruta desconocida. Tiene que estar en la raíz de `app/`: una not-found dentro de un route group **no** alimenta ese fichero — Next emite ahí su 404 genérica, comprobado. Y como el layout raíz es una pasarela sin `<html>`, esta página monta su propio `SiteShell`. Ese es además el único motivo por el que `app/layout.tsx` sigue existiendo: sin él, el build falla con «not-found.tsx doesn't have a root layout».
 
+**Datos estructurados.** `SiteShell` inyecta en el `<head>` un `<script type="application/ld+json">` con un `Person` de schema.org construido por `buildPersonJsonLd(dict, lang)`. Sale en las 12 rutas canónicas, en las 4 sin prefijo y en la 404, traducido, porque se alimenta del diccionario: nunca se desincroniza del contenido visible. Va como `<script>` y no en el objeto `metadata` porque Next no expone JSON-LD en esa API. `serializeJsonLd` escapa los `<`: sin eso, un `</script>` dentro de una cadena del diccionario cerraría la etiqueta antes de tiempo y abriría un XSS.
+
+Dos campos van deliberadamente en inglés y sin traducir, porque son los términos contra los que casan las entidades de schema.org: `knowsLanguage` (códigos BCP-47, no los nombres traducidos del diccionario) y las áreas de `knowsAbout`, que preceden a la lista de tecnologías de `skills` — esa lista sola son herramientas, y lo que un grafo de conocimiento necesita para situar a una persona es el campo.
+
+No lleva `jobTitle` ni `worksFor`: saldrían de `experience.entries[0]`, y eso ataría el dato a que la entrada más reciente siga siendo siempre la primera del diccionario.
+
+**`llms.txt`.** Lo genera `scripts/gen-llms-txt.mjs` desde `dictionaries/en.json`, encadenado en los scripts `build` y `dev`. Es una apuesta barata, no una optimización con retorno medido: a día de hoy ningún proveedor grande ha confirmado que lo consuma, y el problema que resuelve —documentación enorme envuelta en HTML— no es el de este sitio, que son 4 páginas de HTML semántico ya legible. Lo que sí sería un coste real es que se quedase desactualizado, así que **no se versiona**: está en `.gitignore` y se regenera en cada build. `verify` comprueba que el generador sigue casando con la forma del diccionario.
+
 **Navbar y LanguageSwitcher.** Ambos asumían que el primer segmento del path era siempre un idioma. `Navbar.isActive` acepta ahora las dos formas, prefijada y sin prefijar, o en `/experience/` no se marcaría ningún ítem activo. `LanguageSwitcher.getLangHref` sustituye el segmento si es un idioma conocido y **prefija** si no lo es; antes convertía `/experience/` en `/es/` y perdía la sección. Los enlaces del Navbar siguen apuntando a `/${lang}${path}`: al primer clic el usuario pasa a las rutas canónicas.
 
 ---
@@ -311,13 +319,14 @@ Comprueba invariantes que ni ESLint ni `next build` ven, porque los diccionarios
 
 1. Los tres diccionarios parsean como JSON.
 2. Los tres tienen las mismas secciones de primer nivel.
-3. Toda imagen referenciada (diccionarios, código y `site.webmanifest`) existe en `public/`. Caza el caso de mover un original a `assets/` y olvidar generar el `.webp`.
-4. Toda fuente listada en el `FILES` de los dos scripts de imagen existe en `assets/`.
-5. `public/` se mantiene por debajo de 8 MB. Es un presupuesto de peso: Next la copia entera al artefacto de deploy, y llegó a pesar 44 MB.
-6. Los campos `date` usan años de 4 cifras (`09/2021`, no `09/21`). Se mira solo la clave `date` a propósito: sobre texto libre el patrón chocaría con las notas (`8.1/10`) y con las fechas dentro de las URLs de prensa.
-7. Siguen en `public/` los ficheros que el sitio sirve sin que ningún import los mencione: `CNAME`, `.nojekyll` y los dos `web-app-manifest-*.png`.
+3. `llms.txt` se genera sin romperse y cubre las 9 secciones. Como el fichero no está en el repo, lo que se comprueba es el generador: importa `buildLlmsTxt` y verifica que cada `## <título de sección>` aparece en la salida y que no se ha colado ningún `undefined`. Caza el renombrado o la desaparición de una sección del diccionario.
+4. Toda imagen referenciada (diccionarios, código y `site.webmanifest`) existe en `public/`. Caza el caso de mover un original a `assets/` y olvidar generar el `.webp`.
+5. Toda fuente listada en el `FILES` de los dos scripts de imagen existe en `assets/`.
+6. `public/` se mantiene por debajo de 8 MB. Es un presupuesto de peso: Next la copia entera al artefacto de deploy, y llegó a pesar 44 MB.
+7. Los campos `date` usan años de 4 cifras (`09/2021`, no `09/21`). Se mira solo la clave `date` a propósito: sobre texto libre el patrón chocaría con las notas (`8.1/10`) y con las fechas dentro de las URLs de prensa.
+8. Siguen en `public/` los ficheros que el sitio sirve sin que ningún import los mencione: `CNAME`, `.nojekyll` y los dos `web-app-manifest-*.png`.
 
-No tiene dependencias: es Node puro, así que corre sin `node_modules`.
+No tiene dependencias externas: es Node puro —solo importa `gen-llms-txt.mjs`, que también lo es— así que corre sin `node_modules`.
 
 Rutas a verificar:
 - `localhost:3000/en`, `/es`, `/gl` → home con foto + Header + Summary
