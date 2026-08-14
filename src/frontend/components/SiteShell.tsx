@@ -51,23 +51,30 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
         {children}
         <footer className="border-t border-border mt-auto py-6">
           <SocialSidebar data={dict.header} />
-          <p className="text-center text-sm text-muted font-mono">
-            Ignacio Garbayo Fernández © 2026
-          </p>
-          {/* Va en el footer y no en SocialSidebar: en xl+ la fila de iconos
-              lleva `xl:hidden` (pasa a ser barra lateral fija), así que un
-              enlace ahí no se vería en escritorio. */}
-          <p className="mt-2 text-center">
-            <a
-              href="https://github.com/igarbayo/web-personal"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
-            >
-              <GitHubIcon size={16} />
-              {dict.footer.repo}
-            </a>
-          </p>
+          {/* En móvil, una línea debajo de la otra; en escritorio, ambas en la
+              misma línea separadas por una barra vertical. */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-3">
+            <p className="text-center text-sm text-muted font-mono">
+              Ignacio Garbayo Fernández © 2026
+            </p>
+            <span aria-hidden="true" className="hidden md:inline text-sm text-muted">
+              |
+            </span>
+            {/* Va en el footer y no en SocialSidebar: en xl+ la fila de iconos
+                lleva `xl:hidden` (pasa a ser barra lateral fija), así que un
+                enlace ahí no se vería en escritorio. */}
+            <p className="mt-2 md:mt-0 text-center">
+              <a
+                href="https://github.com/igarbayo/web-personal"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
+              >
+                <GitHubIcon size={16} />
+                {dict.footer.repo}
+              </a>
+            </p>
+          </div>
         </footer>
       </body>
     </html>
