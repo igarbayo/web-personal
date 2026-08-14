@@ -7,6 +7,11 @@ node_modules/
 src/frontend/.next/
 src/frontend/out/
 
+# Se genera en cada build desde dictionaries/en.json (scripts/gen-llms-txt.mjs).
+# Fuera del repo a propósito: versionarlo abriría la puerta a que se quedase
+# desactualizado respecto a los diccionarios.
+src/frontend/public/llms.txt
+
 # Build outputs
 src/frontend/build/
 src/frontend/dist/

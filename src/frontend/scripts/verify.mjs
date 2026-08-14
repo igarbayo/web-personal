@@ -8,6 +8,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, basename } from 'node:path'
+import { buildLlmsTxt } from './gen-llms-txt.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PUBLIC = join(ROOT, 'public')
@@ -76,6 +77,23 @@ check('mismas secciones en los 3 idiomas', () => {
     }
   }
   return `${base.length} secciones`
+})
+
+check('llms.txt se genera y cubre todas las secciones', () => {
+  // El fichero no está en el repo: lo escribe `pnpm build`. Lo que se comprueba
+  // aquí es que el generador sigue casando con la forma del diccionario, que es
+  // lo que se rompería al renombrar o quitar una sección.
+  const txt = buildLlmsTxt(dicts.en)
+  const secciones = [
+    'summary', 'skills', 'education', 'experience',
+    'projects', 'leadership', 'certifications', 'languages', 'volunteering',
+  ]
+  const ausentes = secciones.filter(s => !txt.includes(`## ${dicts.en[s].title}`))
+  if (ausentes.length) {
+    throw new Error(`secciones que no llegan a llms.txt: ${ausentes.join(', ')}`)
+  }
+  if (txt.includes('undefined')) throw new Error('llms.txt contiene "undefined"')
+  return `${secciones.length} secciones, ${txt.length} B`
 })
 
 check('todas las imágenes referenciadas existen en public/', () => {

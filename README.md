@@ -33,7 +33,7 @@ El contenido no vive en el código: está en tres ficheros JSON, uno por idioma.
 ```mermaid
 flowchart TD
     subgraph repo["Repositorio"]
-        D["dictionaries/{en,es,gl}.json<br/>contenido del CV"]
+        D["dictionaries/{en,es,gl}.json, <br/>contenido del CV"]
         C["components/<br/>sections/ + ui/"]
         A["assets/<br/>originales de imagen"]
         P["public/<br/>WebP + favicons + CNAME"]

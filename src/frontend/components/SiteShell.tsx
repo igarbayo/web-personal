@@ -4,6 +4,7 @@ import type { Dictionary } from '@/lib/types'
 import Navbar from '@/components/Navbar'
 import SocialSidebar, { GitHubIcon } from '@/components/SocialSidebar'
 import ThemeSync from '@/components/ThemeSync'
+import { buildPersonJsonLd, serializeJsonLd } from '@/lib/seo'
 import '../app/globals.css'
 
 // A nivel de módulo, como exige `next/font`. Al importarse SiteShell desde los
@@ -42,6 +43,13 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
           }}
+        />
+        {/* Datos estructurados. Va aquí y no en `metadata` porque Next no
+            expone JSON-LD en la API de metadata; la propia documentación
+            recomienda renderizarlo como <script> en el layout. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(buildPersonJsonLd(dict, lang)) }}
         />
         {headExtra}
       </head>
