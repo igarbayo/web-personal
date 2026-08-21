@@ -10,7 +10,7 @@ export default function Certifications({ data }: CertificationsProps) {
   return (
     <section id="certifications" className="py-8 scroll-mt-20">
       <SectionTitle>{data.title}</SectionTitle>
-      <div>
+      <div data-reveal-group>
         {data.entries.map((entry, i) => (
           <TimelineEntry
             key={i}

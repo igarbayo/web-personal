@@ -10,7 +10,7 @@ export default function LeadershipAwards({ data }: LeadershipAwardsProps) {
   return (
     <section id="leadership" className="py-8 scroll-mt-20">
       <SectionTitle>{data.title}</SectionTitle>
-      <div>
+      <div data-reveal-group>
         {data.entries.map((entry, i) => (
           <TimelineEntry
             key={i}

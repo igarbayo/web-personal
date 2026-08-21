@@ -10,9 +10,11 @@ export default function Skills({ data }: SkillsProps) {
   return (
     <section id="skills" className="py-8 scroll-mt-20">
       <SectionTitle>{data.title}</SectionTitle>
-      <div className="space-y-4">
+      {/* Se revela el bloque de cada categoría, no cada insignia: cuarenta
+          insignias escalonadas una a una no serían sutiles. */}
+      <div className="space-y-4" data-reveal-group>
         {data.categories.map((cat) => (
-          <div key={cat.name} className="space-y-1.5">
+          <div key={cat.name} className="space-y-1.5" data-reveal>
             <span className="text-sm font-semibold text-muted uppercase tracking-wider">
               {cat.name}
             </span>

@@ -2,10 +2,57 @@ import { Fragment } from 'react'
 import Image from 'next/image'
 import { renderText } from '@/lib/renderText'
 import { getImageDimensions } from '@/lib/imageDimensions'
+import { cardSurface } from '@/lib/cardSurface'
 
 interface EntryLink {
   label: string
   url: string
+}
+
+/**
+ * Una foto de galería. Tres capas, y cada una tiene su motivo:
+ *
+ * - El envoltorio exterior **aparece** (opacidad y desplazamiento). No recorta,
+ *   porque el filete se dibuja por fuera de la foto.
+ * - El marco interior **recorta** el zoom del hover con `overflow: hidden`.
+ * - El `<svg>` dibuja el filete recorriendo el contorno.
+ *
+ * El zoom y la aparición viven en elementos distintos a propósito: `transform`
+ * es una sola propiedad y, compartiendo elemento, pasar el ratón a mitad de la
+ * aparición la cortaría.
+ *
+ * El `<rect>` lleva `width`/`height`/`rx` como atributos y no como CSS porque
+ * las propiedades geométricas de SVG2 en CSS no son fiables en todos los
+ * navegadores. El trazo se controla desde `globals.css`.
+ */
+function GalleryImage({
+  src,
+  priority,
+  className,
+}: {
+  src: string
+  priority: boolean
+  className?: string
+}) {
+  const { width, height } = getImageDimensions(src)
+  return (
+    <div data-reveal-media className={className}>
+      <div data-reveal-media-frame>
+        <Image
+          src={src}
+          alt=""
+          width={width}
+          height={height}
+          priority={priority}
+          className="w-full h-64 rounded-lg object-cover"
+        />
+      </div>
+      {/* rx = 8px de radio de la foto + 4px que el filete se separa de ella. */}
+      <svg data-reveal-media-ring aria-hidden="true" focusable="false">
+        <rect width="100%" height="100%" rx="12" />
+      </svg>
+    </div>
+  )
 }
 
 interface TimelineEntryProps {
@@ -52,8 +99,15 @@ export default function TimelineEntry({
   const logoPriorityCount = Math.min(priorityImages, logo?.length ?? 0)
   const imagesPriorityCount = Math.min(priorityImages - logoPriorityCount, images?.length ?? 0)
 
+  // La misma pregunta que ya responde `priorityImages`: ¿está esta entrada
+  // sobre el pliegue? Lo que está sobre el pliegue entra al pintar y solo con
+  // `transform`, porque una opacidad de partida en 0 excluye al elemento del
+  // cálculo de LCP — y en proyectos la primera entrada trae cinco imágenes
+  // `priority`.
+  const revealAttrs = priorityImages > 0 ? { 'data-reveal-load': '' } : { 'data-reveal': '' }
+
   const card = (
-    <div className="rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/20">
+    <div className={cardSurface}>
 
       {/* Header: logo + title + subtitle (+ date when no timeline) */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -146,7 +200,10 @@ export default function TimelineEntry({
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-lg border border-border text-accent hover:bg-accent hover:text-white transition-colors"
+              // `transition` y no `transition-colors`: hace falta que la lista
+              // de propiedades incluya `transform`, o el crecimiento saltaría
+              // de golpe mientras el color sí acompaña.
+              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-lg border border-border text-accent hover:bg-accent hover:text-white hover:scale-105 transition duration-200"
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M2.5 9.5L9.5 2.5M5 2.5h4.5v4.5"/>
@@ -157,31 +214,23 @@ export default function TimelineEntry({
         </div>
       )}
 
-      {/* Images */}
+      {/* Images. Las clases de rejilla van en el envoltorio de GalleryImage
+          porque es él quien pasa a ser la celda. */}
       {images && images.length > 0 && (
         images.length === 5 ? (
           <div className="grid grid-cols-1 sm:grid-cols-6 gap-2 mt-4">
-            {images.slice(0, 3).map((src, i) => {
-              const { width, height } = getImageDimensions(src)
-              return (
-                <Image key={src} src={src} alt="" width={width} height={height} priority={i < imagesPriorityCount} className="sm:col-span-2 w-full h-64 rounded-lg object-cover" />
-              )
-            })}
-            {images.slice(3).map((src, i) => {
-              const { width, height } = getImageDimensions(src)
-              return (
-                <Image key={src} src={src} alt="" width={width} height={height} priority={i + 3 < imagesPriorityCount} className="sm:col-span-3 w-full h-64 rounded-lg object-cover" />
-              )
-            })}
+            {images.slice(0, 3).map((src, i) => (
+              <GalleryImage key={src} src={src} priority={i < imagesPriorityCount} className="sm:col-span-2" />
+            ))}
+            {images.slice(3).map((src, i) => (
+              <GalleryImage key={src} src={src} priority={i + 3 < imagesPriorityCount} className="sm:col-span-3" />
+            ))}
           </div>
         ) : (
           <div className={`grid grid-cols-1 gap-2 mt-4 ${images.length === 2 ? 'sm:grid-cols-2' : images.length >= 3 ? 'sm:grid-cols-3' : ''}`}>
-            {images.map((src, i) => {
-              const { width, height } = getImageDimensions(src)
-              return (
-                <Image key={src} src={src} alt="" width={width} height={height} priority={i < imagesPriorityCount} className="w-full h-64 rounded-lg object-cover" />
-              )
-            })}
+            {images.map((src, i) => (
+              <GalleryImage key={src} src={src} priority={i < imagesPriorityCount} />
+            ))}
           </div>
         )
       )}
@@ -189,12 +238,19 @@ export default function TimelineEntry({
     </div>
   )
 
+  // El revelado se ancla en estas dos raíces y no se envuelve en un div nuevo:
+  // `last:pb-0`, `[&:last-child_.tl-line]:hidden` y el escalonado por
+  // `nth-child` dependen de que sea esta raíz la que cuelgue del contenedor de
+  // la lista.
   if (!timeline) {
-    return <div className="mb-4 last:mb-0">{card}</div>
+    return <div className="mb-4 last:mb-0" {...revealAttrs}>{card}</div>
   }
 
   return (
-    <div className="relative flex gap-5 pb-8 last:pb-0 [&:last-child_.tl-line]:hidden">
+    <div
+      className="relative flex gap-5 pb-8 last:pb-0 [&:last-child_.tl-line]:hidden"
+      {...revealAttrs}
+    >
 
       {/* Left: date */}
       <div className="hidden sm:block w-16 shrink-0 text-right pt-2">
@@ -214,6 +270,9 @@ export default function TimelineEntry({
           para alcanzar el punto de la siguiente entrada, quedando continua. */}
       <div className="hidden sm:flex flex-col items-center relative">
         <div className="w-2.5 h-2.5 rounded-full border-2 border-accent bg-accent mt-2 shrink-0 z-10" />
+        {/* `-translate-x-1/2` no es redundante con el revelado: cuando no hay
+            JS el marcador `data-motion` no existe, las reglas de dibujado de
+            globals.css no aplican y esta clase es el único centrado. */}
         <div className="tl-line absolute top-[0.8125rem] -bottom-[2.8125rem] left-1/2 -translate-x-1/2 w-px bg-accent" />
       </div>
 

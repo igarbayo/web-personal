@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import type { LanguagesData, LanguageCertification } from '@/lib/types'
 import SectionTitle from '@/components/ui/SectionTitle'
+import { cardSurface } from '@/lib/cardSurface'
 
 interface LanguagesProps {
   data: LanguagesData
@@ -11,7 +12,7 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
   const thresholdPct = ((cert.threshold - cert.scaleMin) / range) * 100
 
   return (
-    <div className="rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/20">
+    <div className={cardSurface}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
@@ -40,7 +41,11 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
       <p className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3">{cert.skillsLabel}</p>
       <div className="relative">
         {/* Threshold line: w-32 (8rem) + gap-3 (0.75rem) = 8.75rem; bar width = 100% - 11.5rem */}
+        {/* `data-reveal-late`: la marca aparece cuando las barras ya están
+            puestas. Solo opacidad, porque su `transform` ya está ocupado
+            centrándola. */}
         <div
+          data-reveal-late
           className="absolute top-0 bottom-7 z-10 flex flex-col items-center"
           style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))`, transform: 'translateX(-50%)' }}
         >
@@ -55,9 +60,15 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
               <div key={skill.name} className="flex items-center gap-3">
                 <span className="text-sm text-foreground w-32 shrink-0">{skill.name}</span>
                 <div className="flex-1 relative h-2 rounded-full bg-border">
+                  {/* El valor final va en una propiedad personalizada y no en
+                      `width`: un `width` en línea gana a cualquier regla de la
+                      hoja y la barra nunca podría partir de 0. La aserción es
+                      necesaria porque React.CSSProperties no admite
+                      propiedades personalizadas. */}
                   <div
+                    data-reveal-bar
                     className="absolute inset-y-0 left-0 rounded-full bg-accent"
-                    style={{ width: `${fillPct}%` }}
+                    style={{ '--reveal-fill': `${fillPct}%` } as React.CSSProperties}
                   />
                 </div>
                 <span className="font-mono text-sm text-accent font-semibold w-8 text-right shrink-0">{skill.score}</span>
@@ -68,6 +79,7 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
         {/* Threshold label aligned under the line */}
         <div className="relative h-6 mt-1">
           <span
+            data-reveal-late
             className="absolute -translate-x-1/2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold whitespace-nowrap"
             style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))` }}
           >
@@ -86,12 +98,18 @@ export default function Languages({ data }: LanguagesProps) {
   return (
     <section id="languages" className="py-8 scroll-mt-20">
       <SectionTitle>{data.title}</SectionTitle>
-      <div className="space-y-4">
+      <div className="space-y-4" data-reveal-group>
+        {/* La unidad de revelado envuelve la tarjeta en vez de ser la tarjeta
+            para que CertCard no tenga que saber nada del revelado. `space-y-4`
+            apunta a hijos directos, así que el envoltorio es neutro para la
+            maqueta. */}
         {certEntries.map((entry) => (
-          <CertCard key={entry.language} cert={entry.certification!} />
+          <div key={entry.language} data-reveal>
+            <CertCard cert={entry.certification!} />
+          </div>
         ))}
         {plainEntries.length > 0 && (
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4" data-reveal>
             {plainEntries.map((entry) => (
               <span key={entry.language} className="text-base text-foreground">
                 <strong>{entry.language}</strong>

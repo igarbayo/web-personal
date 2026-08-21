@@ -10,6 +10,26 @@
     --color-muted: 107 114 128;
     --color-accent: 37 99 235;
     --color-border: 229 231 235;
+
+    /* Movimiento. Un solo juego de valores para todo el revelado. */
+    --reveal-dist: 10px;
+    --reveal-dur: 700ms;
+    --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --reveal-stagger: 70ms;
+    --reveal-rule-dur: 900ms;
+    --reveal-bar-dur: 700ms;
+    --reveal-bar-delay: 200ms;
+    --reveal-media-offset: 200ms;
+    --reveal-media-stagger: 90ms;
+    --reveal-media-zoom: 1.03;
+    --reveal-media-hover-dur: 450ms;
+    --reveal-ring-width: 2px;
+    --reveal-ring-gap: 4px;
+    --reveal-ring-dur: 700ms;
+    /* Holgada a propósito: tiene que superar el perímetro de la foto más ancha
+       (unos 1500 px en la rejilla de dos columnas) para que el trazo llegue a
+       cerrarse. Ver el comentario de [data-reveal-media-ring]. */
+    --reveal-ring-len: 1700;
   }
 
   .dark {
@@ -23,6 +43,319 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  /* El desplazamiento suave también es movimiento. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Valor final de una barra de puntuación. Fuera de toda condición: es el
+     estado correcto cuando no hay JS y el destino de la transición cuando lo
+     hay. El porcentaje llega en línea desde el servidor porque es un dato. */
+  [data-reveal-bar] {
+    width: var(--reveal-fill);
+  }
+
+  /* Foto de galería. El envoltorio no recorta: el filete se dibuja por fuera
+     de la foto, sobre la superficie plana de la tarjeta. Pegado al borde caería
+     sobre contenido fotográfico, y ahí una línea fina es invisible por mucha
+     opacidad que se le ponga. */
+  [data-reveal-media] {
+    position: relative;
+  }
+
+  /* El marco sí recorta, y por eso existe: sin `overflow: hidden` la foto
+     ampliada se saldría de su celda y se comería el hueco del vecino. */
+  [data-reveal-media-frame] {
+    overflow: hidden;
+    border-radius: 0.5rem;
+  }
+
+  /* El filete se dibuja recorriendo el contorno, así que es un trazo de SVG y
+     no un `outline`: un outline no se puede recorrer, solo aparecer de golpe.
+     `overflow: visible` evita que el propio SVG recorte la mitad exterior del
+     trazo.
+     El dibujado va por `stroke-dasharray` con una longitud fija holgada y NO
+     por `pathLength="1"`, que sería exacto pero no es fiable en `<rect>` fuera
+     de Chrome y Firefox: donde no se soporta, el filete saldría punteado en vez
+     de continuo. El precio de la longitud fija es que el trazo se completa algo
+     antes de que acabe la transición, según lo ancha que sea la foto; por eso
+     el recorrido es lineal y no lleva la curva de salida del resto del sistema,
+     que concentraría el avance al principio y alargaría ese margen muerto. */
+  [data-reveal-media-ring] {
+    position: absolute;
+    top: calc(-1 * var(--reveal-ring-gap));
+    left: calc(-1 * var(--reveal-ring-gap));
+    width: calc(100% + 2 * var(--reveal-ring-gap));
+    height: calc(100% + 2 * var(--reveal-ring-gap));
+    overflow: visible;
+    pointer-events: none;
+  }
+  [data-reveal-media-ring] rect {
+    fill: none;
+    stroke: rgb(var(--color-accent));
+    stroke-width: var(--reveal-ring-width);
+    stroke-dasharray: var(--reveal-ring-len);
+    stroke-dashoffset: var(--reveal-ring-len);
+  }
+  [data-reveal-media]:hover [data-reveal-media-ring] rect {
+    stroke-dashoffset: 0;
+  }
+
+  /* Escalonado dentro de la galería. Usa una propiedad propia y no
+     `--reveal-delay` porque el retardo de la tarjeta hereda hacia dentro: si se
+     reescribiera, las fotos de la tercera tarjeta arrancarían en 0 ms, antes
+     que su propia tarjeta. Aquí se suma, no se sustituye. Las galerías tienen
+     cinco fotos como mucho, así que no hace falta saturar. */
+  [data-reveal-media]:nth-child(1) {
+    --reveal-media-delay: calc(0 * var(--reveal-media-stagger));
+  }
+  [data-reveal-media]:nth-child(2) {
+    --reveal-media-delay: calc(1 * var(--reveal-media-stagger));
+  }
+  [data-reveal-media]:nth-child(3) {
+    --reveal-media-delay: calc(2 * var(--reveal-media-stagger));
+  }
+  [data-reveal-media]:nth-child(4) {
+    --reveal-media-delay: calc(3 * var(--reveal-media-stagger));
+  }
+  [data-reveal-media]:nth-child(5) {
+    --reveal-media-delay: calc(4 * var(--reveal-media-stagger));
+  }
+
+  /* Retardo por posición. Se calcula aquí y no en el servidor porque las listas
+     se pintan con .map() y su longitud varía; nth-child no necesita saber
+     cuántos hermanos hay. Se satura en el sexto: más allá, el escalonado se lee
+     como lentitud y no como ritmo. `--reveal-delay-base` desplaza un grupo
+     entero con una sola propiedad en el contenedor, sin tocar los hijos. */
+  [data-reveal-group] > *:nth-child(1) {
+    --reveal-delay: calc(var(--reveal-delay-base, 0ms) + 0 * var(--reveal-stagger));
+  }
+  [data-reveal-group] > *:nth-child(2) {
+    --reveal-delay: calc(var(--reveal-delay-base, 0ms) + 1 * var(--reveal-stagger));
+  }
+  [data-reveal-group] > *:nth-child(3) {
+    --reveal-delay: calc(var(--reveal-delay-base, 0ms) + 2 * var(--reveal-stagger));
+  }
+  [data-reveal-group] > *:nth-child(4) {
+    --reveal-delay: calc(var(--reveal-delay-base, 0ms) + 3 * var(--reveal-stagger));
+  }
+  [data-reveal-group] > *:nth-child(5) {
+    --reveal-delay: calc(var(--reveal-delay-base, 0ms) + 4 * var(--reveal-stagger));
+  }
+  [data-reveal-group] > *:nth-child(n + 6) {
+    --reveal-delay: calc(var(--reveal-delay-base, 0ms) + 5 * var(--reveal-stagger));
+  }
+
+  /* Los fotogramas van aquí y no en tailwind.config.ts: Tailwind solo emite un
+     @keyframes si genera la utilidad `animate-*` correspondiente a partir del
+     contenido escaneado. `keyframes.blink` está en la configuración pero
+     `animate-blink` no se usa en ningún sitio, así que `@keyframes blink` NO
+     llega al CSS compilado. Declarado a mano, eso no puede pasar.
+     Solo `transform`: una opacidad de partida en 0 excluye al elemento del
+     cálculo de LCP, y esto se usa justo en lo que está sobre el pliegue. */
+  @keyframes reveal-in {
+    from {
+      transform: translateY(var(--reveal-dist));
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  @keyframes reveal-rule-in {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* La línea de cronología arrastra su propio `translateX(-50%)` en los dos
+     fotogramas: `transform` es una sola propiedad y perderlo la descuadra. */
+  @keyframes reveal-line-in {
+    from {
+      transform: translateX(-50%) scaleY(0);
+    }
+    to {
+      transform: translateX(-50%) scaleY(1);
+    }
+  }
+
+  /* Todo el bloque vive dentro de la consulta de movimiento: quien pida menos
+     movimiento recibe la hoja intacta, no un parche que deshaga reglas una a
+     una. La corrección es estructural. */
+  @media (prefers-reduced-motion: no-preference) {
+    /* ── Unidad de revelado ─────────────────────────────────────────────
+       El estado inicial solo existe bajo `data-motion`, que pone el script
+       bloqueante del <head>. Sin JS el atributo no aparece nunca y el
+       contenido nace visible. */
+    [data-motion='on'] [data-reveal] {
+      opacity: 0;
+      transform: translateY(var(--reveal-dist));
+      transition:
+        opacity var(--reveal-dur) var(--reveal-ease) var(--reveal-delay, 0ms),
+        transform var(--reveal-dur) var(--reveal-ease) var(--reveal-delay, 0ms);
+    }
+    [data-motion='on'] [data-reveal][data-revealed] {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Portada y titulares: entran al pintar, no al hacer scroll ──────
+       No pasan por el observador, así que no esperan a la hidratación. */
+    [data-motion='on'] [data-reveal-load] {
+      animation: reveal-in var(--reveal-dur) var(--reveal-ease) var(--reveal-delay, 0ms) both;
+    }
+
+    /* ── Filete del rótulo de sección: se dibuja de izquierda a derecha ──
+       El gesto firma. El div no lleva ningún transform propio, así que se
+       puede animar sin reescribir nada. */
+    [data-motion='on'] [data-reveal] [data-reveal-rule] {
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform var(--reveal-rule-dur) var(--reveal-ease)
+        calc(var(--reveal-delay, 0ms) + 120ms);
+    }
+    [data-motion='on'] [data-reveal][data-revealed] [data-reveal-rule] {
+      transform: scaleX(1);
+    }
+    [data-motion='on'] [data-reveal-load] [data-reveal-rule] {
+      animation: reveal-rule-in var(--reveal-rule-dur) var(--reveal-ease)
+        calc(var(--reveal-delay, 0ms) + 120ms) both;
+      transform-origin: left center;
+    }
+
+    /* ── Cronología: la línea se dibuja de arriba abajo ──────────────────
+       `-translate-x-1/2` de Tailwind no emite `translateX(-50%)`, emite el
+       compuesto entero (translate+rotate+skew+scale) en `transform`. No se
+       puede añadir un scaleY aparte porque `transform` es una sola propiedad,
+       así que aquí se reescribe la declaración aportando ambas funciones.
+       Ese `translateX(-50%)` centra la línea sobre el punto; sin él se
+       descuadra medio píxel. La clase de Tailwind SE QUEDA en el JSX: es el
+       centrado cuando no hay marcador y estas reglas no aplican. */
+    [data-motion='on'] [data-reveal] .tl-line {
+      transform: translateX(-50%) scaleY(0);
+      transform-origin: top center;
+      transition: transform var(--reveal-dur) var(--reveal-ease)
+        calc(var(--reveal-delay, 0ms) + 120ms);
+    }
+    [data-motion='on'] [data-reveal][data-revealed] .tl-line {
+      transform: translateX(-50%) scaleY(1);
+    }
+    /* La primera entrada de una cronología está sobre el pliegue y entra al
+       pintar, así que su línea tiene que dibujarse por animación y no por
+       transición; si no, sería la única del sitio que aparece de golpe. */
+    [data-motion='on'] [data-reveal-load] .tl-line {
+      animation: reveal-line-in var(--reveal-dur) var(--reveal-ease)
+        calc(var(--reveal-delay, 0ms) + 120ms) both;
+      transform-origin: top center;
+    }
+
+    /* ── Barras de puntuación de idioma ─────────────────────────────────
+       Se anima `width` y no `scaleX` a propósito: la barra es `rounded-full`
+       y escalarla achata el radio en elipses visibles. Es una transición de
+       layout, pero el elemento está fuera de flujo (`absolute`), así que el
+       coste no sale de él. */
+    [data-motion='on'] [data-reveal] [data-reveal-bar] {
+      width: 0;
+      transition: width var(--reveal-bar-dur) var(--reveal-ease) var(--reveal-bar-delay);
+    }
+    [data-motion='on'] [data-reveal][data-revealed] [data-reveal-bar] {
+      width: var(--reveal-fill);
+    }
+
+    /* ── Marca de umbral: después de que las barras estén puestas ────────
+       Solo opacidad: la marca lleva `transform: translateX(-50%)` en línea y
+       su rótulo lleva `-translate-x-1/2`. Pisar `transform` los descentra. */
+    [data-motion='on'] [data-reveal] [data-reveal-late] {
+      opacity: 0;
+      transition: opacity var(--reveal-dur) var(--reveal-ease)
+        calc(var(--reveal-bar-delay) + var(--reveal-bar-dur));
+    }
+    [data-motion='on'] [data-reveal][data-revealed] [data-reveal-late] {
+      opacity: 1;
+    }
+
+    /* ── Fotos de galería ───────────────────────────────────────────────
+       Dos capas que no se pisan: el marco aparece (opacidad y desplazamiento)
+       y la foto de dentro se amplía en hover. Si compartieran elemento se
+       pelearían por `transform`, que es una sola propiedad, y pasar el ratón a
+       mitad de la aparición la cortaría. */
+    [data-reveal-media] img {
+      transition: transform var(--reveal-media-hover-dur) var(--reveal-ease);
+    }
+    [data-reveal-media]:hover img {
+      transform: scale(var(--reveal-media-zoom));
+    }
+
+    /* Solo la transición va aquí dentro. El estado del trazo vive fuera, así
+       que quien pida menos movimiento sigue viendo el filete al pasar por
+       encima: aparece entero y de golpe, que es justo lo que corresponde. */
+    [data-reveal-media-ring] rect {
+      transition: stroke-dashoffset var(--reveal-ring-dur) linear;
+    }
+
+    [data-motion='on'] [data-reveal] [data-reveal-media] {
+      opacity: 0;
+      transform: translateY(var(--reveal-dist));
+      transition:
+        opacity var(--reveal-dur) var(--reveal-ease)
+          calc(var(--reveal-delay, 0ms) + var(--reveal-media-offset) + var(--reveal-media-delay, 0ms)),
+        transform var(--reveal-dur) var(--reveal-ease)
+          calc(var(--reveal-delay, 0ms) + var(--reveal-media-offset) + var(--reveal-media-delay, 0ms));
+    }
+    [data-motion='on'] [data-reveal][data-revealed] [data-reveal-media] {
+      opacity: 1;
+      transform: none;
+    }
+    /* Sobre el pliegue se reutiliza `reveal-in`, que es solo `transform`: una
+       opacidad de partida en cero excluiría a la foto del cálculo de LCP, y en
+       proyectos las cinco primeras son candidatas. */
+    [data-motion='on'] [data-reveal-load] [data-reveal-media] {
+      animation: reveal-in var(--reveal-dur) var(--reveal-ease)
+        calc(var(--reveal-delay, 0ms) + var(--reveal-media-offset) + var(--reveal-media-delay, 0ms))
+        both;
+    }
+  }
+
+  /* Imprimir el CV es un caso de uso real: nada puede salir en blanco. Fuera de
+     la consulta de movimiento, que en papel no significa nada. */
+  @media print {
+    [data-motion='on'] [data-reveal],
+    [data-motion='on'] [data-reveal-load] {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    [data-motion='on'] [data-reveal] [data-reveal-rule],
+    [data-motion='on'] [data-reveal-load] [data-reveal-rule] {
+      transform: scaleX(1) !important;
+      animation: none !important;
+    }
+    [data-motion='on'] [data-reveal] .tl-line,
+    [data-motion='on'] [data-reveal-load] .tl-line {
+      transform: translateX(-50%) scaleY(1) !important;
+      animation: none !important;
+    }
+    [data-motion='on'] [data-reveal] [data-reveal-late] {
+      opacity: 1 !important;
+    }
+    [data-motion='on'] [data-reveal] [data-reveal-media],
+    [data-motion='on'] [data-reveal-load] [data-reveal-media] {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    [data-motion='on'] [data-reveal] [data-reveal-bar] {
+      width: var(--reveal-fill) !important;
+    }
   }
 }
 

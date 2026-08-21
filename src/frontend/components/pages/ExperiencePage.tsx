@@ -7,7 +7,10 @@ import Volunteering from '@/components/sections/Volunteering'
 export default function ExperiencePage({ dict }: { dict: Dictionary }) {
   return (
     <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-8 pt-28">
-      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6">
+      <h1
+        data-reveal-load
+        className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6"
+      >
         {dict.experience.pageTitle}
       </h1>
       <Experience data={dict.experience} />

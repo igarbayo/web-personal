@@ -4,6 +4,7 @@ import type { Dictionary } from '@/lib/types'
 import Navbar from '@/components/Navbar'
 import SocialSidebar, { GitHubIcon } from '@/components/SocialSidebar'
 import ThemeSync from '@/components/ThemeSync'
+import ScrollReveal from '@/components/ScrollReveal'
 import { buildPersonJsonLd, serializeJsonLd } from '@/lib/seo'
 import '../app/globals.css'
 
@@ -31,6 +32,9 @@ interface SiteShellProps {
  */
 export default function SiteShell({ lang, dict, children, headExtra }: SiteShellProps) {
   return (
+    // `suppressHydrationWarning` cubre las dos marcas que se ponen en <html>
+    // desde scripts del <head> antes de hidratar: la clase `dark` del tema y
+    // `data-motion` del revelado. Quitarlo llena la consola de avisos.
     <html lang={lang} className={inter.variable} suppressHydrationWarning>
       {/* `no-head-element` es una regla del Pages Router, donde había que usar
           `next/head`. En App Router el layout raíz renderiza `<head>` de forma
@@ -44,6 +48,22 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
             __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
           }}
         />
+        {/* Marcador de movimiento. Bloqueante y en el <head> por el mismo
+            motivo que el script del tema: tiene que correr ANTES del primer
+            pintado. Puesto desde un efecto, el contenido pintaría visible,
+            saltaría a oculto al hidratar y solo entonces entraría — justo el
+            parpadeo que se quiere evitar. No hace nada más que poner un
+            atributo; el observador y el recorrido del DOM viven en
+            ScrollReveal, que carga con normalidad.
+            El plazo de 2,5 s es la red de seguridad: si el bundle no llega
+            (fallo de red, extensión, excepción) el marcador se retira y el
+            contenido aparece. Sin él, «el contenido depende del JavaScript»
+            pasaría de ser falso a ser cierto. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var d=document.documentElement;if(!('IntersectionObserver' in window))return;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.setAttribute('data-motion','on');setTimeout(function(){if(!d.dataset.motionReady)d.removeAttribute('data-motion')},2500);}catch(e){}})();`,
+          }}
+        />
         {/* Datos estructurados. Va aquí y no en `metadata` porque Next no
             expone JSON-LD en la API de metadata; la propia documentación
             recomienda renderizarlo como <script> en el layout. */}
@@ -55,6 +75,7 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
       </head>
       <body className="bg-background text-foreground font-sans antialiased min-h-screen flex flex-col">
         <ThemeSync />
+        <ScrollReveal />
         <Navbar dict={dict} lang={lang} />
         {children}
         <footer className="border-t border-border mt-auto py-6">

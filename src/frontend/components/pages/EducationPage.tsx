@@ -8,7 +8,10 @@ import Certifications from '@/components/sections/Certifications'
 export default function EducationPage({ dict }: { dict: Dictionary }) {
   return (
     <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-8 pt-28">
-      <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6">
+      <h1
+        data-reveal-load
+        className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6"
+      >
         {dict.education.pageTitle}
       </h1>
       <Education data={dict.education} />

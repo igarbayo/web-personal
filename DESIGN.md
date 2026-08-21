@@ -119,7 +119,7 @@ El color trabaja con una única tinta. Todo lo accionable, todo lo que marca est
 - Rótulos de sección en monoespaciada, versalitas y tracking ancho sobre filete de un píxel.
 - Superficies planas delimitadas por borde de un píxel, esquinas de 0,25 / 0,5 / 0,75 rem según el peso de la pieza.
 - Modo oscuro real, no una inversión: la paleta oscura tiene su propia identidad de azules apagados.
-- Movimiento solo como respuesta a interacción, con una excepción decorativa acotada.
+- Movimiento en dos registros y solo dos: respuesta a interacción, y un revelado de entrada de una sola pasada que dibuja los elementos que ya son firma del sistema.
 
 ## Colors
 
@@ -127,7 +127,7 @@ Una paleta de seis papeles funcionales por tema, sin colores de apoyo. La fuente
 
 ### Primary
 
-- **Azul de señal** (claro `#2563EB`, oscuro `#60A5FA`): marca estado, actividad y dirección. Lo llevan los enlaces, el ítem activo de navegación y su subrayado deslizante, el subtítulo de cada tarjeta, las viñetas, el punto y la línea de la cronología, las barras de puntuación de idiomas y el guion bajo del nombre en portada. Aparece diluido al 10 % como fondo de las píldoras de puntuación y al 20 % como borde de tarjeta en hover.
+- **Azul de señal** (claro `#2563EB`, oscuro `#60A5FA`): marca estado, actividad y dirección. Lo llevan los enlaces, el ítem activo de navegación y su subrayado deslizante, el subtítulo de cada tarjeta, las viñetas, el punto y la línea de la cronología, las barras de puntuación de idiomas y el guion bajo del nombre en portada. Aparece diluido al 10 % como fondo de las píldoras de puntuación.
 
 ### Neutral
 
@@ -221,13 +221,45 @@ Los divisores internos no son bordes sino bloques de un píxel de alto en color 
 
 **La regla del filete.** Los divisores se dibujan con un bloque de `1px` en color filete, no con `border-top`. Mantiene el mismo grosor óptico en todos los contextos y evita colapsos de margen.
 
+## Motion
+
+El movimiento vive en dos registros y no hay un tercero. El primero es la **respuesta a interacción**: transiciones de color en insignias, chips y navegación, el crecimiento del 5 % de un chip de enlace, el filete de acento que se dibuja alrededor de una foto de galería al pasar por encima, y los 300 ms del indicador deslizante. La tarjeta no participa: no responde al hover. El segundo es el **revelado de entrada**, una sola pasada por elemento la primera vez que aparece en pantalla.
+
+El revelado no introduce estética nueva. Anima exactamente los recursos gráficos que ya son firma del sistema: el filete de un píxel bajo cada rótulo, la línea vertical de la cronología y las barras de puntuación de idiomas. La lectura buscada es la de un documento componiéndose, no la de una web de escaparate.
+
+La fuente normativa son los tokens de `src/frontend/app/globals.css`, declarados junto a los de color: `--reveal-dist` (10 px), `--reveal-dur` (700 ms), `--reveal-ease` (`cubic-bezier(0.16, 1, 0.3, 1)`), `--reveal-stagger` (70 ms), `--reveal-rule-dur` (900 ms), `--reveal-bar-dur` (700 ms), `--reveal-bar-delay` (200 ms), `--reveal-media-offset` (200 ms), `--reveal-media-stagger` (90 ms), `--reveal-media-zoom` (1,03) y `--reveal-media-hover-dur` (450 ms).
+
+### Vocabulario
+
+- **Unidad de revelado**: 10 px de subida más opacidad, 700 ms. Es el gesto por defecto de cualquier tarjeta o bloque.
+- **Filete del rótulo**: se dibuja de izquierda a derecha en 900 ms, 120 ms después de su bloque. Es el gesto firma, y por eso corre más lento que el resto del vocabulario.
+- **Línea de cronología**: se dibuja de arriba abajo con el mismo retardo de 120 ms. Solo existe en experiencia y certificaciones.
+- **Barra de puntuación**: crece de cero a su nota en 700 ms tras 200 ms de espera. La marca de umbral entra en opacidad cuando la barra ya está puesta.
+- **Foto de galería, al aparecer**: entra 200 ms después de su tarjeta y escalonada a 90 ms entre hermanas. El retardo se **suma** al de la tarjeta en vez de sustituirlo, para que ninguna foto se adelante a su propio contenedor.
+- **Foto de galería, en hover**: un filete de acento de dos píxeles se dibuja recorriendo el contorno en 700 ms, a 4 px por fuera de la foto, mientras esta crece un 3 % en 450 ms dentro de su marco, que no se mueve. Al salir el trazo se retira por el mismo camino. El filete va fuera y no pegado al borde porque sobre contenido fotográfico una línea fina se pierde; fuera cae sobre la superficie plana de la tarjeta, que es su sitio natural en este sistema. Es el único trazo del sitio que se recorre en lugar de aparecer, y por eso es el gesto de interacción más marcado del vocabulario. El marco recorta y aparece, la foto se amplía: son dos elementos porque `transform` es una sola propiedad y de otro modo los dos gestos se cortarían entre sí.
+- **Escalonado**: 70 ms entre hermanos, saturado en el sexto. Más allá, el escalonado se lee como lentitud y no como ritmo. Las galerías van aparte, a 90 ms y sin saturar, porque nunca pasan de cinco fotos.
+
+### Named Rules
+
+**La regla de la pasada única.** Un elemento se revela la primera vez que entra y no vuelve a animarse. Nada se re-anima al volver a pasar por delante.
+
+**La regla del contenido visible.** El estado inicial oculto solo existe bajo el marcador `data-motion`, que pone un script bloqueante del `<head>` antes del primer pintado y que se retira solo a los 2,5 s si el JavaScript no llega. Sin JavaScript el marcador no aparece nunca y la página se lee entera. El movimiento es una capa que se añade, jamás un requisito para leer.
+
+**La regla del pliegue.** Lo que está sobre el pliegue entra al pintar, no al hacer scroll, y se mueve **solo con `transform`**: una opacidad de partida en cero excluye al elemento del cálculo de LCP. El retrato de portada no se anima en absoluto.
+
+**La regla del origen.** Todo gesto nuevo tiene que derivar de un elemento que ya exista en el sistema. Si hay que inventar una forma para poder animarla, el gesto sobra.
+
+**La regla de la preferencia.** Todo el bloque de revelado vive dentro de `prefers-reduced-motion: no-preference`. Quien pida menos movimiento recibe la hoja intacta, no un parche que deshaga reglas una a una. Lo mismo vale para el desplazamiento suave.
+
+**La regla del papel.** Un CV se imprime. `@media print` fuerza opacidad completa, barras llenas y líneas dibujadas. Ningún gesto puede dejar una página en blanco.
+
 ## Components
 
 El proyecto no tiene botones de acción. Los únicos elementos con forma de botón son iconos de interfaz sin fondo (tema, idioma, menú) y los chips de enlace externo. Documentar un botón primario aquí sería inventarlo.
 
 ### Chips
 
-- **Chip de enlace** (enlaces externos al pie de una tarjeta): borde de un píxel en color filete, sin fondo, texto en azul de señal, `0.875rem`, radio de 0,5 rem, acolchado `0.25rem 0.75rem`, con un icono de flecha diagonal de 12 px delante. En hover invierte a fondo azul de señal y texto blanco.
+- **Chip de enlace** (enlaces externos al pie de una tarjeta): borde de un píxel en color filete, sin fondo, texto en azul de señal, `0.875rem`, radio de 0,5 rem, acolchado `0.25rem 0.75rem`, con un icono de flecha diagonal de 12 px delante. En hover invierte a fondo azul de señal y texto blanco, y crece un 5 % en 200 ms. Es el único elemento del sistema que cambia de tamaño al interactuar, y se lo permite por ser el único de verdad accionable dentro de una tarjeta.
 - **Insignia de competencia**: monoespaciada de `0.875rem`, fondo de superficie, borde de un píxel, radio de 0,25 rem, acolchado `0.125rem 0.5rem`, con icono opcional de 20 px de la biblioteca de marcas. En hover el borde y el texto pasan a azul de señal, el fondo no cambia.
 - **Píldora de puntuación**: fondo de azul de señal al 10 %, radio de 0,5 rem, con el valor en mono negrita de `1.125rem` y un rótulo de `10px` en versalitas debajo, ambos en azul de señal.
 
@@ -236,7 +268,7 @@ El proyecto no tiene botones de acción. Los únicos elementos con forma de bot�
 - **Corner Style:** 0,75 rem.
 - **Background:** superficie sobre papel.
 - **Shadow Strategy:** ninguna, ver Elevation & Depth.
-- **Border:** un píxel en color filete, que en hover pasa a azul de señal al 20 %. Es el único estado de la tarjeta.
+- **Border:** un píxel en color filete, sin estados. La tarjeta **no responde al hover**: es un contenedor de lectura, no un elemento accionable, y señalarla al pasar por encima prometía una interacción que no existe. Lo accionable de una tarjeta son sus chips de enlace, y son ellos los que responden.
 - **Internal Padding:** 1,25 rem.
 - **Estructura interna:** cabecera de logotipo más titular y subtítulo, divisor de un píxel a `1rem` de margen vertical, cuerpo de viñetas o descripción, chips de enlace y rejilla de imágenes. Las viñetas usan un punto medio en azul de señal como marcador, alineado por línea base con una separación de `0.6875rem`.
 
@@ -270,7 +302,8 @@ Nombre de destreza en `4rem` de ancho fijo, canal de dos píxeles de alto con ra
 - **Do** abrir cada sección con `SectionTitle`, que impone el rótulo en mono, versalitas y tracking `0.1em` sobre filete de un píxel.
 - **Do** montar cualquier entrada de contenido sobre `TimelineEntry`, con `timeline={false}` cuando la lista no sea cronológica.
 - **Do** reservar el ancho del texto de interfaz cuando cambie de peso entre estados, con la copia fantasma que ya usa la navegación.
-- **Do** mantener el movimiento como respuesta a interacción: transiciones de color por defecto y los 300 ms del indicador de navegación.
+- **Do** mantener el movimiento dentro de los dos registros declarados en Motion: respuesta a interacción, y revelado de entrada de una sola pasada. Cualquier gesto nuevo tiene que derivar de un elemento que ya exista en el sistema.
+- **Do** dejar que todo el contenido nazca visible y que el estado oculto del revelado dependa del marcador `data-motion`, para que sin JavaScript la página se lea entera.
 - **Do** verificar cada pieza nueva en los dos temas, porque la paleta oscura no es una inversión de la clara.
 
 ### Don't:
