@@ -96,6 +96,7 @@
         "title": "Intern, Full Stack Development",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Hotusa Group](https://www.grupohotusa.com/))",
         "bullets": [
+          "Architecting a highly available Change Data Capture (CDC) pipeline from scratch with Apache Flink and Redis, designed to stream hotel product updates to OTAs and sustain loads of thousands of changes per minute.",
           "Secured OTA data consistency and reduced debugging hours by developing a NestJS, Angular, and MongoDB web app to visualize RabbitMQ/Kafka data flows, later expanding it into a Redpanda-powered monitor to expose performance metrics and anomalies.",
           "Minimized initial Kafka queue lag by architecting a horizontal autoscaling microservice from scratch using Docker to dynamically provision specialized consumers on demand, separating by topics.",
           "Managed the full lifecycle from requirements to CI/CD automation (Docker, Kubernetes, Jenkins), and optimized development cycle times by engineering custom Git/AI automation hooks."

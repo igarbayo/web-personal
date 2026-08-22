@@ -96,6 +96,7 @@
         "title": "Prácticas en Desenvolvemento Full Stack",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Grupo Hotusa](https://www.grupohotusa.com/))",
         "bullets": [
+          "Deseñando desde cero un pipeline de Change Data Capture (CDC) de alta dispoñibilidade con Apache Flink e Redis, pensado para transmitir en streaming as actualizacións de produtos hoteleiros ás OTA e soportar cargas de miles de cambios por minuto.",
           "Garantín a coherencia dos datos para as axencias de viaxe en liña (OTA) e reducín as horas de depuración desenvolvendo unha aplicación web con NestJS, Angular e MongoDB para visualizar os fluxos de datos de RabbitMQ/Kafka, que despois ampliei a un monitor sobre Redpanda para expoñer métricas de rendemento e anomalías.",
           "Minimicei o lag inicial das colas de Kafka deseñando desde cero un microservizo de autoescalado horizontal con Docker, capaz de aprovisionar consumidores especializados baixo demanda, separados por topics.",
           "Xestionei o ciclo de vida completo, desde a definición de requisitos ata a automatización CI/CD (Docker, Kubernetes, Jenkins), e optimicei os tempos do ciclo de desenvolvemento creando hooks propios de automatización con Git e IA."
