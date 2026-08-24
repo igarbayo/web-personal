@@ -31,8 +31,20 @@ export interface ApiResponse<T = any> {
   data?: T
 }
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_CMS_API_URL?.replace(/\/$/, '') || 'http://localhost:8000/api/v1'
+function getApiBase(): string {
+  // If explicitly configured, use that
+  if (process.env.NEXT_PUBLIC_CMS_API_URL) {
+    return process.env.NEXT_PUBLIC_CMS_API_URL.replace(/\/$/, '')
+  }
+  // In the browser: use relative path (same-origin, works on any domain)
+  if (typeof window !== 'undefined') {
+    return '/api/v1'
+  }
+  // SSR / build time fallback
+  return 'http://localhost:8000/api/v1'
+}
+
+const API_BASE = getApiBase()
 
 const TOKEN_KEY = 'garden_cms_token'
 
