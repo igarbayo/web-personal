@@ -167,7 +167,8 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
                 Subir y Optimizar Nueva Imagen
               </h4>
               <p className="text-xs text-muted">
-                Formatos admitidos: PNG, JPG, JPEG, WEBP, SVG. Conversión automática a WebP al 85% de calidad.
+                Formatos admitidos: PNG, JPG, JPEG, WEBP, ICO. Conversión automática a WebP al 85% de calidad.
+                SVG no se admite por seguridad: puede contener JavaScript ejecutable.
               </p>
             </div>
 
@@ -176,7 +177,7 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
                 <CmsLabel required>Seleccionar Archivo</CmsLabel>
                 <input
                   type="file"
-                  accept="image/*,.svg,.ico"
+                  accept=".png,.jpg,.jpeg,.webp,.ico"
                   onChange={handleFileSelect}
                   className="w-full text-xs text-muted file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border file:border-border file:text-xs file:font-mono file:bg-surface file:text-foreground hover:file:border-accent cursor-pointer"
                   required

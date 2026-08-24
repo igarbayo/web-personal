@@ -1,11 +1,30 @@
 import base64
 import json
+import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from fastapi import HTTPException, status
 import httpx
 
 from app.config import settings
+
+logger = logging.getLogger(__name__)
+
+
+def _github_error(action: str, response: httpx.Response) -> HTTPException:
+    """
+    Logs the full GitHub API response server-side and returns a generic
+    HTTPException. The raw response body can include repository/account
+    metadata and must never reach the client.
+    """
+    logger.error(
+        "GitHub API error while %s (status %s): %s",
+        action, response.status_code, response.text,
+    )
+    return HTTPException(
+        status_code=status.HTTP_502_BAD_GATEWAY,
+        detail=f"Error de comunicación con GitHub al {action} (código {response.status_code}).",
+    )
 
 
 class GitFileChange:
@@ -140,10 +159,7 @@ class GitService:
                 headers=headers
             )
             if ref_resp.status_code != 200:
-                raise HTTPException(
-                    status_code=status.HTTP_502_BAD_GATEWAY,
-                    detail=f"GitHub API Error al obtener rama {settings.GITHUB_BRANCH}: {ref_resp.text}",
-                )
+                raise _github_error(f"obtener la rama {settings.GITHUB_BRANCH}", ref_resp)
             latest_commit_sha = ref_resp.json()["object"]["sha"]
 
             # 2. Get base tree SHA
@@ -152,10 +168,7 @@ class GitService:
                 headers=headers
             )
             if commit_resp.status_code != 200:
-                raise HTTPException(
-                    status_code=status.HTTP_502_BAD_GATEWAY,
-                    detail=f"GitHub API Error al obtener commit base: {commit_resp.text}",
-                )
+                raise _github_error("obtener el commit base", commit_resp)
             base_tree_sha = commit_resp.json()["tree"]["sha"]
 
             # 3. Create blobs for each file
@@ -178,10 +191,7 @@ class GitService:
                     json=blob_payload
                 )
                 if blob_resp.status_code != 201:
-                    raise HTTPException(
-                        status_code=status.HTTP_502_BAD_GATEWAY,
-                        detail=f"GitHub API Error al crear blob para {file.path}: {blob_resp.text}",
-                    )
+                    raise _github_error(f"crear el blob de {file.path}", blob_resp)
                 blob_sha = blob_resp.json()["sha"]
                 tree_items.append({
                     "path": file.path,
@@ -197,10 +207,7 @@ class GitService:
                 json={"base_tree": base_tree_sha, "tree": tree_items}
             )
             if tree_resp.status_code != 201:
-                raise HTTPException(
-                    status_code=status.HTTP_502_BAD_GATEWAY,
-                    detail=f"GitHub API Error al crear árbol de Git: {tree_resp.text}",
-                )
+                raise _github_error("crear el árbol de Git", tree_resp)
             new_tree_sha = tree_resp.json()["sha"]
 
             # 5. Create commit
@@ -214,10 +221,7 @@ class GitService:
                 }
             )
             if new_commit_resp.status_code != 201:
-                raise HTTPException(
-                    status_code=status.HTTP_502_BAD_GATEWAY,
-                    detail=f"GitHub API Error al crear commit: {new_commit_resp.text}",
-                )
+                raise _github_error("crear el commit", new_commit_resp)
             new_commit_sha = new_commit_resp.json()["sha"]
 
             # 6. Update reference on main
@@ -227,10 +231,7 @@ class GitService:
                 json={"sha": new_commit_sha, "force": False}
             )
             if update_ref_resp.status_code != 200:
-                raise HTTPException(
-                    status_code=status.HTTP_502_BAD_GATEWAY,
-                    detail=f"GitHub API Error al actualizar rama {settings.GITHUB_BRANCH}: {update_ref_resp.text}",
-                )
+                raise _github_error(f"actualizar la rama {settings.GITHUB_BRANCH}", update_ref_resp)
 
             return {
                 "commit_sha": new_commit_sha,
@@ -258,16 +259,15 @@ class GitService:
                 headers=headers
             )
             if ref_resp.status_code != 200:
-                raise HTTPException(
-                    status_code=status.HTTP_502_BAD_GATEWAY,
-                    detail=f"GitHub API Error: {ref_resp.text}",
-                )
+                raise _github_error(f"obtener la rama {settings.GITHUB_BRANCH}", ref_resp)
             latest_commit_sha = ref_resp.json()["object"]["sha"]
 
             commit_resp = await client.get(
                 f"{repo_url}/git/commits/{latest_commit_sha}",
                 headers=headers
             )
+            if commit_resp.status_code != 200:
+                raise _github_error("obtener el commit base", commit_resp)
             base_tree_sha = commit_resp.json()["tree"]["sha"]
 
             # Create tree with the file removed (sha=None removes it)
@@ -285,10 +285,7 @@ class GitService:
                 }
             )
             if tree_resp.status_code != 201:
-                raise HTTPException(
-                    status_code=status.HTTP_502_BAD_GATEWAY,
-                    detail=f"GitHub API Error al eliminar archivo: {tree_resp.text}",
-                )
+                raise _github_error("eliminar el archivo del árbol de Git", tree_resp)
             new_tree_sha = tree_resp.json()["sha"]
 
             new_commit_resp = await client.post(
@@ -300,13 +297,17 @@ class GitService:
                     "parents": [latest_commit_sha],
                 }
             )
+            if new_commit_resp.status_code != 201:
+                raise _github_error("crear el commit de borrado", new_commit_resp)
             new_commit_sha = new_commit_resp.json()["sha"]
 
-            await client.patch(
+            update_ref_resp = await client.patch(
                 f"{repo_url}/git/refs/heads/{settings.GITHUB_BRANCH}",
                 headers=headers,
                 json={"sha": new_commit_sha, "force": False}
             )
+            if update_ref_resp.status_code != 200:
+                raise _github_error(f"actualizar la rama {settings.GITHUB_BRANCH}", update_ref_resp)
 
             return {
                 "commit_sha": new_commit_sha,

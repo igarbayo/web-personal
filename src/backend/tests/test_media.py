@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 from PIL import Image
 
 from app.main import app
+from app.modules.media import media_service
 
 client = TestClient(app)
 
@@ -52,3 +53,23 @@ def test_upload_and_auto_convert_webp(auth_headers):
     # Cleanup created test file
     del_res = client.delete("/api/v1/media/test-sample-badge.webp", headers=headers)
     assert del_res.status_code == 200
+
+
+def test_upload_rejects_svg(auth_headers):
+    """SVG can carry <script>, and would execute on the public site's origin."""
+    headers = {**auth_headers, "X-Confirmation-Password": "admin1234"}
+    svg_bytes = b'<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>'
+    files = {"file": ("evil.svg", io.BytesIO(svg_bytes), "image/svg+xml")}
+
+    res = client.post("/api/v1/media/upload", headers=headers, files=files)
+    assert res.status_code == 400
+
+
+def test_upload_rejects_oversized_file(auth_headers, monkeypatch):
+    monkeypatch.setattr(media_service.settings, "MAX_UPLOAD_BYTES", 1024)
+    headers = {**auth_headers, "X-Confirmation-Password": "admin1234"}
+    oversized = io.BytesIO(b"0" * 2048)
+    files = {"file": ("big.png", oversized, "image/png")}
+
+    res = client.post("/api/v1/media/upload", headers=headers, files=files)
+    assert res.status_code == 413

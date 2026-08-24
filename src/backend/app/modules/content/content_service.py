@@ -10,7 +10,6 @@ from app.modules.content.content_schemas import (
     DictionariesBundle,
     DictionaryModel,
     SaveDictionariesRequest,
-    SaveSectionRequest,
 )
 from app.modules.git.git_service import GitFileChange, GitService
 
@@ -168,35 +167,5 @@ class ContentService:
         return ContentSaveResponse(
             status="success",
             message="Diccionarios validados y guardados correctamente.",
-            details=commit_res,
-        )
-
-    @classmethod
-    async def save_single_section(cls, request: SaveSectionRequest) -> ContentSaveResponse:
-        """Updates a specific section across all 3 languages."""
-        current_dicts = cls.get_all_dictionaries()
-
-        # Update the target section
-        sec = request.section
-        current_dicts["en"][sec] = request.data_en
-        current_dicts["es"][sec] = request.data_es
-        current_dicts["gl"][sec] = request.data_gl
-
-        # Strict validation
-        cls.validate_invariants(current_dicts)
-
-        # Prepare GitFileChanges
-        files = []
-        for lang in cls.LANGS:
-            json_formatted = json.dumps(current_dicts[lang], indent=2, ensure_ascii=False) + "\n"
-            rel_path = f"src/frontend/dictionaries/{lang}.json"
-            files.append(GitFileChange(path=rel_path, content=json_formatted, is_binary=False))
-
-        commit_msg = request.commit_message or f"cms: update section '{sec}' across all languages"
-        commit_res = await GitService.commit_changes(files, commit_msg)
-
-        return ContentSaveResponse(
-            status="success",
-            message=f"Sección '{sec}' actualizada y verificada en los 3 idiomas con éxito.",
             details=commit_res,
         )

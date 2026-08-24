@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { CmsClient, MediaItem } from '@/lib/cmsClient'
+import { CmsClient, MediaItem, mediaUrl } from '@/lib/cmsClient'
 import { CmsButton, CmsLabel, CmsSelect } from './ui/CmsInput'
 
 interface ImagePickerProps {
@@ -75,7 +75,7 @@ export default function ImagePicker({
       {selected.length > 0 ? (
         <div className="flex flex-wrap gap-2 mb-2">
           {selected.map((item) => {
-            const cleanUrl = item.startsWith('/') ? item : `/${item}`
+            const cleanUrl = mediaUrl(item)
             return (
               <div
                 key={item}

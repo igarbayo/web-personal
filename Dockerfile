@@ -13,10 +13,14 @@ RUN node scripts/setup-cms-route.mjs \
     && node scripts/gen-llms-txt.mjs \
     && npx next build
 
-# Copy the CMS page from the static export to a clean output folder
+# Copy ONLY the CMS panel (Next chunks/CSS/fonts + its page) to a clean output
+# folder. The public site (out/en, out/es, out/(default), robots.txt, etc.)
+# must never ship on the CMS subdomain: it would duplicate the public site and
+# let a crawler index the panel if it's ever discovered.
 RUN mkdir -p /cms-static \
-    && cp -r out/* /cms-static/ \
-    && if [ -f /cms-static/admin/index.html ]; then cp /cms-static/admin/index.html /cms-static/index.html; fi
+    && cp -r out/_next /cms-static/_next \
+    && cp out/admin/index.html /cms-static/index.html \
+    && if [ -f out/admin/index.txt ]; then cp out/admin/index.txt /cms-static/index.txt; fi
 
 
 # ── Stage 2: Python Backend + Embedded CMS UI ────────────────────────

@@ -15,6 +15,31 @@ from app.modules.media.media_schemas import (
     MediaUploadResponse,
 )
 
+# Guards against decompression-bomb uploads: Pillow refuses to decode images
+# above this pixel count instead of silently allocating hundreds of MB.
+Image.MAX_IMAGE_PIXELS = settings.MAX_IMAGE_PIXELS
+
+_UPLOAD_CHUNK_BYTES = 1024 * 1024
+
+
+async def _read_limited(file: UploadFile, max_bytes: int) -> bytes:
+    """Reads an UploadFile in chunks, aborting before buffering more than max_bytes."""
+    chunks: List[bytes] = []
+    total = 0
+    while True:
+        chunk = await file.read(_UPLOAD_CHUNK_BYTES)
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > max_bytes:
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail=f"El archivo supera el límite de subida de {max_bytes // (1024 * 1024)} MB.",
+            )
+        chunks.append(chunk)
+    return b"".join(chunks)
+
+
 PROTECTED_FILES = {
     "CNAME",
     ".nojekyll",
@@ -56,10 +81,11 @@ class MediaService:
                 items=[],
             )
 
-        for file_path in sorted(settings.PUBLIC_DIR.iterdir()):
+        for file_path in sorted(settings.PUBLIC_DIR.rglob("*")):
             if not file_path.is_file():
                 continue
 
+            rel_name = file_path.relative_to(settings.PUBLIC_DIR).as_posix()
             size_bytes = file_path.stat().st_size
             size_kb = round(size_bytes / 1024, 2)
             suffix = file_path.suffix.lower()
@@ -74,13 +100,13 @@ class MediaService:
 
             items.append(
                 MediaItem(
-                    filename=file_path.name,
+                    filename=rel_name,
                     size_bytes=size_bytes,
                     size_kb=size_kb,
                     width=width,
                     height=height,
                     format=suffix.lstrip(".").upper(),
-                    url=f"/{file_path.name}",
+                    url=f"/media-files/{rel_name}",
                 )
             )
 
@@ -102,8 +128,7 @@ class MediaService:
         file: UploadFile,
         custom_name: str | None = None,
     ) -> MediaUploadResponse:
-        # Read raw content
-        raw_bytes = await file.read()
+        raw_bytes = await _read_limited(file, settings.MAX_UPLOAD_BYTES)
         if not raw_bytes:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -119,7 +144,7 @@ class MediaService:
             slug = "media"
 
         # Prevent overwriting protected system files
-        target_candidate = f"{slug}{orig_ext if orig_ext in ('.svg', '.ico') else '.webp'}"
+        target_candidate = f"{slug}{orig_ext if orig_ext == '.ico' else '.webp'}"
         if target_candidate in PROTECTED_FILES:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -137,10 +162,10 @@ class MediaService:
         final_ext = ".webp"
         final_bytes: bytes
 
-        if orig_ext == ".svg" or orig_ext == ".ico":
-            # Retain vector/ico files directly
+        if orig_ext == ".ico":
+            # Retain .ico files directly
             final_ext = orig_ext
-            final_format = orig_ext.lstrip(".").upper()
+            final_format = "ICO"
             final_bytes = raw_bytes
         else:
             # Convert raster images to WebP
@@ -200,7 +225,7 @@ class MediaService:
             width=width,
             height=height,
             format=final_format,
-            url=f"/{target_filename}",
+            url=f"/media-files/{target_filename}",
             message=f"Imagen convertida y guardada como '{target_filename}' ({round(len(final_bytes)/1024, 1)} KB).",
         )
 

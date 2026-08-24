@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from app.core.dependencies import require_admin
+from app.core.rate_limit import login_limiter
 from app.modules.auth.auth_schemas import (
     CurrentUserResponse,
     LoginRequest,
@@ -14,18 +15,33 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
 @router.post("/login", response_model=LoginResponse, status_code=status.HTTP_200_OK)
-def login(login_data: LoginRequest) -> LoginResponse:
-    """Authenticates the administrator and issues a JWT token."""
-    return AuthService.authenticate_admin(login_data)
+def login(login_data: LoginRequest, request: Request) -> LoginResponse:
+    """Authenticates the administrator and issues a JWT token. Rate-limited per client."""
+    login_limiter.check(request)
+    try:
+        result = AuthService.authenticate_admin(login_data)
+    except HTTPException:
+        login_limiter.record_failure(request)
+        raise
+    login_limiter.reset(request)
+    return result
 
 
 @router.post("/verify-key", response_model=VerifyPasswordResponse, status_code=status.HTTP_200_OK)
 def verify_confirmation_key(
-    request: VerifyPasswordRequest,
+    request: Request,
+    body: VerifyPasswordRequest,
     _user: dict = Depends(require_admin)
 ) -> VerifyPasswordResponse:
-    """Verifies master password/key for confirmation modals."""
-    return AuthService.verify_master_password(request.password)
+    """Verifies master password/key for confirmation modals. Rate-limited per client."""
+    login_limiter.check(request)
+    try:
+        result = AuthService.verify_master_password(body.password)
+    except HTTPException:
+        login_limiter.record_failure(request)
+        raise
+    login_limiter.reset(request)
+    return result
 
 
 @router.get("/me", response_model=CurrentUserResponse, status_code=status.HTTP_200_OK)

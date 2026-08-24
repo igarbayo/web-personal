@@ -1,9 +1,10 @@
 from typing import Optional
-from fastapi import Depends, Header, HTTPException, status
+from fastapi import Depends, Header, HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app.config import settings
-from app.core.security import decode_access_token, verify_password
+from app.core.rate_limit import confirmation_limiter
+from app.core.security import decode_access_token, password_version, verify_password
 
 security_bearer = HTTPBearer(auto_error=False)
 
@@ -36,17 +37,29 @@ def require_admin(
             detail="Permisos insuficientes para realizar esta operación.",
         )
 
+    if payload.get("pwv") != password_version():
+        # Master password changed since this token was issued: force re-login.
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="La sesión ha quedado invalidada. Por favor, inicia sesión nuevamente.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
     return payload
 
 
 def verify_confirmation_password(
+    request: Request,
     x_confirmation_password: Optional[str] = Header(None, alias="X-Confirmation-Password"),
     _user: dict = Depends(require_admin),
 ) -> bool:
     """
     Guard/Dependency: validates the master password sent in the confirmation modal.
     Every modifying action (save, delete, upload) must pass this validation.
+    Rate-limited per client to slow down brute-forcing of the master password.
     """
+    confirmation_limiter.check(request)
+
     if not x_confirmation_password:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -54,9 +67,11 @@ def verify_confirmation_password(
         )
 
     if not verify_password(x_confirmation_password, settings.ADMIN_PASSWORD_HASH):
+        confirmation_limiter.record_failure(request)
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Contraseña de confirmación incorrecta. Acción cancelada por seguridad.",
         )
 
+    confirmation_limiter.reset(request)
     return True

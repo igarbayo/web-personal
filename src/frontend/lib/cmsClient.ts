@@ -31,6 +31,15 @@ export interface ApiResponse<T = any> {
   data?: T
 }
 
+// The backend serves public/ at /media-files/, sibling to /api/v1, not under
+// it. MediaItem.url from the API already carries this prefix; this helper is
+// for components (like ImagePicker) that only have a bare filename from a
+// dictionary field (e.g. logo: ["cambridge.svg"]).
+export function mediaUrl(filename: string): string {
+  const clean = filename.replace(/^\//, '')
+  return `/media-files/${clean}`
+}
+
 function getApiBase(): string {
   // If explicitly configured, use that
   if (process.env.NEXT_PUBLIC_CMS_API_URL) {
@@ -154,30 +163,6 @@ export class CmsClient {
         method: 'PUT',
         body: JSON.stringify({
           dictionaries: bundle,
-          commit_message: commitMessage,
-        }),
-      },
-      confirmationPassword
-    )
-  }
-
-  static async saveSection(
-    section: string,
-    dataEn: any,
-    dataEs: any,
-    dataGl: any,
-    confirmationPassword: string,
-    commitMessage?: string
-  ): Promise<ApiResponse> {
-    return this.request<ApiResponse>(
-      `/content/section/${section}`,
-      {
-        method: 'PATCH',
-        body: JSON.stringify({
-          section,
-          data_en: dataEn,
-          data_es: dataEs,
-          data_gl: dataGl,
           commit_message: commitMessage,
         }),
       },

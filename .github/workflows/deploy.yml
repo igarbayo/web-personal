@@ -36,6 +36,13 @@ jobs:
         working-directory: src/frontend
       - run: pnpm build
         working-directory: src/frontend
+        env:
+          # Este es el build público: el panel del CMS no debe ir en él.
+          SKIP_CMS_ROUTE: '1'
+      # Defensa en profundidad: aunque SKIP_CMS_ROUTE ya evita generar la ruta,
+      # nos aseguramos de que no quede ningún resto en el artefacto público.
+      - run: rm -rf out/admin
+        working-directory: src/frontend
       - uses: actions/upload-pages-artifact@v3
         with:
           path: src/frontend/out

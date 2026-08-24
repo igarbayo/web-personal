@@ -204,14 +204,6 @@ class SaveDictionariesRequest(BaseModel):
     commit_message: Optional[str] = "cms: update dictionaries content"
 
 
-class SaveSectionRequest(BaseModel):
-    section: str = Field(..., description="Nombre de la sección: meta, nav, header, summary, skills, education, experience, leadership, projects, languages, volunteering, certifications, footer")
-    data_en: dict
-    data_es: dict
-    data_gl: dict
-    commit_message: Optional[str] = None
-
-
 class ContentSaveResponse(BaseModel):
     status: str
     message: str

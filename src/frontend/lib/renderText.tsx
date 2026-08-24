@@ -1,5 +1,10 @@
 import type { ReactNode } from 'react'
 
+// Only these URL schemes render as a link. Defense in depth: this content is
+// authored only by the admin through the CMS, but a stray `javascript:` link
+// should still render as plain text rather than execute.
+const SAFE_URL_PATTERN = /^(https?:|mailto:|\/)/i
+
 // Parses [text](url) and **bold** syntax within a string and returns React nodes.
 // All generated links open in a new tab.
 export function renderText(text: string): ReactNode {
@@ -14,7 +19,7 @@ export function renderText(text: string): ReactNode {
     }
     if (match[3] !== undefined) {
       nodes.push(<strong key={match.index}>{match[3]}</strong>)
-    } else {
+    } else if (SAFE_URL_PATTERN.test(match[2])) {
       nodes.push(
         <a
           key={match.index}
@@ -26,6 +31,8 @@ export function renderText(text: string): ReactNode {
           {match[1]}
         </a>
       )
+    } else {
+      nodes.push(match[1])
     }
     lastIndex = match.index + match[0].length
   }

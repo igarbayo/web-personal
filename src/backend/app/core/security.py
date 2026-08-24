@@ -1,9 +1,16 @@
+import hashlib
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional
 import bcrypt
 import jwt
 
 from app.config import settings
+
+
+def password_version() -> str:
+    """Short fingerprint of the current admin password hash, embedded in every
+    JWT so that changing the master password invalidates all existing tokens."""
+    return hashlib.sha256(settings.ADMIN_PASSWORD_HASH.encode("utf-8")).hexdigest()[:16]
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -36,6 +43,7 @@ def create_access_token(
         "sub": subject,
         "exp": expire,
         "iat": datetime.now(timezone.utc),
+        "pwv": password_version(),
     }
     if claims:
         payload.update(claims)
