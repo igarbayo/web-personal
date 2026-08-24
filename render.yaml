@@ -4,7 +4,8 @@ services:
     runtime: docker
     dockerfilePath: Dockerfile
     dockerContext: .
-    rootDir: src/backend
+    # Root Directory is now repo root (NOT src/backend) because the
+    # multi-stage Dockerfile needs access to both src/frontend and src/backend
     region: fra
     plan: free
     healthCheckPath: /health
@@ -14,14 +15,14 @@ services:
       - key: ADMIN_USERNAME
         value: ignacio
       - key: ADMIN_PASSWORD_HASH
-        sync: false # Set securely in Render dashboard
+        sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: GITHUB_TOKEN
-        sync: false # Set securely in Render dashboard
+        sync: false
       - key: GITHUB_REPO
         value: igarbayo/web-personal
       - key: GITHUB_BRANCH
         value: main
       - key: CMS_SUBDOMAIN
-        sync: false # e.g. panel-k98x
+        sync: false
