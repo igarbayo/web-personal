@@ -33,7 +33,10 @@ async def _read_limited(file: UploadFile, max_bytes: int) -> bytes:
         total += len(chunk)
         if total > max_bytes:
             raise HTTPException(
-                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                # Plain int, not status.HTTP_413_REQUEST_ENTITY_TOO_LARGE: starlette
+                # renamed it to HTTP_413_CONTENT_TOO_LARGE and the two environments
+                # in this project don't pin the same starlette version.
+                status_code=413,
                 detail=f"El archivo supera el límite de subida de {max_bytes // (1024 * 1024)} MB.",
             )
         chunks.append(chunk)
@@ -177,6 +180,15 @@ class MediaService:
                         converted = img.convert("RGBA")
                     else:
                         converted = img.convert("RGB")
+
+                    # Downscale oversized uploads (e.g. straight-from-camera photos)
+                    # so encoding stays fast and the resulting file stays small.
+                    if max(width, height) > settings.MAX_IMAGE_DIMENSION:
+                        converted.thumbnail(
+                            (settings.MAX_IMAGE_DIMENSION, settings.MAX_IMAGE_DIMENSION),
+                            Image.LANCZOS,
+                        )
+                        width, height = converted.size
 
                     output = io.BytesIO()
                     converted.save(output, format="WEBP", quality=85, method=6)

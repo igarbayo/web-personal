@@ -90,8 +90,12 @@ class Settings(BaseSettings):
     # .svg is intentionally excluded: the CMS cannot validate SVG content, and an
     # uploaded SVG carrying <script> would execute on the public site's origin.
     ALLOWED_IMAGE_EXTENSIONS: List[str] = [".webp", ".png", ".jpg", ".jpeg", ".ico"]
-    MAX_UPLOAD_BYTES: int = 10 * 1024 * 1024
+    MAX_UPLOAD_BYTES: int = 20 * 1024 * 1024
     MAX_IMAGE_PIXELS: int = 40_000_000
+    # Images with a longer side above this are downscaled before WebP encoding,
+    # so an oversized photo from a phone/camera doesn't stall the request behind
+    # a reverse-proxy timeout (encoding time and file size both scale with pixels).
+    MAX_IMAGE_DIMENSION: int = 2400
 
     # Login / confirmation-password brute-force protection: max failures allowed
     # within a sliding window before the client key (IP) is locked out.
