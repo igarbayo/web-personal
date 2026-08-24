@@ -93,16 +93,18 @@ export default function ConfirmationModal({
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
           <div>
             <CmsLabel htmlFor="commit-msg">Mensaje de Commit (Opcional)</CmsLabel>
             <CmsInput
               id="commit-msg"
+              name="commit-message-no-autocomplete"
               value={commitMessage}
               onChange={(e) => setCommitMessage(e.target.value)}
               placeholder="cms: actualización de contenidos..."
               disabled={isSubmitting}
               className="text-xs"
+              autoComplete="off"
             />
           </div>
 
@@ -112,6 +114,7 @@ export default function ConfirmationModal({
             </CmsLabel>
             <CmsInput
               id="conf-password"
+              name="confirmation-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -119,6 +122,7 @@ export default function ConfirmationModal({
               required
               autoFocus
               disabled={isSubmitting}
+              autoComplete="new-password"
             />
             <p className="text-[11px] text-muted font-sans mt-1">
               Requerida por seguridad en cada cambio para validar en el backend.
