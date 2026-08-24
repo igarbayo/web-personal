@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/gen-llms-txt.mjs && next dev",
-    "build": "node scripts/gen-llms-txt.mjs && next build",
+    "dev": "node scripts/setup-cms-route.mjs && node scripts/gen-llms-txt.mjs && next dev",
+    "build": "node scripts/setup-cms-route.mjs && node scripts/gen-llms-txt.mjs && next build",
+    "build:cms": "pnpm build && node scripts/build-cms-static.mjs",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",

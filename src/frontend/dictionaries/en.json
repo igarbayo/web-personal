@@ -32,15 +32,40 @@
     "categories": [
       {
         "name": "Languages & Frameworks",
-        "items": ["C", "Java", "Python", "R", "SQL", "JavaScript", "HTML", "CSS", "NestJS", "Angular", "Next.js", "Fortran"]
+        "items": [
+          "C",
+          "Java",
+          "Python",
+          "R",
+          "SQL",
+          "JavaScript",
+          "HTML",
+          "CSS",
+          "NestJS",
+          "Angular",
+          "Next.js",
+          "Fortran"
+        ]
       },
       {
         "name": "Databases",
-        "items": ["PostgreSQL", "MongoDB", "Redis"]
+        "items": [
+          "PostgreSQL",
+          "MongoDB",
+          "Redis"
+        ]
       },
       {
         "name": "Technologies & Tools",
-        "items": ["Bash", "Docker", "Kubernetes", "Jenkins", "RabbitMQ", "MQTT", "Kafka"]
+        "items": [
+          "Bash",
+          "Docker",
+          "Kubernetes",
+          "Jenkins",
+          "RabbitMQ",
+          "MQTT",
+          "Kafka"
+        ]
       }
     ]
   },
@@ -57,7 +82,9 @@
           "Final thesis: Computer Vision & Artificial Intelligence",
           "Grade: 8.1/10"
         ],
-        "logo": ["usc.webp"]
+        "logo": [
+          "usc.webp"
+        ]
       },
       {
         "date": "09/2021 – 06/2027",
@@ -69,7 +96,9 @@
           "Grade: 7.7/10",
           "Courses finished with honours: Statistical Inference"
         ],
-        "logo": ["usc.webp"]
+        "logo": [
+          "usc.webp"
+        ]
       }
     ]
   },
@@ -101,9 +130,15 @@
           "Minimized initial Kafka queue lag by architecting a horizontal autoscaling microservice from scratch using Docker to dynamically provision specialized consumers on demand, separating by topics.",
           "Managed the full lifecycle from requirements to CI/CD automation (Docker, Kubernetes, Jenkins), and optimized development cycle times by engineering custom Git/AI automation hooks."
         ],
-        "logo": ["igm.svg", "hotusa.svg"],
+        "logo": [
+          "igm.svg",
+          "hotusa.svg"
+        ],
         "links": [
-          { "label": "Report", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDFVuHltslLTZIGsdfMzvP9AS2MTQ54M-2YY_97IMvYvR4?e=xCr8c2" }
+          {
+            "label": "Report",
+            "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDFVuHltslLTZIGsdfMzvP9AS2MTQ54M-2YY_97IMvYvR4?e=xCr8c2"
+          }
         ]
       },
       {
@@ -115,9 +150,14 @@
           "Developed static and dynamic classifier ensembles for breast cancer prediction, encompassing data preparation, feature selection, threshold tuning, model training, and metric analysis.",
           "Leveraged caretStack, DESLib, and KNORA to evaluate the accuracy of various base and mixed models."
         ],
-        "logo": ["idis.webp"],
+        "logo": [
+          "idis.webp"
+        ],
         "links": [
-          { "label": "Report", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb" }
+          {
+            "label": "Report",
+            "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb"
+          }
         ]
       },
       {
@@ -128,7 +168,9 @@
           "Demonstrated decision-making under pressure, effective communication, teamwork, and attention to detail by refereeing in the 1st regional division and four Spanish Championships (U12/U14 Regional Teams, U14/U16 Clubs).",
           "Training new officials as a referee tutor by conducting performance reviews and teaching rules, mechanics, and conflict resolution on the court, preparing them for weekly assignments and high-stress situations."
         ],
-        "logo": ["fegaba.webp"]
+        "logo": [
+          "fegaba.webp"
+        ]
       }
     ]
   },
@@ -142,8 +184,13 @@
         "bullets": [
           "Selected as one of 80 participants nationwide for a 4-month tech innovation program featuring expert debates. Led the ML development of an impactful Business Intelligence algorithm for a real-world business case, winning first prize. Later selected as a mentor, guiding another team to win the subsequent edition."
         ],
-        "logo": ["bankinter.webp"],
-        "images": ["/akademia-1.webp", "/akademia-2.webp"]
+        "logo": [
+          "bankinter.webp"
+        ],
+        "images": [
+          "/akademia-1.webp",
+          "/akademia-2.webp"
+        ]
       },
       {
         "date": "2024",
@@ -159,12 +206,30 @@
           "Highest university entrance exam score in the Province of Ourense (13.92/14)."
         ],
         "links": [
-          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/ourense/ourense/2021/06/18/ignacio-garbayo-me-esperaba-buena-nota-mejor/00031624026839469801180.htm" },
-          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/galicia/2021/07/24/remontar-crisis-covid-dejar-politica-gestionar-generar-confianza/00031627129453717451495.htm" },
-          { "label": "ABC", "url": "https://www.abc.es/espana/galicia/abci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html?ref=https%3A%2F%2Fwww.abc.es%2Fespana%2Fgalicia%2Fabci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html" },
-          { "label": "Faro de Vigo", "url": "https://www.farodevigo.es/ourense/2021/06/19/9-92-puertas-abiertas-53924029.html" },
-          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html" },
-          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/abau-2021_1_20210618-2218959.html" }
+          {
+            "label": "La Voz de Galicia",
+            "url": "https://www.lavozdegalicia.es/noticia/ourense/ourense/2021/06/18/ignacio-garbayo-me-esperaba-buena-nota-mejor/00031624026839469801180.htm"
+          },
+          {
+            "label": "La Voz de Galicia",
+            "url": "https://www.lavozdegalicia.es/noticia/galicia/2021/07/24/remontar-crisis-covid-dejar-politica-gestionar-generar-confianza/00031627129453717451495.htm"
+          },
+          {
+            "label": "ABC",
+            "url": "https://www.abc.es/espana/galicia/abci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html?ref=https%3A%2F%2Fwww.abc.es%2Fespana%2Fgalicia%2Fabci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html"
+          },
+          {
+            "label": "Faro de Vigo",
+            "url": "https://www.farodevigo.es/ourense/2021/06/19/9-92-puertas-abiertas-53924029.html"
+          },
+          {
+            "label": "La Región",
+            "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html"
+          },
+          {
+            "label": "La Región",
+            "url": "https://www.laregion.es/comarca-de-ourense/abau-2021_1_20210618-2218959.html"
+          }
         ]
       }
     ]
@@ -182,7 +247,13 @@
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): Built a satellite-to-ground DOOM streaming system over simulated LEO links in C, using H.264 video compression, RTP/UDP packetization, and a lock-free ring buffer.",
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): Developed an automated warehouse simulator with a heuristics-driven I/O algorithm, SSTF instruction reordering, and a 3D digital twin using C++, Python, and React."
         ],
-        "images": ["/hack-1-compressed.webp", "/hack-2-compressed.webp", "/hack-3-compressed.webp", "/hack-4-compressed.webp", "/hack-5-compressed.webp"]
+        "images": [
+          "/hack-1-compressed.webp",
+          "/hack-2-compressed.webp",
+          "/hack-3-compressed.webp",
+          "/hack-4-compressed.webp",
+          "/hack-5-compressed.webp"
+        ]
       },
       {
         "date": "2026",
@@ -192,7 +263,10 @@
           "It was born as a utility to release a hackathon project, but it works for any kind of project."
         ],
         "links": [
-          { "label": "GitHub", "url": "https://github.com/igarbayo/open-source" }
+          {
+            "label": "GitHub",
+            "url": "https://github.com/igarbayo/open-source"
+          }
         ]
       },
       {
@@ -211,30 +285,82 @@
           "Developing an AI/IoT platform (NestJS, R, React) with two Bankinter Akademia colleagues for small Galician municipalities, aiming to optimize natural resources and reduce Non-Revenue Water leaks.",
           "The solution, an anomaly detection algorithm based on an unsupervised ensemble, is currently being prototyped ahead of planned municipal pilot tests."
         ],
-        "logo": ["egs.webp"],
-        "logoDark": ["egs-white.webp"]
+        "logo": [
+          "egs.webp"
+        ],
+        "logoDark": [
+          "egs-white.webp"
+        ]
       },
       {
         "date": "2023 – 2025",
         "title": "Student Magazine",
         "organization": "[Más Mates](https://www.usc.gal/es/node/42511) (USC)",
-        "logo": ["maismates.webp"],
-        "logoBorderColor": "#1C52A6",
         "bullets": [
           "Editor and contributor for a monthly Math Faculty magazine at the University of Santiago de Compostela.",
           "Collaborated closely to publish high-quality technical and outreach content, expanding my skillset by exploring topics beyond the standard curriculum.",
           "Published in [Minerva](https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d)."
         ],
-        "images": ["/mais-mates-1.webp", "/mais-mates-2.webp", "/mais-mates-3.webp"]
+        "logo": [
+          "maismates.webp"
+        ],
+        "logoBorderColor": "#1C52A6",
+        "images": [
+          "/mais-mates-1.webp",
+          "/mais-mates-2.webp",
+          "/mais-mates-3.webp"
+        ]
       }
     ]
   },
   "languages": {
     "title": "Languages",
     "entries": [
-      { "language": "English", "level": "C1 Advanced (Cambridge Certificate)", "certification": { "name": "Cambridge C1 Advanced", "issuer": "Cambridge Assessment English", "overallScore": 199, "overallLevel": "C1", "skillsLabel": "Skill Scores · Cambridge English Scale", "skills": [{ "name": "Reading", "score": 197 }, { "name": "Use of English", "score": 210 }, { "name": "Writing", "score": 193 }, { "name": "Listening", "score": 203 }, { "name": "Speaking", "score": 194 }], "scaleMin": 150, "scaleMax": 210, "threshold": 180, "thresholdLabel": "C1 Pass Threshold · 180" } },
-      { "language": "Spanish", "level": "native" },
-      { "language": "Galician", "level": "native" }
+      {
+        "language": "English",
+        "level": "C1 Advanced (Cambridge Certificate)",
+        "certification": {
+          "name": "Cambridge C1 Advanced",
+          "issuer": "Cambridge Assessment English",
+          "overallScore": 199,
+          "overallLevel": "C1",
+          "skillsLabel": "Skill Scores · Cambridge English Scale",
+          "skills": [
+            {
+              "name": "Reading",
+              "score": 197
+            },
+            {
+              "name": "Use of English",
+              "score": 210
+            },
+            {
+              "name": "Writing",
+              "score": 193
+            },
+            {
+              "name": "Listening",
+              "score": 203
+            },
+            {
+              "name": "Speaking",
+              "score": 194
+            }
+          ],
+          "scaleMin": 150,
+          "scaleMax": 210,
+          "threshold": 180,
+          "thresholdLabel": "C1 Pass Threshold · 180"
+        }
+      },
+      {
+        "language": "Spanish",
+        "level": "native"
+      },
+      {
+        "language": "Galician",
+        "level": "native"
+      }
     ]
   },
   "volunteering": {
@@ -245,7 +371,10 @@
         "title": "Refugees volunteering",
         "location": "Santiago de Compostela, Galicia, Spain",
         "description": "Taught refugees basketball rules and refereeing values as a representative of the Galician Basketball Federation in the Basket Bridges program, in collaboration with NGO Rescate & ADB Fontiñas.",
-        "images": ["/volunt-fegaba-1.webp", "/volunt-fegaba-2.webp"]
+        "images": [
+          "/volunt-fegaba-1.webp",
+          "/volunt-fegaba-2.webp"
+        ]
       },
       {
         "date": "2016 – 2022",
@@ -262,19 +391,25 @@
         "date": "08/2026",
         "title": "Claude Code in Action",
         "issuer": "Anthropic",
-        "logo": ["anthropic.webp"]
+        "logo": [
+          "anthropic.webp"
+        ]
       },
       {
         "date": "08/2026",
         "title": "Introduction to Open Source License Compliance Management (LFC193)",
         "issuer": "The Linux Foundation",
-        "logo": ["linux-foundation.webp"]
+        "logo": [
+          "linux-foundation.webp"
+        ]
       },
       {
         "date": "12/2025",
         "title": "McKinsey Forward Program",
         "issuer": "McKinsey & Company",
-        "logo": ["mckinsey.webp"]
+        "logo": [
+          "mckinsey.webp"
+        ]
       },
       {
         "date": "09/2025",
@@ -284,7 +419,9 @@
           "Worked in several cases with foundational cloud computing tools in AWS Cloud.",
           "Developed practical expertise by learning core concepts in computing, networking, security, and storage."
         ],
-        "logo": ["aws.webp"]
+        "logo": [
+          "aws.webp"
+        ]
       },
       {
         "date": "09/2025",
@@ -293,7 +430,9 @@
         "bullets": [
           "Applied hands-on skills in prompt engineering, code generation, chatbot development, content moderation systems and fine-tuning models to optimize performance using AWS AI services."
         ],
-        "logo": ["aws.webp"]
+        "logo": [
+          "aws.webp"
+        ]
       },
       {
         "date": "09/2025",
@@ -303,7 +442,9 @@
           "Demonstrated practical knowledge of AI agents, including tools, actions, observations, and data formats.",
           "Worked with large language models (LLMs), messages, special tokens and chat templates."
         ],
-        "logo": ["huuging-face.webp"]
+        "logo": [
+          "huuging-face.webp"
+        ]
       },
       {
         "date": "08/2025",

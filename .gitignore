@@ -22,6 +22,21 @@ src/frontend/dist/
 .env.development.local
 .env.test.local
 .env.production.local
+src/backend/.env
+src/frontend/.env.local
+
+# Python / Backend
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+env/
+
+# CMS generated route in App Router (source of truth is cms-template/)
+src/frontend/app/admin/
+src/backend/static/
 
 # Logs
 npm-debug.log*

@@ -32,15 +32,40 @@
     "categories": [
       {
         "name": "Linguaxes e frameworks",
-        "items": ["C", "Java", "Python", "R", "SQL", "JavaScript", "HTML", "CSS", "NestJS", "Angular", "Next.js", "Fortran"]
+        "items": [
+          "C",
+          "Java",
+          "Python",
+          "R",
+          "SQL",
+          "JavaScript",
+          "HTML",
+          "CSS",
+          "NestJS",
+          "Angular",
+          "Next.js",
+          "Fortran"
+        ]
       },
       {
         "name": "Bases de datos",
-        "items": ["PostgreSQL", "MongoDB", "Redis"]
+        "items": [
+          "PostgreSQL",
+          "MongoDB",
+          "Redis"
+        ]
       },
       {
         "name": "Tecnoloxías e ferramentas",
-        "items": ["Bash", "Docker", "Kubernetes", "Jenkins", "RabbitMQ", "MQTT", "Kafka"]
+        "items": [
+          "Bash",
+          "Docker",
+          "Kubernetes",
+          "Jenkins",
+          "RabbitMQ",
+          "MQTT",
+          "Kafka"
+        ]
       }
     ]
   },
@@ -57,7 +82,9 @@
           "Traballo Fin de Grao: Visión por Computador e Intelixencia Artificial",
           "Nota: 8,1/10"
         ],
-        "logo": ["usc.webp"]
+        "logo": [
+          "usc.webp"
+        ]
       },
       {
         "date": "09/2021 – 06/2027",
@@ -69,7 +96,9 @@
           "Nota: 7,7/10",
           "Asignaturas con Matrícula de Honor: Inferencia Estatística"
         ],
-        "logo": ["usc.webp"]
+        "logo": [
+          "usc.webp"
+        ]
       }
     ]
   },
@@ -101,9 +130,15 @@
           "Minimicei o lag inicial das colas de Kafka deseñando desde cero un microservizo de autoescalado horizontal con Docker, capaz de aprovisionar consumidores especializados baixo demanda, separados por topics.",
           "Xestionei o ciclo de vida completo, desde a definición de requisitos ata a automatización CI/CD (Docker, Kubernetes, Jenkins), e optimicei os tempos do ciclo de desenvolvemento creando hooks propios de automatización con Git e IA."
         ],
-        "logo": ["igm.svg", "hotusa.svg"],
+        "logo": [
+          "igm.svg",
+          "hotusa.svg"
+        ],
         "links": [
-          { "label": "Memoria", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDFVuHltslLTZIGsdfMzvP9AS2MTQ54M-2YY_97IMvYvR4?e=xCr8c2" }
+          {
+            "label": "Memoria",
+            "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDFVuHltslLTZIGsdfMzvP9AS2MTQ54M-2YY_97IMvYvR4?e=xCr8c2"
+          }
         ]
       },
       {
@@ -115,9 +150,14 @@
           "Desenvolvín ensambles de clasificadores estáticos e dinámicos para a predición do cancro de mama, abarcando a preparación de datos, selección de características, axuste de limiares, adestramento de modelos e análise de métricas.",
           "Utilicei caretStack, DESLib e KNORA para avaliar a precisión de varios modelos base e mixtos."
         ],
-        "logo": ["idis.webp"],
+        "logo": [
+          "idis.webp"
+        ],
         "links": [
-          { "label": "Memoria", "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb" }
+          {
+            "label": "Memoria",
+            "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDDaG4VqsSYSoEIbdC7w4xeAfuh_uIezURbzL9jucL5ZrI?e=bcqQhb"
+          }
         ]
       },
       {
@@ -128,7 +168,9 @@
           "Demostro capacidade de toma de decisións baixo presión, comunicación efectiva, traballo en equipo e atención ao detalle arbitrando na 1.ª división autonómica e en catro Campionatos de España (Seleccións Autonómicas U12/U14, Clubes U14/U16).",
           "Formo a novos colexiados como titor arbitral, realizando avaliacións e ensinando regulamento, mecánica arbitral e resolución de conflitos en pista, preparándoos para as súas designacións semanais."
         ],
-        "logo": ["fegaba.webp"]
+        "logo": [
+          "fegaba.webp"
+        ]
       }
     ]
   },
@@ -142,8 +184,13 @@
         "bullets": [
           "Fun seleccionado entre 80 participantes a nivel nacional para un programa de innovación tecnolóxica de 4 meses con debates con expertos. Liderei o desenvolvemento de Machine Learning dun algoritmo de Business Intelligence para un caso de negocio real, obtendo o primeiro premio. Posteriormente, fun elixido como mentor, guiando a outro equipo a gañar a seguinte edición."
         ],
-        "logo": ["bankinter.webp"],
-        "images": ["/akademia-1.webp", "/akademia-2.webp"]
+        "logo": [
+          "bankinter.webp"
+        ],
+        "images": [
+          "/akademia-1.webp",
+          "/akademia-2.webp"
+        ]
       },
       {
         "date": "2024",
@@ -159,12 +206,30 @@
           "Mellor nota de acceso á universidade na provincia de Ourense (13,92/14)."
         ],
         "links": [
-          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/ourense/ourense/2021/06/18/ignacio-garbayo-me-esperaba-buena-nota-mejor/00031624026839469801180.htm" },
-          { "label": "La Voz de Galicia", "url": "https://www.lavozdegalicia.es/noticia/galicia/2021/07/24/remontar-crisis-covid-dejar-politica-gestionar-generar-confianza/00031627129453717451495.htm" },
-          { "label": "ABC", "url": "https://www.abc.es/espana/galicia/abci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html?ref=https%3A%2F%2Fwww.abc.es%2Fespana%2Fgalicia%2Fabci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html" },
-          { "label": "Faro de Vigo", "url": "https://www.farodevigo.es/ourense/2021/06/19/9-92-puertas-abiertas-53924029.html" },
-          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html" },
-          { "label": "La Región", "url": "https://www.laregion.es/comarca-de-ourense/abau-2021_1_20210618-2218959.html" }
+          {
+            "label": "La Voz de Galicia",
+            "url": "https://www.lavozdegalicia.es/noticia/ourense/ourense/2021/06/18/ignacio-garbayo-me-esperaba-buena-nota-mejor/00031624026839469801180.htm"
+          },
+          {
+            "label": "La Voz de Galicia",
+            "url": "https://www.lavozdegalicia.es/noticia/galicia/2021/07/24/remontar-crisis-covid-dejar-politica-gestionar-generar-confianza/00031627129453717451495.htm"
+          },
+          {
+            "label": "ABC",
+            "url": "https://www.abc.es/espana/galicia/abci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html?ref=https%3A%2F%2Fwww.abc.es%2Fespana%2Fgalicia%2Fabci-medicina-y-arrasan-entre-opciones-mejores-estudiantes-gallegos-202107121124_noticia.html"
+          },
+          {
+            "label": "Faro de Vigo",
+            "url": "https://www.farodevigo.es/ourense/2021/06/19/9-92-puertas-abiertas-53924029.html"
+          },
+          {
+            "label": "La Región",
+            "url": "https://www.laregion.es/comarca-de-ourense/cracks-selectividad_1_20210619-2219003.html"
+          },
+          {
+            "label": "La Región",
+            "url": "https://www.laregion.es/comarca-de-ourense/abau-2021_1_20210618-2218959.html"
+          }
         ]
       }
     ]
@@ -182,7 +247,13 @@
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): implementei un sistema de streaming de DOOM desde satélite sobre enlaces LEO en C, usando compresión de vídeo H.264, empaquetado RTP/UDP e un búfer circular lock-free.",
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): desenvolvín un simulador de almacén automatizado cun algoritmo de E/S baseado en heurísticas, reordenación de instrucións SSTF e un xemelgo dixital en 3D con C++, Python e React."
         ],
-        "images": ["/hack-1-compressed.webp", "/hack-2-compressed.webp", "/hack-3-compressed.webp", "/hack-4-compressed.webp", "/hack-5-compressed.webp"]
+        "images": [
+          "/hack-1-compressed.webp",
+          "/hack-2-compressed.webp",
+          "/hack-3-compressed.webp",
+          "/hack-4-compressed.webp",
+          "/hack-5-compressed.webp"
+        ]
       },
       {
         "date": "2026",
@@ -192,7 +263,10 @@
           "Nace como unha utilidade para liberar un proxecto dun hackathon, pero serve para todo tipo de proxectos."
         ],
         "links": [
-          { "label": "GitHub", "url": "https://github.com/igarbayo/open-source" }
+          {
+            "label": "GitHub",
+            "url": "https://github.com/igarbayo/open-source"
+          }
         ]
       },
       {
@@ -211,30 +285,82 @@
           "Desenvolvo unha plataforma de IA/IoT (NestJS, R, React) con dous compañeiros de Akademia para pequenos municipios galegos, co obxectivo de optimizar os recursos naturais e reducir as perdas de auga non rexistrada.",
           "A solución, un algoritmo de detección de anomalías baseado nun ensemble non supervisado, atópase en fase de prototipado previa ás probas piloto municipais planificadas."
         ],
-        "logo": ["egs.webp"],
-        "logoDark": ["egs-white.webp"]
+        "logo": [
+          "egs.webp"
+        ],
+        "logoDark": [
+          "egs-white.webp"
+        ]
       },
       {
         "date": "2023 – 2025",
         "title": "Revista estudantil",
         "organization": "[Máis Mates](https://www.usc.gal/es/node/42511) (USC)",
-        "logo": ["maismates.webp"],
-        "logoBorderColor": "#1C52A6",
         "bullets": [
           "Editor e colaborador dunha revista mensual da Facultade de Matemáticas da USC.",
           "Colaborei para publicar contido técnico e de divulgación de calidade, ampliando as miñas competencias ao explorar temas máis alá do plan de estudos oficial.",
           "Publicacións dispoñibles en [Minerva](https://minerva.usc.gal/collections/a66d5c8e-d4d0-49f5-95fc-a41bd831140d)."
         ],
-        "images": ["/mais-mates-1.webp", "/mais-mates-2.webp", "/mais-mates-3.webp"]
+        "logo": [
+          "maismates.webp"
+        ],
+        "logoBorderColor": "#1C52A6",
+        "images": [
+          "/mais-mates-1.webp",
+          "/mais-mates-2.webp",
+          "/mais-mates-3.webp"
+        ]
       }
     ]
   },
   "languages": {
     "title": "Idiomas",
     "entries": [
-      { "language": "Inglés", "level": "C1 Advanced (Cambridge)", "certification": { "name": "Cambridge C1 Advanced", "issuer": "Cambridge Assessment English", "overallScore": 199, "overallLevel": "C1", "skillsLabel": "Puntuacións · Escala Cambridge English", "skills": [{ "name": "Lectura", "score": 197 }, { "name": "Uso do inglés", "score": 210 }, { "name": "Escritura", "score": 193 }, { "name": "Comprensión auditiva", "score": 203 }, { "name": "Expresión oral", "score": 194 }], "scaleMin": 150, "scaleMax": 210, "threshold": 180, "thresholdLabel": "Limiar C1 · 180" } },
-      { "language": "Español", "level": "nativo" },
-      { "language": "Galego", "level": "nativo" }
+      {
+        "language": "Inglés",
+        "level": "C1 Advanced (Cambridge)",
+        "certification": {
+          "name": "Cambridge C1 Advanced",
+          "issuer": "Cambridge Assessment English",
+          "overallScore": 199,
+          "overallLevel": "C1",
+          "skillsLabel": "Puntuacións · Escala Cambridge English",
+          "skills": [
+            {
+              "name": "Lectura",
+              "score": 197
+            },
+            {
+              "name": "Uso do inglés",
+              "score": 210
+            },
+            {
+              "name": "Escritura",
+              "score": 193
+            },
+            {
+              "name": "Comprensión auditiva",
+              "score": 203
+            },
+            {
+              "name": "Expresión oral",
+              "score": 194
+            }
+          ],
+          "scaleMin": 150,
+          "scaleMax": 210,
+          "threshold": 180,
+          "thresholdLabel": "Limiar C1 · 180"
+        }
+      },
+      {
+        "language": "Español",
+        "level": "nativo"
+      },
+      {
+        "language": "Galego",
+        "level": "nativo"
+      }
     ]
   },
   "volunteering": {
@@ -245,7 +371,10 @@
         "title": "Voluntariado con refuxiados",
         "location": "Santiago de Compostela, Galicia, España",
         "description": "Ensinei regras de baloncesto e valores arbitrais a refuxiados como representante da Federación Galega de Baloncesto no programa Basket Bridges, en colaboración coa ONG Rescate e ADB Fontiñas.",
-        "images": ["/volunt-fegaba-1.webp", "/volunt-fegaba-2.webp"]
+        "images": [
+          "/volunt-fegaba-1.webp",
+          "/volunt-fegaba-2.webp"
+        ]
       },
       {
         "date": "2016 – 2022",
@@ -262,19 +391,25 @@
         "date": "08/2026",
         "title": "Claude Code in Action",
         "issuer": "Anthropic",
-        "logo": ["anthropic.webp"]
+        "logo": [
+          "anthropic.webp"
+        ]
       },
       {
         "date": "08/2026",
         "title": "Introduction to Open Source License Compliance Management (LFC193)",
         "issuer": "The Linux Foundation",
-        "logo": ["linux-foundation.webp"]
+        "logo": [
+          "linux-foundation.webp"
+        ]
       },
       {
         "date": "12/2025",
         "title": "McKinsey Forward Program",
         "issuer": "McKinsey & Company",
-        "logo": ["mckinsey.webp"]
+        "logo": [
+          "mckinsey.webp"
+        ]
       },
       {
         "date": "09/2025",
@@ -284,7 +419,9 @@
           "Traballei en varios casos con ferramentas fundamentais de computación na nube de AWS.",
           "Desenvolvín experiencia práctica aprendendo conceptos básicos de computación, redes, seguridade e almacenamento."
         ],
-        "logo": ["aws.webp"]
+        "logo": [
+          "aws.webp"
+        ]
       },
       {
         "date": "09/2025",
@@ -293,7 +430,9 @@
         "bullets": [
           "Apliquei habilidades prácticas en enxeñaría de prompts, xeración de código, desenvolvemento de chatbots, sistemas de moderación de contido e axuste fino de modelos usando servizos de IA de AWS."
         ],
-        "logo": ["aws.webp"]
+        "logo": [
+          "aws.webp"
+        ]
       },
       {
         "date": "09/2025",
@@ -303,7 +442,9 @@
           "Demostrei coñecemento práctico de axentes de IA, incluíndo ferramentas, accións, observacións e formatos de datos.",
           "Traballei con modelos de linguaxe de gran tamaño (LLMs), mensaxes, tokens especiais e modelos de chat."
         ],
-        "logo": ["huuging-face.webp"]
+        "logo": [
+          "huuging-face.webp"
+        ]
       },
       {
         "date": "08/2025",

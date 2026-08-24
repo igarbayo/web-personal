@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: garden-personal-cms
+    runtime: docker
+    dockerfilePath: Dockerfile
+    dockerContext: .
+    rootDir: src/backend
+    region: fra
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: ADMIN_USERNAME
+        value: ignacio
+      - key: ADMIN_PASSWORD_HASH
+        sync: false # Set securely in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GITHUB_TOKEN
+        sync: false # Set securely in Render dashboard
+      - key: GITHUB_REPO
+        value: igarbayo/web-personal
+      - key: GITHUB_BRANCH
+        value: main
+      - key: CMS_SUBDOMAIN
+        sync: false # e.g. panel-k98x
