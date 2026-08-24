@@ -61,7 +61,11 @@ export default function ExperienceEditor({ bundle, onChange }: ExperienceEditorP
     onChange(nextBundle)
   }
 
-  const updateLogos = (index: number, field: 'logo' | 'logoDark', logos: string[]) => {
+  const updateLogos = (
+    index: number,
+    field: 'logo' | 'logoDark' | 'images',
+    logos: string[]
+  ) => {
     const nextBundle = { ...bundle }
     ;(['es', 'en', 'gl'] as LangKey[]).forEach((l) => {
       const entries = [...(nextBundle[l].experience?.entries || [])]
@@ -263,6 +267,13 @@ export default function ExperienceEditor({ bundle, onChange }: ExperienceEditorP
                       multiple={true}
                     />
                   </div>
+
+                  <ImagePicker
+                    label="Galería de Fotos (Opcional)"
+                    selected={entryEs?.images || []}
+                    onChange={(imgs) => updateLogos(idx, 'images', imgs)}
+                    multiple={true}
+                  />
 
                   <BulletListEditor
                     label="Logros y Viñetas de Experiencia"
