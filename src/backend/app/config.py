@@ -3,6 +3,18 @@ from typing import List, Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+def _find_repo_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in current.parents:
+        if (parent / "src" / "frontend").exists() or (parent / ".git").exists():
+            return parent
+    return current.parent.parent
+
+
+_ROOT = _find_repo_root()
+_FRONTEND = _ROOT / "src" / "frontend" if (_ROOT / "src" / "frontend").exists() else _ROOT
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -19,7 +31,7 @@ class Settings(BaseSettings):
     # Security & Auth
     ADMIN_USERNAME: str = "ignacio"
     # Default development password is 'admin1234' (hash below). Should be overridden in .env
-    ADMIN_PASSWORD_HASH: str = "$2b$12$ZcoznLX0.qD3N48TkySQrOEZXliYHTuwongcHwl2g9rX4e8ACDlgu"
+    ADMIN_PASSWORD_HASH: str = "$2b$12$koYXiATq3ELX4dL5cafcdeXp6GLs69t1NKSDE0XWrNrb01zXEt.N."
     JWT_SECRET: str = "garden-personal-cms-super-secret-key-change-in-env"
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
@@ -29,12 +41,12 @@ class Settings(BaseSettings):
     GITHUB_REPO: str = "igarbayo/web-personal"
     GITHUB_BRANCH: str = "main"
 
-    # Paths (defaults relative to repo root)
-    REPO_ROOT: Path = Path(__file__).resolve().parents[3]
-    FRONTEND_DIR: Path = Path(__file__).resolve().parents[3] / "src" / "frontend"
-    DICTIONARIES_DIR: Path = Path(__file__).resolve().parents[3] / "src" / "frontend" / "dictionaries"
-    PUBLIC_DIR: Path = Path(__file__).resolve().parents[3] / "src" / "frontend" / "public"
-    ASSETS_DIR: Path = Path(__file__).resolve().parents[3] / "src" / "frontend" / "assets"
+    # Paths (robust in local workspace and inside container)
+    REPO_ROOT: Path = _ROOT
+    FRONTEND_DIR: Path = _FRONTEND
+    DICTIONARIES_DIR: Path = _FRONTEND / "dictionaries"
+    PUBLIC_DIR: Path = _FRONTEND / "public"
+    ASSETS_DIR: Path = _FRONTEND / "assets"
 
     # Constraints & Invariants
     PUBLIC_BUDGET_MB: float = 8.0
