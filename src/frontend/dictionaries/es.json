@@ -192,8 +192,8 @@
           "bankinter.webp"
         ],
         "images": [
-          "/akademia-1.webp",
-          "/akademia-2.webp"
+          "akademia-1.webp",
+          "akademia-2.webp"
         ]
       },
       {
@@ -252,11 +252,11 @@
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): desarrollé un simulador de almacén automatizado con un algoritmo de E/S basado en heurísticas, reordenación de instrucciones SSTF y un gemelo digital en 3D con C++, Python y React."
         ],
         "images": [
-          "/hack-1-compressed.webp",
-          "/hack-2-compressed.webp",
-          "/hack-3-compressed.webp",
-          "/hack-4-compressed.webp",
-          "/hack-5-compressed.webp"
+          "hack-1-compressed.webp",
+          "hack-2-compressed.webp",
+          "hack-3-compressed.webp",
+          "hack-4-compressed.webp",
+          "hack-5-compressed.webp"
         ]
       },
       {
@@ -310,9 +310,9 @@
         ],
         "logoBorderColor": "#1C52A6",
         "images": [
-          "/mais-mates-1.webp",
-          "/mais-mates-2.webp",
-          "/mais-mates-3.webp"
+          "mais-mates-1.webp",
+          "mais-mates-2.webp",
+          "mais-mates-3.webp"
         ]
       }
     ]
@@ -376,8 +376,8 @@
         "location": "Santiago de Compostela, Galicia, España",
         "description": "Enseñé reglas de baloncesto y valores arbitrales a refugiados como representante de la Federación Galega de Baloncesto en el programa Basket Bridges, en colaboración con la ONG Rescate y ADB Fontiñas.",
         "images": [
-          "/volunt-fegaba-1.webp",
-          "/volunt-fegaba-2.webp"
+          "volunt-fegaba-1.webp",
+          "volunt-fegaba-2.webp"
         ]
       },
       {

@@ -39,7 +39,7 @@ function GalleryImage({
     <div data-reveal-media className={className}>
       <div data-reveal-media-frame>
         <Image
-          src={src}
+          src={`/${src}`}
           alt=""
           width={width}
           height={height}

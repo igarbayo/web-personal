@@ -192,8 +192,8 @@
           "bankinter.webp"
         ],
         "images": [
-          "/akademia-1.webp",
-          "/akademia-2.webp"
+          "akademia-1.webp",
+          "akademia-2.webp"
         ]
       },
       {
@@ -252,11 +252,11 @@
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): Developed an automated warehouse simulator with a heuristics-driven I/O algorithm, SSTF instruction reordering, and a 3D digital twin using C++, Python, and React."
         ],
         "images": [
-          "/hack-1-compressed.webp",
-          "/hack-2-compressed.webp",
-          "/hack-3-compressed.webp",
-          "/hack-4-compressed.webp",
-          "/hack-5-compressed.webp"
+          "hack-1-compressed.webp",
+          "hack-2-compressed.webp",
+          "hack-3-compressed.webp",
+          "hack-4-compressed.webp",
+          "hack-5-compressed.webp"
         ]
       },
       {
@@ -310,9 +310,9 @@
         ],
         "logoBorderColor": "#1C52A6",
         "images": [
-          "/mais-mates-1.webp",
-          "/mais-mates-2.webp",
-          "/mais-mates-3.webp"
+          "mais-mates-1.webp",
+          "mais-mates-2.webp",
+          "mais-mates-3.webp"
         ]
       }
     ]
@@ -376,8 +376,8 @@
         "location": "Santiago de Compostela, Galicia, Spain",
         "description": "Taught refugees basketball rules and refereeing values as a representative of the Galician Basketball Federation in the Basket Bridges program, in collaboration with NGO Rescate & ADB Fontiñas.",
         "images": [
-          "/volunt-fegaba-1.webp",
-          "/volunt-fegaba-2.webp"
+          "volunt-fegaba-1.webp",
+          "volunt-fegaba-2.webp"
         ]
       },
       {
