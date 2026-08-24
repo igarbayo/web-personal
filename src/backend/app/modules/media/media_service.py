@@ -115,6 +115,16 @@ class MediaService:
         base_name = Path(custom_name or original_filename).stem
         # Clean slug for filename
         slug = re.sub(r"[^a-zA-Z0-9_-]", "-", base_name).strip("-").lower()
+        if not slug:
+            slug = "media"
+
+        # Prevent overwriting protected system files
+        target_candidate = f"{slug}{orig_ext if orig_ext in ('.svg', '.ico') else '.webp'}"
+        if target_candidate in PROTECTED_FILES:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"El nombre '{target_candidate}' corresponde a un recurso esencial del sistema y no puede sobrescribirse.",
+            )
 
         if orig_ext not in settings.ALLOWED_IMAGE_EXTENSIONS:
             raise HTTPException(
@@ -202,19 +212,25 @@ class MediaService:
                 detail=f"El archivo '{filename}' es un recurso esencial del sistema y no puede eliminarse.",
             )
 
-        target_path = settings.PUBLIC_DIR / filename
+        # Path traversal protection
+        target_path = (settings.PUBLIC_DIR / filename).resolve()
+        if not target_path.is_relative_to(settings.PUBLIC_DIR.resolve()):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Nombre de archivo inválido.",
+            )
+
         if not target_path.exists():
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"El archivo '{filename}' no existe en public/.",
             )
 
-        # In local mode, remove from disk
-        if not GitService.is_github_mode():
-            target_path.unlink()
-        else:
-            # Delete via Git/GitHub if in GitHub mode
-            pass
+        repo_relative_path = f"src/frontend/public/{filename}"
+        await GitService.delete_file(
+            repo_relative_path,
+            commit_message=f"cms: delete media '{filename}'"
+        )
 
         return MediaDeleteResponse(
             filename=filename,

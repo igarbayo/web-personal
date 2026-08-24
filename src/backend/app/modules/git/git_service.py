@@ -15,6 +15,51 @@ class GitFileChange:
         self.is_binary = is_binary
 
 
+# Mapping from repo-relative paths to local directories for Docker sync
+_LOCAL_PATH_MAP = {
+    "src/frontend/dictionaries/": settings.DICTIONARIES_DIR,
+    "src/frontend/public/": settings.PUBLIC_DIR,
+}
+
+
+def _sync_to_local_disk(files: List[GitFileChange]) -> None:
+    """
+    After a successful GitHub commit, also write files to the local container
+    disk so that subsequent reads return fresh data instead of stale build-time copies.
+    """
+    for file in files:
+        local_dir = None
+        for prefix, target_dir in _LOCAL_PATH_MAP.items():
+            if file.path.startswith(prefix):
+                filename = file.path[len(prefix):]
+                local_dir = target_dir
+                break
+
+        if local_dir is None:
+            continue
+
+        target_path = local_dir / filename
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+
+        if file.is_binary:
+            with open(target_path, "wb") as f:
+                f.write(file.content if isinstance(file.content, bytes) else file.content.encode("utf-8"))
+        else:
+            with open(target_path, "w", encoding="utf-8") as f:
+                f.write(file.content if isinstance(file.content, str) else file.content.decode("utf-8"))
+
+
+def _delete_from_local_disk(repo_relative_path: str) -> None:
+    """Remove a file from the local container disk after a GitHub deletion commit."""
+    for prefix, target_dir in _LOCAL_PATH_MAP.items():
+        if repo_relative_path.startswith(prefix):
+            filename = repo_relative_path[len(prefix):]
+            target_path = target_dir / filename
+            if target_path.exists():
+                target_path.unlink()
+            return
+
+
 class GitService:
     """
     Handles atomic file persistence either directly to local disk (in local dev mode)
@@ -37,7 +82,27 @@ class GitService:
         """
         if not cls.is_github_mode():
             return cls._commit_local(files)
-        return await cls._commit_github(files, commit_message)
+        result = await cls._commit_github(files, commit_message)
+        # Sync changes to local container disk so reads stay fresh
+        _sync_to_local_disk(files)
+        return result
+
+    @classmethod
+    async def delete_file(
+        cls,
+        repo_relative_path: str,
+        commit_message: str = "cms: delete file"
+    ) -> Dict[str, str]:
+        """Deletes a file via GitHub API commit (removing it from the tree)."""
+        if not cls.is_github_mode():
+            # Local mode: just unlink
+            full_path = settings.REPO_ROOT / repo_relative_path
+            if full_path.exists():
+                full_path.unlink()
+            return {"status": "deleted_locally", "path": repo_relative_path}
+        result = await cls._delete_github(repo_relative_path, commit_message)
+        _delete_from_local_disk(repo_relative_path)
+        return result
 
     @classmethod
     def _commit_local(cls, files: List[GitFileChange]) -> Dict[str, str]:
@@ -170,5 +235,81 @@ class GitService:
             return {
                 "commit_sha": new_commit_sha,
                 "status": "committed_to_github",
+                "branch": settings.GITHUB_BRANCH,
+            }
+
+    @classmethod
+    async def _delete_github(
+        cls,
+        repo_relative_path: str,
+        commit_message: str
+    ) -> Dict[str, str]:
+        """Delete a file from GitHub by creating a tree without it."""
+        headers = {
+            "Authorization": f"Bearer {settings.GITHUB_TOKEN}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+        repo_url = f"https://api.github.com/repos/{settings.GITHUB_REPO}"
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            ref_resp = await client.get(
+                f"{repo_url}/git/ref/heads/{settings.GITHUB_BRANCH}",
+                headers=headers
+            )
+            if ref_resp.status_code != 200:
+                raise HTTPException(
+                    status_code=status.HTTP_502_BAD_GATEWAY,
+                    detail=f"GitHub API Error: {ref_resp.text}",
+                )
+            latest_commit_sha = ref_resp.json()["object"]["sha"]
+
+            commit_resp = await client.get(
+                f"{repo_url}/git/commits/{latest_commit_sha}",
+                headers=headers
+            )
+            base_tree_sha = commit_resp.json()["tree"]["sha"]
+
+            # Create tree with the file removed (sha=None removes it)
+            tree_resp = await client.post(
+                f"{repo_url}/git/trees",
+                headers=headers,
+                json={
+                    "base_tree": base_tree_sha,
+                    "tree": [{
+                        "path": repo_relative_path,
+                        "mode": "100644",
+                        "type": "blob",
+                        "sha": None,
+                    }]
+                }
+            )
+            if tree_resp.status_code != 201:
+                raise HTTPException(
+                    status_code=status.HTTP_502_BAD_GATEWAY,
+                    detail=f"GitHub API Error al eliminar archivo: {tree_resp.text}",
+                )
+            new_tree_sha = tree_resp.json()["sha"]
+
+            new_commit_resp = await client.post(
+                f"{repo_url}/git/commits",
+                headers=headers,
+                json={
+                    "message": commit_message,
+                    "tree": new_tree_sha,
+                    "parents": [latest_commit_sha],
+                }
+            )
+            new_commit_sha = new_commit_resp.json()["sha"]
+
+            await client.patch(
+                f"{repo_url}/git/refs/heads/{settings.GITHUB_BRANCH}",
+                headers=headers,
+                json={"sha": new_commit_sha, "force": False}
+            )
+
+            return {
+                "commit_sha": new_commit_sha,
+                "status": "deleted_from_github",
                 "branch": settings.GITHUB_BRANCH,
             }
