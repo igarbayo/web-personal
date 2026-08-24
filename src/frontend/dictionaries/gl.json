@@ -243,7 +243,7 @@
         "title": "Hackathons",
         "organization": "[HackUDC](https://hackudc.gpul.org/), [HackUPC](https://hackupc.com/)",
         "bullets": [
-          "Gañei o reto Alén Space e o 2.º mellor proxecto Open Source en HackUDC 2026 (400+ participantes) con BFG-I. Fun seleccionado entre 1.700+ solicitantes para participar en HackUPC 2026 con XEITECH. Ambos os proxectos foron desenvolvidos en menos de 36 horas.",
+          "Gañei o reto Alén Space e o 2.º mellor proxecto Open Source en HackUDC 2026 (400+ participantes) con BFG-I. Fun seleccionado entre 1.700+ solicitantes para participar en HackUPC 2026 con XEITECH. Ambos os proxectos foron desenvolvidos en 36 horas.",
           "**HackUDC** ([BFG-I](https://github.com/YagoFalgueras/HackUDC-2026)): implementei un sistema de streaming de DOOM desde satélite sobre enlaces LEO en C, usando compresión de vídeo H.264, empaquetado RTP/UDP e un búfer circular lock-free.",
           "**HackUPC** ([XEITECH](https://github.com/igarbayo/HackUPC-2026)): desenvolvín un simulador de almacén automatizado cun algoritmo de E/S baseado en heurísticas, reordenación de instrucións SSTF e un xemelgo dixital en 3D con C++, Python e React."
         ],
