@@ -3,7 +3,7 @@
 //
 // Comprueba invariantes que ni ESLint ni `next build` detectan, porque los
 // diccionarios son JSON y las rutas de imagen se resuelven en tiempo de
-// ejecución. Lo ejecuta el hook de pre-commit.
+// ejecución. Lo ejecuta la GitHub Action de CI en cada push.
 
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'

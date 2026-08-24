@@ -69,13 +69,6 @@ cd web-personal/src/frontend
 pnpm install
 ```
 
-Activa los hooks de git, que no se activan solos al clonar:
-
-```bash
-cd ../..
-git config core.hooksPath .githooks
-```
-
 ## Uso
 
 Todos los comandos se lanzan desde `src/frontend/`.
@@ -124,7 +117,7 @@ Después referencia **`foto.webp`** desde el diccionario, nunca el original.
 | `src/frontend/app/globals.css` | Paleta clara y oscura como variables CSS en canales RGB |
 | `src/frontend/public/CNAME` | Dominio personalizado de GitHub Pages |
 | `.github/workflows/deploy.yml` | Build y despliegue en cada push a `main` |
-| `.githooks/` | `pre-commit` (check) y `pre-push` (build) |
+| `.github/workflows/ci.yml` | `verify` + `lint` + `typecheck` + `build` en cada push a cualquier rama |
 
 ## Compatibilidad
 
@@ -143,8 +136,6 @@ El punto de corte entre móvil y escritorio es el breakpoint `sm` de Tailwind, *
 |---|---|
 | El deploy falla con `Timeout reached, aborting!` | El despliegue se queda en `deployment_queued`. Mira el tamaño de `out/`: por encima de unos pocos MB, Pages tarda más de los 10 minutos que `deploy-pages` espera como máximo (el límite está cableado en la acción y no se puede subir). Comprueba que no se haya colado ningún original en `public/`; `pnpm verify` lo detecta. |
 | Relanzar un deploy fallido da `Multiple artifacts named "github-pages"` | Un *re-run* reutiliza la misma ejecución y vuelve a subir el artefacto, dejando dos. Ese run ya no se recupera: haz un commit nuevo para generar una ejecución limpia. |
-| Los hooks no se ejecutan | `core.hooksPath` es configuración local de cada clon y no viaja en el repo. Ejecuta `git config core.hooksPath .githooks`. |
-| Un hook falla con «falta node_modules» | Ejecuta `pnpm install` dentro de `src/frontend`. Para saltar los hooks puntualmente, `SKIP_HOOKS=1` delante del comando. |
 | `pnpm verify` dice que falta una imagen en `public/` | Moviste el original a `assets/` pero no generaste el WebP. Lanza `node scripts/to-webp.mjs`. |
 | Una URL sin barra final da 404 | Lo resuelve `trailingSlash: true` en `next.config.js`, que genera `en/index.html` en vez de `en.html`. Si vuelve a pasar, comprueba que esa opción sigue puesta. |
 | El modo oscuro se pierde al cambiar de idioma | Cambiar de idioma es navegación cliente y re-renderiza `<html>`, pisando la clase `.dark`. Lo reaplica `components/ThemeSync.tsx`; si falla, comprueba que sigue montado en el layout. |

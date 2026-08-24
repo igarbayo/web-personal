@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          cache-dependency-path: src/frontend/pnpm-lock.yaml
+      - run: pnpm install
+        working-directory: src/frontend
+      # Antes eran los hooks pre-commit (check) y pre-push (build) de .githooks/.
+      - run: pnpm check
+        working-directory: src/frontend
+      - run: pnpm build
+        working-directory: src/frontend

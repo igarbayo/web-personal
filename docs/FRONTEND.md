@@ -298,20 +298,9 @@ pnpm check      # verify + lint + typecheck (rápido, ~5 s)
 pnpm build      # Debe generar /en, /es, /gl + sub-rutas estáticamente
 ```
 
-### Hooks de git
+### CI
 
-Viven en `.githooks/`, versionados. **Requieren activación una vez por clon:**
-
-```bash
-git config core.hooksPath .githooks
-```
-
-| Hook | Qué corre | Por qué ahí |
-|---|---|---|
-| `pre-commit` | `pnpm check` → verify + lint + typecheck | Rápido; `tsc --noEmit` caza los errores de tipo sin pagar el build entero |
-| `pre-push` | `pnpm build` | ~40 s, pero es la última red antes de que un push a `main` dispare el deploy |
-
-`SKIP_HOOKS=1` delante del comando salta ambos. Si falta `node_modules`, los hooks fallan con un mensaje claro en vez de un error críptico.
+`.github/workflows/ci.yml` corre `pnpm check` (verify + lint + typecheck) y `pnpm build` en cada push a cualquier rama. Sustituye a los antiguos hooks locales de `.githooks/` (`pre-commit` y `pre-push`): ahora la comprobación es la misma para todo el mundo y no depende de que cada clon active `core.hooksPath`.
 
 ### `scripts/verify.mjs`
 
