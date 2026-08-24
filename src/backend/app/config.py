@@ -4,6 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 def _find_repo_root() -> Path:
+    """Find repository root by looking for src/frontend or .git markers."""
     current = Path(__file__).resolve()
     for parent in current.parents:
         if (parent / "src" / "frontend").exists() or (parent / ".git").exists():
@@ -11,8 +12,36 @@ def _find_repo_root() -> Path:
     return current.parent.parent
 
 
+def _resolve_data_dirs() -> tuple[Path, Path, Path, Path]:
+    """
+    Resolve dictionaries, public, and assets directories.
+    In Docker containers, data lives in /data/.
+    In local development, data lives in src/frontend/.
+    """
+    # Docker container: /data/dictionaries/ and /data/public/
+    docker_data = Path("/data")
+    if docker_data.exists() and (docker_data / "dictionaries").exists():
+        return (
+            docker_data / "dictionaries",
+            docker_data / "public",
+            docker_data / "assets" if (docker_data / "assets").exists() else docker_data,
+            docker_data,
+        )
+    # Local development: src/frontend/
+    root = _find_repo_root()
+    frontend = root / "src" / "frontend"
+    if frontend.exists():
+        return (
+            frontend / "dictionaries",
+            frontend / "public",
+            frontend / "assets",
+            frontend,
+        )
+    return (root / "dictionaries", root / "public", root / "assets", root)
+
+
 _ROOT = _find_repo_root()
-_FRONTEND = _ROOT / "src" / "frontend" if (_ROOT / "src" / "frontend").exists() else _ROOT
+_DICTS, _PUBLIC, _ASSETS, _FRONTEND = _resolve_data_dirs()
 
 
 class Settings(BaseSettings):
@@ -44,9 +73,9 @@ class Settings(BaseSettings):
     # Paths (robust in local workspace and inside container)
     REPO_ROOT: Path = _ROOT
     FRONTEND_DIR: Path = _FRONTEND
-    DICTIONARIES_DIR: Path = _FRONTEND / "dictionaries"
-    PUBLIC_DIR: Path = _FRONTEND / "public"
-    ASSETS_DIR: Path = _FRONTEND / "assets"
+    DICTIONARIES_DIR: Path = _DICTS
+    PUBLIC_DIR: Path = _PUBLIC
+    ASSETS_DIR: Path = _ASSETS
 
     # Constraints & Invariants
     PUBLIC_BUDGET_MB: float = 8.0

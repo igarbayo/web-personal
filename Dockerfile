@@ -40,6 +40,10 @@ COPY src/backend/ .
 # Embed the CMS static build so FastAPI serves it on /
 COPY --from=frontend-builder /cms-static/ /app/static/
 
+# Copy frontend data files that the backend needs to read/write
+COPY --from=frontend-builder /repo/src/frontend/dictionaries/ /data/dictionaries/
+COPY --from=frontend-builder /repo/src/frontend/public/ /data/public/
+
 ENV PORT=8000
 EXPOSE 8000
 

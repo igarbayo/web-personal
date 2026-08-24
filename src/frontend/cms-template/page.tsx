@@ -291,7 +291,7 @@ export default function CmsDashboardPage() {
           </div>
         ) : !bundle ? (
           <div className="p-12 text-center text-xs font-mono text-red-500">
-            Error al conectar con la API de FastAPI. Asegúrate de que el backend está corriendo en http://localhost:8000.
+            Error al conectar con la API de FastAPI. Comprueba que el backend está en funcionamiento.
           </div>
         ) : (
           <div className="space-y-6">
