@@ -36,7 +36,7 @@
       },
       {
         "name": "Databases",
-        "items": ["PostgreSQL", "MongoDB"]
+        "items": ["PostgreSQL", "MongoDB", "Redis"]
       },
       {
         "name": "Technologies & Tools",
