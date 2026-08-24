@@ -2,6 +2,7 @@
 
 import React from 'react'
 import ThemeToggle from '@/components/ThemeToggle'
+import { SITE_URL } from '@/lib/seo'
 import { CmsBadge } from './ui/CmsBadge'
 import { CmsButton } from './ui/CmsInput'
 
@@ -56,7 +57,7 @@ export default function CmsHeader({
           <ThemeToggle />
 
           <a
-            href="/"
+            href={SITE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:inline-flex text-xs font-mono text-muted hover:text-accent px-2 py-1"
