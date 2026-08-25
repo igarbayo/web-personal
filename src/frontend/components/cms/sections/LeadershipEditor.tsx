@@ -3,11 +3,12 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import CmsEntryFrame from '../CmsEntryFrame'
+import DateField from '../DateField'
 import ImagePicker from '../ImagePicker'
 import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsSection from '../ui/CmsSection'
-import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
+import { CmsButton } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 import type { EntryLink, LeadershipEntry } from '@/lib/types'
 
@@ -196,14 +197,12 @@ export default function LeadershipEditor({ bundle, onChange }: LeadershipEditorP
                 timeline={false}
                 onRemove={() => handleRemoveEntry(idx)}
                 dateSlot={
-                  <div>
-                    <CmsLabel required>Fechas (MM/YYYY o YYYY)</CmsLabel>
-                    <CmsInput
-                      value={entryEs?.date || ''}
-                      onChange={(e) => updateEntryField(idx, 'date', 'es', e.target.value)}
-                      placeholder="10/2023 – 06/2024"
-                    />
-                  </div>
+                  <DateField
+                    label="Fechas (MM/YYYY o YYYY)"
+                    value={entryEs?.date || ''}
+                    onChange={(val) => updateEntryField(idx, 'date', 'es', val)}
+                    placeholder="10/2023 – 06/2024"
+                  />
                 }
                 logoSlot={
                   <ImagePicker

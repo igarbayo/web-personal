@@ -16,6 +16,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
+import { resolveTokensDeep } from '../lib/tokens.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const SITE_URL = 'https://ignaciogarbayo.com'
@@ -61,7 +62,12 @@ function section(title, entries = [], [titleKey, orgKey]) {
   ]
 }
 
-export function buildLlmsTxt(dict) {
+export function buildLlmsTxt(rawDict) {
+  // Mismo paso que hace `getDictionary` para las páginas: los atajos `{present}`
+  // de los diccionarios se convierten en la palabra inglesa. Sin esto el
+  // fichero saldría con las llaves puestas.
+  const dict = resolveTokensDeep(rawDict, 'en')
+
   const lines = [
     `# ${dict.header.name}`,
     '',

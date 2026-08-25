@@ -32,17 +32,17 @@ export function CmsLabel({
   )
 }
 
-export function CmsInput({
-  className = '',
-  ...props
-}: InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <input
-      className={`w-full bg-background border border-border rounded-md px-3 py-2 text-sm text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
-      {...props}
-    />
-  )
-}
+export const CmsInput = React.forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
+  function CmsInput({ className = '', ...props }, ref) {
+    return (
+      <input
+        ref={ref}
+        className={`w-full bg-background border border-border rounded-md px-3 py-2 text-sm text-foreground placeholder:text-muted/60 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+        {...props}
+      />
+    )
+  }
+)
 
 /**
  * Crece con el contenido en vez de recortarlo tras `rows` líneas: el texto

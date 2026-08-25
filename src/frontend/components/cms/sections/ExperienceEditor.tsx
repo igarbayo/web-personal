@@ -3,11 +3,12 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import CmsEntryFrame from '../CmsEntryFrame'
+import DateField from '../DateField'
 import ImagePicker from '../ImagePicker'
 import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsSection from '../ui/CmsSection'
-import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
+import { CmsButton } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 import type { EntryLink, ExperienceEntry } from '@/lib/types'
 
@@ -126,7 +127,7 @@ export default function ExperienceEditor({ bundle, onChange }: ExperienceEditorP
 
   const handleAddEntry = () => {
     const newEntry: ExperienceEntry = {
-      date: '07/2026 – presente',
+      date: '07/2026 – {present}',
       title: 'Puesto / Rol Profesional',
       company: '[Nombre Empresa](https://empresa.com)',
       bullets: ['Responsabilidad o logro alcanzado...'],
@@ -206,14 +207,12 @@ export default function ExperienceEditor({ bundle, onChange }: ExperienceEditorP
                 timeline
                 onRemove={() => handleRemoveEntry(idx)}
                 dateSlot={
-                  <div>
-                    <CmsLabel required>Fechas (MM/YYYY)</CmsLabel>
-                    <CmsInput
-                      value={entryEs?.date || ''}
-                      onChange={(e) => updateEntryField(idx, 'date', 'es', e.target.value)}
-                      placeholder="07/2025 – 09/2025"
-                    />
-                  </div>
+                  <DateField
+                    label="Fechas (MM/YYYY)"
+                    value={entryEs?.date || ''}
+                    onChange={(val) => updateEntryField(idx, 'date', 'es', val)}
+                    placeholder="07/2025 – 09/2025"
+                  />
                 }
                 logoSlot={
                   <div className="space-y-3">

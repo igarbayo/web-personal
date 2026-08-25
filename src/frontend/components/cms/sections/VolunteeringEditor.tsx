@@ -2,10 +2,11 @@
 
 import React from 'react'
 import CmsEntryFrame from '../CmsEntryFrame'
+import DateField from '../DateField'
 import ImagePicker from '../ImagePicker'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsSection from '../ui/CmsSection'
-import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
+import { CmsButton } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 import type { VolunteeringEntry } from '@/lib/types'
 
@@ -150,14 +151,12 @@ export default function VolunteeringEditor({ bundle, onChange }: VolunteeringEdi
                 timeline={false}
                 onRemove={() => handleRemoveEntry(idx)}
                 dateSlot={
-                  <div>
-                    <CmsLabel required>Fechas (MM/YYYY o YYYY)</CmsLabel>
-                    <CmsInput
-                      value={entryEs?.date || ''}
-                      onChange={(e) => updateEntryField(idx, 'date', 'es', e.target.value)}
-                      placeholder="10/2025 – 02/2026"
-                    />
-                  </div>
+                  <DateField
+                    label="Fechas (MM/YYYY o YYYY)"
+                    value={entryEs?.date || ''}
+                    onChange={(val) => updateEntryField(idx, 'date', 'es', val)}
+                    placeholder="10/2025 – 02/2026"
+                  />
                 }
                 titleSlot={
                   <TrilingualField

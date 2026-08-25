@@ -3,11 +3,12 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import CmsEntryFrame from '../CmsEntryFrame'
+import DateField from '../DateField'
 import ImagePicker from '../ImagePicker'
 import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsSection from '../ui/CmsSection'
-import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
+import { CmsButton } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 import type { CertificationEntry, EntryLink } from '@/lib/types'
 
@@ -197,14 +198,12 @@ export default function CertificationsEditor({
                 timeline
                 onRemove={() => handleRemoveEntry(idx)}
                 dateSlot={
-                  <div>
-                    <CmsLabel required>Fechas (MM/YYYY)</CmsLabel>
-                    <CmsInput
-                      value={entryEs?.date || ''}
-                      onChange={(e) => updateEntryField(idx, 'date', 'es', e.target.value)}
-                      placeholder="08/2026"
-                    />
-                  </div>
+                  <DateField
+                    label="Fechas (MM/YYYY)"
+                    value={entryEs?.date || ''}
+                    onChange={(val) => updateEntryField(idx, 'date', 'es', val)}
+                    placeholder="08/2026"
+                  />
                 }
                 logoSlot={
                   <ImagePicker

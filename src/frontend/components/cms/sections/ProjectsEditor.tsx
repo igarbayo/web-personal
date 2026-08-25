@@ -3,6 +3,7 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import CmsEntryFrame from '../CmsEntryFrame'
+import DateField from '../DateField'
 import ImagePicker from '../ImagePicker'
 import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
@@ -208,14 +209,12 @@ export default function ProjectsEditor({ bundle, onChange }: ProjectsEditorProps
                 timeline={false}
                 onRemove={() => handleRemoveEntry(idx)}
                 dateSlot={
-                  <div>
-                    <CmsLabel required>Fechas (YYYY o MM/YYYY)</CmsLabel>
-                    <CmsInput
-                      value={entryEs?.date || ''}
-                      onChange={(e) => updateEntryField(idx, 'date', 'es', e.target.value)}
-                      placeholder="2026 o 2025 – presente"
-                    />
-                  </div>
+                  <DateField
+                    label="Fechas (YYYY o MM/YYYY)"
+                    value={entryEs?.date || ''}
+                    onChange={(val) => updateEntryField(idx, 'date', 'es', val)}
+                    placeholder="2026 o 2025 – {present}"
+                  />
                 }
                 logoSlot={
                   <div className="space-y-3">

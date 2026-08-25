@@ -22,6 +22,14 @@ class ContentService:
 
     LANGS = ["en", "es", "gl"]
 
+    # `{token}` shortcuts the dictionaries may contain, resolved per language at
+    # render time. Mirror of TOKENS + ALIASES in src/frontend/lib/tokens.mjs;
+    # adding a shortcut there means adding its name here too. Only the names
+    # matter on this side: the backend never resolves them, it just refuses to
+    # store one that does not exist, which would otherwise reach the site as
+    # literal text.
+    CONTENT_TOKENS = {"present", "presente", "ongoing", "expected", "previsto"}
+
     @classmethod
     def get_all_dictionaries(cls) -> Dict[str, Dict[str, Any]]:
         """Reads en.json, es.json, and gl.json from the filesystem."""
@@ -52,6 +60,7 @@ class ContentService:
         3. 4-digit years in all 'date' fields (e.g. 09/2026, never 09/26).
         4. Parity in entry counts for lists across languages.
         5. Referenced images exist in public/ directory.
+        6. Every `{token}` shortcut belongs to the known vocabulary.
         """
         # 1. Check langs presence
         for lang in cls.LANGS:
@@ -124,7 +133,32 @@ class ContentService:
         for lang in cls.LANGS:
             check_dates(dicts[lang], "", lang)
 
-        # 5. Check image existence in public/
+        # 5. Check every {token} shortcut is one the frontend knows how to resolve
+        token_regex = re.compile(r"\{([A-Za-z]+)\}")
+
+        def check_tokens(node: Any, path: str, lang: str):
+            if isinstance(node, list):
+                for i, item in enumerate(node):
+                    check_tokens(item, f"{path}[{i}]", lang)
+            elif isinstance(node, dict):
+                for k, v in node.items():
+                    check_tokens(v, f"{path}.{k}" if path else k, lang)
+            elif isinstance(node, str):
+                for match in token_regex.finditer(node):
+                    if match.group(1).lower() not in cls.CONTENT_TOKENS:
+                        known = ", ".join(sorted(f"{{{t}}}" for t in cls.CONTENT_TOKENS))
+                        raise HTTPException(
+                            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            detail=(
+                                f"Atajo desconocido en {lang}: {path} contiene '{match.group(0)}'. "
+                                f"Los atajos disponibles son: {known}."
+                            ),
+                        )
+
+        for lang in cls.LANGS:
+            check_tokens(dicts[lang], "", lang)
+
+        # 6. Check image existence in public/
         if settings.PUBLIC_DIR.exists():
             public_files = set(f.name for f in settings.PUBLIC_DIR.iterdir() if f.is_file())
             img_pattern = re.compile(r"['\"](\/?[\w\-./]+\.(?:webp|svg|png|jpe?g|ico))['\"]")

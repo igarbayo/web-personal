@@ -3,11 +3,12 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import CmsEntryFrame from '../CmsEntryFrame'
+import DateField from '../DateField'
 import ImagePicker from '../ImagePicker'
 import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsSection from '../ui/CmsSection'
-import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
+import { CmsButton } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 import type { EducationEntry, EntryLink } from '@/lib/types'
 
@@ -200,17 +201,13 @@ export default function EducationEditor({ bundle, onChange }: EducationEditorPro
                 timeline={false}
                 onRemove={() => handleRemoveEntry(idx)}
                 dateSlot={
-                  <div>
-                    <CmsLabel required>Fechas (Formato obligatorio MM/YYYY)</CmsLabel>
-                    <CmsInput
-                      value={entryEs?.date || ''}
-                      onChange={(e) => updateEntryField(idx, 'date', 'es', e.target.value)}
-                      placeholder="09/2021 – 06/2027"
-                    />
-                    <p className="text-[11px] text-muted font-mono mt-1">
-                      Siempre años de 4 cifras (ej. 2026).
-                    </p>
-                  </div>
+                  <DateField
+                    label="Fechas (Formato obligatorio MM/YYYY)"
+                    value={entryEs?.date || ''}
+                    onChange={(val) => updateEntryField(idx, 'date', 'es', val)}
+                    placeholder="09/2021 – 06/2027"
+                    helpText="Siempre años de 4 cifras (ej. 2026)."
+                  />
                 }
                 logoSlot={
                   <ImagePicker

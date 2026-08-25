@@ -62,6 +62,37 @@ def test_validate_content_two_digit_date_failure(auth_headers):
     assert "4 cifras" in validate_res.json()["detail"]
 
 
+def test_validate_content_unknown_token_failure(auth_headers):
+    res = client.get("/api/v1/content/dictionaries", headers=auth_headers)
+    data = res.json()
+
+    # {present} is valid, {future} is not in the token vocabulary
+    data["es"]["experience"]["entries"][0]["date"] = "09/2026 – {future}"
+
+    validate_res = client.post(
+        "/api/v1/content/validate",
+        headers=auth_headers,
+        json={"en": data["en"], "es": data["es"], "gl": data["gl"]},
+    )
+    assert validate_res.status_code == 422
+    assert "Atajo desconocido" in validate_res.json()["detail"]
+
+
+def test_validate_content_known_token_succeeds(auth_headers):
+    res = client.get("/api/v1/content/dictionaries", headers=auth_headers)
+    data = res.json()
+
+    for lang in ["en", "es", "gl"]:
+        data[lang]["experience"]["entries"][0]["date"] = "09/2026 – {present}"
+
+    validate_res = client.post(
+        "/api/v1/content/validate",
+        headers=auth_headers,
+        json={"en": data["en"], "es": data["es"], "gl": data["gl"]},
+    )
+    assert validate_res.status_code == 200
+
+
 def test_update_requires_confirmation_header(auth_headers):
     res = client.get("/api/v1/content/dictionaries", headers=auth_headers)
     data = res.json()

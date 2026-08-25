@@ -9,6 +9,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join, basename } from 'node:path'
 import { buildLlmsTxt } from './gen-llms-txt.mjs'
+import { findUnknownTokens, TOKEN_NAMES } from '../lib/tokens.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const PUBLIC = join(ROOT, 'public')
@@ -180,6 +181,24 @@ check('años con 4 cifras en los campos date', () => {
   }
   if (malos.length) throw new Error(`fechas abreviadas:\n${malos.join('\n')}`)
   return `${total} fechas`
+})
+
+check('los atajos {token} de los diccionarios existen', () => {
+  // Un atajo mal escrito no rompe nada al renderizar: se queda como texto
+  // literal y sale publicado con las llaves. Se caza aquí.
+  const malos = []
+  for (const lang of langs) {
+    for (const { path, token } of findUnknownTokens(dicts[lang])) {
+      malos.push(`${lang}: ${path} → "${token}"`)
+    }
+  }
+  if (malos.length) {
+    throw new Error(
+      `atajos desconocidos:\n${malos.join('\n')}\n` +
+        `vocabulario: ${TOKEN_NAMES.map(n => `{${n}}`).join(', ')} (lib/tokens.mjs)`
+    )
+  }
+  return `${TOKEN_NAMES.length} atajos en el vocabulario`
 })
 
 check('siguen en public/ los ficheros que no se referencian pero hacen falta', () => {
