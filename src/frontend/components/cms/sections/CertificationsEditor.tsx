@@ -3,6 +3,7 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import ImagePicker from '../ImagePicker'
+import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsCard from '../ui/CmsCard'
 import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
@@ -93,6 +94,27 @@ export default function CertificationsEditor({
         entries[index] = {
           ...entries[index],
           bullets: updated[l]?.length > 0 ? updated[l] : undefined,
+        }
+        nextBundle[l] = {
+          ...nextBundle[l],
+          certifications: { ...nextBundle[l].certifications, entries },
+        }
+      }
+    })
+    onChange(nextBundle)
+  }
+
+  const updateLinks = (
+    index: number,
+    updated: { es: EntryLink[]; en: EntryLink[]; gl: EntryLink[] }
+  ) => {
+    const nextBundle = { ...bundle }
+    ;(['es', 'en', 'gl'] as LangKey[]).forEach((l) => {
+      const entries = [...(nextBundle[l].certifications?.entries || [])]
+      if (entries[index]) {
+        entries[index] = {
+          ...entries[index],
+          links: updated[l].length > 0 ? updated[l] : undefined,
         }
         nextBundle[l] = {
           ...nextBundle[l],
@@ -241,6 +263,17 @@ export default function CertificationsEditor({
                       gl: entryGl?.bullets || [],
                     }}
                     onChange={(updated) => updateBullets(idx, updated)}
+                  />
+
+                  <LinksEditor
+                    label="Enlaces de Verificación (ej. Credencial)"
+                    links={{
+                      es: entryEs?.links || [],
+                      en: entryEn?.links || [],
+                      gl: entryGl?.links || [],
+                    }}
+                    onChange={(updated) => updateLinks(idx, updated)}
+                    defaultLabel="Credencial"
                   />
                 </div>
               )

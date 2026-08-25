@@ -3,11 +3,12 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import ImagePicker from '../ImagePicker'
+import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsCard from '../ui/CmsCard'
 import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
-import type { EducationEntry } from '@/lib/types'
+import type { EducationEntry, EntryLink } from '@/lib/types'
 
 interface EducationEditorProps {
   bundle: DictionariesBundle
@@ -86,6 +87,27 @@ export default function EducationEditor({ bundle, onChange }: EducationEditorPro
       const entries = [...(nextBundle[l].education?.entries || [])]
       if (entries[index]) {
         entries[index] = { ...entries[index], bullets: updatedBullets[l] || [] }
+        nextBundle[l] = {
+          ...nextBundle[l],
+          education: { ...nextBundle[l].education, entries },
+        }
+      }
+    })
+    onChange(nextBundle)
+  }
+
+  const updateLinks = (
+    index: number,
+    updated: { es: EntryLink[]; en: EntryLink[]; gl: EntryLink[] }
+  ) => {
+    const nextBundle = { ...bundle }
+    ;(['es', 'en', 'gl'] as LangKey[]).forEach((l) => {
+      const entries = [...(nextBundle[l].education?.entries || [])]
+      if (entries[index]) {
+        entries[index] = {
+          ...entries[index],
+          links: updated[l].length > 0 ? updated[l] : undefined,
+        }
         nextBundle[l] = {
           ...nextBundle[l],
           education: { ...nextBundle[l].education, entries },
@@ -252,6 +274,17 @@ export default function EducationEditor({ bundle, onChange }: EducationEditorPro
                       gl: entryGl?.bullets || [],
                     }}
                     onChange={(updated) => updateEntryBullets(idx, updated)}
+                  />
+
+                  <LinksEditor
+                    label="Enlaces de Prensa / Verificación"
+                    links={{
+                      es: entryEs?.links || [],
+                      en: entryEn?.links || [],
+                      gl: entryGl?.links || [],
+                    }}
+                    onChange={(updated) => updateLinks(idx, updated)}
+                    defaultLabel="Noticia"
                   />
                 </div>
               )
