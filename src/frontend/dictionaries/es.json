@@ -125,10 +125,9 @@
         "title": "Prácticas en Desarrollo Full Stack",
         "company": "[IGM WEB](https://www.igmweb.com/) ([Grupo Hotusa](https://www.grupohotusa.com/))",
         "bullets": [
-          "Diseñando desde cero un pipeline de Change Data Capture (CDC) de alta disponibilidad con Apache Flink y Redis, pensado para transmitir en streaming las actualizaciones de productos hoteleros a las OTA y soportar cargas de miles de cambios por minuto.",
-          "Garanticé la consistencia de los datos para las agencias de viajes online (OTA) y reduje las horas de depuración desarrollando una aplicación web con NestJS, Angular y MongoDB para visualizar los flujos de datos de RabbitMQ/Kafka, que después amplié a un monitor sobre Redpanda para exponer métricas de rendimiento y anomalías.",
-          "Minimicé el lag inicial de las colas de Kafka diseñando desde cero un microservicio de autoescalado horizontal con Docker, capaz de aprovisionar consumidores especializados bajo demanda, separados por topics.",
-          "Gestioné el ciclo de vida completo, desde la definición de requisitos hasta la automatización CI/CD (Docker, Kubernetes, Jenkins), y optimicé los tiempos del ciclo de desarrollo creando hooks propios de automatización con Git e IA."
+          "Centrado en la alta disponibilidad de las aplicaciones, gestiono el ciclo de vida completo de los proyectos, desde la definición de requisitos hasta la automatización CI/CD (Docker, Kubernetes, Jenkins). Actualmente, diseño desde cero un pipeline de Change Data Capture con Apache Flink y Redis para transmitir en streaming actualizaciones de productos a las OTA y soportar cargas de miles de cambios por minuto.",
+          "Garanticé la consistencia de datos para las OTA y reduje las horas de depuración desarrollando una aplicación web con NestJS, Angular y MongoDB para visualizar los flujos de datos de RabbitMQ/Kafka, incorporando un monitor sobre Redpanda para exponer métricas de rendimiento y anomalías.",
+          "Minimicé el lag inicial de las colas de un servicio Kafka creando un microservicio de autoescalado horizontal con Docker, capaz de aprovisionar consumidores especializados bajo demanda, separados por topics."
         ],
         "logo": [
           "igm.svg",
@@ -136,7 +135,7 @@
         ],
         "links": [
           {
-            "label": "Memoria",
+            "label": "Memoria primera etapa",
             "url": "https://nubeusc-my.sharepoint.com/:b:/g/personal/ignacio_garbayo_rai_usc_es/IQDFVuHltslLTZIGsdfMzvP9AS2MTQ54M-2YY_97IMvYvR4?e=xCr8c2"
           }
         ]
