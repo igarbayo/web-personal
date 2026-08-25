@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { CmsButton, CmsInput, CmsLabel, CmsTextarea } from './ui/CmsInput'
+import React from 'react'
+import { CmsInput, CmsLabel, CmsTextarea } from './ui/CmsInput'
 
 export type LangKey = 'es' | 'en' | 'gl'
 
@@ -22,6 +22,22 @@ interface TrilingualFieldProps {
   }
   required?: boolean
   helpText?: string
+  /** Registro tipográfico del campo, para que lea como el elemento público
+   *  que sustituye. Por defecto el cuerpo de texto (viñeta, descripción). */
+  variant?: 'title' | 'subtitle' | 'body' | 'meta'
+}
+
+const langs: { key: LangKey; label: string }[] = [
+  { key: 'es', label: 'ES' },
+  { key: 'en', label: 'EN' },
+  { key: 'gl', label: 'GL' },
+]
+
+const variantClass: Record<NonNullable<TrilingualFieldProps['variant']>, string> = {
+  title: 'font-bold text-base',
+  subtitle: 'text-accent',
+  body: '',
+  meta: 'font-mono text-xs',
 }
 
 export default function TrilingualField({
@@ -33,130 +49,78 @@ export default function TrilingualField({
   placeholder,
   required = false,
   helpText,
+  variant = 'body',
 }: TrilingualFieldProps) {
-  const [activeTab, setActiveTab] = useState<LangKey>('es')
-
-  const langs: { key: LangKey; label: string }[] = [
-    { key: 'es', label: 'Español' },
-    { key: 'en', label: 'English' },
-    { key: 'gl', label: 'Galego' },
-  ]
-
-  const isComplete =
-    Boolean(values.es?.trim()) &&
-    Boolean(values.en?.trim()) &&
-    Boolean(values.gl?.trim())
-
-  const copyToOthers = (sourceLang: LangKey) => {
-    const text = values[sourceLang]
-    if (!text) return
-    langs.forEach(({ key }) => {
-      if (key !== sourceLang && !values[key]) {
-        onChange(key, text)
-      }
-    })
-  }
-
   return (
     <div className="space-y-1.5">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      {label && (
         <div className="flex items-center gap-2">
           <CmsLabel required={required}>{label}</CmsLabel>
-          {required && (
-            <span
-              title={
-                isComplete
-                  ? 'Completo en los 3 idiomas'
-                  : 'Faltan traducciones en algún idioma'
-              }
-              className={`w-2 h-2 rounded-full mb-1.5 ${
-                isComplete ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'
-              }`}
-            />
-          )}
         </div>
-
-        {/* Tab buttons */}
-        <div className="flex items-center gap-1 bg-background border border-border rounded-lg p-0.5">
-          {langs.map(({ key, label: langLabel }) => {
-            const hasValue = Boolean(values[key]?.trim())
-            const isActive = activeTab === key
-
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => setActiveTab(key)}
-                className={`px-2 py-0.5 text-xs font-mono rounded transition-colors flex items-center gap-1 ${
-                  isActive
-                    ? 'bg-surface text-accent font-bold shadow-sm'
-                    : 'text-muted hover:text-foreground'
-                }`}
-              >
-                <span>{key.toUpperCase()}</span>
-                {required && (
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      hasValue ? 'bg-emerald-500/80' : 'bg-amber-500/80'
-                    }`}
-                  />
-                )}
-              </button>
-            )
-          })}
-        </div>
-      </div>
+      )}
 
       {helpText && <p className="text-xs text-muted font-sans mb-1">{helpText}</p>}
 
-      <div className="relative">
-        {type === 'input' ? (
-          <CmsInput
-            value={values[activeTab] || ''}
-            onChange={(e) => onChange(activeTab, e.target.value)}
-            placeholder={
-              placeholder?.[activeTab] ||
-              `Introduce el texto en ${
-                activeTab === 'es'
-                  ? 'español'
-                  : activeTab === 'en'
-                  ? 'inglés'
-                  : 'gallego'
-              }...`
-            }
-          />
-        ) : (
-          <CmsTextarea
-            rows={rows}
-            value={values[activeTab] || ''}
-            onChange={(e) => onChange(activeTab, e.target.value)}
-            placeholder={
-              placeholder?.[activeTab] ||
-              `Introduce el contenido en ${
-                activeTab === 'es'
-                  ? 'español'
-                  : activeTab === 'en'
-                  ? 'inglés'
-                  : 'gallego'
-              }...`
-            }
-          />
-        )}
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        {langs.map(({ key, label: langLabel }) => {
+          const hasValue = Boolean(values[key]?.trim())
+          const canCopyFrom =
+            hasValue &&
+            langs.some(({ key: otherKey }) => otherKey !== key && !values[otherKey]?.trim())
 
-      <div className="flex items-center justify-between text-[11px] font-mono text-muted pt-0.5">
-        <span>
-          Idioma activo: <strong className="text-foreground">{activeTab.toUpperCase()}</strong>
-        </span>
-        {values[activeTab] && (
-          <button
-            type="button"
-            onClick={() => copyToOthers(activeTab)}
-            className="text-accent hover:underline"
-          >
-            Copiar a campos vacíos
-          </button>
-        )}
+          const copyToOthers = () => {
+            const text = values[key]
+            if (!text) return
+            langs.forEach(({ key: otherKey }) => {
+              if (otherKey !== key && !values[otherKey]) {
+                onChange(otherKey, text)
+              }
+            })
+          }
+
+          const fieldPlaceholder =
+            placeholder?.[key] ||
+            `${key === 'es' ? 'Español' : key === 'en' ? 'English' : 'Galego'}...`
+
+          return (
+            <div key={key} className="space-y-1">
+              <div className="flex items-center justify-between">
+                <span
+                  className={`text-[11px] font-mono uppercase tracking-wider ${
+                    hasValue ? 'text-muted' : 'text-accent'
+                  }`}
+                >
+                  {langLabel}
+                </span>
+                {canCopyFrom && (
+                  <button
+                    type="button"
+                    onClick={copyToOthers}
+                    className="text-[11px] text-accent hover:underline"
+                  >
+                    Copiar
+                  </button>
+                )}
+              </div>
+              {type === 'input' ? (
+                <CmsInput
+                  value={values[key] || ''}
+                  onChange={(e) => onChange(key, e.target.value)}
+                  placeholder={fieldPlaceholder}
+                  className={variantClass[variant]}
+                />
+              ) : (
+                <CmsTextarea
+                  rows={rows}
+                  value={values[key] || ''}
+                  onChange={(e) => onChange(key, e.target.value)}
+                  placeholder={fieldPlaceholder}
+                  className={variantClass[variant]}
+                />
+              )}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

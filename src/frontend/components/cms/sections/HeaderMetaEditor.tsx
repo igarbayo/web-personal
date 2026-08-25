@@ -2,7 +2,7 @@
 
 import React from 'react'
 import TrilingualField from '../TrilingualField'
-import CmsCard from '../ui/CmsCard'
+import CmsSection from '../ui/CmsSection'
 import { CmsInput, CmsLabel } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 
@@ -67,8 +67,8 @@ export default function HeaderMetaEditor({ bundle, onChange }: HeaderMetaEditorP
   return (
     <div className="space-y-6">
       {/* Meta SEO */}
-      <CmsCard
-        title="1. Metadatos SEO y Título de Pestaña"
+      <CmsSection
+        title="01a · Metadatos SEO y Título de Pestaña"
         description="Configuración de etiquetas meta, indexación y descripción para motores de búsqueda."
       >
         <div className="space-y-4">
@@ -96,21 +96,25 @@ export default function HeaderMetaEditor({ bundle, onChange }: HeaderMetaEditorP
             required
           />
         </div>
-      </CmsCard>
+      </CmsSection>
 
       {/* Header & Socials */}
-      <CmsCard
-        title="2. Cabecera y Perfiles de Contacto"
+      <CmsSection
+        title="01b · Cabecera y Perfiles de Contacto"
         description="Nombre, subtítulo profesional y enlaces sociales del raíl lateral."
       >
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <CmsLabel required>Nombre Completo</CmsLabel>
+              {/* Eco del tratamiento Display de la portada: es el único campo
+                  del panel que lo lleva, porque es el único texto del sitio
+                  en esa escala. */}
               <CmsInput
                 value={bundle.es.header?.name || ''}
                 onChange={(e) => updateHeaderField('name', e.target.value)}
                 placeholder="Ignacio Garbayo Fernández"
+                className="text-lg font-bold"
               />
             </div>
             <div>
@@ -133,6 +137,7 @@ export default function HeaderMetaEditor({ bundle, onChange }: HeaderMetaEditorP
             }}
             onChange={(lang, val) => updateHeaderTitle(lang, val)}
             required
+            variant="subtitle"
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
@@ -162,14 +167,14 @@ export default function HeaderMetaEditor({ bundle, onChange }: HeaderMetaEditorP
             </div>
           </div>
         </div>
-      </CmsCard>
+      </CmsSection>
 
       {/* Navigation Labels */}
-      <CmsCard
-        title="3. Etiquetas de la Barra de Navegación"
+      <CmsSection
+        title="01c · Etiquetas de la Barra de Navegación"
         description="Textos trilingües para los enlaces del menú principal."
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-4">
           {(Object.keys(bundle.es.nav || {}) as Array<keyof typeof bundle.es.nav>).map(
             (navKey) => (
               <TrilingualField
@@ -186,7 +191,7 @@ export default function HeaderMetaEditor({ bundle, onChange }: HeaderMetaEditorP
             )
           )}
         </div>
-      </CmsCard>
+      </CmsSection>
     </div>
   )
 }

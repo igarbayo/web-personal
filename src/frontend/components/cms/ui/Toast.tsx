@@ -21,16 +21,16 @@ export function ToastContainer({ toasts, onDismiss }: ToastProps) {
     <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
       {toasts.map((toast) => {
         const borderColors = {
-          success: 'border-emerald-500/40 text-emerald-600 dark:text-emerald-400',
-          error: 'border-red-500/40 text-red-600 dark:text-red-400',
-          warning: 'border-amber-500/40 text-amber-600 dark:text-amber-400',
+          success: 'border-ok/40 text-ok',
+          error: 'border-danger/40 text-danger',
+          warning: 'border-accent/40 text-accent',
           info: 'border-accent/40 text-accent',
         }[toast.type]
 
         return (
           <div
             key={toast.id}
-            className={`pointer-events-auto bg-surface border ${borderColors} rounded-lg p-3.5 shadow-lg flex items-start justify-between gap-3 text-sm transition-all`}
+            className={`pointer-events-auto bg-surface border ${borderColors} rounded-lg p-3.5 shadow-lg flex items-start justify-between gap-3 text-sm`}
           >
             <div>
               <p className="font-semibold text-foreground">{toast.title}</p>

@@ -1,8 +1,10 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import ThemeToggle from '@/components/ThemeToggle'
 import { SITE_URL } from '@/lib/seo'
+import favicon from '@/public/favicon.svg'
 import { CmsBadge } from './ui/CmsBadge'
 import { CmsButton } from './ui/CmsInput'
 
@@ -22,13 +24,11 @@ export default function CmsHeader({
   onLogout,
 }: CmsHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 bg-surface/95 backdrop-blur-xs border-b border-border transition-colors">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 bg-surface border-b border-border [box-shadow:0_4px_20px_rgba(0,0,0,0.035)]">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
         {/* Brand / Title */}
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-accent rounded-sm flex items-center justify-center text-white font-mono font-bold text-xs">
-            G
-          </div>
+          <Image src={favicon} alt="" width={24} height={24} className="w-6 h-6" />
           <div>
             <h1 className="text-sm font-bold text-foreground font-sans tracking-tight leading-none">
               Ignacio Garbayo <span className="text-accent">_</span> CMS
@@ -91,7 +91,7 @@ export default function CmsHeader({
           <button
             type="button"
             onClick={onLogout}
-            className="text-xs font-mono text-muted hover:text-red-500 p-1.5 rounded hover:bg-surface"
+            className="text-xs font-mono text-muted hover:text-danger p-1.5 rounded"
             title="Cerrar sesión"
           >
             Salir

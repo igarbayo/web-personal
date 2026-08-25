@@ -16,6 +16,8 @@ const config: Config = {
         muted: 'rgb(var(--color-muted) / <alpha-value>)',
         accent: 'rgb(var(--color-accent) / <alpha-value>)',
         border: 'rgb(var(--color-border) / <alpha-value>)',
+        ok: 'rgb(var(--color-ok) / <alpha-value>)',
+        danger: 'rgb(var(--color-danger) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],

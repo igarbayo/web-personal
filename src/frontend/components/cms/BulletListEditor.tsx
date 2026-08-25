@@ -77,25 +77,20 @@ export default function BulletListEditor({
   }
 
   return (
-    <div className="space-y-3 pt-2">
+    <div className="space-y-2">
       <div className="flex items-center justify-between">
         <CmsLabel>{label} ({maxLen})</CmsLabel>
-        <CmsButton
-          type="button"
-          size="sm"
-          variant="secondary"
-          onClick={handleAddBullet}
-        >
+        <CmsButton type="button" size="sm" variant="secondary" onClick={handleAddBullet}>
           + Añadir viñeta
         </CmsButton>
       </div>
 
       {maxLen === 0 ? (
-        <div className="p-4 border border-dashed border-border rounded-lg text-center text-xs text-muted font-mono">
+        <div className="p-4 border border-dashed border-border rounded-md text-center text-xs text-muted font-mono">
           No hay viñetas añadidas. Pulsa &quot;+ Añadir viñeta&quot; para agregar una.
         </div>
       ) : (
-        <div className="space-y-3">
+        <ul className="space-y-3">
           {Array.from({ length: maxLen }).map((_, index) => {
             const values = {
               es: bullets.es?.[index] || '',
@@ -104,56 +99,54 @@ export default function BulletListEditor({
             }
 
             return (
-              <div
-                key={index}
-                className="bg-surface/50 border border-border rounded-lg p-3 space-y-2 relative group"
-              >
-                <div className="flex items-center justify-between pb-1 border-b border-border/40">
-                  <span className="font-mono text-xs text-muted font-bold">
-                    Viñeta #{index + 1}
-                  </span>
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      disabled={index === 0}
-                      onClick={() => handleMove(index, 'up')}
-                      className="text-xs px-1.5 py-0.5 rounded text-muted hover:text-foreground disabled:opacity-30"
-                      title="Mover arriba"
-                    >
-                      ▲
-                    </button>
-                    <button
-                      type="button"
-                      disabled={index === maxLen - 1}
-                      onClick={() => handleMove(index, 'down')}
-                      className="text-xs px-1.5 py-0.5 rounded text-muted hover:text-foreground disabled:opacity-30"
-                      title="Mover abajo"
-                    >
-                      ▼
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveBullet(index)}
-                      className="text-xs px-1.5 py-0.5 rounded text-red-500 hover:bg-red-500/10 ml-1"
-                      title="Eliminar viñeta"
-                    >
-                      ✕
-                    </button>
+              <li key={index} className="flex gap-[0.6875rem] items-start">
+                <span className="text-accent text-lg leading-none shrink-0 pt-1">•</span>
+                <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] text-muted">Viñeta #{index + 1}</span>
+                    <div className="flex items-center gap-1 font-mono text-xs">
+                      <button
+                        type="button"
+                        disabled={index === 0}
+                        onClick={() => handleMove(index, 'up')}
+                        className="px-1.5 py-0.5 rounded text-muted hover:text-foreground disabled:opacity-30"
+                        title="Mover arriba"
+                      >
+                        ▲
+                      </button>
+                      <button
+                        type="button"
+                        disabled={index === maxLen - 1}
+                        onClick={() => handleMove(index, 'down')}
+                        className="px-1.5 py-0.5 rounded text-muted hover:text-foreground disabled:opacity-30"
+                        title="Mover abajo"
+                      >
+                        ▼
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveBullet(index)}
+                        className="px-1.5 py-0.5 rounded text-danger hover:bg-danger/10"
+                        title="Eliminar viñeta"
+                      >
+                        ✕
+                      </button>
+                    </div>
                   </div>
+                  <TrilingualField
+                    label=""
+                    type="textarea"
+                    rows={2}
+                    values={values}
+                    onChange={(lang, val) => handleUpdateBullet(index, lang, val)}
+                    required
+                    variant="body"
+                  />
                 </div>
-
-                <TrilingualField
-                  label=""
-                  type="textarea"
-                  rows={2}
-                  values={values}
-                  onChange={(lang, val) => handleUpdateBullet(index, lang, val)}
-                  required
-                />
-              </div>
+              </li>
             )
           })}
-        </div>
+        </ul>
       )}
     </div>
   )

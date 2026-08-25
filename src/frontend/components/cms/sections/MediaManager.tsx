@@ -1,10 +1,9 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { CmsClient, MediaItem, MediaListResponse } from '@/lib/cmsClient'
+import { CmsClient, MediaItem, MediaListResponse, resolveMediaUrl } from '@/lib/cmsClient'
 import ConfirmationModal from '../ConfirmationModal'
-import CmsCard from '../ui/CmsCard'
-import { CmsBadge } from '../ui/CmsBadge'
+import CmsSection from '../ui/CmsSection'
 import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
 
 interface MediaManagerProps {
@@ -105,8 +104,8 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
   return (
     <div className="space-y-6">
       {/* Budget & Metrics Card */}
-      <CmsCard
-        title="Gestor de Medios y Presupuesto de Peso (public/)"
+      <CmsSection
+        title="11 · Gestor de Medios y Presupuesto de Peso (public/)"
         description="Imágenes, logos y capturas. Next.js copia esta carpeta íntegra al build estático."
         action={
           <CmsButton
@@ -132,7 +131,7 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
               </span>
               <span>
                 Espacio disponible:{' '}
-                <strong className="text-emerald-500">
+                <strong className="text-ok">
                   {mediaData?.budget_remaining_mb.toFixed(2) || '8.00'} MB
                 </strong>
               </span>
@@ -141,12 +140,8 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
             {/* Progress Bar */}
             <div className="w-full bg-surface border border-border rounded-full h-2 overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all ${
-                  usedPercentage > 85
-                    ? 'bg-red-500'
-                    : usedPercentage > 60
-                    ? 'bg-amber-500'
-                    : 'bg-accent'
+                className={`h-full rounded-full ${
+                  usedPercentage > 85 ? 'bg-danger' : usedPercentage > 60 ? 'bg-accent' : 'bg-ok'
                 }`}
                 style={{ width: `${usedPercentage}%` }}
               />
@@ -160,7 +155,7 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
           {/* Upload Box */}
           <form
             onSubmit={handleOpenUploadConfirm}
-            className="border-2 border-dashed border-border hover:border-accent rounded-xl p-5 bg-surface/40 transition-colors space-y-4"
+            className="border-2 border-dashed border-border hover:border-accent rounded-xl p-5 bg-surface/40 space-y-4"
           >
             <div className="text-center space-y-1">
               <h4 className="text-sm font-bold text-foreground">
@@ -207,10 +202,10 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
             </div>
           </form>
         </div>
-      </CmsCard>
+      </CmsSection>
 
       {/* Media Grid */}
-      <CmsCard
+      <CmsSection
         title={`Archivos en public/ (${filteredItems.length})`}
         description="Explorador de recursos disponibles para asignar en cualquier sección del sitio."
         action={
@@ -233,12 +228,12 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
             {filteredItems.map((item) => (
               <div
                 key={item.filename}
-                className="bg-background border border-border rounded-lg p-2.5 flex flex-col justify-between group hover:border-accent/50 transition-colors"
+                className="bg-background border border-border rounded-lg p-2.5 flex flex-col justify-between group hover:border-accent/50"
               >
                 <div className="w-full h-24 bg-surface border border-border rounded flex items-center justify-center overflow-hidden mb-2 relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={item.url}
+                    src={resolveMediaUrl(item.url)}
                     alt={item.filename}
                     className="max-h-full max-w-full object-contain p-1"
                     onError={(e) => {
@@ -271,7 +266,7 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
                   <button
                     type="button"
                     onClick={() => handleOpenDeleteConfirm(item.filename)}
-                    className="text-[11px] text-red-500 hover:text-red-700 font-mono"
+                    className="text-[11px] text-danger font-mono"
                     title="Eliminar archivo"
                   >
                     Eliminar
@@ -281,7 +276,7 @@ export default function MediaManager({ onMediaChanged, showToast }: MediaManager
             ))}
           </div>
         )}
-      </CmsCard>
+      </CmsSection>
 
       {/* Confirmation Modal */}
       <ConfirmationModal

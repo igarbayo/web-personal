@@ -7,7 +7,7 @@ import CmsSectionNav, { CmsSectionTab } from '@/components/cms/CmsSectionNav'
 import ConfirmationModal from '@/components/cms/ConfirmationModal'
 import { ToastContainer, ToastMessage } from '@/components/cms/ui/Toast'
 import { CmsButton, CmsInput, CmsLabel } from '@/components/cms/ui/CmsInput'
-import CmsCard from '@/components/cms/ui/CmsCard'
+import CmsSection from '@/components/cms/ui/CmsSection'
 import ThemeToggle from '@/components/ThemeToggle'
 
 // Section Editors
@@ -198,7 +198,7 @@ export default function CmsDashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center p-4 bg-background">
         <div className="max-w-md w-full">
-          <CmsCard className="p-6 md:p-8">
+          <CmsSection className="p-6 md:p-8">
             <div className="flex items-center justify-between pb-4 mb-6 border-b border-border">
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 bg-accent rounded-sm flex items-center justify-center text-white font-mono font-bold text-xs">
@@ -246,7 +246,7 @@ export default function CmsDashboardPage() {
               </div>
 
               {loginError && (
-                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-xs text-red-600 dark:text-red-400 font-mono">
+                <div className="p-3 bg-danger/10 border border-danger/30 rounded-lg text-xs text-danger font-mono">
                   {loginError}
                 </div>
               )}
@@ -261,7 +261,7 @@ export default function CmsDashboardPage() {
                 {isLoggingIn ? 'Verificando...' : 'Iniciar Sesión'}
               </CmsButton>
             </form>
-          </CmsCard>
+          </CmsSection>
         </div>
         <ToastContainer toasts={toasts} onDismiss={dismissToast} />
       </div>
@@ -284,13 +284,13 @@ export default function CmsDashboardPage() {
 
       <CmsSectionNav activeTab={activeTab} onSelectTab={setActiveTab} />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-8 w-full flex-1">
+      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-6 md:py-8 w-full flex-1">
         {isLoadingContent && !bundle ? (
           <div className="p-12 text-center text-xs font-mono text-muted">
             Cargando contenidos trilingües desde FastAPI...
           </div>
         ) : !bundle ? (
-          <div className="p-12 text-center text-xs font-mono text-red-500">
+          <div className="p-12 text-center text-xs font-mono text-danger">
             Error al conectar con la API de FastAPI. Comprueba que el backend está en funcionamiento.
           </div>
         ) : (

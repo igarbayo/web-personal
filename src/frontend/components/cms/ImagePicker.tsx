@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { CmsClient, MediaItem, mediaUrl } from '@/lib/cmsClient'
 import { CmsButton, CmsLabel, CmsSelect } from './ui/CmsInput'
 
@@ -11,6 +10,10 @@ interface ImagePickerProps {
   onChange: (updated: string[]) => void
   multiple?: boolean
   helpText?: string
+  /** Para la columna estrecha de logotipo: miniaturas apiladas en una sola
+   *  columna y controles uno debajo de otro, en vez de la rejilla y la fila
+   *  que usa la galería en el cuerpo ancho de la tarjeta. */
+  compact?: boolean
 }
 
 export default function ImagePicker({
@@ -19,6 +22,7 @@ export default function ImagePicker({
   onChange,
   multiple = true,
   helpText,
+  compact = false,
 }: ImagePickerProps) {
   const [availableMedia, setAvailableMedia] = useState<MediaItem[]>([])
   const [selectedToAdd, setSelectedToAdd] = useState<string>('')
@@ -71,53 +75,59 @@ export default function ImagePicker({
       <CmsLabel>{label}</CmsLabel>
       {helpText && <p className="text-xs text-muted mb-2">{helpText}</p>}
 
-      {/* Selected badges / thumbnails */}
+      {/* Miniaturas: la misma proporción que la caja de logo o la rejilla de
+          galería de TimelineEntry, para que el hueco lea como el elemento
+          público que va a ocupar. */}
       {selected.length > 0 ? (
-        <div className="flex flex-wrap gap-2 mb-2">
+        <div className={compact ? 'space-y-2 mb-2' : 'grid grid-cols-3 sm:grid-cols-4 gap-2 mb-2'}>
           {selected.map((item) => {
             const cleanUrl = mediaUrl(item)
             return (
               <div
                 key={item}
-                className="flex items-center gap-2 bg-surface border border-border rounded-lg p-1.5 pr-2.5 text-xs font-mono group"
+                // Fondo blanco en el selector de logotipo por el mismo motivo
+                // que `logoBoxed` en la web: un logo con transparencia no se
+                // lee sobre el fondo oscuro. Las galerías son fotos y no lo
+                // necesitan.
+                className={`relative border border-border rounded-md p-1.5 ${
+                  compact ? 'bg-white' : 'bg-background'
+                }`}
               >
-                <div className="relative w-7 h-7 bg-background border border-border rounded overflow-hidden flex items-center justify-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={cleanUrl}
-                    alt={item}
-                    className="w-full h-full object-contain p-0.5"
-                    onError={(e) => {
-                      ;(e.target as HTMLElement).style.display = 'none'
-                    }}
-                  />
-                </div>
-                <span className="text-foreground max-w-[160px] truncate">{item}</span>
                 <button
                   type="button"
                   onClick={() => handleRemove(item)}
-                  className="text-muted hover:text-red-500 font-bold ml-1"
+                  className="absolute top-0.5 right-0.5 z-10 w-4 h-4 rounded-full bg-danger text-white text-[10px] leading-none flex items-center justify-center"
                   title="Eliminar referencia"
                 >
                   ✕
                 </button>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={cleanUrl}
+                  alt={item}
+                  className={`w-full object-contain ${compact ? 'h-10' : 'h-16'}`}
+                  onError={(e) => {
+                    ;(e.target as HTMLElement).style.visibility = 'hidden'
+                  }}
+                />
+                <p className="text-[10px] font-mono text-muted truncate mt-1" title={item}>
+                  {item}
+                </p>
               </div>
             )
           })}
         </div>
       ) : (
-        <p className="text-xs text-muted font-mono italic mb-2">
-          Ninguna imagen asignada.
-        </p>
+        <p className="text-xs text-muted font-mono italic mb-2">Ninguna asignada.</p>
       )}
 
       {/* Add dropdown */}
       {(multiple || selected.length === 0) && (
-        <div className="flex items-center gap-2">
+        <div className={compact ? 'space-y-1.5' : 'flex items-center gap-2'}>
           <CmsSelect
             value={selectedToAdd}
             onChange={(e) => setSelectedToAdd(e.target.value)}
-            className="text-xs py-1.5"
+            className="text-xs py-1.5 min-w-0"
             disabled={loading || availableMedia.length === 0}
           >
             {availableMedia.length === 0 ? (
@@ -136,6 +146,7 @@ export default function ImagePicker({
             variant="secondary"
             onClick={handleAdd}
             disabled={!selectedToAdd}
+            className={compact ? 'w-full' : ''}
           >
             + Asignar
           </CmsButton>

@@ -9,7 +9,7 @@ const inter = Inter({
 })
 
 export const metadata = {
-  title: 'Ignacio Garbayo — CMS Control Panel',
+  title: 'Ignacio Garbayo | CMS Panel',
   robots: {
     index: false,
     follow: false,

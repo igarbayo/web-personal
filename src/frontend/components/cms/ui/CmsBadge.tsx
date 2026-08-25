@@ -21,9 +21,9 @@ export function CmsBadge({
   const variantStyles = {
     default: 'bg-background border border-border text-foreground',
     accent: 'bg-accent/10 border border-accent/30 text-accent font-semibold',
-    success: 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400',
-    warning: 'bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400',
-    danger: 'bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400',
+    success: 'bg-ok/10 border border-ok/30 text-ok',
+    warning: 'bg-accent/10 border border-accent/30 text-accent',
+    danger: 'bg-danger/10 border border-danger/30 text-danger',
   }[variant]
 
   return (

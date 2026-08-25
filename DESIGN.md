@@ -294,6 +294,28 @@ Punto de 0,625 rem con borde de dos píxeles y relleno en azul de señal, y una 
 
 Nombre de destreza en `4rem` de ancho fijo, canal de dos píxeles de alto con radio completo en color filete, relleno en azul de señal proporcional a la nota, y valor en mono a la derecha en `2rem` de ancho. Cruzando todas las barras, una marca vertical de tres píxeles en verde de umbral con un punto en cada extremo y su rótulo debajo, posicionada por cálculo sobre el ancho real del canal.
 
+## Panel de edición
+
+El panel del CMS (`src/frontend/cms-template/`) se monta sobre las mismas piezas que la página que edita: `SectionTitle`, `cardSurface`, los seis tokens de color y la tipografía del sistema. Es la web con huecos editables dentro, no una aplicación aparte. Tres puntos se apartan del resto del sitio, y aquí queda escrito el porqué de cada uno.
+
+**El contenedor se ensancha.** La regla del contenedor único fija 64 rem para el sitio público, pero el panel muestra tres columnas de texto editable por campo (ES / EN / GL) y no caben ahí. El `main`, la cabecera y la barra de pestañas del panel usan `max-w-[1600px]` en su lugar. El carril de fecha y la columna de logotipo conservan su anchura real (el carril pasa de 4 a 8 rem porque aloja un campo editable y no solo texto, la columna de logotipo se queda en `sm:w-32`), así que la proporción de la tarjeta se sigue leyendo, solo se ensancha el cuerpo.
+
+**No hay movimiento.** Ni respuesta a interacción ni revelado de entrada. El panel es la hoja que ve alguien con `prefers-reduced-motion: reduce`. Ningún componente de `components/cms/**` lleva `transition`, `animate-*` ni los atributos `data-reveal*`; `SectionTitle` se usa siempre con `reveal="none"` en este contexto.
+
+**Dos tokens de estado nuevos, no accionables.** `--color-ok` (claro `#059669`, oscuro `#34D399`) y `--color-danger` (claro `#DC2626`, oscuro `#F87171`), declarados como tripletes RGB junto a los seis tokens del sitio y consumidos como `ok` y `danger` en Tailwind. Señalan guardado sincronizado, error de validación y borrado, el mismo tipo de estado no accionable que ya cubría el verde de umbral de `Languages.tsx`, y por el mismo motivo no pueden ser el azul de señal: su significado no es "esto es accionable". No hay ámbar: "cambios pendientes" se resuelve con el propio azul de señal, porque sí es accionable y apunta al botón de publicar.
+
+### Campos de formulario
+
+El primer campo de formulario del sistema. Fondo `bg-background` sobre la tarjeta en `bg-surface`, para que lea como un hueco y no como una capa nueva. Borde de 1 px en color filete, radio `0.5 rem`. En foco, borde a azul de señal más un anillo de 1 px del mismo color, sin transición: el cambio es instantáneo, igual que el resto del panel.
+
+### Campo trilingüe
+
+`components/cms/TrilingualField.tsx` es la pieza que reemplaza cualquier texto del sitio público dentro del panel: tres columnas ES / EN / GL a partir de `lg`, apiladas y con su rótulo de idioma debajo de ese punto de corte. El rótulo de cada columna es mono en versalitas, en azul de señal cuando la columna está vacía y en tinta apagada cuando tiene contenido — la señal de "falta traducir" es el propio color del rótulo, no un punto con `animate-pulse`. El campo admite un registro tipográfico (`variant`) para que lea como el elemento público que sustituye: título, subtítulo, cuerpo o dato.
+
+### Maqueta de entrada (`CmsEntryFrame`)
+
+Reproduce el armazón de `TimelineEntry` — carril de fecha, punto y línea, columna de logotipo, filete, cuerpo — con huecos editables en vez de texto fijo. Es una reimplementación deliberada del lado del panel y no una generalización de `TimelineEntry`: ese componente sirve al sitio público con `renderText`, `next/image` y los atributos de revelado, y forzarlo a aceptar ranuras arbitrarias pondría en riesgo invariantes de LCP que están razonadas en el propio fichero. La tarjeta interior sí es la misma pieza, `cardSurface`, así que el radio, el borde y el acolchado no pueden divergir entre panel y web. La fila de número de entrada y el botón de eliminar viven fuera de esa tarjeta a propósito, para que el andamiaje de edición se distinga de un vistazo del contenido que va a publicarse.
+
 ## Do's and Don'ts
 
 ### Do:

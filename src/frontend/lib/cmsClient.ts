@@ -31,13 +31,33 @@ export interface ApiResponse<T = any> {
   data?: T
 }
 
-// The backend serves public/ at /media-files/, sibling to /api/v1, not under
-// it. MediaItem.url from the API already carries this prefix; this helper is
-// for components (like ImagePicker) that only have a bare filename from a
-// dictionary field (e.g. logo: ["cambridge.svg"]).
+// El backend sirve public/ en /media-files/, hermano de /api/v1 y no debajo.
+// En producción panel y API comparten origen, así que una ruta relativa
+// basta. En desarrollo local (`pnpm dev` en :3000 contra FastAPI en :8000)
+// no comparten origen, así que se deriva la misma base que usa la API a
+// partir de NEXT_PUBLIC_CMS_API_URL en vez de asumir origen propio.
+function getMediaBase(): string {
+  if (process.env.NEXT_PUBLIC_CMS_API_URL) {
+    return process.env.NEXT_PUBLIC_CMS_API_URL.replace(/\/$/, '').replace(/\/api\/v1$/, '')
+  }
+  return ''
+}
+
+const MEDIA_BASE = getMediaBase()
+
+// MediaItem.url de la API ya lleva este prefijo; este helper es para
+// componentes (como ImagePicker) que solo tienen el nombre de fichero de un
+// campo del diccionario (p. ej. logo: ["cambridge.svg"]).
 export function mediaUrl(filename: string): string {
   const clean = filename.replace(/^\//, '')
-  return `/media-files/${clean}`
+  return `${MEDIA_BASE}/media-files/${clean}`
+}
+
+// Para componentes que sí reciben `MediaItem.url` de la API (ya con el
+// prefijo `/media-files/` puesto por el backend) y solo necesitan anteponer
+// el origen, sin volver a construir la ruta como hace `mediaUrl()`.
+export function resolveMediaUrl(url: string): string {
+  return `${MEDIA_BASE}${url}`
 }
 
 function getApiBase(): string {

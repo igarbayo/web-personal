@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react'
 import TrilingualField, { LangKey } from '../TrilingualField'
-import CmsCard from '../ui/CmsCard'
-import { CmsBadge } from '../ui/CmsBadge'
-import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
+import CmsSection from '../ui/CmsSection'
+import { CmsButton, CmsInput } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
+import { cardSurface } from '@/lib/cardSurface'
+import { getSkillIcon } from '@/lib/skillIcons'
 
 interface SkillsEditorProps {
   bundle: DictionariesBundle
@@ -126,21 +127,16 @@ export default function SkillsEditor({ bundle, onChange }: SkillsEditorProps) {
 
   return (
     <div className="space-y-6">
-      <CmsCard
-        title="Sección: Aptitudes y Competencias (Skills)"
+      <CmsSection
+        title="03 · Aptitudes y Competencias (Skills)"
         description="Categorías de tecnologías, lenguajes, frameworks y bases de datos."
         action={
-          <CmsButton
-            type="button"
-            size="sm"
-            variant="secondary"
-            onClick={handleAddCategory}
-          >
+          <CmsButton type="button" size="sm" variant="secondary" onClick={handleAddCategory}>
             + Añadir Categoría
           </CmsButton>
         }
       >
-        <div className="space-y-6">
+        <div className="mb-6 pb-6 border-b border-border">
           <TrilingualField
             label="Título de la Sección"
             values={{
@@ -151,26 +147,25 @@ export default function SkillsEditor({ bundle, onChange }: SkillsEditorProps) {
             onChange={(lang, val) => updateTitle(lang, val)}
             required
           />
+        </div>
 
-          <div className="space-y-5 pt-2">
-            {categories.map((cat, idx) => (
-              <div
-                key={idx}
-                className="bg-background border border-border rounded-xl p-4 md:p-5 space-y-4"
-              >
-                <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <span className="font-mono text-xs font-bold text-accent uppercase">
-                    Categoría #{idx + 1}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveCategory(idx)}
-                    className="text-xs text-red-500 hover:bg-red-500/10 px-2 py-0.5 rounded font-mono"
-                  >
-                    ✕ Eliminar Categoría
-                  </button>
-                </div>
+        <div className="space-y-6">
+          {categories.map((cat, idx) => (
+            <div key={idx}>
+              <div className="flex items-center justify-between mb-2 font-mono text-xs">
+                <span className="text-muted">Categoría #{idx + 1}</span>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveCategory(idx)}
+                  className="text-danger hover:bg-danger/10 px-2 py-0.5 rounded"
+                >
+                  ✕ Eliminar
+                </button>
+              </div>
 
+              {/* Misma forma que la categoría pública: nombre en versalitas
+                  sobre las insignias, montada en cardSurface. */}
+              <div className={cardSurface}>
                 <TrilingualField
                   label="Nombre de la Categoría"
                   values={{
@@ -182,57 +177,75 @@ export default function SkillsEditor({ bundle, onChange }: SkillsEditorProps) {
                   required
                 />
 
-                <div>
-                  <CmsLabel>Insignias de Competencias ({cat.items?.length || 0})</CmsLabel>
-                  <div className="flex flex-wrap gap-2 py-2">
-                    {(cat.items || []).map((item) => (
-                      <CmsBadge key={item} variant="default" size="md">
-                        <span>{item}</span>
+                <div className="h-px bg-border my-4" />
+
+                {/* El icono se pinta aquí con el mismo `getSkillIcon` que usa
+                    `SkillBadge` en la web. La correspondencia es por cadena
+                    exacta contra el mapa de `lib/skillIcons.ts`, así que un
+                    hueco sin icono es la señal de que esa aptitud no está en
+                    el mapa y saldrá solo como texto. Sin esta vista previa no
+                    había forma de saberlo hasta publicar. */}
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {(cat.items || []).length === 0 && (
+                    <p className="text-xs text-muted font-mono italic">
+                      Ninguna insignia añadida.
+                    </p>
+                  )}
+                  {(cat.items || []).map((item) => {
+                    const Icon = getSkillIcon(item)
+                    return (
+                      <span
+                        key={item}
+                        title={Icon ? undefined : `Sin icono: "${item}" no está en lib/skillIcons.ts`}
+                        className="inline-flex items-center gap-1 font-mono text-sm pl-2 pr-1 py-0.5 rounded border border-border bg-surface text-foreground"
+                      >
+                        {Icon && <Icon className="w-5 h-5 shrink-0" />}
+                        {item}
                         <button
                           type="button"
                           onClick={() => handleRemoveSkillItem(idx, item)}
-                          className="hover:text-red-500 ml-1 font-bold"
+                          className="text-muted hover:text-danger font-bold ml-0.5"
                           title="Eliminar skill"
                         >
                           ✕
                         </button>
-                      </CmsBadge>
-                    ))}
-                  </div>
+                      </span>
+                    )
+                  })}
+                </div>
 
-                  <div className="flex items-center gap-2 pt-1 max-w-sm">
-                    <CmsInput
-                      value={newSkillInput[idx] || ''}
-                      onChange={(e) =>
-                        setNewSkillInput({
-                          ...newSkillInput,
-                          [idx]: e.target.value,
-                        })
+                <div className="flex items-center gap-2 max-w-sm">
+                  <CmsInput
+                    value={newSkillInput[idx] || ''}
+                    onChange={(e) =>
+                      setNewSkillInput({
+                        ...newSkillInput,
+                        [idx]: e.target.value,
+                      })
+                    }
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        handleAddSkillItem(idx)
                       }
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault()
-                          handleAddSkillItem(idx)
-                        }
-                      }}
-                      placeholder="Ej. Docker, TypeScript..."
-                      className="text-xs py-1"
-                    />
-                    <CmsButton
-                      type="button"
-                      size="sm"
-                      variant="secondary"
-                      onClick={() => handleAddSkillItem(idx)}
-                    >
-                      + Añadir
-                    </CmsButton>
-                  </div>
+                    }}
+                    placeholder="Ej. Docker, TypeScript..."
+                    className="text-xs py-1"
+                  />
+                  <CmsButton
+                    type="button"
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => handleAddSkillItem(idx)}
+                  >
+                    + Añadir
+                  </CmsButton>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </CmsCard>
+      </CmsSection>
     </div>
   )
 }

@@ -2,10 +2,11 @@
 
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
+import CmsEntryFrame from '../CmsEntryFrame'
 import ImagePicker from '../ImagePicker'
 import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
-import CmsCard from '../ui/CmsCard'
+import CmsSection from '../ui/CmsSection'
 import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 import type { EntryLink, ExperienceEntry } from '@/lib/types'
@@ -159,93 +160,93 @@ export default function ExperienceEditor({ bundle, onChange }: ExperienceEditorP
 
   return (
     <div className="space-y-6">
-      <CmsCard
-        title="Sección: Trayectoria y Experiencia Profesional"
+      <CmsSection
+        title="05 · Trayectoria y Experiencia Profesional"
         description="Puestos, empresas, fechas, viñetas de impacto y enlaces."
         action={
-          <CmsButton
-            type="button"
-            size="sm"
-            variant="secondary"
-            onClick={handleAddEntry}
-          >
+          <CmsButton type="button" size="sm" variant="secondary" onClick={handleAddEntry}>
             + Añadir Experiencia
           </CmsButton>
         }
       >
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <TrilingualField
-              label="Título de la Sección"
-              values={{
-                es: bundle.es.experience?.title || '',
-                en: bundle.en.experience?.title || '',
-                gl: bundle.gl.experience?.title || '',
-              }}
-              onChange={(lang, val) => updateTitles('title', lang, val)}
-              required
-            />
-            <TrilingualField
-              label="Título de la Página Dedicada (/experience)"
-              values={{
-                es: bundle.es.experience?.pageTitle || '',
-                en: bundle.en.experience?.pageTitle || '',
-                gl: bundle.gl.experience?.pageTitle || '',
-              }}
-              onChange={(lang, val) => updateTitles('pageTitle', lang, val)}
-              required
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 pb-6 border-b border-border">
+          <TrilingualField
+            label="Título de la Sección"
+            values={{
+              es: bundle.es.experience?.title || '',
+              en: bundle.en.experience?.title || '',
+              gl: bundle.gl.experience?.title || '',
+            }}
+            onChange={(lang, val) => updateTitles('title', lang, val)}
+            required
+          />
+          <TrilingualField
+            label="Título de la Página Dedicada (/experience)"
+            values={{
+              es: bundle.es.experience?.pageTitle || '',
+              en: bundle.en.experience?.pageTitle || '',
+              gl: bundle.gl.experience?.pageTitle || '',
+            }}
+            onChange={(lang, val) => updateTitles('pageTitle', lang, val)}
+            required
+          />
+        </div>
 
-          <div className="space-y-6 pt-2">
-            {Array.from({ length: entriesCount }).map((_, idx) => {
-              const entryEs = bundle.es.experience?.entries?.[idx]
-              const entryEn = bundle.en.experience?.entries?.[idx]
-              const entryGl = bundle.gl.experience?.entries?.[idx]
+        <div className="space-y-8">
+          {Array.from({ length: entriesCount }).map((_, idx) => {
+            const entryEs = bundle.es.experience?.entries?.[idx]
+            const entryEn = bundle.en.experience?.entries?.[idx]
+            const entryGl = bundle.gl.experience?.entries?.[idx]
 
-              return (
-                <div
-                  key={idx}
-                  className="bg-background border border-border rounded-xl p-4 md:p-5 space-y-4"
-                >
-                  <div className="flex items-center justify-between pb-2 border-b border-border">
-                    <span className="font-mono text-xs font-bold text-accent uppercase">
-                      Experiencia #{idx + 1}: {entryEs?.title || 'Sin título'}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveEntry(idx)}
-                      className="text-xs text-red-500 hover:bg-red-500/10 px-2 py-0.5 rounded font-mono"
-                    >
-                      ✕ Eliminar
-                    </button>
+            return (
+              <CmsEntryFrame
+                key={idx}
+                index={idx}
+                heading={entryEs?.title || 'Sin título'}
+                timeline
+                onRemove={() => handleRemoveEntry(idx)}
+                dateSlot={
+                  <div>
+                    <CmsLabel required>Fechas (MM/YYYY)</CmsLabel>
+                    <CmsInput
+                      value={entryEs?.date || ''}
+                      onChange={(e) => updateEntryField(idx, 'date', 'es', e.target.value)}
+                      placeholder="07/2025 – 09/2025"
+                    />
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <CmsLabel required>Fechas (MM/YYYY)</CmsLabel>
-                      <CmsInput
-                        value={entryEs?.date || ''}
-                        onChange={(e) =>
-                          updateEntryField(idx, 'date', 'es', e.target.value)
-                        }
-                        placeholder="07/2025 – 09/2025"
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <TrilingualField
-                        label="Puesto / Cargo"
-                        values={{
-                          es: entryEs?.title || '',
-                          en: entryEn?.title || '',
-                          gl: entryGl?.title || '',
-                        }}
-                        onChange={(lang, val) => updateEntryField(idx, 'title', lang, val)}
-                        required
-                      />
-                    </div>
+                }
+                logoSlot={
+                  <div className="space-y-3">
+                    <ImagePicker
+                      label="Logo"
+                      selected={entryEs?.logo || []}
+                      onChange={(logos) => updateLogos(idx, 'logo', logos)}
+                      multiple={true}
+                      compact
+                    />
+                    <ImagePicker
+                      label="Logo oscuro"
+                      selected={entryEs?.logoDark || []}
+                      onChange={(logos) => updateLogos(idx, 'logoDark', logos)}
+                      multiple={true}
+                      compact
+                    />
                   </div>
-
+                }
+                titleSlot={
+                  <TrilingualField
+                    label="Puesto / Cargo"
+                    values={{
+                      es: entryEs?.title || '',
+                      en: entryEn?.title || '',
+                      gl: entryGl?.title || '',
+                    }}
+                    onChange={(lang, val) => updateEntryField(idx, 'title', lang, val)}
+                    required
+                    variant="title"
+                  />
+                }
+                subtitleSlot={
                   <TrilingualField
                     label="Empresa / Entidad (Soporta enlace Markdown [Empresa](https://...))"
                     values={{
@@ -255,56 +256,55 @@ export default function ExperienceEditor({ bundle, onChange }: ExperienceEditorP
                     }}
                     onChange={(lang, val) => updateEntryField(idx, 'company', lang, val)}
                     required
+                    variant="subtitle"
                   />
+                }
+              >
+                <BulletListEditor
+                  label="Logros y Viñetas de Experiencia"
+                  bullets={{
+                    es: entryEs?.bullets || [],
+                    en: entryEn?.bullets || [],
+                    gl: entryGl?.bullets || [],
+                  }}
+                  onChange={(updated) => updateBullets(idx, updated)}
+                />
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <ImagePicker
-                      label="Logos Empresa (Modo Claro)"
-                      selected={entryEs?.logo || []}
-                      onChange={(logos) => updateLogos(idx, 'logo', logos)}
-                      multiple={true}
-                    />
-                    <ImagePicker
-                      label="Logos Empresa (Modo Oscuro - Opcional)"
-                      selected={entryEs?.logoDark || []}
-                      onChange={(logos) => updateLogos(idx, 'logoDark', logos)}
-                      multiple={true}
-                    />
-                  </div>
+                <TrilingualField
+                  label="Nota (opcional, en cursiva bajo las viñetas)"
+                  type="textarea"
+                  rows={2}
+                  values={{
+                    es: entryEs?.note || '',
+                    en: entryEn?.note || '',
+                    gl: entryGl?.note || '',
+                  }}
+                  onChange={(lang, val) => updateEntryField(idx, 'note', lang, val)}
+                  variant="meta"
+                />
 
-                  <ImagePicker
-                    label="Galería de Fotos (Opcional)"
-                    selected={entryEs?.images || []}
-                    onChange={(imgs) => updateLogos(idx, 'images', imgs)}
-                    multiple={true}
-                  />
+                <LinksEditor
+                  label="Enlaces Externos (ej. Memoria)"
+                  links={{
+                    es: entryEs?.links || [],
+                    en: entryEn?.links || [],
+                    gl: entryGl?.links || [],
+                  }}
+                  onChange={(updated) => updateLinks(idx, updated)}
+                  defaultLabel="Memoria"
+                />
 
-                  <BulletListEditor
-                    label="Logros y Viñetas de Experiencia"
-                    bullets={{
-                      es: entryEs?.bullets || [],
-                      en: entryEn?.bullets || [],
-                      gl: entryGl?.bullets || [],
-                    }}
-                    onChange={(updated) => updateBullets(idx, updated)}
-                  />
-
-                  <LinksEditor
-                    label="Enlaces Externos (ej. Memoria)"
-                    links={{
-                      es: entryEs?.links || [],
-                      en: entryEn?.links || [],
-                      gl: entryGl?.links || [],
-                    }}
-                    onChange={(updated) => updateLinks(idx, updated)}
-                    defaultLabel="Memoria"
-                  />
-                </div>
-              )
-            })}
-          </div>
+                <ImagePicker
+                  label="Galería de Fotos (Opcional)"
+                  selected={entryEs?.images || []}
+                  onChange={(imgs) => updateLogos(idx, 'images', imgs)}
+                  multiple={true}
+                />
+              </CmsEntryFrame>
+            )
+          })}
         </div>
-      </CmsCard>
+      </CmsSection>
     </div>
   )
 }

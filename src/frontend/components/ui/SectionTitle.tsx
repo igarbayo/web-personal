@@ -1,8 +1,10 @@
 interface SectionTitleProps {
   children: React.ReactNode
   /** `'load'` para lo que está sobre el pliegue: entra al pintar, sin pasar por
-   *  el observador ni esperar a la hidratación. */
-  reveal?: 'scroll' | 'load'
+   *  el observador ni esperar a la hidratación. `'none'` para contextos sin
+   *  movimiento, como el panel del CMS, donde no hay que emitir ningún atributo
+   *  de revelado. */
+  reveal?: 'scroll' | 'load' | 'none'
 }
 
 export default function SectionTitle({ children, reveal = 'scroll' }: SectionTitleProps) {
@@ -17,7 +19,7 @@ export default function SectionTitle({ children, reveal = 'scroll' }: SectionTit
       </h2>
       {/* El filete se dibuja de izquierda a derecha al revelarse. Es el gesto
           firma del sistema: el rótulo mono sobre filete de un píxel. */}
-      <div data-reveal-rule className="h-px bg-border" />
+      <div data-reveal-rule={reveal === 'none' ? undefined : ''} className="h-px bg-border" />
     </div>
   )
 }

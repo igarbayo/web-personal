@@ -40,7 +40,7 @@ export default function ConfirmationModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
       <div className="bg-surface border border-border rounded-xl shadow-2xl max-w-lg w-full p-6 space-y-5">
         {/* Header */}
         <div className="flex items-start justify-between pb-3 border-b border-border">
@@ -130,7 +130,7 @@ export default function ConfirmationModal({
           </div>
 
           {errorMessage && (
-            <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-xs text-red-600 dark:text-red-400 font-mono">
+            <div className="p-3 bg-danger/10 border border-danger/30 rounded-lg text-xs text-danger font-mono">
               {errorMessage}
             </div>
           )}

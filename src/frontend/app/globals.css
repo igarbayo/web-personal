@@ -11,6 +11,10 @@
     --color-accent: 37 99 235;
     --color-border: 229 231 235;
 
+    /* Estado no accionable del panel de edición, ver DESIGN.md > Panel de edición. */
+    --color-ok: 5 150 105;
+    --color-danger: 220 38 38;
+
     /* Movimiento. Un solo juego de valores para todo el revelado. */
     --reveal-dist: 10px;
     --reveal-dur: 700ms;
@@ -39,6 +43,8 @@
     --color-muted: 139 148 158;
     --color-accent: 96 165 250;
     --color-border: 42 49 60;
+    --color-ok: 52 211 153;
+    --color-danger: 248 113 113;
   }
 
   html {

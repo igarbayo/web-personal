@@ -78,7 +78,7 @@ export default function LinksEditor({
   }
 
   return (
-    <div className="space-y-3 pt-2">
+    <div className="space-y-2">
       <div className="flex items-center justify-between">
         <CmsLabel>{label} ({count})</CmsLabel>
         <CmsButton type="button" size="sm" variant="secondary" onClick={handleAdd}>
@@ -87,49 +87,56 @@ export default function LinksEditor({
       </div>
 
       {count === 0 ? (
-        <div className="p-4 border border-dashed border-border rounded-lg text-center text-xs text-muted font-mono">
+        <div className="p-4 border border-dashed border-border rounded-md text-center text-xs text-muted font-mono">
           No hay enlaces añadidos. Pulsa &quot;+ Añadir Enlace&quot; para agregar uno.
         </div>
       ) : (
         <div className="space-y-3">
           {Array.from({ length: count }).map((_, index) => (
-            <div
-              key={index}
-              className="bg-surface/50 border border-border rounded-lg p-3 space-y-2 relative group"
-            >
-              <div className="flex items-center justify-between pb-1 border-b border-border/40">
-                <span className="font-mono text-xs text-muted font-bold">
+            <div key={index} className="flex flex-col gap-2 border border-border rounded-lg px-3 py-2">
+              <div className="flex items-center justify-between gap-2 font-mono text-[11px] text-muted">
+                <span className="inline-flex items-center gap-1.5 text-accent">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 12 12"
+                    className="w-3 h-3 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M2.5 9.5L9.5 2.5M5 2.5h4.5v4.5" />
+                  </svg>
                   Enlace #{index + 1}
                 </span>
                 <button
                   type="button"
                   onClick={() => handleRemove(index)}
-                  className="text-xs px-1.5 py-0.5 rounded text-red-500 hover:bg-red-500/10"
+                  className="text-danger hover:bg-danger/10 px-1 rounded"
                   title="Eliminar enlace"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <TrilingualField
-                  label="Etiqueta"
-                  values={{
-                    es: links.es?.[index]?.label || '',
-                    en: links.en?.[index]?.label || '',
-                    gl: links.gl?.[index]?.label || '',
-                  }}
-                  onChange={(lang, val) => handleUpdateLabel(index, lang, val)}
-                  required
+              <TrilingualField
+                label="Etiqueta"
+                values={{
+                  es: links.es?.[index]?.label || '',
+                  en: links.en?.[index]?.label || '',
+                  gl: links.gl?.[index]?.label || '',
+                }}
+                onChange={(lang, val) => handleUpdateLabel(index, lang, val)}
+                required
+              />
+              <div>
+                <CmsLabel>URL (compartida en los 3 idiomas)</CmsLabel>
+                <CmsInput
+                  value={links.es?.[index]?.url || ''}
+                  onChange={(e) => handleUpdateUrl(index, e.target.value)}
+                  placeholder={urlPlaceholder}
                 />
-                <div>
-                  <CmsLabel>URL (compartida en los 3 idiomas)</CmsLabel>
-                  <CmsInput
-                    value={links.es?.[index]?.url || ''}
-                    onChange={(e) => handleUpdateUrl(index, e.target.value)}
-                    placeholder={urlPlaceholder}
-                  />
-                </div>
               </div>
             </div>
           ))}

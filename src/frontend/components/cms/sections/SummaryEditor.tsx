@@ -2,7 +2,7 @@
 
 import React from 'react'
 import TrilingualField from '../TrilingualField'
-import CmsCard from '../ui/CmsCard'
+import CmsSection from '../ui/CmsSection'
 import type { DictionariesBundle } from '@/lib/cmsClient'
 
 interface SummaryEditorProps {
@@ -39,8 +39,8 @@ export default function SummaryEditor({ bundle, onChange }: SummaryEditorProps) 
 
   return (
     <div className="space-y-6">
-      <CmsCard
-        title="Sección: Sobre mí (Summary)"
+      <CmsSection
+        title="02 · Sobre mí (Summary)"
         description="Resumen biográfico principal visible en la portada de la web personal."
       >
         <div className="space-y-5">
@@ -69,7 +69,7 @@ export default function SummaryEditor({ bundle, onChange }: SummaryEditorProps) 
             helpText="Soporta texto corrido y enlaces markdown [texto](url)."
           />
         </div>
-      </CmsCard>
+      </CmsSection>
     </div>
   )
 }
