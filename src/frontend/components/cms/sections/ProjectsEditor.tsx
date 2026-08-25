@@ -3,6 +3,7 @@
 import React from 'react'
 import BulletListEditor from '../BulletListEditor'
 import ImagePicker from '../ImagePicker'
+import LinksEditor from '../LinksEditor'
 import TrilingualField, { LangKey } from '../TrilingualField'
 import CmsCard from '../ui/CmsCard'
 import { CmsButton, CmsInput, CmsLabel } from '../ui/CmsInput'
@@ -104,14 +105,17 @@ export default function ProjectsEditor({ bundle, onChange }: ProjectsEditorProps
     onChange(nextBundle)
   }
 
-  const updateLinks = (index: number, links: EntryLink[]) => {
+  const updateLinks = (
+    index: number,
+    updated: { es: EntryLink[]; en: EntryLink[]; gl: EntryLink[] }
+  ) => {
     const nextBundle = { ...bundle }
     ;(['es', 'en', 'gl'] as LangKey[]).forEach((l) => {
       const entries = [...(nextBundle[l].projects?.entries || [])]
       if (entries[index]) {
         entries[index] = {
           ...entries[index],
-          links: links.length > 0 ? links : undefined,
+          links: updated[l].length > 0 ? updated[l] : undefined,
         }
         nextBundle[l] = {
           ...nextBundle[l],
@@ -289,65 +293,17 @@ export default function ProjectsEditor({ bundle, onChange }: ProjectsEditorProps
                     onChange={(updated) => updateBullets(idx, updated)}
                   />
 
-                  {/* Links / GitHub / Devpost */}
-                  <div className="pt-2">
-                    <CmsLabel>Chips de Enlaces (GitHub, Devpost, Demo)</CmsLabel>
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {(entryEs?.links || []).map((link, lIdx) => (
-                        <div
-                          key={lIdx}
-                          className="flex items-center gap-2 bg-surface border border-border rounded-lg p-2 text-xs font-mono"
-                        >
-                          <input
-                            value={link.label}
-                            onChange={(e) => {
-                              const copy = [...(entryEs?.links || [])]
-                              copy[lIdx] = { ...copy[lIdx], label: e.target.value }
-                              updateLinks(idx, copy)
-                            }}
-                            placeholder="GitHub, Web..."
-                            className="bg-background border border-border rounded px-1.5 py-0.5 text-xs w-28"
-                          />
-                          <input
-                            value={link.url}
-                            onChange={(e) => {
-                              const copy = [...(entryEs?.links || [])]
-                              copy[lIdx] = { ...copy[lIdx], url: e.target.value }
-                              updateLinks(idx, copy)
-                            }}
-                            placeholder="https://github.com/..."
-                            className="bg-background border border-border rounded px-1.5 py-0.5 text-xs w-48"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const copy = (entryEs?.links || []).filter(
-                                (_, i) => i !== lIdx
-                              )
-                              updateLinks(idx, copy)
-                            }}
-                            className="text-red-500 font-bold hover:opacity-80"
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      ))}
-                      <CmsButton
-                        type="button"
-                        size="sm"
-                        variant="secondary"
-                        onClick={() => {
-                          const copy = [
-                            ...(entryEs?.links || []),
-                            { label: 'GitHub', url: 'https://github.com/...' },
-                          ]
-                          updateLinks(idx, copy)
-                        }}
-                      >
-                        + Añadir Enlace
-                      </CmsButton>
-                    </div>
-                  </div>
+                  <LinksEditor
+                    label="Enlaces (GitHub, Devpost, Demo)"
+                    links={{
+                      es: entryEs?.links || [],
+                      en: entryEn?.links || [],
+                      gl: entryGl?.links || [],
+                    }}
+                    onChange={(updated) => updateLinks(idx, updated)}
+                    defaultLabel="GitHub"
+                    urlPlaceholder="https://github.com/..."
+                  />
                 </div>
               )
             })}
