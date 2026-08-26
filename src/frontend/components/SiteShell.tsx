@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Inter } from 'next/font/google'
+import { Public_Sans, IBM_Plex_Mono } from 'next/font/google'
 import type { Dictionary } from '@/lib/types'
 import Navbar from '@/components/Navbar'
 import SocialSidebar, { GitHubIcon } from '@/components/SocialSidebar'
@@ -9,10 +9,15 @@ import { buildPersonJsonLd, serializeJsonLd } from '@/lib/seo'
 import '../app/globals.css'
 
 // A nivel de módulo, como exige `next/font`. Al importarse SiteShell desde los
-// dos layouts raíz, la instancia sigue siendo única.
-const inter = Inter({
+// dos layouts raíz, las instancias siguen siendo únicas.
+const publicSans = Public_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-sans',
+})
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-mono',
 })
 
 interface SiteShellProps {
@@ -35,7 +40,11 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
     // `suppressHydrationWarning` cubre las dos marcas que se ponen en <html>
     // desde scripts del <head> antes de hidratar: la clase `dark` del tema y
     // `data-motion` del revelado. Quitarlo llena la consola de avisos.
-    <html lang={lang} className={inter.variable} suppressHydrationWarning>
+    <html
+      lang={lang}
+      className={`${publicSans.variable} ${plexMono.variable}`}
+      suppressHydrationWarning
+    >
       {/* `no-head-element` es una regla del Pages Router, donde había que usar
           `next/head`. En App Router el layout raíz renderiza `<head>` de forma
           nativa, que es justo lo que se hace aquí. La regla no saltaba mientras

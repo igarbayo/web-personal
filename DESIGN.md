@@ -18,37 +18,37 @@ colors:
   threshold-pass-dark: "#34D399"
 typography:
   display:
-    fontFamily: "Inter, system-ui, sans-serif"
+    fontFamily: "Public Sans, system-ui, sans-serif"
     fontSize: "3rem"
     fontWeight: 700
     lineHeight: 1
     letterSpacing: "-0.025em"
   headline:
-    fontFamily: "Inter, system-ui, sans-serif"
+    fontFamily: "Public Sans, system-ui, sans-serif"
     fontSize: "2.25rem"
     fontWeight: 700
     lineHeight: 1.111
     letterSpacing: "-0.025em"
   title:
-    fontFamily: "Inter, system-ui, sans-serif"
+    fontFamily: "Public Sans, system-ui, sans-serif"
     fontSize: "1.125rem"
     fontWeight: 700
     lineHeight: 1.375
     letterSpacing: "normal"
   body:
-    fontFamily: "Inter, system-ui, sans-serif"
+    fontFamily: "Public Sans, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.625
     letterSpacing: "normal"
   label:
-    fontFamily: "monospace"
+    fontFamily: "IBM Plex Mono, monospace"
     fontSize: "1rem"
     fontWeight: 700
     lineHeight: 1.5
     letterSpacing: "0.1em"
   data:
-    fontFamily: "monospace"
+    fontFamily: "IBM Plex Mono, monospace"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.375
@@ -149,9 +149,9 @@ Una paleta de seis papeles funcionales por tema, sin colores de apoyo. La fuente
 
 ## Typography
 
-**Display Font:** Inter (con `system-ui`, `sans-serif`), cargada por `next/font/google` en la variable `--font-inter`.
-**Body Font:** Inter, la misma. El sistema es de una sola familia real.
-**Label/Mono Font:** la monoespaciada del sistema. La clase `font-mono` de Tailwind apunta a `var(--font-mono)`, y esa variable **no está definida en ningún sitio del proyecto**, así que el navegador cae a su `monospace` genérica. Es una fuente sin elegir, no una decisión de diseño.
+**Display Font:** Public Sans (con `system-ui`, `sans-serif`), cargada por `next/font/google` en la variable `--font-sans` desde `SiteShell.tsx` (sitio público) y `cms-template/layout.tsx` (panel, copiado a `app/admin/` en build). La clase `font-sans` de Tailwind apunta a esa variable.
+**Body Font:** Public Sans, la misma. El sistema es de una sola familia real para prosa y titulares.
+**Label/Mono Font:** IBM Plex Mono, cargada en los pesos 400/500/600/700 en la variable `--font-mono`, junto a Public Sans en los mismos dos ficheros. La clase `font-mono` de Tailwind apunta a esa variable. Es una decisión de diseño, no un fallback.
 
 **Character:** una geométrica neutra de alta legibilidad llevando todo el peso, con la monoespaciada usada como marca de registro y no como voz. La mono no cuenta nada, señala: esto es un rótulo, esto es un dato, esto es una anotación. El contraste entre las dos familias es lo que da el aire de documento técnico sin recurrir a ninguna serif.
 

@@ -1,11 +1,16 @@
 import type { ReactNode } from 'react'
-import { Inter } from 'next/font/google'
+import { Public_Sans, IBM_Plex_Mono } from 'next/font/google'
 import ThemeSync from '@/components/ThemeSync'
 import '@/app/globals.css'
 
-const inter = Inter({
+const publicSans = Public_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-sans',
+})
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-mono',
 })
 
 export const metadata = {
@@ -18,7 +23,11 @@ export const metadata = {
 
 export default function CmsLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang="es"
+      className={`${publicSans.variable} ${plexMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="color-scheme" content="light dark" />
         <script
