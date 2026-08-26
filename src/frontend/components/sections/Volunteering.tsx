@@ -9,8 +9,12 @@ interface VolunteeringProps {
 export default function Volunteering({ data }: VolunteeringProps) {
   return (
     <section id="volunteering" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
-      <div data-reveal-group>
+      <div className="mb-6">
+        <SectionTitle variant="eyebrow">{data.title}</SectionTitle>
+      </div>
+      {/* Rejilla de dos columnas con tarjetas elevadas: réplica del diseño 5a,
+          ver DESIGN.md § Signature: trayectoria de espina. */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" data-reveal-group>
         {data.entries.map((entry, i) => (
           <TimelineEntry
             key={i}
@@ -20,6 +24,9 @@ export default function Volunteering({ data }: VolunteeringProps) {
             description={entry.description}
             images={entry.images}
             timeline={false}
+            elevated
+            imagesPosition="top"
+            spacing={false}
           />
         ))}
       </div>

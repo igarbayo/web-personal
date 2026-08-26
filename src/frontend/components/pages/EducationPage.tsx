@@ -4,16 +4,14 @@ import LeadershipAwards from '@/components/sections/LeadershipAwards'
 import Languages from '@/components/sections/Languages'
 import Certifications from '@/components/sections/Certifications'
 
-/** Cuerpo de Educación. Lo comparten `/[lang]/education/` y `/education/`. */
+/**
+ * Cuerpo de Educación. Lo comparten `/[lang]/education/` y `/education/`.
+ * Sin `<h1>` propio: en Education vive dentro de `Education.tsx`, junto al
+ * rótulo eyebrow, igual que en Experience. Ver DESIGN.md § Typography.
+ */
 export default function EducationPage({ dict }: { dict: Dictionary }) {
   return (
-    <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-8 pt-28">
-      <h1
-        data-reveal-load
-        className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6"
-      >
-        {dict.education.pageTitle}
-      </h1>
+    <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-16 pt-28">
       <Education data={dict.education} />
       <LeadershipAwards data={dict.leadership} />
       <Languages data={dict.languages} />

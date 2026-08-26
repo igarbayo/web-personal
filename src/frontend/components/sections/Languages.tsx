@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import type { LanguagesData, LanguageCertification } from '@/lib/types'
 import SectionTitle from '@/components/ui/SectionTitle'
-import { cardSurface } from '@/lib/cardSurface'
 
 interface LanguagesProps {
   data: LanguagesData
@@ -12,79 +11,73 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
   const thresholdPct = ((cert.threshold - cert.scaleMin) / range) * 100
 
   return (
-    <div className={cardSurface}>
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
-          <Image src="/cambridge.svg" alt="Cambridge" width={2000} height={2339} className="h-10 w-auto object-contain shrink-0" />
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-foreground leading-tight">{cert.name}</p>
-            <p className="text-sm text-muted">{cert.issuer}</p>
+    <div className="rounded-2xl border border-border bg-surface shadow-[0_20px_44px_-34px_rgba(0,0,0,0.5)] p-6 sm:p-8">
+      <div className="grid grid-cols-1 sm:grid-cols-[280px_1fr] gap-8 sm:gap-9 sm:items-center">
+        {/* Left: logo, name, issuer, overall stats */}
+        <div className="sm:border-r sm:border-border sm:pr-9">
+          <Image src="/cambridge.svg" alt="Cambridge" width={2000} height={2339} className="h-10 w-auto object-contain" />
+          <p className="mt-5 font-archivo font-extrabold text-[23px] tracking-[-0.02em] leading-[1.05] text-foreground">{cert.name}</p>
+          <p className="mt-1.5 font-mono text-[12.5px] text-muted">{cert.issuer}</p>
+          <div className="flex gap-6 mt-5">
+            <div>
+              <div className="font-archivo font-black text-[34px] text-accent leading-none">{cert.overallScore}</div>
+              <div className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted mt-1">Overall</div>
+            </div>
+            <div>
+              <div className="font-archivo font-black text-[34px] text-accent leading-none">{cert.overallLevel}</div>
+              <div className="font-mono text-[11px] tracking-[0.08em] uppercase text-muted mt-1">Level</div>
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="flex flex-col items-center rounded-lg bg-accent/10 px-3 py-1.5">
-            <span className="font-mono font-bold text-accent text-lg leading-none">{cert.overallScore}</span>
-            <span className="font-mono text-accent/70 text-[10px] uppercase tracking-wider mt-0.5">Overall</span>
-          </div>
-          <div className="flex flex-col items-center rounded-lg bg-accent/10 px-3 py-1.5">
-            <span className="font-mono font-bold text-accent text-lg leading-none">{cert.overallLevel}</span>
-            <span className="font-mono text-accent/70 text-[10px] uppercase tracking-wider mt-0.5">Level</span>
-          </div>
-        </div>
-      </div>
 
-      {/* Divider */}
-      <div className="h-px bg-border my-4" />
-
-      {/* Skill bars */}
-      <p className="text-xs font-mono font-semibold text-muted uppercase tracking-wider mb-3">{cert.skillsLabel}</p>
-      <div className="relative">
-        {/* Threshold line: w-32 (8rem) + gap-3 (0.75rem) = 8.75rem; bar width = 100% - 11.5rem */}
-        {/* `data-reveal-late`: la marca aparece cuando las barras ya están
-            puestas. Solo opacidad, porque su `transform` ya está ocupado
-            centrándola. */}
-        <div
-          data-reveal-late
-          className="absolute top-0 bottom-7 z-10 flex flex-col items-center"
-          style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))`, transform: 'translateX(-50%)' }}
-        >
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
-          <div className="flex-1 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full" />
-          <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
-        </div>
-        <div className="space-y-2.5">
-          {cert.skills.map((skill) => {
-            const fillPct = ((skill.score - cert.scaleMin) / range) * 100
-            return (
-              <div key={skill.name} className="flex items-center gap-3">
-                <span className="text-sm text-foreground w-32 shrink-0">{skill.name}</span>
-                <div className="flex-1 relative h-2 rounded-full bg-border">
-                  {/* El valor final va en una propiedad personalizada y no en
-                      `width`: un `width` en línea gana a cualquier regla de la
-                      hoja y la barra nunca podría partir de 0. La aserción es
-                      necesaria porque React.CSSProperties no admite
-                      propiedades personalizadas. */}
-                  <div
-                    data-reveal-bar
-                    className="absolute inset-y-0 left-0 rounded-full bg-accent"
-                    style={{ '--reveal-fill': `${fillPct}%` } as React.CSSProperties}
-                  />
+        {/* Right: skill bars */}
+        <div>
+          <div className="flex justify-between font-mono text-[11px] tracking-[0.08em] uppercase mb-4">
+            <span className="text-muted">{cert.skillsLabel}</span>
+            <span className="text-emerald-600 dark:text-emerald-400">{cert.thresholdLabel}</span>
+          </div>
+          <div className="flex flex-col gap-3.5">
+            {cert.skills.map((skill) => {
+              const fillPct = ((skill.score - cert.scaleMin) / range) * 100
+              return (
+                <div key={skill.name} className="flex flex-col gap-1.5 sm:grid sm:grid-cols-[132px_1fr_40px] sm:gap-3.5 sm:items-center">
+                  {/* En móvil el nombre va pegado encima de su barra, no al
+                      lado: `sm:contents` saca esta fila de su propia caja a
+                      partir de `sm` para que el nombre vuelva a ser la 1ª
+                      columna de la rejilla de escritorio. */}
+                  <div className="flex items-baseline justify-between sm:contents">
+                    <span className="font-mono text-[13px] text-foreground">{skill.name}</span>
+                    <span className="font-archivo font-extrabold text-[15px] text-accent sm:hidden">{skill.score}</span>
+                  </div>
+                  <div className="relative h-2 rounded-full bg-border">
+                    {/* La marca de umbral vive dentro de la propia barra y se
+                        posiciona en `%`, no en un `calc()` con el ancho de la
+                        etiqueta: así funciona igual con la barra a ancho
+                        completo (móvil) que con la barra recortada por la
+                        columna de 132px (`sm`), sin dos fórmulas. A cambio ya
+                        no es una única regla que cruza las cinco barras, sino
+                        una marca corta por barra. */}
+                    <div
+                      data-reveal-late
+                      className="absolute -top-1 -bottom-1 -translate-x-1/2 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full z-10"
+                      style={{ left: `${thresholdPct}%` }}
+                    />
+                    {/* El valor final va en una propiedad personalizada y no en
+                        `width`: un `width` en línea gana a cualquier regla de la
+                        hoja y la barra nunca podría partir de 0. La aserción es
+                        necesaria porque React.CSSProperties no admite
+                        propiedades personalizadas. */}
+                    <div
+                      data-reveal-bar
+                      className="absolute inset-y-0 left-0 rounded-full bg-accent"
+                      style={{ '--reveal-fill': `${fillPct}%` } as React.CSSProperties}
+                    />
+                  </div>
+                  <span className="hidden sm:block font-archivo font-extrabold text-[15px] text-accent text-right">{skill.score}</span>
                 </div>
-                <span className="font-mono text-sm text-accent font-semibold w-8 text-right shrink-0">{skill.score}</span>
-              </div>
-            )
-          })}
-        </div>
-        {/* Threshold label aligned under the line */}
-        <div className="relative h-6 mt-1">
-          <span
-            data-reveal-late
-            className="absolute -translate-x-1/2 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold whitespace-nowrap"
-            style={{ left: `calc(8.75rem + ${thresholdPct / 100} * (100% - 11.5rem))` }}
-          >
-            {cert.thresholdLabel}
-          </span>
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -97,7 +90,9 @@ export default function Languages({ data }: LanguagesProps) {
 
   return (
     <section id="languages" className="py-8 scroll-mt-20">
-      <SectionTitle>{data.title}</SectionTitle>
+      <div className="mb-6">
+        <SectionTitle variant="eyebrow">{data.title}</SectionTitle>
+      </div>
       <div className="space-y-4" data-reveal-group>
         {/* La unidad de revelado envuelve la tarjeta en vez de ser la tarjeta
             para que CertCard no tenga que saber nada del revelado. `space-y-4`
@@ -109,11 +104,11 @@ export default function Languages({ data }: LanguagesProps) {
           </div>
         ))}
         {plainEntries.length > 0 && (
-          <div className="flex flex-wrap gap-4" data-reveal>
+          <div className="flex flex-wrap gap-2.5" data-reveal>
             {plainEntries.map((entry) => (
-              <span key={entry.language} className="text-base text-foreground">
-                <strong>{entry.language}</strong>
-                <span className="text-muted">: {entry.level}</span>
+              <span key={entry.language} className="inline-flex items-center gap-2 font-mono text-sm px-4 py-2 bg-surface border border-border rounded-full">
+                <strong className="font-semibold text-foreground">{entry.language}</strong>
+                <span className="text-muted">{entry.level}</span>
               </span>
             ))}
           </div>

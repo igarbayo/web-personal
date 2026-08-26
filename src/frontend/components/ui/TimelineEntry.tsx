@@ -55,6 +55,35 @@ function GalleryImage({
   )
 }
 
+/**
+ * Rejilla de imágenes a sangre, sin marco ni filete de revelado: las fotos
+ * tocan el borde superior de la tarjeta. Solo la usa la tarjeta elevada de
+ * Volunteering (`elevated` + `imagesPosition="top"`), ver DESIGN.md
+ * § Signature: trayectoria de espina.
+ */
+function FlushImages({ images, priorityCount }: { images: string[]; priorityCount: number }) {
+  const cols = images.length === 1 ? 'grid-cols-1' : images.length >= 3 ? 'grid-cols-3' : 'grid-cols-2'
+  return (
+    <div className={`grid ${cols} gap-[3px] bg-border h-40`}>
+      {images.map((src, i) => {
+        const { width, height } = getImageDimensions(src)
+        return (
+          <div key={src} className="overflow-hidden">
+            <Image
+              src={`/${src}`}
+              alt=""
+              width={width}
+              height={height}
+              priority={i < priorityCount}
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 interface TimelineEntryProps {
   date: string
   title: string
@@ -76,6 +105,70 @@ interface TimelineEntryProps {
   logoBorderColor?: string
   /** Nº de imágenes (logos primero, luego galería, en orden de aparición) a cargar con priority. */
   priorityImages?: number
+  /** Variante "trayectoria de espina": placa de logotipo con medallón numerado superpuesto y
+   *  espina de conexión en la misma columna, fecha en píldora, viñetas en raya. Requiere
+   *  `timeline`. Ver DESIGN.md § Signature: trayectoria de espina. */
+  numbered?: boolean
+  /** Posición de la entrada dentro de la lista, para el número del medallón (`numbered`). */
+  index?: number
+  /** Última entrada de la lista: la espina no continúa después de ella (`numbered`). */
+  last?: boolean
+  /** Tratamiento "placa" de la tarjeta entera (radio de 1rem, sombra flotante, tipografía
+   *  Archivo/Figtree): la usa Volunteering. No afecta a `numbered`, cuya placa de logotipo
+   *  siempre lleva este tratamiento. Ver DESIGN.md § Elevation & Depth, vocabulario "Placa flotante". */
+  elevated?: boolean
+  /** Coloca la galería antes de la cabecera en vez de después. Combinada con `elevated`
+   *  usa `FlushImages` (a sangre, sin marco). */
+  imagesPosition?: 'top' | 'bottom'
+  /** Margen inferior entre entradas cuando `timeline` es falso. Se desactiva cuando el contenedor
+   *  reparte el espacio con `gap` (p. ej. una rejilla de dos columnas). */
+  spacing?: boolean
+}
+
+/**
+ * Logotipo(s) de una entrada, escalados para caber dentro de la placa. La
+ * placa es blanca fija en los dos temas (no `bg-surface`), así
+ * que aquí nunca se usa la variante `logoDark`: un logo pensado para modo
+ * oscuro (típicamente claro/blanco) sería invisible sobre ese fondo blanco.
+ */
+function PlateLogos({
+  logo,
+  logoPriorityCount,
+}: {
+  logo: string[]
+  logoPriorityCount: number
+}) {
+  // CiTIUS llena la placa a sangre y se recorta contra su borde redondeado,
+  // como el logo de McKinsey en Certifications: es un isotipo cuadrado que
+  // se lee mejor pegado al marco que con margen alrededor.
+  if (logo.length === 1 && logo[0] === 'citius.webp') {
+    return (
+      <div className="relative w-full h-full">
+        <Image src="/citius.webp" alt="" fill sizes="112px" priority={logoPriorityCount > 0} className="object-cover" />
+      </div>
+    )
+  }
+
+  // `fill` en vez de `width`/`height`: los SVG de logo no llevan tamaño
+  // intrínseco propio (solo `viewBox`), así que `w-auto h-auto` con un
+  // `max-w`/`max-h` en porcentaje no tenía de qué partir y los dejaba
+  // minúsculos. Con `fill`, la caja la marca el envoltorio de tamaño fijo.
+  // Con dos logos se apilan en columna: el ancho puede ser generoso, el
+  // alto tiene que dejar sitio para los dos.
+  // `w-full h-full` en el envoltorio: sin una altura definida aquí, el
+  // `height` en porcentaje de la caja de cada logo no tiene de qué partir
+  // (el padre solo lo centra, no le fija alto) y colapsa a 0 — que es
+  // justo el aviso de Next sobre `fill` con altura 0.
+  const boxClass = logo.length > 1 ? 'w-[80%] h-[32%]' : 'w-[85%] h-[68%]'
+  return (
+    <div className={`w-full h-full flex items-center justify-center${logo.length > 1 ? ' flex-col gap-1.5' : ''}`}>
+      {logo.map((src, i) => (
+        <div key={src} className={`relative ${boxClass}`}>
+          <Image src={`/${src}`} alt="" fill sizes="112px" priority={i < logoPriorityCount} className="object-contain" />
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default function TimelineEntry({
@@ -94,6 +187,12 @@ export default function TimelineEntry({
   logoRounded = false,
   logoBorderColor,
   priorityImages = 0,
+  numbered = false,
+  index = 0,
+  last = false,
+  elevated = false,
+  imagesPosition = 'bottom',
+  spacing = true,
 }: TimelineEntryProps) {
   const hasBody = (bullets && bullets.length > 0) || !!description || !!note
   const logoPriorityCount = Math.min(priorityImages, logo?.length ?? 0)
@@ -106,8 +205,140 @@ export default function TimelineEntry({
   // `priority`.
   const revealAttrs = priorityImages > 0 ? { 'data-reveal-load': '' } : { 'data-reveal': '' }
 
+  const links_ = links && links.length > 0 && (
+    <div className="flex flex-wrap gap-2 mt-4">
+      {links.map((link) => (
+        <a
+          key={link.url}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          // `transition` y no `transition-colors`: hace falta que la lista
+          // de propiedades incluya `transform`, o el crecimiento saltaría
+          // de golpe mientras el color sí acompaña.
+          className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-lg border border-accent text-accent hover:bg-accent hover:text-white hover:scale-105 transition duration-200"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2.5 9.5L9.5 2.5M5 2.5h4.5v4.5"/>
+          </svg>
+          {link.label}
+        </a>
+      ))}
+    </div>
+  )
+
+  // ==================== Variante "trayectoria de espina" (`numbered`) ====================
+  // Estructura propia y no una reutilización del layout por defecto: la placa
+  // de logotipo, el medallón y la espina viven en la misma columna de rejilla
+  // (128px), con el medallón superpuesto en su esquina, en vez de en carriles
+  // separados. Ver DESIGN.md § Signature: trayectoria de espina.
+  if (timeline && numbered) {
+    return (
+      <div
+        className="grid grid-cols-[56px_1fr] sm:grid-cols-[96px_1fr] gap-2 sm:gap-10"
+        {...revealAttrs}
+      >
+        <div className="flex flex-col items-center">
+          <div className={`w-0.5 h-[10px] shrink-0 ${index > 0 ? 'bg-accent/25' : 'bg-transparent'}`} />
+          <div className="relative w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-white border border-border shadow-[0_14px_30px_-22px_rgba(0,0,0,0.5)] overflow-hidden flex items-center justify-center shrink-0 transition-all duration-300 hover:border-accent/55 hover:-translate-y-[3px]">
+            {logo && logo.length > 0 && (
+              <PlateLogos logo={logo} logoPriorityCount={logoPriorityCount} />
+            )}
+          </div>
+          <div className={`w-0.5 flex-1 min-h-[26px] ${last ? 'bg-transparent' : 'bg-accent/25'}`} />
+        </div>
+
+        {/* `min-w-0`: por defecto una pista de grid no encoge por debajo del
+            ancho mínimo de su contenido (la misma familia de bug que ya
+            apareció con las alturas). En `sm` la columna de 1fr tiene sitio
+            de sobra y no se nota, pero en móvil, con la pista mucho más
+            estrecha, el contenido se negaba a envolver y desbordaba a lo
+            ancho de toda la página. */}
+        <div className="min-w-0 pt-1.5 pb-10">
+          {/* Píldora de fecha, fondo/texto azul y blanco. Los rangos múltiples
+              son una píldora por rango, apiladas en móvil y en fila a partir
+              de `sm`. */}
+          <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2 mb-3">
+            {date.split(' & ').map((range) => (
+              // Sin `whitespace-nowrap`: una fecha larga en un móvil muy
+              // estrecho tiene que poder envolver dentro de su propia
+              // píldora, no forzar el ancho de toda la fila.
+              <span key={range} className="inline-flex items-center max-w-full text-xs font-mono text-white bg-accent rounded-2xl px-2.5 py-1 self-start">
+                {range}
+              </span>
+            ))}
+          </div>
+          <h2 className="break-words font-archivo font-bold tracking-[-0.025em] text-[29px] leading-[1.04] text-foreground">
+            {renderText(title)}
+          </h2>
+          {subtitle && (
+            <div className="break-words font-mono text-[13.5px] text-accent mt-[7px]">
+              {renderText(subtitle)}
+            </div>
+          )}
+          {bullets && bullets.length > 0 && (
+            // Margen negativo solo en móvil: las viñetas se acercan más a la
+            // línea que el título/la fecha, que se quedan donde estaban.
+            <ul className="-ml-3 sm:ml-0 mt-5 flex flex-col gap-3 max-w-[760px]">
+              {bullets.map((b, i) => (
+                <li key={i} className="flex gap-3 text-[15.5px] leading-[1.55] font-figtree font-medium text-foreground items-baseline">
+                  <span className="text-accent font-mono shrink-0 mt-px">—</span>
+                  <span className="min-w-0 break-words">{renderText(b)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {note && (
+            <p className="text-sm text-muted mt-3 font-mono italic">
+              {renderText(note)}
+            </p>
+          )}
+          {links_}
+        </div>
+      </div>
+    )
+  }
+
+  const useFlushImages = elevated && imagesPosition === 'top'
+
+  const imagesBlock = images && images.length > 0 && (
+    useFlushImages ? (
+      <FlushImages images={images} priorityCount={imagesPriorityCount} />
+    ) : (
+      images.length === 5 ? (
+        <div className={`grid grid-cols-1 sm:grid-cols-6 gap-2 ${imagesPosition === 'top' ? 'mb-4' : 'mt-4'}`}>
+          {images.slice(0, 3).map((src, i) => (
+            <GalleryImage key={src} src={src} priority={i < imagesPriorityCount} className="sm:col-span-2" />
+          ))}
+          {images.slice(3).map((src, i) => (
+            <GalleryImage key={src} src={src} priority={i + 3 < imagesPriorityCount} className="sm:col-span-3" />
+          ))}
+        </div>
+      ) : (
+        <div className={`grid grid-cols-1 gap-2 ${imagesPosition === 'top' ? 'mb-4' : 'mt-4'} ${images.length === 2 ? 'sm:grid-cols-2' : images.length >= 3 ? 'sm:grid-cols-3' : ''}`}>
+          {images.map((src, i) => (
+            <GalleryImage key={src} src={src} priority={i < imagesPriorityCount} />
+          ))}
+        </div>
+      )
+    )
+  )
+
+  // La placa flotante (`elevated`) sustituye el radio y la sombra por los de
+  // la firma "trayectoria de espina"; las imágenes a sangre exigen que el
+  // padding se mueva del contenedor a un envoltorio interior, para que
+  // toquen el borde superior de la tarjeta.
+  const outerClassName = elevated
+    ? `rounded-2xl border border-border bg-surface shadow-[0_14px_30px_-24px_rgba(0,0,0,0.5)] overflow-hidden${useFlushImages ? '' : ' p-6'}`
+    : cardSurface
+  const innerClassName = elevated && useFlushImages ? 'p-6' : ''
+
   const card = (
-    <div className={cardSurface}>
+    <div className={outerClassName}>
+
+      {imagesPosition === 'top' && imagesBlock}
+
+      <div className={innerClassName}>
 
       {/* Header: logo + title + subtitle (+ date when no timeline) */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -147,23 +378,23 @@ export default function TimelineEntry({
         )}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-            <span className="font-bold text-lg text-foreground block leading-snug">
+            <span className={elevated ? 'font-archivo font-bold tracking-[-0.02em] text-[21px] text-foreground block leading-snug' : 'font-bold text-lg text-foreground block leading-snug'}>
               {renderText(title)}
             </span>
             {!timeline && (
-              <span className="text-sm text-muted shrink-0">{date}</span>
+              <span className={elevated ? 'text-xs font-mono text-muted shrink-0' : 'text-sm text-muted shrink-0'}>{date}</span>
             )}
           </div>
           {subtitle && (
-            <span className="text-sm text-accent mt-0.5 block">
+            <span className={elevated ? 'text-xs font-mono text-accent mt-1.5 block' : 'text-sm text-accent mt-0.5 block'}>
               {renderText(subtitle)}
             </span>
           )}
         </div>
       </div>
 
-      {/* Divider */}
-      {hasBody && <div className="h-px bg-border my-4" />}
+      {/* Divider. Ausente en la placa flotante (`elevated`): sin filete interno. */}
+      {hasBody && !elevated && <div className="h-px bg-border my-4" />}
 
       {/* Bullets */}
       {bullets && bullets.length > 0 && (
@@ -179,7 +410,7 @@ export default function TimelineEntry({
 
       {/* Description */}
       {description && (
-        <p className="text-base text-foreground leading-relaxed">
+        <p className={elevated ? 'text-[14.5px] font-figtree font-medium text-foreground leading-[1.55] mt-2.5' : 'text-base text-foreground leading-relaxed'}>
           {renderText(description)}
         </p>
       )}
@@ -191,50 +422,13 @@ export default function TimelineEntry({
         </p>
       )}
 
-      {/* Links */}
-      {links && links.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-4">
-          {links.map((link) => (
-            <a
-              key={link.url}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              // `transition` y no `transition-colors`: hace falta que la lista
-              // de propiedades incluya `transform`, o el crecimiento saltaría
-              // de golpe mientras el color sí acompaña.
-              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-lg border border-border text-accent hover:bg-accent hover:text-white hover:scale-105 transition duration-200"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2.5 9.5L9.5 2.5M5 2.5h4.5v4.5"/>
-              </svg>
-              {link.label}
-            </a>
-          ))}
-        </div>
-      )}
+      {links_}
 
       {/* Images. Las clases de rejilla van en el envoltorio de GalleryImage
           porque es él quien pasa a ser la celda. */}
-      {images && images.length > 0 && (
-        images.length === 5 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-6 gap-2 mt-4">
-            {images.slice(0, 3).map((src, i) => (
-              <GalleryImage key={src} src={src} priority={i < imagesPriorityCount} className="sm:col-span-2" />
-            ))}
-            {images.slice(3).map((src, i) => (
-              <GalleryImage key={src} src={src} priority={i + 3 < imagesPriorityCount} className="sm:col-span-3" />
-            ))}
-          </div>
-        ) : (
-          <div className={`grid grid-cols-1 gap-2 mt-4 ${images.length === 2 ? 'sm:grid-cols-2' : images.length >= 3 ? 'sm:grid-cols-3' : ''}`}>
-            {images.map((src, i) => (
-              <GalleryImage key={src} src={src} priority={i < imagesPriorityCount} />
-            ))}
-          </div>
-        )
-      )}
+      {imagesPosition === 'bottom' && imagesBlock}
 
+      </div>
     </div>
   )
 
@@ -243,7 +437,7 @@ export default function TimelineEntry({
   // `nth-child` dependen de que sea esta raíz la que cuelgue del contenedor de
   // la lista.
   if (!timeline) {
-    return <div className="mb-4 last:mb-0" {...revealAttrs}>{card}</div>
+    return <div className={spacing ? 'mb-4 last:mb-0' : ''} {...revealAttrs}>{card}</div>
   }
 
   return (

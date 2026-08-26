@@ -3,16 +3,15 @@ import Experience from '@/components/sections/Experience'
 import Skills from '@/components/sections/Skills'
 import Volunteering from '@/components/sections/Volunteering'
 
-/** Cuerpo de Experiencia. Lo comparten `/[lang]/experience/` y `/experience/`. */
+/**
+ * Único `main` de esta página sin su propio `<h1>`: en Experience vive dentro
+ * de `Experience.tsx`, junto al rótulo de sección, para reproducir el rótulo
+ * eyebrow + titular de las capturas de referencia. Excepción declarada al
+ * patrón de Education/Projects, ver DESIGN.md § Typography.
+ */
 export default function ExperiencePage({ dict }: { dict: Dictionary }) {
   return (
-    <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-8 pt-28">
-      <h1
-        data-reveal-load
-        className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-6"
-      >
-        {dict.experience.pageTitle}
-      </h1>
+    <main className="max-w-5xl mx-auto px-6 sm:px-3 pb-16 pt-28">
       <Experience data={dict.experience} />
       <Skills data={dict.skills} />
       <Volunteering data={dict.volunteering} />

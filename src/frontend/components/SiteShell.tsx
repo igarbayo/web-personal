@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
-import { Public_Sans, IBM_Plex_Mono } from 'next/font/google'
+import { Public_Sans, IBM_Plex_Mono, Archivo, Figtree } from 'next/font/google'
 import type { Dictionary } from '@/lib/types'
 import Navbar from '@/components/Navbar'
-import SocialSidebar, { GitHubIcon } from '@/components/SocialSidebar'
+import SocialSidebar from '@/components/SocialSidebar'
 import ThemeSync from '@/components/ThemeSync'
 import ScrollReveal from '@/components/ScrollReveal'
 import { buildPersonJsonLd, serializeJsonLd } from '@/lib/seo'
@@ -18,6 +18,19 @@ const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-mono',
+})
+// Terceras familias, acotadas a la firma "trayectoria de espina" de
+// Experience y Volunteering (ver DESIGN.md § Signature: trayectoria de
+// espina). El resto del sitio sigue en `font-sans`/`font-mono`.
+const archivo = Archivo({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  variable: '--font-archivo',
+})
+const figtree = Figtree({
+  subsets: ['latin'],
+  weight: ['500'],
+  variable: '--font-figtree',
 })
 
 interface SiteShellProps {
@@ -42,7 +55,7 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
     // `data-motion` del revelado. Quitarlo llena la consola de avisos.
     <html
       lang={lang}
-      className={`${publicSans.variable} ${plexMono.variable}`}
+      className={`${publicSans.variable} ${plexMono.variable} ${archivo.variable} ${figtree.variable}`}
       suppressHydrationWarning
     >
       {/* `no-head-element` es una regla del Pages Router, donde había que usar
@@ -89,29 +102,30 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
         {children}
         <footer className="border-t border-border mt-auto py-6">
           <SocialSidebar data={dict.header} />
-          {/* En móvil, una línea debajo de la otra; en escritorio, ambas en la
-              misma línea separadas por una barra vertical. */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-3">
-            <p className="text-center text-sm text-muted font-mono">
+          {/* Mismo contenedor de 64rem que el resto del sitio, para que el
+              copyright y el chip queden a los mismos márgenes que el
+              contenido de encima, no al borde del viewport. En móvil, una
+              línea debajo de la otra y centradas; a partir de `md`, cada uno
+              a un extremo. */}
+          <div className="max-w-5xl mx-auto px-6 sm:px-3 flex flex-col items-center gap-3 md:flex-row md:items-center md:justify-between">
+            <p className="text-center text-sm font-archivo font-bold text-muted">
               Ignacio Garbayo Fernández © 2026
             </p>
-            <span aria-hidden="true" className="hidden md:inline text-sm text-muted">
-              |
-            </span>
             {/* Va en el footer y no en SocialSidebar: en xl+ la fila de iconos
                 lleva `xl:hidden` (pasa a ser barra lateral fija), así que un
-                enlace ahí no se vería en escritorio. */}
-            <p className="mt-2 md:mt-0 text-center">
-              <a
-                href="https://github.com/igarbayo/web-personal"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-accent transition-colors"
-              >
-                <GitHubIcon size={16} />
-                {dict.footer.repo}
-              </a>
-            </p>
+                enlace ahí no se vería en escritorio. Mismo chip (borde de
+                acento + flecha) que "1st Report" y los enlaces de proyectos. */}
+            <a
+              href="https://github.com/igarbayo/web-personal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-lg border border-accent text-accent hover:bg-accent hover:text-white hover:scale-105 transition duration-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M2.5 9.5L9.5 2.5M5 2.5h4.5v4.5" />
+              </svg>
+              {dict.footer.repo}
+            </a>
           </div>
         </footer>
       </body>

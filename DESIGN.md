@@ -5,14 +5,14 @@ colors:
   background: "#FAFAFA"
   surface: "#FFFFFF"
   foreground: "#1A1A1A"
-  muted: "#6B7280"
+  muted: "#4B5563"
   accent: "#2563EB"
   border: "#E5E7EB"
   threshold-pass: "#059669"
   background-dark: "#0D1117"
   surface-dark: "#161B22"
   foreground-dark: "#E6EDF3"
-  muted-dark: "#8B949E"
+  muted-dark: "#C9D1D9"
   accent-dark: "#60A5FA"
   border-dark: "#2A313C"
   threshold-pass-dark: "#34D399"
@@ -134,7 +134,7 @@ Una paleta de seis papeles funcionales por tema, sin colores de apoyo. La fuente
 - **Papel** (claro `#FAFAFA`, oscuro `#0D1117`): fondo de página. En claro es un blanco roto que evita el brillo del blanco puro, en oscuro es el gris azulado de GitHub.
 - **Superficie** (claro `#FFFFFF`, oscuro `#161B22`): fondo de tarjetas, insignias de competencia y el desplegable de idioma. Es el único mecanismo de capa del sistema.
 - **Tinta** (claro `#1A1A1A`, oscuro `#E6EDF3`): texto principal, titulares y rótulos de sección. Negro suavizado, nunca `#000`.
-- **Tinta apagada** (claro `#6B7280`, oscuro `#8B949E`): metadatos y todo lo secundario. Fechas de la cronología, notas al pie, categorías de competencias, iconos en reposo, navegación inactiva y el pie de página.
+- **Tinta apagada** (claro `#4B5563`, oscuro `#C9D1D9`): metadatos y todo lo secundario. Fechas de la cronología, notas al pie, categorías de competencias, iconos en reposo, navegación inactiva y el pie de página. Más intensa que un gris neutro a propósito, para que siga leyéndose con fuerza aun siendo el registro secundario.
 - **Filete** (claro `#E5E7EB`, oscuro `#2A313C`): bordes de tarjeta, divisores internos, la regla bajo cada rótulo de sección, los segmentos verticales del raíl de contacto y el canal vacío de las barras de puntuación.
 
 ### Tertiary

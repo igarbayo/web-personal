@@ -25,7 +25,7 @@
   },
   "summary": {
     "title": "Summary",
-    "content": "Software Engineer with a dual foundation in Computer Engineering and Mathematics. Proven experience building predictive classification models for medical research and integrating real-time data flows to optimize decision-making. Engineered complex optimization solutions, including a scheduling engine and an AI/IoT water management system. Led the development of a Business Intelligence algorithm awarded 1st prize nationwide by Bankinter."
+    "content": "Software engineer with a dual foundation in Computer Engineering and Mathematics. My experiences include, among others, building predictive models for medical research, real-time data platforms and optimization engines, apart from open source projects."
   },
   "skills": {
     "title": "Skills",
@@ -261,8 +261,7 @@
           "hack-1-compressed.webp",
           "hack-2-compressed.webp",
           "hack-3-compressed.webp",
-          "hack-4-compressed.webp",
-          "hack-5-compressed.webp"
+          "hack-4-compressed.webp"
         ]
       },
       {
@@ -459,22 +458,26 @@
       {
         "date": "08/2025",
         "title": "Apache Kafka from Scratch",
-        "issuer": "Udemy"
+        "issuer": "Udemy",
+        "logo": ["udemy.webp"]
       },
       {
         "date": "07/2025",
         "title": "Kubernetes: Complete Guide",
-        "issuer": "Udemy"
+        "issuer": "Udemy",
+        "logo": ["udemy.webp"]
       },
       {
         "date": "07/2025",
         "title": "NestJS: Scalable Backend Development with Node",
-        "issuer": "Udemy"
+        "issuer": "Udemy",
+        "logo": ["udemy.webp"]
       },
       {
         "date": "02/2024",
         "title": "Quantum-Inspired Computing Workshop",
-        "issuer": "FUJITSU, USC"
+        "issuer": "FUJITSU, USC",
+        "logo": ["fujitsu.webp"]
       }
     ]
   },

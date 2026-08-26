@@ -22,6 +22,10 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
+        // Solo para la firma "trayectoria de espina" de Experience y
+        // Volunteering, ver DESIGN.md § Signature: trayectoria de espina.
+        archivo: ['var(--font-archivo)', 'system-ui', 'sans-serif'],
+        figtree: ['var(--font-figtree)', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         blink: {

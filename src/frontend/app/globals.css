@@ -7,7 +7,7 @@
     --color-background: 250 250 250;
     --color-surface: 255 255 255;
     --color-foreground: 26 26 26;
-    --color-muted: 107 114 128;
+    --color-muted: 75 85 99;
     --color-accent: 37 99 235;
     --color-border: 229 231 235;
 
@@ -40,7 +40,7 @@
     --color-background: 13 17 23;
     --color-surface: 22 27 34;
     --color-foreground: 230 237 243;
-    --color-muted: 139 148 158;
+    --color-muted: 201 209 217;
     --color-accent: 96 165 250;
     --color-border: 42 49 60;
     --color-ok: 52 211 153;
@@ -160,9 +160,11 @@
 
   /* Los fotogramas van aquí y no en tailwind.config.ts: Tailwind solo emite un
      @keyframes si genera la utilidad `animate-*` correspondiente a partir del
-     contenido escaneado. `keyframes.blink` está en la configuración pero
-     `animate-blink` no se usa en ningún sitio, así que `@keyframes blink` NO
-     llega al CSS compilado. Declarado a mano, eso no puede pasar.
+     contenido escaneado, así que una animación sin ningún `animate-*` propio
+     en el HTML (como el trazo del filete o la barra de puntuación, que se
+     activan por atributo desde `ScrollReveal`) nunca llegaría al CSS
+     compilado si dependiera de la configuración. Declarado a mano, eso no
+     puede pasar.
      Solo `transform`: una opacidad de partida en 0 excluye al elemento del
      cálculo de LCP, y esto se usa justo en lo que está sobre el pliegue. */
   @keyframes reveal-in {
@@ -362,13 +364,5 @@
     [data-motion='on'] [data-reveal] [data-reveal-bar] {
       width: var(--reveal-fill) !important;
     }
-  }
-}
-
-@layer utilities {
-  .cursor-blink::after {
-    content: '_';
-    color: rgb(var(--color-accent));
-    animation: blink 1s step-start infinite;
   }
 }

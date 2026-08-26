@@ -25,7 +25,7 @@
   },
   "summary": {
     "title": "Sobre mí",
-    "content": "Soy estudiante del doble grado en Ingeniería Informática y Matemáticas. Tengo experiencia en el desarrollo de modelos predictivos para investigación médica y en la integración de flujos de datos para optimizar la toma de decisiones. He diseñado soluciones de optimización, incluyendo un motor de scheduling y un sistema de gestión hídrica basado en IA. Lideré el desarrollo de un algoritmo de Business Intelligence galardonado con el 1.º premio nacional por Bankinter."
+    "content": "Ingeniero de software con una base dual en Ingeniería Informática y Matemáticas. Entre otras, mis experiencias incluyen la construcción de modelos predictivos para investigación médica, plataformas de datos en tiempo real y motores de optimización, además de proyectos de software libre."
   },
   "skills": {
     "title": "Aptitudes",
@@ -261,8 +261,7 @@
           "hack-1-compressed.webp",
           "hack-2-compressed.webp",
           "hack-3-compressed.webp",
-          "hack-4-compressed.webp",
-          "hack-5-compressed.webp"
+          "hack-4-compressed.webp"
         ]
       },
       {
@@ -459,22 +458,26 @@
       {
         "date": "08/2025",
         "title": "Apache Kafka desde cero",
-        "issuer": "Udemy"
+        "issuer": "Udemy",
+        "logo": ["udemy.webp"]
       },
       {
         "date": "07/2025",
         "title": "Kubernetes al completo",
-        "issuer": "Udemy"
+        "issuer": "Udemy",
+        "logo": ["udemy.webp"]
       },
       {
         "date": "07/2025",
         "title": "NestJS: desarrollo backend escalable con Node",
-        "issuer": "Udemy"
+        "issuer": "Udemy",
+        "logo": ["udemy.webp"]
       },
       {
         "date": "02/2024",
         "title": "Quantum-Inspired Computing Workshop",
-        "issuer": "FUJITSU, USC"
+        "issuer": "FUJITSU, USC",
+        "logo": ["fujitsu.webp"]
       }
     ]
   },

@@ -34,6 +34,10 @@ const FILES = [
   'citius.png',
   'citius-white.png',
   'linux-foundation.png',
+  'anthropic.png',
+  'aws.jpg',
+  'fujitsu.jpg',
+  'udemy.png',
   // Imágenes de experiencias / proyectos / voluntariado
   'akademia-1.JPG',
   'akademia-2.jfif',

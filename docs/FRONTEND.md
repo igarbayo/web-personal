@@ -104,7 +104,7 @@ No lleva `jobTitle` ni `worksFor`: saldrían de `experience.entries[0]`, y eso a
 | Background | `#FAFAFA` | `#0D1117` |
 | Surface (cards) | `#FFFFFF` | `#161B22` |
 | Foreground | `#1A1A1A` | `#E6EDF3` |
-| Muted (secondary) | `#6B7280` | `#8B949E` |
+| Muted (secondary) | `#4B5563` | `#C9D1D9` |
 | Accent | `#2563EB` | `#60A5FA` |
 | Border | `#E5E7EB` | `#2A313C` |
 | Font (sans) | Inter (via `next/font/google`, variable `--font-inter`) | |

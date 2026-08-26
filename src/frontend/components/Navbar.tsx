@@ -62,7 +62,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
           {/* Left: avatar + name.
               NOTA: el avatar (silueta.webp) queda COMENTADO a propósito, pendiente de decisión.
               Para reactivarlo: descomentar el <Image> y volver a poner `flex items-center gap-2` en el className del <Link>. */}
-          <Link href={`/${lang}`} className="text-xl font-semibold text-foreground leading-tight min-w-0 hover:text-accent transition-colors">
+          <Link href={`/${lang}`} className="font-archivo font-extrabold text-[22px] tracking-[-0.02em] text-foreground leading-tight min-w-0 hover:text-accent transition-colors">
             {/* <Image
               src="/silueta.webp"
               alt=""
@@ -72,6 +72,12 @@ export default function Navbar({ dict, lang }: NavbarProps) {
               className="h-[1.25em] w-auto shrink-0"
             /> */}
             {dict.header.name}
+            {/* Cursor de terminal parpadeante, réplica del diseño 1a de
+                referencia: una barra rellena, no el carácter `_`. */}
+            <span
+              aria-hidden="true"
+              className="inline-block w-[0.18ch] h-[0.92em] bg-accent rounded-[1px] ml-[3px] align-[-0.1em] animate-blink"
+            />
           </Link>
 
           {/* Right: desktop nav links + lang switcher */}
@@ -85,7 +91,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
                     key={item.path}
                     href={`/${lang}${item.path}`}
                     ref={(el) => { itemRefs.current[i] = el }}
-                    className={`grid text-base transition-colors ${active ? 'text-accent' : 'text-muted hover:text-accent'}`}
+                    className={`grid font-mono text-[13px] tracking-[0.06em] uppercase transition-colors ${active ? 'text-accent' : 'text-muted hover:text-accent'}`}
                   >
                     {/* Ghost copy in bold reserves the width so hover/active bold never shifts layout */}
                     <span aria-hidden className="col-start-1 row-start-1 font-semibold invisible">{label}</span>
@@ -146,7 +152,7 @@ export default function Navbar({ dict, lang }: NavbarProps) {
             <Link
               key={item.path}
               href={`/${lang}${item.path}`}
-              className={`text-3xl font-semibold transition-colors ${
+              className={`text-3xl font-archivo font-bold tracking-[-0.01em] transition-colors ${
                 isActive(item.path) ? 'text-accent underline decoration-2 underline-offset-8 decoration-accent' : 'text-foreground hover:text-accent'
               }`}
               onClick={() => setMenuOpen(false)}
