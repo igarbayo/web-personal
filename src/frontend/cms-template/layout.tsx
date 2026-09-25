@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Public_Sans, IBM_Plex_Mono } from 'next/font/google'
+import { Public_Sans, Figtree } from 'next/font/google'
 import ThemeSync from '@/components/ThemeSync'
 import '@/app/globals.css'
 
@@ -7,7 +7,7 @@ const publicSans = Public_Sans({
   subsets: ['latin'],
   variable: '--font-sans',
 })
-const plexMono = IBM_Plex_Mono({
+const labelFont = Figtree({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-mono',
@@ -25,7 +25,7 @@ export default function CmsLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="es"
-      className={`${publicSans.variable} ${plexMono.variable}`}
+      className={`${publicSans.variable} ${labelFont.variable}`}
       suppressHydrationWarning
     >
       <head>

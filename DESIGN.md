@@ -42,13 +42,13 @@ typography:
     lineHeight: 1.625
     letterSpacing: "normal"
   label:
-    fontFamily: "IBM Plex Mono, monospace"
+    fontFamily: "Figtree, sans-serif"
     fontSize: "1rem"
     fontWeight: 700
     lineHeight: 1.5
     letterSpacing: "0.1em"
   data:
-    fontFamily: "IBM Plex Mono, monospace"
+    fontFamily: "Figtree, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.375
@@ -106,9 +106,9 @@ components:
 
 **Creative North Star: "Un cuaderno técnico personal"**
 
-No es un cuaderno de laboratorio ni un panel de control. Es la mezcla de tres registros que ya conviven en el código: terminal, documentación técnica y portfolio personal. El contenido se presenta de forma directa, monoespaciada donde toca, estructurada y funcional. La página no simula una aplicación, documenta quién es Ignacio, qué ha estudiado, dónde ha trabajado y qué ha construido.
+No es un cuaderno de laboratorio ni un panel de control. Es la mezcla de tres registros que ya conviven en el código: terminal, documentación técnica y portfolio personal. El contenido se presenta de forma directa, estructurada y funcional. La página no simula una aplicación, documenta quién es Ignacio, qué ha estudiado, dónde ha trabajado y qué ha construido.
 
-La densidad es media y deliberadamente escaneable. Cada sección abre con un rótulo en versalitas monoespaciadas sobre un filete de un píxel, igual que un apartado numerado de una especificación. Debajo, tarjetas de superficie clara con borde fino y esquinas suaves de 0,75 rem sostienen el contenido sin pedir protagonismo. El texto manda, el envase se retira, pero el envase está medido: nada sobra y el cuidado se nota en el detalle. Ese es el carácter de los componentes, preciso y contenido.
+La densidad es media y deliberadamente escaneable. Cada sección abre con un rótulo en versalitas sobre un filete de un píxel, igual que un apartado numerado de una especificación. Debajo, tarjetas de superficie clara con borde fino y esquinas suaves de 0,75 rem sostienen el contenido sin pedir protagonismo. El texto manda, el envase se retira, pero el envase está medido: nada sobra y el cuidado se nota en el detalle. Ese es el carácter de los componentes, preciso y contenido.
 
 El color trabaja con una única tinta. Todo lo accionable, todo lo que marca estado, actividad o dirección, es azul de señal. El resto de la página vive en neutros. El sistema es plano por defecto y la profundidad viene del salto entre fondo y superficie más el filete de un píxel, no de sombras. Las tres sombras que existen no son decoración, elevan lo que flota sobre el contenido o lo que es una imagen real. El único gesto de personalidad explícito es el guion bajo en acento que cierra el apellido en la portada, un cursor de terminal incrustado en el nombre.
 
@@ -116,7 +116,7 @@ El color trabaja con una única tinta. Todo lo accionable, todo lo que marca est
 
 - Seis tokens de color por tema, ni uno más, definidos como canales RGB para poder modularse en opacidad.
 - Una sola tinta de señal para todo lo accionable.
-- Rótulos de sección en monoespaciada, versalitas y tracking ancho sobre filete de un píxel.
+- Rótulos de sección en Figtree, versalitas y tracking ancho sobre filete de un píxel.
 - Superficies planas delimitadas por borde de un píxel, esquinas de 0,25 / 0,5 / 0,75 rem según el peso de la pieza.
 - Modo oscuro real, no una inversión: la paleta oscura tiene su propia identidad de azules apagados.
 - Movimiento en dos registros y solo dos: respuesta a interacción, y un revelado de entrada de una sola pasada que dibuja los elementos que ya son firma del sistema.
@@ -151,9 +151,9 @@ Una paleta de seis papeles funcionales por tema, sin colores de apoyo. La fuente
 
 **Display Font:** Public Sans (con `system-ui`, `sans-serif`), cargada por `next/font/google` en la variable `--font-sans` desde `SiteShell.tsx` (sitio público) y `cms-template/layout.tsx` (panel, copiado a `app/admin/` en build). La clase `font-sans` de Tailwind apunta a esa variable.
 **Body Font:** Public Sans, la misma. El sistema es de una sola familia real para prosa y titulares.
-**Label/Mono Font:** IBM Plex Mono, cargada en los pesos 400/500/600/700 en la variable `--font-mono`, junto a Public Sans en los mismos dos ficheros. La clase `font-mono` de Tailwind apunta a esa variable. Es una decisión de diseño, no un fallback.
+**Label Font:** Figtree, cargada en los pesos 400/500/600/700 en la variable `--font-mono`, junto a Public Sans en los mismos dos ficheros. La clase `font-mono` de Tailwind apunta a esa variable, con `sans-serif` como reserva; el nombre se conserva por compatibilidad aunque la familia ya no es monoespaciada. Es una decisión de diseño, no un fallback.
 
-**Character:** una geométrica neutra de alta legibilidad llevando todo el peso, con la monoespaciada usada como marca de registro y no como voz. La mono no cuenta nada, señala: esto es un rótulo, esto es un dato, esto es una anotación. El contraste entre las dos familias es lo que da el aire de documento técnico sin recurrir a ninguna serif.
+**Character:** una geométrica neutra de alta legibilidad llevando todo el peso, con Figtree usada como marca de registro y no como voz. La familia de rótulos no cuenta nada, señala: esto es un rótulo, esto es un dato, esto es una anotación. Las versalitas, el tracking y el color son los que separan ese registro de la prosa, sin recurrir a una monoespaciada ni a ninguna serif.
 
 ### Hierarchy
 
@@ -168,7 +168,7 @@ Fuera de la escala principal: el subtítulo de portada es `1.25rem` en tinta apa
 
 ### Named Rules
 
-**La regla del rótulo mono.** La monoespaciada es exclusivamente para rótulos, datos tabulados y anotaciones. Nunca para prosa. Si un párrafo entero está en mono, el sistema se ha roto.
+**La regla del rótulo.** `font-mono` (Figtree) es exclusivamente para rótulos, datos tabulados y anotaciones. Nunca para prosa. Si un párrafo entero está en `font-mono`, el sistema se ha roto.
 
 **La regla de la anchura reservada.** Los enlaces de navegación pasan a semibold cuando están activos o en hover, así que cada uno lleva una copia fantasma en negrita que reserva el ancho. El texto de la interfaz no debe desplazar la maquetación al cambiar de peso.
 
@@ -260,7 +260,7 @@ El proyecto no tiene botones de acción. Los únicos elementos con forma de bot�
 ### Chips
 
 - **Chip de enlace** (enlaces externos al pie de una tarjeta): borde de un píxel en color filete, sin fondo, texto en azul de señal, `0.875rem`, radio de 0,5 rem, acolchado `0.25rem 0.75rem`, con un icono de flecha diagonal de 12 px delante. En hover invierte a fondo azul de señal y texto blanco, y crece un 5 % en 200 ms. Es el único elemento del sistema que cambia de tamaño al interactuar, y se lo permite por ser el único de verdad accionable dentro de una tarjeta.
-- **Insignia de competencia**: monoespaciada de `0.875rem`, fondo de superficie, borde de un píxel, radio de 0,25 rem, acolchado `0.125rem 0.5rem`, con icono opcional de 20 px de la biblioteca de marcas. En hover el borde y el texto pasan a azul de señal, el fondo no cambia.
+- **Insignia de competencia**: `font-mono` de `0.875rem`, fondo de superficie, borde de un píxel, radio de 0,25 rem, acolchado `0.125rem 0.5rem`, con icono opcional de 20 px de la biblioteca de marcas. En hover el borde y el texto pasan a azul de señal, el fondo no cambia.
 - **Píldora de puntuación**: fondo de azul de señal al 10 %, radio de 0,5 rem, con el valor en mono negrita de `1.125rem` y un rótulo de `10px` en versalitas debajo, ambos en azul de señal.
 
 ### Cards / Containers
@@ -333,6 +333,6 @@ Reproduce el armazón de `TimelineEntry` — carril de fecha, punto y línea, co
 - **Don't** traer estéticas de portfolio. Nada de gradientes, glassmorphism, tarjetas flotantes, cuadrículas tipo mosaico ni las convenciones habituales de las webs personales de referencia. Este sitio se lee como documentación, no como escaparate.
 - **Don't** usar clases de color literales de Tailwind (`bg-blue-600`, `text-gray-500`) en componentes. Rompen el modo oscuro sin avisar. La única excepción viva es el verde de umbral, y está acotada a una tarjeta.
 - **Don't** añadir sombras a elementos estáticos del flujo. El vocabulario de sombra tiene tres entradas y cada una tiene su trabajo.
-- **Don't** escribir prosa en monoespaciada. La mono es para rótulos, datos y anotaciones.
+- **Don't** escribir prosa en `font-mono`. Es para rótulos, datos y anotaciones.
 - **Don't** sacar contenido fuera del contenedor de 64 rem, ni siquiera una imagen a ancho completo.
 - **Don't** hacer depender del JavaScript nada que sea contenido. El conmutador de tema y el menú móvil son la frontera, y no debe moverse.

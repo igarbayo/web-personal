@@ -108,7 +108,7 @@ No lleva `jobTitle` ni `worksFor`: saldrían de `experience.entries[0]`, y eso a
 | Accent | `#2563EB` | `#60A5FA` |
 | Border | `#E5E7EB` | `#2A313C` |
 | Font (sans) | Inter (via `next/font/google`, variable `--font-inter`) | |
-| Font (mono) | system monospace (variable `--font-mono`) | |
+| Font (mono) | Figtree (variable `--font-mono`) | |
 
 **Toques nerd:** skill badges en `font-mono`, cursor parpadeante (`_`) tras el nombre en el Header usando `cursor-blink::after` (CSS animation + Tailwind `animate-blink`).
 
@@ -172,7 +172,7 @@ components/
 ├── SocialSidebar.tsx       # Sidebar vertical fijo (xl+) / fila horizontal en footer (móvil)
 ├── LanguageSwitcher.tsx    # 'use client' — links EN|ES|GL, usa usePathname
 ├── ui/
-│   ├── SectionTitle.tsx    # H2 monospace uppercase + línea decorativa
+│   ├── SectionTitle.tsx    # H2 font-mono uppercase + línea decorativa
 │   ├── TimelineEntry.tsx   # Grid date|content, reutilizable en todas las secciones
 │   └── SkillBadge.tsx      # Pill font-mono con hover accent
 └── sections/
@@ -200,7 +200,7 @@ Componente genérico para todas las secciones con estructura fecha/título/subt�
 | `subtitleUrl?` | `string` | Convierte el subtitle en enlace externo |
 | `bullets?` | `string[]` | Lista con viñeta `•` en color accent (`text-accent text-lg`) como marcador |
 | `description?` | `string` | Párrafo (para Volunteering) |
-| `note?` | `string` | Nota italic monospace al pie (ej: "Report available.") |
+| `note?` | `string` | Nota italic font-mono al pie (ej: "Report available.") |
 | `links?` | `EntryLink[]` | Píldoras de enlace externo al pie de la card |
 | `images?` | `string[]` | Galería bajo los links (grid según el nº de imágenes) |
 
