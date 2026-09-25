@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Public_Sans, IBM_Plex_Mono, Archivo, Figtree } from 'next/font/google'
+import { Public_Sans, Archivo, Figtree } from 'next/font/google'
 import type { Dictionary } from '@/lib/types'
 import Navbar from '@/components/Navbar'
 import SocialSidebar from '@/components/SocialSidebar'
@@ -14,7 +14,7 @@ const publicSans = Public_Sans({
   subsets: ['latin'],
   variable: '--font-sans',
 })
-const plexMono = IBM_Plex_Mono({
+const labelFont = Figtree({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-mono',
@@ -55,7 +55,7 @@ export default function SiteShell({ lang, dict, children, headExtra }: SiteShell
     // `data-motion` del revelado. Quitarlo llena la consola de avisos.
     <html
       lang={lang}
-      className={`${publicSans.variable} ${plexMono.variable} ${archivo.variable} ${figtree.variable}`}
+      className={`${publicSans.variable} ${labelFont.variable} ${archivo.variable} ${figtree.variable}`}
       suppressHydrationWarning
     >
       {/* `no-head-element` es una regla del Pages Router, donde había que usar
