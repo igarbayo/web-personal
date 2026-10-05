@@ -5,7 +5,7 @@ WORKDIR /repo
 COPY src/frontend/ src/frontend/
 
 WORKDIR /repo/src/frontend
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
+RUN npm install -g pnpm@9 && pnpm install --frozen-lockfile
 
 # Setup CMS route and build the static export
 ENV NEXT_PUBLIC_CMS_ROUTE=admin
