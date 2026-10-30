@@ -262,7 +262,7 @@
       {
         "date": "10/2026 – {present}",
         "title": "Expresso",
-        "organization": "[GPUL](https://gpul.org/) · The Exponential Fellowship",
+        "organization": "[GPUL](https://gpul.org/) · [The Exponential Fellowship](https://goexponential.org/)",
         "bullets": [
           "Cofundador, junto a Carlos Cao y Yago Falgueras, de un programa de charlas, talleres técnicos y minihackathones para conectar el talento tecnológico de Santiago de Compostela, en colaboración con GPUL y The Exponential Fellowship y con el apoyo de la ETSE de la USC.",
           "Nuestro objetivo es cultivar ambición: demostrar que en Galicia hay opciones en el sector tecnológico sin tener que irse fuera."
@@ -466,7 +466,7 @@
       {
         "date": "",
         "title": "Miembro de Exponential Community",
-        "issuer": "The Exponential Fellowship",
+        "issuer": "[The Exponential Fellowship](https://goexponential.org/)",
         "logo": [
           "tef.svg"
         ]
