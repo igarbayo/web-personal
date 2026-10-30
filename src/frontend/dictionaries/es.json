@@ -278,7 +278,7 @@
         "title": "Taiafox",
         "organization": "HackSpain 2026 · reto [HappyRobot](https://www.happyrobot.ai/)",
         "bullets": [
-          "Agente de gestión de crisis desarrollado con el Grupo Gamma para el reto de HappyRobot en HackSpain 2026: filtra cien mensajes entrantes hasta quedarse con los tres que importan, coordina a los equipos de respuesta por voz y replanifica en menos de un segundo cuando la emergencia cambia.",
+          "Agente de coordinación de emergencias por voz para incendios forestales, desarrollado con el Grupo Gamma para el reto de HappyRobot en HackSpain 2026: filtra cien mensajes entrantes hasta quedarse con los tres que importan, coordina a los equipos de respuesta por voz y replanifica en menos de un segundo cuando el fuego cambia.",
           "El LLM nunca asigna recursos: propone una política (pesos y restricciones) y un solver determinista calcula el plan. Recibe y emite llamadas reales con HappyRobot, simula el incendio o el apagón en Minecraft y lo muestra todo en un dashboard en vivo con FastAPI y React."
         ],
         "links": [
@@ -304,12 +304,12 @@
         ]
       },
       {
-        "date": "2026 – {present}",
+        "date": "10/2026 – {present}",
         "title": "Expresso",
-        "organization": "Exponential · [GPUL](https://gpul.org/)",
+        "organization": "[GPUL](https://gpul.org/) · The Exponential Fellowship",
         "bullets": [
-          "Ciclo de charlas técnicas en Santiago de Compostela, impulsado junto a otros dos estudiantes de la USC con el apoyo de Exponential y GPUL.",
-          "Entre las charlas, «When Memory Lies: The Hidden Complexity of DDR Interfaces», sobre la complejidad oculta de las interfaces de memoria DDR."
+          "Cofundador, junto a Carlos Cao y Yago Falgueras, de un programa de charlas, talleres técnicos y minihackathones para conectar el talento tecnológico de Santiago de Compostela, en colaboración con GPUL y The Exponential Fellowship y con el apoyo de la ETSE de la USC.",
+          "La sesión inaugural superó las previsiones con 80 inscritos (se esperaban 50) y contó con Pablo Castro (Staff Engineer en Auth0) y Reyders Morales (líder de software embebido en Alén Space)."
         ],
         "links": [
           {
@@ -472,8 +472,8 @@
       },
       {
         "date": "",
-        "title": "Miembro de la comunidad Exponential",
-        "issuer": "Exponential",
+        "title": "Miembro de The Exponential Fellowship",
+        "issuer": "The Exponential Fellowship",
         "logo": [
           "tef.svg"
         ]
