@@ -25,6 +25,12 @@ export function buildAlternates(subpath: string, lang: string) {
       gl: `/gl${subpath}/`,
       'x-default': `/en${subpath}/`,
     },
+    // `<link rel="alternate" type="text/markdown" href="/llms.txt">` en cada
+    // página: un agente que entra por cualquier URL encuentra la versión en
+    // texto plano del CV sin tener que conocer la convención de `/llms.txt`.
+    types: {
+      'text/markdown': '/llms.txt',
+    },
   }
 }
 
