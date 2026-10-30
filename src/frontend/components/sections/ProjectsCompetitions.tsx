@@ -15,9 +15,9 @@ interface ProjectsCompetitionsProps {
  * el chip de GitHub); con logotipo y sin imágenes es EGS; sin logotipo y sin
  * enlaces es la de solo texto; con logotipo e imágenes es la revista. Ese
  * orden coincide con el guion pedido: destacada, Open Source + EGS,
- * Automated Referee + revista. Por delante de todo va Expresso (logotipo y
- * menos de tres fotos), a toda fila; y Taiafox (fotos sin logotipo) comparte
- * fila con la destacada, que se queda la parte ancha.
+ * Automated Referee + revista. Por delante de todo comparten fila Expresso
+ * (logotipo y menos de tres fotos), en la parte ancha, y Taiafox (fotos sin
+ * logotipo); la destacada va debajo, sola.
  */
 function projectRank(entry: ProjectEntry): number {
   const imagesCount = entry.images?.length ?? 0
@@ -131,7 +131,7 @@ function FeatureCard({ entry }: { entry: ProjectEntry }) {
 /** Tarjeta compacta: logotipo opcional, título, fecha, organización,
  *  viñetas, chips de enlaces y, si trae fotos (la revista), una tira a
  *  sangre al pie. Cubre Open Source, EGS, Automated Referee y la revista. */
-function ProjectCard({ entry }: { entry: ProjectEntry }) {
+function ProjectCard({ entry, growImages = false }: { entry: ProjectEntry; growImages?: boolean }) {
   const images = entry.images ?? []
   // Solo EGS (logotipo, sin fotos) apila la fecha encima del logo en móvil.
   // La revista también tiene logotipo pero además fotos, y esa cabecera se
@@ -139,7 +139,10 @@ function ProjectCard({ entry }: { entry: ProjectEntry }) {
   const stackDateOnMobile = !!entry.logo && images.length === 0
   return (
     <div className="h-full flex flex-col rounded-2xl border border-border bg-surface shadow-[0_14px_30px_-26px_rgba(0,0,0,0.5)] overflow-hidden">
-      <div className="p-7 flex-1 flex flex-col">
+      {/* Con `growImages` es la tira de fotos, y no el texto, la que se estira
+          hasta el alto de la fila: Expresso comparte fila con Taiafox, más
+          largo, y sin esto quedaba un hueco en blanco sobre las fotos. */}
+      <div className={`p-7 flex flex-col${growImages ? '' : ' flex-1'}`}>
         {/* Solo en móvil, y solo para EGS, la fecha se apila encima del logo
             en vez de ir al lado — `order-first` la manda arriba del todo, y
             como el contenedor pasa a columna, `text-right` la mantiene
@@ -186,7 +189,9 @@ function ProjectCard({ entry }: { entry: ProjectEntry }) {
         )}
       </div>
       {images.length > 0 && (
-        <div className={`grid gap-[3px] bg-border h-28 ${images.length >= 3 ? 'grid-cols-3' : images.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+        // Estirada, la tira apila las fotos en filas: en columnas estrechas y
+        // altas el banner apaisado de Expresso perdía el texto por los lados.
+        <div className={`grid gap-[3px] bg-border ${growImages ? 'flex-1 min-h-56 auto-rows-fr' : `h-28 ${images.length >= 3 ? 'grid-cols-3' : images.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}`}>
           {images.map((src) => (
             <MosaicImage key={src} src={src} sizes="(min-width: 640px) 20vw, 33vw" />
           ))}
@@ -219,15 +224,15 @@ export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps
         {data.pageTitle}
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-reveal-group>
-        {expresso && (
-          <div className="sm:col-span-2" data-reveal>
-            <ProjectCard entry={expresso} />
+        {(expresso || taiafox) && (
+          <div className="sm:col-span-2 grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-4">
+            {expresso && <div data-reveal><ProjectCard entry={expresso} growImages /></div>}
+            {taiafox && <div data-reveal><ProjectCard entry={taiafox} /></div>}
           </div>
         )}
-        {(hackathons || taiafox) && (
-          <div className="sm:col-span-2 grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-4">
-            {hackathons && <div data-reveal><FeatureCard entry={hackathons} /></div>}
-            {taiafox && <div data-reveal><ProjectCard entry={taiafox} /></div>}
+        {hackathons && (
+          <div className="sm:col-span-2" data-reveal>
+            <FeatureCard entry={hackathons} />
           </div>
         )}
         {(egs || openSource) && (
