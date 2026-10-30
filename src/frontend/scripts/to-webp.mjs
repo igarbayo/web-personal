@@ -38,6 +38,8 @@ const FILES = [
   'aws.jpg',
   'fujitsu.jpg',
   'udemy.png',
+  'factorial.png',
+  'mensa.webp',
   // Imágenes de experiencias / proyectos / voluntariado
   'akademia-1.JPG',
   'akademia-2.jfif',
@@ -51,6 +53,9 @@ const FILES = [
   'mais-mates-3.jpeg',
   'volunt-fegaba-1.jfif',
   'volunt-fegaba-2.jpg',
+  'taiafox-1.jpg',
+  'expresso-1.jpg',
+  'expresso-2.png',
 ]
 
 const QUALITY = 82

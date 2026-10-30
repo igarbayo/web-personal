@@ -19,6 +19,9 @@ export const imageDimensions: Record<string, { width: number; height: number }> 
   'linux-foundation.webp': { width: 431, height: 431 },
   'udemy.webp': { width: 525, height: 525 },
   'fujitsu.webp': { width: 1125, height: 1125 },
+  'factorial.webp': { width: 429, height: 429 },
+  'mensa.webp': { width: 1280, height: 1280 },
+  'tef.svg': { width: 1224, height: 1224 },
   // Galería
   'volunt-fegaba-1.webp': { width: 2048, height: 1366 },
   'volunt-fegaba-2.webp': { width: 1080, height: 810 },
@@ -30,6 +33,9 @@ export const imageDimensions: Record<string, { width: number; height: number }> 
   'mais-mates-1.webp': { width: 2000, height: 1500 },
   'mais-mates-2.webp': { width: 1342, height: 1200 },
   'mais-mates-3.webp': { width: 1088, height: 899 },
+  'taiafox-1.webp': { width: 1280, height: 960 },
+  'expresso-1.webp': { width: 1600, height: 900 },
+  'expresso-2.webp': { width: 1200, height: 630 },
 }
 
 export function getImageDimensions(src: string) {

@@ -107,6 +107,15 @@
     "title": "Dónde He Trabajado",
     "entries": [
       {
+        "date": "09/2026 – {present}",
+        "title": "AI Engineer",
+        "company": "[Factorial](https://factorialhr.com/)",
+        "bullets": [],
+        "logo": [
+          "factorial.webp"
+        ]
+      },
+      {
         "date": "07/2026",
         "title": "Becario de investigación",
         "company": "[Centro Singular de Investigación en Tecnoloxías Intelixentes (CiTIUS)](https://citius.gal/)",
@@ -266,6 +275,63 @@
       },
       {
         "date": "2026",
+        "title": "Taiafox",
+        "organization": "HackSpain 2026 · reto [HappyRobot](https://www.happyrobot.ai/)",
+        "bullets": [
+          "Agente de gestión de crisis desarrollado con el Grupo Gamma para el reto de HappyRobot en HackSpain 2026: filtra cien mensajes entrantes hasta quedarse con los tres que importan, coordina a los equipos de respuesta por voz y replanifica en menos de un segundo cuando la emergencia cambia.",
+          "El LLM nunca asigna recursos: propone una política (pesos y restricciones) y un solver determinista calcula el plan. Recibe y emite llamadas reales con HappyRobot, simula el incendio o el apagón en Minecraft y lo muestra todo en un dashboard en vivo con FastAPI y React."
+        ],
+        "links": [
+          {
+            "label": "GitHub",
+            "url": "https://github.com/CarlosCaoLopez/HACKSPAIN-2026"
+          },
+          {
+            "label": "Product Hunt",
+            "url": "https://www.producthunt.com/products/taiafox?launch=taiafox"
+          },
+          {
+            "label": "Demo (vídeo)",
+            "url": "https://www.youtube.com/watch?v=vYMx2elWio0"
+          },
+          {
+            "label": "Web",
+            "url": "https://taiafox-ph-five.vercel.app/"
+          }
+        ],
+        "images": [
+          "taiafox-1.webp"
+        ]
+      },
+      {
+        "date": "2026 – {present}",
+        "title": "Expresso",
+        "organization": "Exponential · [GPUL](https://gpul.org/)",
+        "bullets": [
+          "Ciclo de charlas técnicas en Santiago de Compostela, impulsado junto a otros dos estudiantes de la USC con el apoyo de Exponential y GPUL.",
+          "Entre las charlas, «When Memory Lies: The Hidden Complexity of DDR Interfaces», sobre la complejidad oculta de las interfaces de memoria DDR."
+        ],
+        "links": [
+          {
+            "label": "Luma",
+            "url": "https://luma.com/expresso"
+          },
+          {
+            "label": "Noticia en El Correo Gallego",
+            "url": "https://www.elcorreogallego.es/santiago/2026/10/14/tres-estudiantes-usc-impulsan-programa-135275230.amp.html"
+          },
+          {
+            "label": "Charla DDR",
+            "url": "https://ignaciogarbayo.com/expresso-reyders/"
+          }
+        ],
+        "images": [
+          "expresso-1.webp",
+          "expresso-2.webp"
+        ]
+      },
+      {
+        "date": "2026",
         "title": "Skill de gobernanza open source",
         "bullets": [
           "Skill en formato Agent Skills para Claude Code y OpenCode que configura la gobernanza open source completa de un proyecto, generando la licencia, los metadatos REUSE y los artefactos de contribución, seguridad y CI que siguen las buenas prácticas de la FSF y la OSI.",
@@ -394,8 +460,24 @@
     ]
   },
   "certifications": {
-    "title": "Certificados y Cursos",
+    "title": "Certificados, cursos y comunidades",
     "entries": [
+      {
+        "date": "",
+        "title": "Miembro de Mensa",
+        "issuer": "Mensa",
+        "logo": [
+          "mensa.webp"
+        ]
+      },
+      {
+        "date": "",
+        "title": "Miembro de la comunidad Exponential",
+        "issuer": "Exponential",
+        "logo": [
+          "tef.svg"
+        ]
+      },
       {
         "date": "08/2026",
         "title": "Claude Code in Action",

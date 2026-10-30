@@ -4,6 +4,8 @@ import SectionTitle from '@/components/ui/SectionTitle'
 import { getImageDimensions } from '@/lib/imageDimensions'
 import { renderText } from '@/lib/renderText'
 
+const FULL_BLEED_LOGOS = new Set(['mckinsey.webp', 'tef.svg'])
+
 interface CertificationsProps {
   data: CertificationsData
 }
@@ -25,13 +27,14 @@ function CourseCard({ entry }: { entry: CertificationEntry }) {
         {logoSrc ? (
           // McKinsey lleva más recorte que el resto: su isotipo se lee bien
           // incluso pegado al borde redondeado, y a este tamaño un logo con
-          // margen se ve más pequeño que los demás.
+          // margen se ve más pequeño que los demás. Exponential también va a
+          // sangre: su logo es blanco y siempre se muestra sobre negro.
           <Image
             src={`/${logoSrc}`}
             alt=""
             width={width}
             height={height}
-            className={logoSrc === 'mckinsey.webp' ? 'w-full h-full object-cover' : 'w-full h-full object-contain p-1'}
+            className={FULL_BLEED_LOGOS.has(logoSrc) ? 'w-full h-full object-cover' : 'w-full h-full object-contain p-1'}
           />
         ) : (
           <span className="font-archivo font-extrabold text-lg text-muted">{entry.title.charAt(0)}</span>
@@ -45,7 +48,8 @@ function CourseCard({ entry }: { entry: CertificationEntry }) {
           {renderText(entry.issuer)}
         </div>
       </div>
-      <span className="font-mono text-xs text-muted whitespace-nowrap self-start">{entry.date}</span>
+      {/* Las membresías (Mensa, Exponential) no llevan fecha. */}
+      {entry.date && <span className="font-mono text-xs text-muted whitespace-nowrap self-start">{entry.date}</span>}
     </div>
   )
 }

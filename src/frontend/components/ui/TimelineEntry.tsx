@@ -125,6 +125,8 @@ interface TimelineEntryProps {
   spacing?: boolean
 }
 
+const FULL_BLEED_LOGOS = new Set(['citius.webp', 'factorial.webp'])
+
 /**
  * Logotipo(s) de una entrada, escalados para caber dentro de la placa. La
  * placa es blanca fija en los dos temas (no `bg-surface`), así
@@ -138,13 +140,14 @@ function PlateLogos({
   logo: string[]
   logoPriorityCount: number
 }) {
-  // CiTIUS llena la placa a sangre y se recorta contra su borde redondeado,
-  // como el logo de McKinsey en Certifications: es un isotipo cuadrado que
-  // se lee mejor pegado al marco que con margen alrededor.
-  if (logo.length === 1 && logo[0] === 'citius.webp') {
+  // CiTIUS y Factorial llenan la placa a sangre y se recortan contra su borde
+  // redondeado, como el logo de McKinsey en Certifications: son isotipos
+  // cuadrados con fondo propio que se leen mejor pegados al marco que con
+  // margen alrededor.
+  if (logo.length === 1 && FULL_BLEED_LOGOS.has(logo[0])) {
     return (
       <div className="relative w-full h-full">
-        <Image src="/citius.webp" alt="" fill sizes="112px" priority={logoPriorityCount > 0} className="object-cover" />
+        <Image src={`/${logo[0]}`} alt="" fill sizes="112px" priority={logoPriorityCount > 0} className="object-cover" />
       </div>
     )
   }

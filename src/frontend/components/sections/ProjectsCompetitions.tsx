@@ -15,11 +15,13 @@ interface ProjectsCompetitionsProps {
  * el chip de GitHub); con logotipo y sin imágenes es EGS; sin logotipo y sin
  * enlaces es la de solo texto; con logotipo e imágenes es la revista. Ese
  * orden coincide con el guion pedido: destacada, Open Source + EGS,
- * Automated Referee + revista.
+ * Automated Referee + revista. Con fotos pero sin logotipo son los proyectos
+ * recientes (Taiafox, Expresso), que van en su propia fila tras la destacada.
  */
 function projectRank(entry: ProjectEntry): number {
   const imagesCount = entry.images?.length ?? 0
   if (imagesCount >= 4) return 0
+  if (!entry.logo && imagesCount > 0) return 5
   if (!entry.logo && (entry.links?.length ?? 0) > 0) return 1
   if (entry.logo && imagesCount === 0) return 2
   if (!entry.logo && imagesCount === 0) return 3
@@ -197,14 +199,15 @@ export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps
   // Leadership: Automated Referee y la revista siguen en la misma fila,
   // pero repartiéndosela sin partes iguales — la revista lleva fotos y
   // necesita más sitio.
-  const groups: ProjectEntry[][] = [[], [], [], [], []]
+  const groups: ProjectEntry[][] = [[], [], [], [], [], []]
   for (const entry of data.entries) groups[projectRank(entry)].push(entry)
   const [hackathons] = groups[0]
   const [openSource] = groups[1]
   const [egs] = groups[2]
   const [automatedRef] = groups[3]
   const [magazine] = groups[4]
-  const extra = groups.flatMap((g) => g.slice(1))
+  const recent = groups[5]
+  const extra = groups.slice(0, 5).flatMap((g) => g.slice(1))
 
   return (
     <section id="projects" className="py-8 scroll-mt-20">
@@ -218,6 +221,11 @@ export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps
             <FeatureCard entry={hackathons} />
           </div>
         )}
+        {recent.map((entry) => (
+          <div key={entry.title} data-reveal>
+            <ProjectCard entry={entry} />
+          </div>
+        ))}
         {(egs || openSource) && (
           <div className="sm:col-span-2 grid grid-cols-1 sm:grid-cols-[5fr_4fr] gap-4">
             {egs && <div data-reveal><ProjectCard entry={egs} /></div>}
