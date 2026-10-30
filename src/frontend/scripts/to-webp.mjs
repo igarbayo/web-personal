@@ -40,6 +40,7 @@ const FILES = [
   'udemy.png',
   'factorial.png',
   'mensa.webp',
+  'expresso.png',
   // Imágenes de experiencias / proyectos / voluntariado
   'akademia-1.JPG',
   'akademia-2.jfif',

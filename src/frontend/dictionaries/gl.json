@@ -110,7 +110,9 @@
         "date": "09/2026 – {present}",
         "title": "AI Engineer",
         "company": "[Factorial](https://factorialhr.com/)",
-        "bullets": [],
+        "bullets": [
+          "Constrúo a capa de IA para a xestión empresarial mentres fago product engineering."
+        ],
         "logo": [
           "factorial.webp"
         ]
@@ -258,6 +260,32 @@
     "title": "Proxectos e Competicións",
     "entries": [
       {
+        "date": "10/2026 – {present}",
+        "title": "Expresso",
+        "organization": "[GPUL](https://gpul.org/) · The Exponential Fellowship",
+        "bullets": [
+          "Cofundador, xunto a Carlos Cao e Yago Falgueras, dun programa de charlas, obradoiros técnicos e minihackathons para conectar o talento tecnolóxico de Santiago de Compostela, en colaboración con GPUL e The Exponential Fellowship e co apoio da ETSE da USC.",
+          "O noso obxectivo é cultivar ambición: demostrar que en Galicia hai opcións no sector tecnolóxico sen ter que marchar fóra."
+        ],
+        "links": [
+          {
+            "label": "Luma",
+            "url": "https://luma.com/expresso"
+          },
+          {
+            "label": "Noticia en El Correo Gallego",
+            "url": "https://www.elcorreogallego.es/santiago/2026/10/14/tres-estudiantes-usc-impulsan-programa-135275230.amp.html"
+          }
+        ],
+        "logo": [
+          "expresso.webp"
+        ],
+        "images": [
+          "expresso-1.webp",
+          "expresso-2.webp"
+        ]
+      },
+      {
         "date": "2026",
         "title": "Hackathons",
         "organization": "[HackUDC](https://hackudc.gpul.org/), [HackUPC](https://hackupc.com/)",
@@ -289,45 +317,10 @@
           {
             "label": "Product Hunt",
             "url": "https://www.producthunt.com/products/taiafox?launch=taiafox"
-          },
-          {
-            "label": "Demo (vídeo)",
-            "url": "https://www.youtube.com/watch?v=vYMx2elWio0"
-          },
-          {
-            "label": "Web",
-            "url": "https://taiafox-ph-five.vercel.app/"
           }
         ],
         "images": [
           "taiafox-1.webp"
-        ]
-      },
-      {
-        "date": "10/2026 – {present}",
-        "title": "Expresso",
-        "organization": "[GPUL](https://gpul.org/) · The Exponential Fellowship",
-        "bullets": [
-          "Cofundador, xunto a Carlos Cao e Yago Falgueras, dun programa de charlas, obradoiros técnicos e minihackathons para conectar o talento tecnolóxico de Santiago de Compostela, en colaboración con GPUL e The Exponential Fellowship e co apoio da ETSE da USC.",
-          "A sesión inaugural superou as previsións con 80 inscritos (agardábanse 50) e contou con Pablo Castro (Staff Engineer en Auth0) e Reyders Morales (líder de software embarcado en Alén Space)."
-        ],
-        "links": [
-          {
-            "label": "Luma",
-            "url": "https://luma.com/expresso"
-          },
-          {
-            "label": "Noticia en El Correo Gallego",
-            "url": "https://www.elcorreogallego.es/santiago/2026/10/14/tres-estudiantes-usc-impulsan-programa-135275230.amp.html"
-          },
-          {
-            "label": "Charla DDR",
-            "url": "https://ignaciogarbayo.com/expresso-reyders/"
-          }
-        ],
-        "images": [
-          "expresso-1.webp",
-          "expresso-2.webp"
         ]
       },
       {
@@ -472,7 +465,7 @@
       },
       {
         "date": "",
-        "title": "Membro de The Exponential Fellowship",
+        "title": "Membro de Exponential Community",
         "issuer": "The Exponential Fellowship",
         "logo": [
           "tef.svg"

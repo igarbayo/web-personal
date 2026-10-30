@@ -110,7 +110,9 @@
         "date": "09/2026 – {present}",
         "title": "AI Engineer",
         "company": "[Factorial](https://factorialhr.com/)",
-        "bullets": [],
+        "bullets": [
+          "Building the AI layer for enterprise management while doing product engineering."
+        ],
         "logo": [
           "factorial.webp"
         ]
@@ -258,6 +260,32 @@
     "title": "Projects & Competitions",
     "entries": [
       {
+        "date": "10/2026 – {present}",
+        "title": "Expresso",
+        "organization": "[GPUL](https://gpul.org/) · The Exponential Fellowship",
+        "bullets": [
+          "Co-founder, with Carlos Cao and Yago Falgueras, of a programme of talks, technical workshops and mini-hackathons to connect the tech talent of Santiago de Compostela, in collaboration with GPUL and The Exponential Fellowship and supported by the USC School of Engineering (ETSE).",
+          "Our goal is to cultivate ambition: to show that Galicia offers real options in tech without having to leave."
+        ],
+        "links": [
+          {
+            "label": "Luma",
+            "url": "https://luma.com/expresso"
+          },
+          {
+            "label": "El Correo Gallego article",
+            "url": "https://www.elcorreogallego.es/santiago/2026/10/14/tres-estudiantes-usc-impulsan-programa-135275230.amp.html"
+          }
+        ],
+        "logo": [
+          "expresso.webp"
+        ],
+        "images": [
+          "expresso-1.webp",
+          "expresso-2.webp"
+        ]
+      },
+      {
         "date": "2026",
         "title": "Hackathons",
         "organization": "[HackUDC](https://hackudc.gpul.org/), [HackUPC](https://hackupc.com/)",
@@ -289,45 +317,10 @@
           {
             "label": "Product Hunt",
             "url": "https://www.producthunt.com/products/taiafox?launch=taiafox"
-          },
-          {
-            "label": "Demo (video)",
-            "url": "https://www.youtube.com/watch?v=vYMx2elWio0"
-          },
-          {
-            "label": "Website",
-            "url": "https://taiafox-ph-five.vercel.app/"
           }
         ],
         "images": [
           "taiafox-1.webp"
-        ]
-      },
-      {
-        "date": "10/2026 – {present}",
-        "title": "Expresso",
-        "organization": "[GPUL](https://gpul.org/) · The Exponential Fellowship",
-        "bullets": [
-          "Co-founder, with Carlos Cao and Yago Falgueras, of a programme of talks, technical workshops and mini-hackathons to connect the tech talent of Santiago de Compostela, in collaboration with GPUL and The Exponential Fellowship and supported by the USC School of Engineering (ETSE).",
-          "The opening session beat expectations with 80 registrations (50 were expected) and featured Pablo Castro (Staff Engineer at Auth0) and Reyders Morales (embedded software lead at Alén Space)."
-        ],
-        "links": [
-          {
-            "label": "Luma",
-            "url": "https://luma.com/expresso"
-          },
-          {
-            "label": "El Correo Gallego article",
-            "url": "https://www.elcorreogallego.es/santiago/2026/10/14/tres-estudiantes-usc-impulsan-programa-135275230.amp.html"
-          },
-          {
-            "label": "DDR talk",
-            "url": "https://ignaciogarbayo.com/expresso-reyders/"
-          }
-        ],
-        "images": [
-          "expresso-1.webp",
-          "expresso-2.webp"
         ]
       },
       {
@@ -472,7 +465,7 @@
       },
       {
         "date": "",
-        "title": "Member of The Exponential Fellowship",
+        "title": "Exponential Community Member",
         "issuer": "The Exponential Fellowship",
         "logo": [
           "tef.svg"

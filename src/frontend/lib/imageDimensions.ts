@@ -22,6 +22,7 @@ export const imageDimensions: Record<string, { width: number; height: number }> 
   'factorial.webp': { width: 429, height: 429 },
   'mensa.webp': { width: 1280, height: 1280 },
   'tef.svg': { width: 1224, height: 1224 },
+  'expresso.webp': { width: 1080, height: 1080 },
   // Galería
   'volunt-fegaba-1.webp': { width: 2048, height: 1366 },
   'volunt-fegaba-2.webp': { width: 1080, height: 810 },
