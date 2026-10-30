@@ -36,7 +36,23 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
             <span className="text-muted">{cert.skillsLabel}</span>
             <span className="text-emerald-600 dark:text-emerald-400">{cert.thresholdLabel}</span>
           </div>
-          <div className="flex flex-col gap-3.5">
+          <div className="relative flex flex-col gap-3.5">
+            {/* A partir de `sm`, una sola marca de umbral cruza las cinco
+                barras, con un punto en cada extremo (DESIGN.md § barras de
+                puntuación). Se coloca por cálculo sobre la pista de barras de
+                la rejilla de abajo: 132px de nombre + 14px de hueco a la
+                izquierda, y 14px + 40px de valor a la derecha. Si cambia esa
+                rejilla, cambian estas cifras. */}
+            <div
+              data-reveal-late
+              aria-hidden="true"
+              className="hidden sm:flex absolute -top-1 -bottom-1 z-10 flex-col items-center"
+              style={{ left: `calc(146px + ${thresholdPct / 100} * (100% - 200px))`, transform: 'translateX(-50%)' }}
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
+              <div className="flex-1 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full" />
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
+            </div>
             {cert.skills.map((skill) => {
               const fillPct = ((skill.score - cert.scaleMin) / range) * 100
               return (
@@ -50,16 +66,14 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
                     <span className="font-archivo font-extrabold text-[15px] text-accent sm:hidden">{skill.score}</span>
                   </div>
                   <div className="relative h-2 rounded-full bg-border">
-                    {/* La marca de umbral vive dentro de la propia barra y se
-                        posiciona en `%`, no en un `calc()` con el ancho de la
-                        etiqueta: así funciona igual con la barra a ancho
-                        completo (móvil) que con la barra recortada por la
-                        columna de 132px (`sm`), sin dos fórmulas. A cambio ya
-                        no es una única regla que cruza las cinco barras, sino
-                        una marca corta por barra. */}
+                    {/* En móvil el nombre va encima de cada barra, así que una
+                        regla continua lo tacharía: aquí la marca es corta, una
+                        por barra, y se posiciona en `%` dentro de la propia
+                        barra. Desde `sm` la sustituye la regla continua de
+                        arriba. */}
                     <div
                       data-reveal-late
-                      className="absolute -top-1 -bottom-1 -translate-x-1/2 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full z-10"
+                      className="sm:hidden absolute -top-1 -bottom-1 -translate-x-1/2 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full z-10"
                       style={{ left: `${thresholdPct}%` }}
                     />
                     {/* El valor final va en una propiedad personalizada y no en

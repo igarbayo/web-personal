@@ -304,10 +304,9 @@
       {
         "date": "2026",
         "title": "Taiafox",
-        "organization": "HackSpain 2026 · reto de [HappyRobot](https://www.happyrobot.ai/)",
+        "organization": "HackSpain 2026 · [HappyRobot](https://www.happyrobot.ai/)",
         "bullets": [
-          "Axente de coordinación de emerxencias por voz para incendios forestais, desenvolvido co Grupo Gamma para o reto de HappyRobot na HackSpain 2026: filtra cen mensaxes entrantes ata quedar coas tres que importan, coordina os equipos de resposta por voz e replanifica en menos dun segundo cando o lume cambia.",
-          "O LLM nunca asigna recursos: propón unha política (pesos e restricións) e un solver determinista calcula o plan. Recibe e fai chamadas reais con HappyRobot, simula o incendio ou o apagamento en Minecraft e amósao todo nun dashboard en directo con FastAPI e React."
+          "Axente de voz para coordinar emerxencias en incendios forestais: filtra cen mensaxes ata as tres que importan, coordina os equipos por teléfono e replanifica en menos dun segundo. O LLM fixa a política e un solver determinista calcula o plan."
         ],
         "links": [
           {

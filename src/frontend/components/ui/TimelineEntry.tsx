@@ -236,10 +236,14 @@ export default function TimelineEntry({
   // (128px), con el medallón superpuesto en su esquina, en vez de en carriles
   // separados. Ver DESIGN.md § Signature: trayectoria de espina.
   if (timeline && numbered) {
+    // `data-reveal-eager`: cada entrada se revela en cuanto asoma (ver
+    // ScrollReveal). Son bloques altos apilados y, con el margen general, la
+    // espina quedaba cortada en blanco a mitad de pantalla.
     return (
       <div
         className="grid grid-cols-[56px_1fr] sm:grid-cols-[96px_1fr] gap-2 sm:gap-10"
         {...revealAttrs}
+        {...(priorityImages > 0 ? {} : { 'data-reveal-eager': '' })}
       >
         <div className="flex flex-col items-center">
           <div className={`w-0.5 h-[10px] shrink-0 ${index > 0 ? 'bg-accent/25' : 'bg-transparent'}`} />

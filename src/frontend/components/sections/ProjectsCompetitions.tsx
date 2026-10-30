@@ -128,10 +128,37 @@ function FeatureCard({ entry }: { entry: ProjectEntry }) {
   )
 }
 
+/** Tira de fotos sin recorte: cada celda lleva la proporción de su foto y
+ *  crece en proporción a ella (`flex-grow` = ancho/alto, base 0), así que
+ *  todas quedan a la misma altura y enteras. La usa Expresso, cuyo banner
+ *  pierde el texto en cuanto se recorta. */
+function WholeImageStrip({ images }: { images: string[] }) {
+  return (
+    <div className="flex gap-[3px] bg-border">
+      {images.map((src) => {
+        const { width, height } = getImageDimensions(src)
+        return (
+          <div key={src} className="relative overflow-hidden min-w-0" style={{ flex: `${width / height} 1 0`, aspectRatio: `${width} / ${height}` }}>
+            <Image src={`/${src}`} alt="" fill sizes="(min-width: 640px) 30vw, 50vw" className="object-cover transition-transform duration-500 hover:scale-105" />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 /** Tarjeta compacta: logotipo opcional, título, fecha, organización,
  *  viñetas, chips de enlaces y, si trae fotos (la revista), una tira a
  *  sangre al pie. Cubre Open Source, EGS, Automated Referee y la revista. */
-function ProjectCard({ entry, growImages = false }: { entry: ProjectEntry; growImages?: boolean }) {
+function ProjectCard({
+  entry,
+  growImages = false,
+  wholeImages = false,
+}: {
+  entry: ProjectEntry
+  growImages?: boolean
+  wholeImages?: boolean
+}) {
   const images = entry.images ?? []
   // Solo EGS (logotipo, sin fotos) apila la fecha encima del logo en móvil.
   // La revista también tiene logotipo pero además fotos, y esa cabecera se
@@ -140,8 +167,8 @@ function ProjectCard({ entry, growImages = false }: { entry: ProjectEntry; growI
   return (
     <div className="h-full flex flex-col rounded-2xl border border-border bg-surface shadow-[0_14px_30px_-26px_rgba(0,0,0,0.5)] overflow-hidden">
       {/* Con `growImages` es la tira de fotos, y no el texto, la que se estira
-          hasta el alto de la fila: Expresso comparte fila con Taiafox, más
-          largo, y sin esto quedaba un hueco en blanco sobre las fotos. */}
+          hasta el alto de la fila: así la tarjeta más baja de una fila no
+          deja un hueco en blanco sobre sus fotos. */}
       <div className={`p-7 flex flex-col${growImages ? '' : ' flex-1'}`}>
         {/* Solo en móvil, y solo para EGS, la fecha se apila encima del logo
             en vez de ir al lado — `order-first` la manda arriba del todo, y
@@ -188,10 +215,9 @@ function ProjectCard({ entry, growImages = false }: { entry: ProjectEntry; growI
           </div>
         )}
       </div>
-      {images.length > 0 && (
-        // Estirada, la tira apila las fotos en filas: en columnas estrechas y
-        // altas el banner apaisado de Expresso perdía el texto por los lados.
-        <div className={`grid gap-[3px] bg-border ${growImages ? 'flex-1 min-h-56 auto-rows-fr' : `h-28 ${images.length >= 3 ? 'grid-cols-3' : images.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}`}>
+      {images.length > 0 && wholeImages && <WholeImageStrip images={images} />}
+      {images.length > 0 && !wholeImages && (
+        <div className={`grid gap-[3px] bg-border ${growImages ? 'flex-1 min-h-28' : 'h-28'} ${images.length >= 3 ? 'grid-cols-3' : images.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
           {images.map((src) => (
             <MosaicImage key={src} src={src} sizes="(min-width: 640px) 20vw, 33vw" />
           ))}
@@ -226,8 +252,8 @@ export default function ProjectsCompetitions({ data }: ProjectsCompetitionsProps
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" data-reveal-group>
         {(expresso || taiafox) && (
           <div className="sm:col-span-2 grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-4">
-            {expresso && <div data-reveal><ProjectCard entry={expresso} growImages /></div>}
-            {taiafox && <div data-reveal><ProjectCard entry={taiafox} /></div>}
+            {expresso && <div data-reveal><ProjectCard entry={expresso} wholeImages /></div>}
+            {taiafox && <div data-reveal><ProjectCard entry={taiafox} growImages /></div>}
           </div>
         )}
         {hackathons && (

@@ -13,7 +13,10 @@ export default function Experience({ data }: ExperienceProps) {
       <h1 className="break-words mt-3.5 mb-9 font-archivo font-bold tracking-[-0.01em] text-[40px] sm:text-[68px] leading-[0.98] text-foreground" data-reveal-load>
         {data.pageTitle}
       </h1>
-      <div data-reveal-group>
+      {/* Sin `data-reveal-group`: las entradas se revelan de una en una al
+          hacer scroll, nunca juntas, así que el escalonado por posición solo
+          añadía espera (hasta 350 ms en la sexta) a cada una. */}
+      <div>
         {data.entries.map((entry, i) => (
           <TimelineEntry
             key={i}

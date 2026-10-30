@@ -304,10 +304,9 @@
       {
         "date": "2026",
         "title": "Taiafox",
-        "organization": "HackSpain 2026 · [HappyRobot](https://www.happyrobot.ai/) challenge",
+        "organization": "HackSpain 2026 · [HappyRobot](https://www.happyrobot.ai/)",
         "bullets": [
-          "Voice-first emergency coordination agent for wildfire response, built with Team Gamma for the HappyRobot challenge at HackSpain 2026: it filters a hundred incoming messages down to the three that matter, coordinates responders by voice and re-plans in under a second when the fire turns.",
-          "The LLM never assigns resources: it proposes a policy (weights and constraints) and a deterministic solver computes the plan. It receives and places real phone calls with HappyRobot, simulates the wildfire or blackout in Minecraft and shows everything on a live dashboard built with FastAPI and React."
+          "Voice agent for wildfire emergency coordination: it filters a hundred messages down to the three that matter, coordinates responders by phone and re-plans in under a second. The LLM sets the policy and a deterministic solver computes the plan."
         ],
         "links": [
           {

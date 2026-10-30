@@ -7,6 +7,12 @@ import { usePathname } from 'next/navigation'
  *  cuando ha entrado de verdad. */
 const ROOT_MARGIN = '0px 0px -12% 0px'
 
+/** Sin margen para `data-reveal-eager`: unidades altas apiladas en vertical (la
+ *  cronología de Experiencia) en las que esperar a que entren un 12 % dejaba
+ *  la siguiente en blanco mientras ya se veía en pantalla, y el scroll se
+ *  sentía a saltos. Se revelan en cuanto asoman. */
+const EAGER_ROOT_MARGIN = '0px'
+
 /**
  * Revelado al entrar en pantalla. Una sola pasada: cuando un elemento entra se
  * le pone `data-revealed` y se deja de observar.
@@ -37,28 +43,33 @@ export default function ScrollReveal() {
     if (typeof IntersectionObserver === 'undefined') return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue
-          ;(entry.target as HTMLElement).dataset.revealed = ''
-          observer.unobserve(entry.target)
+    const makeObserver = (rootMargin: string) => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue
+            ;(entry.target as HTMLElement).dataset.revealed = ''
+            obs.unobserve(entry.target)
+          }
+        },
+        {
+          rootMargin,
+          // threshold 0 y no un porcentaje: una tarjeta con galería puede ser más
+          // alta que la ventana, y entonces una proporción mínima no se alcanza
+          // NUNCA. Sería contenido invisible para siempre.
+          threshold: 0,
         }
-      },
-      {
-        rootMargin: ROOT_MARGIN,
-        // threshold 0 y no un porcentaje: una tarjeta con galería puede ser más
-        // alta que la ventana, y entonces una proporción mínima no se alcanza
-        // NUNCA. Sería contenido invisible para siempre.
-        threshold: 0,
-      }
-    )
+      )
+      return obs
+    }
+    const observer = makeObserver(ROOT_MARGIN)
+    const eagerObserver = makeObserver(EAGER_ROOT_MARGIN)
 
     // `:not([data-revealed])` para que una renavegación no vuelva a observar lo
     // que ya salió.
     document
       .querySelectorAll<HTMLElement>('[data-reveal]:not([data-revealed])')
-      .forEach((el) => observer.observe(el))
+      .forEach((el) => (el.dataset.revealEager !== undefined ? eagerObserver : observer).observe(el))
 
     // Red de accesibilidad: si el foco de teclado aterriza en un enlace de una
     // sección todavía oculta, se revela sin esperar al observador.
@@ -68,12 +79,14 @@ export default function ScrollReveal() {
       if (!unit || unit.dataset.revealed !== undefined) return
       unit.dataset.revealed = ''
       observer.unobserve(unit)
+      eagerObserver.unobserve(unit)
     }
     document.addEventListener('focusin', onFocusIn)
 
     return () => {
       document.removeEventListener('focusin', onFocusIn)
       observer.disconnect()
+      eagerObserver.disconnect()
     }
   }, [pathname])
 
