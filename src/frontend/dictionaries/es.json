@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Ignacio Garbayo — CV",
-    "description": "Ingeniero de Software con doble formación en Ingeniería Informática y Matemáticas."
+    "description": "AI Engineer en Factorial con doble formación en Ingeniería Informática y Matemáticas."
   },
   "nav": {
     "home": "Inicio",
@@ -25,7 +25,7 @@
   },
   "summary": {
     "title": "Sobre mí",
-    "content": "Ingeniero de software con una base dual en Ingeniería Informática y Matemáticas. Entre otras, mis experiencias incluyen la construcción de modelos predictivos para investigación médica, plataformas de datos en tiempo real y motores de optimización, además de proyectos de software libre."
+    "content": "Ingeniero de software con una base dual en Ingeniería Informática y Matemáticas. Entre otras, mis experiencias incluyen la construcción de modelos predictivos para investigación médica, plataformas de datos en tiempo real y motores de optimización, además de proyectos de software libre. Actualmente trabajo como AI Engineer en Factorial y coorganizo Expresso, un programa para conectar el talento tecnológico de Santiago de Compostela."
   },
   "skills": {
     "title": "Aptitudes",

@@ -4,7 +4,7 @@ import { getDictionary } from '@/lib/dictionaries'
 import SiteShell from '@/components/SiteShell'
 
 const description =
-  'Software Engineer with a dual foundation in Computer Engineering and Mathematics.'
+  'AI Engineer at Factorial with a dual foundation in Computer Engineering and Mathematics.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ignaciogarbayo.com'),

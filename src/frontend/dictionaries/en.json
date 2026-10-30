@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Ignacio Garbayo — CV",
-    "description": "Software Engineer with a dual foundation in Computer Engineering and Mathematics."
+    "description": "AI Engineer at Factorial with a dual foundation in Computer Engineering and Mathematics."
   },
   "nav": {
     "home": "Home",
@@ -25,7 +25,7 @@
   },
   "summary": {
     "title": "Summary",
-    "content": "Software engineer with a dual foundation in Computer Engineering and Mathematics. My experiences include, among others, building predictive models for medical research, real-time data platforms and optimization engines, apart from open source projects."
+    "content": "Software engineer with a dual foundation in Computer Engineering and Mathematics. My experiences include, among others, building predictive models for medical research, real-time data platforms and optimization engines, apart from open source projects. I currently work as an AI Engineer at Factorial and co-organise Expresso, a programme connecting the tech talent of Santiago de Compostela."
   },
   "skills": {
     "title": "Skills",

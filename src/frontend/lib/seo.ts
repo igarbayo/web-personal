@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import type { Dictionary } from './types'
+import { TOKENS } from './tokens.mjs'
 
 /** Las 4 secciones del sitio, como sufijo de ruta. '' es la home. */
 export const SUBPATHS = ['', '/experience', '/education', '/projects'] as const
@@ -58,6 +59,17 @@ export function buildPageMetadata(subpath: string, lang: string, description: st
 const stripMarkdownLinks = (s: string) => s.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
 
 /**
+ * `Organization` de schema.org a partir de un campo con enlace en Markdown:
+ * `[Factorial](https://factorialhr.com/)` → nombre y `url`. Si el campo trae
+ * varios enlaces (`[IGM WEB](…) ([Grupo Hotusa](…))`), la `url` es la del
+ * primero, que es la entidad principal.
+ */
+function toOrganization(field: string) {
+  const url = field.match(/\]\(([^)]+)\)/)?.[1]
+  return { '@type': 'Organization', name: stripMarkdownLinks(field), ...(url ? { url } : {}) }
+}
+
+/**
  * Áreas de conocimiento, por delante de la lista de tecnologías de `skills`.
  * Esa lista sola son herramientas ("Docker", "R"), y lo que un grafo de
  * conocimiento necesita para situar a una persona es el campo, no el stack.
@@ -95,6 +107,17 @@ export function buildPersonJsonLd(dict: Dictionary, lang: string) {
     .map((e) => e.institution)
     .filter((v, i, a) => a.indexOf(v) === i)
 
+  // Puestos actuales: los que terminan en `{present}`, ya resuelto a la
+  // palabra del idioma por `getDictionary`. Se buscan por fecha y no por
+  // posición, así que el orden del diccionario da igual.
+  const presentWord = TOKENS.present[lang as keyof typeof TOKENS.present] ?? TOKENS.present.en
+  const current = dict.experience.entries.filter((e) => e.date.trim().endsWith(presentWord))
+
+  // Membresías: en Certificaciones son las entradas sin fecha (Mensa,
+  // Exponential), la misma regla con la que `Certifications` decide no
+  // pintar la fecha.
+  const memberships = dict.certifications.entries.filter((e) => !e.date)
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -103,9 +126,13 @@ export function buildPersonJsonLd(dict: Dictionary, lang: string) {
     image: `${SITE_URL}${PERSON_IMAGE}`,
     email: `mailto:${dict.header.email}`,
     description: dict.meta.description,
-    // Sin `jobTitle` ni `worksFor` a propósito. Saldrían de
-    // `experience.entries[0]`, y eso ataría el dato a que la entrada más
-    // reciente siga siendo siempre la primera del diccionario.
+    ...(current.length > 0
+      ? {
+          jobTitle: current.map((e) => stripMarkdownLinks(e.title)),
+          worksFor: current.map((e) => toOrganization(e.company)),
+        }
+      : {}),
+    ...(memberships.length > 0 ? { memberOf: memberships.map((e) => toOrganization(e.issuer)) } : {}),
     alumniOf: institutions.map((name) => ({
       '@type': 'CollegeOrUniversity',
       name: stripMarkdownLinks(name),
