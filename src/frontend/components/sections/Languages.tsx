@@ -37,22 +37,34 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
             <span className="text-emerald-600 dark:text-emerald-400">{cert.thresholdLabel}</span>
           </div>
           <div className="relative flex flex-col gap-3.5">
-            {/* A partir de `sm`, una sola marca de umbral cruza las cinco
-                barras, con un punto en cada extremo (DESIGN.md § barras de
-                puntuación). Se coloca por cálculo sobre la pista de barras de
-                la rejilla de abajo: 132px de nombre + 14px de hueco a la
-                izquierda, y 14px + 40px de valor a la derecha. Si cambia esa
-                rejilla, cambian estas cifras. */}
-            <div
-              data-reveal-late
-              aria-hidden="true"
-              className="hidden sm:flex absolute -top-1 -bottom-1 z-10 flex-col items-center"
-              style={{ left: `calc(146px + ${thresholdPct / 100} * (100% - 200px))`, transform: 'translateX(-50%)' }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
-              <div className="flex-1 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full" />
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
-            </div>
+            {/* Una sola marca de umbral cruza las cinco barras, con un punto en
+                cada extremo (DESIGN.md § barras de puntuación). Dos copias
+                porque la pista de barras cambia de geometría:
+                - En móvil cada barra ocupa todo el ancho, así que basta el `%`.
+                  Los nombres van encima de su barra y pueden llegar hasta la
+                  marca («Comprensión auditiva» a 360px): por eso llevan fondo
+                  de tarjeta y `z-20`, y la regla pasa por detrás del texto en
+                  vez de tacharlo.
+                - Desde `sm` se coloca por cálculo sobre la pista de barras de
+                  la rejilla de abajo: 132px de nombre + 14px de hueco a la
+                  izquierda, y 14px + 40px de valor a la derecha. Si cambia esa
+                  rejilla, cambian estas cifras. */}
+            {[
+              { className: 'flex sm:hidden', left: `${thresholdPct}%` },
+              { className: 'hidden sm:flex', left: `calc(146px + ${thresholdPct / 100} * (100% - 200px))` },
+            ].map(({ className, left }) => (
+              <div
+                key={className}
+                data-reveal-late
+                aria-hidden="true"
+                className={`${className} absolute -top-1 -bottom-1 z-10 flex-col items-center`}
+                style={{ left, transform: 'translateX(-50%)' }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
+                <div className="flex-1 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full" />
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
+              </div>
+            ))}
             {cert.skills.map((skill) => {
               const fillPct = ((skill.score - cert.scaleMin) / range) * 100
               return (
@@ -62,20 +74,10 @@ function CertCard({ cert }: { cert: LanguageCertification }) {
                       partir de `sm` para que el nombre vuelva a ser la 1ª
                       columna de la rejilla de escritorio. */}
                   <div className="flex items-baseline justify-between sm:contents">
-                    <span className="font-mono text-[13px] text-foreground">{skill.name}</span>
+                    <span className="relative z-20 bg-surface pr-1.5 sm:pr-0 font-mono text-[13px] text-foreground">{skill.name}</span>
                     <span className="font-archivo font-extrabold text-[15px] text-accent sm:hidden">{skill.score}</span>
                   </div>
                   <div className="relative h-2 rounded-full bg-border">
-                    {/* En móvil el nombre va encima de cada barra, así que una
-                        regla continua lo tacharía: aquí la marca es corta, una
-                        por barra, y se posiciona en `%` dentro de la propia
-                        barra. Desde `sm` la sustituye la regla continua de
-                        arriba. */}
-                    <div
-                      data-reveal-late
-                      className="sm:hidden absolute -top-1 -bottom-1 -translate-x-1/2 w-[3px] bg-emerald-600 dark:bg-emerald-400 rounded-full z-10"
-                      style={{ left: `${thresholdPct}%` }}
-                    />
                     {/* El valor final va en una propiedad personalizada y no en
                         `width`: un `width` en línea gana a cualquier regla de la
                         hoja y la barra nunca podría partir de 0. La aserción es
