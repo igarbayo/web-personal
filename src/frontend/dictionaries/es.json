@@ -339,9 +339,10 @@
       {
         "date": "2026",
         "title": "Designaciones arbitrales automáticas",
+        "organization": "[Designia](https://designia.ignaciogarbayo.com/)",
         "bullets": [
-          "Diseñé un motor de optimización en Python para planificar eficientemente hasta 800 partidos semanales, combinando problemas de planificación de personal y enrutamiento de vehículos.",
-          "Resolví restricciones complejas, incluyendo solapamientos de horarios, vetos y emparejamientos por nivel, mediante una weighted greedy selection con búsqueda local y aproximaciones geométricas."
+          "Diseñé un motor de optimización en Python que planifica hasta 800 partidos semanales, combinando planificación de personal y enrutamiento de vehículos.",
+          "Resuelve solapamientos de horarios, vetos y emparejamientos por nivel con una weighted greedy selection, búsqueda local y aproximaciones geométricas."
         ]
       },
       {

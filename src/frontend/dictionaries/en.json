@@ -339,9 +339,10 @@
       {
         "date": "2026",
         "title": "Automated Referee Assignments",
+        "organization": "[Designia](https://designia.ignaciogarbayo.com/)",
         "bullets": [
-          "Engineered an optimization engine in Python to efficiently schedule up to 800 weekly matches, combining personnel scheduling and vehicle routing problems.",
-          "Resolved complex constraints including schedule overlaps, conflict vetoes, and skill-level matching through weighted greedy selection, complemented by local search and geometric approximations."
+          "Engineered a Python optimization engine that schedules up to 800 weekly matches, combining personnel scheduling and vehicle routing.",
+          "Handles schedule overlaps, vetoes and skill-level matching through weighted greedy selection and local search."
         ]
       },
       {
