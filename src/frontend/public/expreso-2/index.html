@@ -17,6 +17,9 @@
   .slide.active { opacity: 1; visibility: visible; transition: opacity .35s ease; }
   body.idle, body.idle .slide { cursor: none; }
   .slide img.full { max-width: 100%; max-height: 92vh; object-fit: contain; display: block; }
+  /* Diapositivas sacadas de un PDF (16:9): a pantalla completa, sin márgenes */
+  .slide.sheet { padding: 0; }
+  .slide.sheet img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
   /* Presentaciones incrustadas (copias locales en teimas/ e innogando/, mismo origen) */
   .slide.deck { padding: 0; }
@@ -42,7 +45,13 @@
 <!-- 1: negro -->
 <section class="slide"></section>
 
-<!-- 2: pdepablo.com -->
+<!-- 2: logos de GPUL y Exponential (página 3 del PDF «Radar GPUL × Exponential») -->
+<section class="slide sheet"><img src="gpul-exponential.webp" alt="GPUL · Exponential · goexponential.org"></section>
+
+<!-- 3: Expresso Talks, fondo morado (página 5 del mismo PDF) -->
+<section class="slide sheet"><img src="expresso-talks.webp" alt="Expresso Talks · Jueves 12 de noviembre, 17:30 · ETSE · Pablo Pazos (Barkibu) y Daniel Rus (Innogando) · luma.com/expresso"></section>
+
+<!-- 4: pdepablo.com -->
 <section class="slide">
   <div class="pdp">
     <img class="logo" src="pdepablo.svg?v=2" alt="P de Pablo">
@@ -61,25 +70,25 @@
   </div>
 </section>
 
-<!-- 3: Teimas (copia de elizechea.github.io/teimas) -->
+<!-- 5: Teimas (copia de elizechea.github.io/teimas) -->
 <section class="slide deck" data-counter="counter">
   <iframe src="teimas/index.html" title="La transformación de TEIMAS" allow="fullscreen; autoplay"></iframe>
   <div class="catcher"></div>
 </section>
 
-<!-- 4: meme -->
+<!-- 6: meme -->
 <section class="slide"><img class="full" src="meme.webp?v=2" alt="Mi trabajo soñado hace 10 años: Microsoft. Hace 2 años: Anthropic. Ahora: una granja con vacas."></section>
 
-<!-- 5: Innogando (copia de talks.getrus.xyz, sin sincronización con su servidor) -->
+<!-- 7: Innogando (copia de talks.getrus.xyz, sin sincronización con su servidor) -->
 <section class="slide deck" data-counter="count">
   <iframe src="innogando/index.html" title="Desde el rural y para el rural · Innogando" allow="fullscreen; autoplay"></iframe>
   <div class="catcher"></div>
 </section>
 
-<!-- 6: Barkibu -->
+<!-- 8: Barkibu -->
 <section class="slide"><img class="full" src="barkibu.webp?v=2" alt="El equipo de Barkibu"></section>
 
-<!-- 7: cierre en negro -->
+<!-- 9: cierre en negro -->
 <section class="slide"></section>
 
 <script>
