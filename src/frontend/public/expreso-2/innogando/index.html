@@ -1,0 +1,1394 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Desde el rural y para el rural · Innogando</title>
+<style>
+@font-face{font-family:"Nunito";font-style:normal;font-weight:200 1000;font-display:block;src:url(fonts/nunito-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:200 1000;font-display:block;src:url(fonts/nunito-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Nunito";font-style:italic;font-weight:200 1000;font-display:block;src:url(fonts/nunito-italic-latin.woff2) format("woff2")}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:400 700;font-display:block;src:url(fonts/montserrat-latin.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans";font-style:normal;font-weight:400 700;font-display:block;src:url(fonts/notosans-latin.woff2) format("woff2")}
+
+:root{--o:#FFA233;--o2:#F39827;--od:#C87102;--cream:#FDEFDF;--cream2:#FFECD9;--ink:#333333;--green:#33B57A;--night:#2a2826;
+  --f:"Nunito",ui-rounded,system-ui,sans-serif}
+html,body{margin:0;height:100%}
+body{background:#111;color:var(--ink);font-family:var(--f);overflow:hidden}
+[hidden]{display:none!important}
+.viewport{position:relative;width:100%;height:100%}
+.deck{width:1920px;height:1080px;position:absolute;left:50%;top:50%;transform-origin:center center;overflow:hidden;background:var(--cream)}
+.slide{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility 0s .6s;font-family:var(--f)}
+.slide.on{opacity:1;visibility:visible;transition:opacity .6s ease}
+.slide *{box-sizing:border-box}
+.slide h1,.slide h2,.slide h3,.slide p{margin:0}
+.abs{position:absolute}
+.ph{position:absolute;object-fit:cover;display:block}
+.r40{border-radius:40px}.r30{border-radius:30px}.r24{border-radius:24px}
+.cr{color:var(--cream)}.or{color:var(--o)}
+.w9{font-weight:900}.w8{font-weight:800}.w7{font-weight:700}.w6{font-weight:600}.w5{font-weight:500}
+.shadow-t{text-shadow:0 3px 18px rgba(80,40,0,.28)}
+.vid{position:absolute;object-fit:cover;display:block}
+.vposter{display:none}
+
+/* entrance motion: elements with .a rise in, staggered by --d */
+.slide.on .a{animation:rise .8s cubic-bezier(.2,.7,.2,1) var(--d,.1s) both}
+.slide.on .az{animation:zoomin .9s cubic-bezier(.2,.7,.2,1) var(--d,.1s) both}
+.slide.on .af{animation:fade 1s ease var(--d,.1s) both}
+.slide.on .kb{animation:kb 14s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}}
+@keyframes zoomin{from{opacity:0;transform:scale(.92)}}
+@keyframes fade{from{opacity:0}}
+@keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
+
+/* --- curve (slides 6, 21, 25) --- */
+.curvebox{position:absolute;left:106px;top:228px;width:1707px;height:766px;background:#f7f7f7;border-radius:14px;box-shadow:0 10px 40px rgba(120,60,0,.12)}
+.curvebox svg{width:100%;height:100%;display:block;overflow:visible}
+.cv-ax{stroke:#222;stroke-width:1.3;fill:none}
+.cv-dot{stroke:#9a9a9a;stroke-width:1;stroke-dasharray:1.5 2.5}
+.cv-main{fill:none;stroke:#5f8f7b;stroke-width:1.6;stroke-linecap:round}
+.cv-alt{fill:none;stroke:#5f8f7b;stroke-width:1.2;stroke-dasharray:4 3}
+.cv-t{font-family:var(--f);font-weight:600;font-size:10.5px;fill:#1d1d1d}
+.cv-big{font-size:13px;font-weight:700}
+.cv-box{fill:#fff;stroke:#8fb0a4;stroke-width:1}
+.cv-hl{fill:rgba(255,162,51,.06);stroke:var(--o);stroke-width:2.2}
+.slide.on .cv-main{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.4s .4s ease-in-out forwards}
+.slide.on .cv-alt{opacity:0;animation:appear .8s 2.4s ease forwards}
+.slide.on .cv-lab{opacity:0;animation:appear .5s ease forwards;animation-delay:calc(.5s + var(--i) * .28s)}
+.slide.on .cv-hl{opacity:0;animation:hl .9s 2.6s cubic-bezier(.2,.7,.2,1) forwards;transform-box:fill-box;transform-origin:center}
+.slide.on .cv-note{opacity:0;animation:appear .8s 2.7s ease forwards}
+@keyframes appear{to{opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes hl{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:none}}
+
+/* --- 1 cover --- */
+#s1{background:#A4661C}
+#s1 .bg{inset:-2px;width:100%;height:100%;filter:sepia(.75) saturate(1.25) brightness(1.02)}
+#s1 .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(176,110,35,.42),rgba(176,110,35,.25) 50%,rgba(200,140,70,.15))}
+#s1 .fog{position:absolute;pointer-events:none}
+#s1 h1{position:absolute;left:0;right:0;top:318px;text-align:center;font-size:118px;font-weight:900;color:var(--cream);line-height:1.1;text-shadow:0 4px 30px rgba(90,50,10,.45)}
+#s1 .sub{position:absolute;left:0;right:0;top:455px;text-align:center;font-size:68px;font-weight:500;color:var(--cream);text-shadow:0 3px 20px rgba(90,50,10,.45)}
+#s1 .who{position:absolute;right:108px;top:815px;text-align:right;color:var(--o)}
+#s1 .who b{display:block;font-size:82px;font-weight:900;line-height:1.1}
+#s1 .who span{display:block;font-size:42px;font-weight:800}
+
+/* --- 2 que hacemos --- */
+#s2{background:var(--cream)}
+#s2 .panel{position:absolute;left:986px;top:0;width:934px;height:1080px;background:linear-gradient(160deg,#F8A23C 0%,#FFA233 40%,#F7941D 100%)}
+#s2 .panel::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18) 0 30%,transparent 30% 100%)}
+#s2 .bul{position:absolute;left:51px;width:56px;height:50px}
+#s2 .tx{position:absolute;left:137px;width:800px;font-size:35px;line-height:1.38;font-weight:500;color:var(--ink)}
+#s2 .tx b{font-weight:800}
+#s2 .pill{position:absolute;top:605px;height:112px;width:295px;border-radius:60px;background:var(--o);display:grid;place-items:center;font-size:29px;font-weight:900;letter-spacing:.2em;color:#3a2a14;box-shadow:inset 0 0 0 3px rgba(200,113,2,.25)}
+#s2 .loc{position:absolute;left:1623px;top:80px;font-size:36px;line-height:1.35;color:var(--ink);font-weight:500}
+#s2 .loc b{font-weight:800}
+#s2 h2{position:absolute;left:1111px;top:740px;z-index:1;font-size:118px;line-height:1.02;font-weight:900;color:var(--cream);letter-spacing:.01em}
+#s2 .render{position:absolute;width:300px;height:300px;border-radius:50%;background:#fff;box-shadow:0 18px 50px rgba(150,70,0,.25)}
+#s2 .rlab{position:absolute;width:360px;text-align:center;font-size:24px;font-weight:900;letter-spacing:.18em;color:var(--od)}
+
+/* --- 3 --- */
+#s3 .bg{inset:0;width:100%;height:100%;filter:sepia(.35) saturate(1.05)}
+#s3::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(120,80,30,.28) 0%,rgba(120,80,30,0) 45%);pointer-events:none}
+#s3 h2{position:absolute;left:108px;top:105px;z-index:1;font-size:112px;line-height:1.02;color:var(--cream);text-shadow:0 4px 26px rgba(70,40,0,.4)}
+
+/* --- 4 / glow backgrounds --- */
+.glowbg{background:radial-gradient(ellipse 55% 75% at 100% 50%,rgba(255,162,51,.75),rgba(255,162,51,0) 70%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(255,162,51,.35),rgba(255,162,51,0) 70%),var(--cream)}
+.glowc{background:radial-gradient(ellipse 50% 55% at 50% 55%,#F7A03C 0%,rgba(247,160,60,.75) 40%,rgba(253,239,223,0) 100%),var(--cream)}
+.ograd{background:linear-gradient(160deg,#FFA233 0%,#F9A84A 45%,#FBD3A3 100%)}
+
+/* --- 5 hitos --- */
+#s5{background:var(--o)}
+#s5 .lp{position:absolute;left:0;top:0;width:690px;height:905px;background:var(--cream);border-bottom-right-radius:70px}
+#s5 .rp{position:absolute;left:745px;top:0;width:1175px;height:1080px;background:var(--cream);border-bottom-left-radius:70px;border-top-left-radius:0}
+#s5 .rp::after{content:"";position:absolute;left:180px;top:520px;width:800px;height:800px;border-radius:50%;background:#efdcc4;opacity:.7}
+#s5 h2{position:absolute;left:179px;top:118px;font-size:100px;font-weight:900;color:var(--o)}
+#s5 .ms{position:absolute;left:85px;width:460px;height:104px;border:3px solid var(--ink);border-radius:60px;display:grid;place-items:center;font-size:64px;font-weight:900;color:var(--ink)}
+
+/* --- 6/21/25 curve slides --- */
+.cvslide h2{position:absolute;left:108px;top:72px;font-size:88px;font-weight:900;letter-spacing:.01em}
+
+/* --- 8 eliter --- */
+#s8 .circ{position:absolute;width:500px;height:500px;border-radius:50%;background:#fff;box-shadow:0 20px 60px rgba(160,80,0,.18)}
+
+/* --- 9 rumi --- */
+#s9{background:linear-gradient(180deg,#F6A23E 0%,#E99A3A 40%,#DD8F2E 100%)}
+#s9 .cowp{position:absolute;left:0;top:0;width:672px;height:1080px;overflow:hidden;border-top-right-radius:60px;border-bottom-right-radius:0}
+#s9 .cowp::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(253,239,223,.95) 0%,rgba(253,239,223,.55) 22%,rgba(253,239,223,0) 42%)}
+#s9 .feat{position:absolute;left:1275px;right:-40px;height:100px;border-radius:60px;background:#333;color:#fff;font-size:40px;font-weight:800;line-height:1.05;display:flex;align-items:center;padding-left:190px}
+#s9 .feat .ic{position:absolute;left:-0px;top:50%;width:150px;height:96px;margin-top:-48px;border-radius:60px;border:2.5px solid var(--cream);background:var(--o2);display:grid;place-items:center}
+#s9 .feat .ic img{height:60px}
+
+/* --- 11 ai core --- */
+#s11 .bg{inset:0;width:100%;height:100%}
+#s11 .par{position:absolute;left:960px;top:225px;width:836px;font-size:35.5px;line-height:1.42;font-weight:600;color:var(--cream);text-align:center}
+#s11 .par b{font-weight:800}
+#s11 .act{position:absolute;top:918px;font-size:34px;font-weight:700;color:var(--cream);text-align:center;transform:translateX(-50%)}
+
+/* --- 12 app --- */
+#s12{background:#F6F6F6}
+#s12 .appwrap{position:absolute;left:62px;top:28px;width:1240px;transform:scale(1.445);transform-origin:0 0}
+
+/* --- 13 conectividad --- */
+#s13{background:linear-gradient(200deg,#FFA233 0%,#FBB867 35%,#FDE3C3 75%,#FDEFDF 100%)}
+
+/* --- 14/18 dividers --- */
+.divi h2{position:absolute;left:0;right:0;text-align:center;color:var(--cream);text-shadow:0 4px 30px rgba(200,113,2,.35)}
+
+/* --- 15 camino --- */
+#s15{background:linear-gradient(180deg,#FFA233 0%,#E08A2C 35%,#7a5530 70%,#3a3532 100%)}
+#s15 .lab{position:absolute;border:3px solid var(--cream);border-radius:46px;color:var(--cream);font-size:44px;font-weight:500;line-height:1.08;padding:0 14px;box-sizing:border-box;text-align:center;display:grid;place-items:center}
+#s15 svg.lines{position:absolute;inset:0;width:1920px;height:1080px}
+#s15 .ln{fill:none;stroke:var(--cream);stroke-width:3;stroke-dasharray:4 7;stroke-linecap:round}
+#s15 .dt{fill:var(--cream)}
+.slide.on#s15 .ln{stroke-dashoffset:300;animation:march 2.2s .6s ease-out both}
+@keyframes march{from{stroke-dashoffset:300;opacity:0}to{stroke-dashoffset:0;opacity:1}}
+#s15 .arc{position:absolute;font-size:28px;font-weight:900;letter-spacing:.1em;color:var(--o);background:#333;padding:6px 20px;border-radius:30px}
+
+/* --- 16 enfermedad --- */
+#s16{background:#C87102}
+.tablet{position:absolute;background:#1d1d1f;border-radius:34px;padding:18px;box-shadow:0 0 0 3px #4b4b4f,0 30px 70px rgba(60,30,0,.35)}
+.tablet img{width:100%;height:100%;object-fit:cover;border-radius:16px;display:block;background:#fff}
+
+/* --- 17 parto --- */
+#s17{background:#C87102}
+.phoneF{position:absolute;background:#141414;border-radius:58px;padding:14px;box-shadow:0 0 0 3px #3b3b3b,0 30px 70px rgba(0,0,0,.35)}
+.phoneF img.scr{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:46px;display:block;background:#fff}
+
+/* --- 22 business --- */
+#s22,#s26b{background:var(--o)}
+#s22 .arch,#s26b .arch{position:absolute;top:324px;width:686px;height:800px;background:var(--cream);border-radius:150px 150px 0 0}
+#s22 .price,#s26b .price{position:absolute;top:796px;width:385px;height:190px;border-radius:44px;background:#333;color:var(--cream);text-align:center;font-weight:900}
+#s22 .price b,#s26b .price b{display:block;font-size:124px;line-height:1.15;letter-spacing:-.01em}
+#s22 .price small,#s26b .price small{display:block;font-size:34px;margin-top:-10px}
+
+/* --- 23 plan --- */
+#s23,#s26c{background:var(--o)}
+#s23 .bigc,#s26c .bigc{position:absolute;left:-170px;top:70px;width:1000px;height:1000px;border-radius:50%;background:radial-gradient(circle at 60% 30%,rgba(253,239,223,.12),rgba(170,90,10,.22) 70%),linear-gradient(180deg,rgba(242,150,40,.9),rgba(200,120,30,.85))}
+#s23 .dk,#s26c .dk{position:absolute;background:#333;color:var(--cream);border-radius:60px;font-weight:900;display:grid;place-items:center;line-height:1}
+#s23 .ol,#s26c .ol{position:absolute;border:3.5px solid #333;color:var(--cream);border-radius:60px;font-weight:900;display:grid;place-items:center;line-height:1}
+#s23 .lb,#s26c .lb{position:absolute;color:#333;font-weight:900;text-align:center;line-height:1}
+#s23 .box,#s26c .box{position:absolute;left:985px;top:100px;width:820px;height:860px;border:3px solid var(--cream);border-radius:70px}
+#s23 .box::after,#s26c .box::after{content:"";position:absolute;left:0;right:0;top:445px;border-top:4px dotted rgba(253,239,223,.85)}
+
+/* --- 24 market --- */
+#s24{background:var(--cream2)}
+#s24 .card{position:absolute;left:58px;top:255px;width:410px;height:560px;background:#fff;border:4px solid var(--o);border-radius:22px}
+#s24 .num{position:absolute;right:0;width:200px;text-align:right;font-size:31px;font-weight:700;color:var(--o)}
+
+/* --- 26 rumi pro --- */
+#s26{background:radial-gradient(ellipse 60% 80% at 100% 100%,rgba(255,162,51,.55),rgba(255,162,51,0) 70%),var(--cream)}
+#s26 h2{position:absolute;left:110px;top:150px;font-size:150px;font-weight:900;color:var(--o);line-height:1}
+#s26 .lede{position:absolute;left:115px;top:340px;width:760px;font-size:42px;line-height:1.3;font-weight:600;color:var(--ink)}
+#s26 .stat{position:absolute;left:110px;width:780px;border-radius:40px;background:#333;color:var(--cream);padding:26px 40px;display:flex;align-items:baseline;gap:26px}
+#s26 .stat b{font-size:92px;font-weight:900;color:var(--o);line-height:1;white-space:nowrap}
+#s26 .stat span{font-size:34px;font-weight:700;line-height:1.15}
+#s26 .rcard{position:absolute;left:1000px;top:90px;width:820px;height:620px;background:#fff;border-radius:40px;box-shadow:0 20px 60px rgba(160,80,0,.15);overflow:hidden}
+#s26 .field{position:absolute;left:1140px;top:620px;width:680px;height:383px;border-radius:30px;overflow:hidden;box-shadow:0 20px 60px rgba(60,30,0,.3);border:6px solid #fff}
+
+/* --- 27 agente (chat) --- */
+#s27{background:radial-gradient(ellipse 70% 90% at 0% 100%,rgba(255,162,51,.6),transparent 70%),#2f2c2a;color:#fff}
+#s27 .kick{position:absolute;left:130px;top:250px;font-size:30px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--o)}
+#s27 h2{position:absolute;left:125px;top:305px;width:900px;font-size:120px;line-height:1;font-weight:900}
+#s27 h2 em{font-style:normal;color:var(--o)}
+#s27 .lede{position:absolute;left:130px;top:580px;width:800px;font-size:40px;line-height:1.35;font-weight:600;opacity:.9}
+#s27 .fict{position:absolute;left:130px;bottom:70px;font-size:22px;font-weight:600;opacity:.55}
+.chatphone{position:absolute;left:1230px;top:40px;width:500px;height:1000px;border-radius:70px;background:#111;padding:16px;box-shadow:0 0 0 3px #4a4542,0 40px 90px rgba(0,0,0,.55)}
+.chatphone::before{content:"";position:absolute;top:30px;left:50%;width:120px;height:34px;margin-left:-60px;border-radius:20px;background:#000;z-index:3}
+.chat{position:relative;width:100%;height:100%;border-radius:56px;overflow:hidden;background:#F7F3EE;font-family:"Noto Sans",var(--f);color:#222;display:flex;flex-direction:column}
+.chat .st{height:70px;flex:none}
+.chat .hd{flex:none;display:flex;align-items:center;gap:14px;padding:6px 22px 16px;border-bottom:1px solid #eadfd2;background:#fff}
+.chat .hd .av{width:52px;height:52px;border-radius:50%;background:var(--o);display:grid;place-items:center;color:#fff;font:800 22px var(--f)}
+.chat .hd b{display:block;font:700 22px/1.1 "Noto Sans",sans-serif}
+.chat .hd small{display:block;font:500 15px/1.3 "Noto Sans",sans-serif;color:#2e9e5b}
+.chat .msgs{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;padding:18px 18px 10px;overflow:hidden}
+.chat .m{max-width:86%;padding:13px 17px;border-radius:22px;font-size:19px;line-height:1.38;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.chat .m.u{align-self:flex-end;background:var(--o);color:#fff;border-bottom-right-radius:6px}
+.chat .m.b{align-self:flex-start;background:#fff;border-bottom-left-radius:6px}
+.chat .m.b b{color:#d97a00}
+.chat .m .vo{display:flex;align-items:center;gap:8px;font-size:14px;opacity:.85;margin-bottom:4px}
+.chat .m.typing{display:flex;gap:6px;padding:18px 20px}
+.chat .m.typing i{width:9px;height:9px;border-radius:50%;background:#c9b9a6;animation:dots 1s infinite ease-in-out}
+.chat .m.typing i:nth-child(2){animation-delay:.15s}.chat .m.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dots{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-6px);opacity:1}}
+.chat .mini{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.chat .mini span{background:#FFF1DE;border-radius:12px;padding:6px 10px;font-size:15px;font-weight:600;color:#7a4a00}
+.chat .in{flex:none;display:flex;align-items:center;gap:12px;padding:14px 18px 34px;background:#fff;border-top:1px solid #eadfd2}
+.chat .in .fld{flex:1;height:52px;border-radius:26px;background:#F2EEE9;display:flex;align-items:center;padding:0 20px;font-size:17px;color:#999}
+.chat .in .mic{width:52px;height:52px;border-radius:50%;background:var(--o);display:grid;place-items:center}
+.chat .m.hide{display:none}
+.chat .m.pop{animation:msg .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes msg{from{opacity:0;transform:translateY(16px) scale(.97)}}
+
+/* --- 28 where we are today --- */
+#s28{background:#fff}
+#s28 h2{position:absolute;left:72px;top:46px;font-size:76px;font-weight:800;color:#F49D1A}
+#s28 .sub{position:absolute;left:74px;top:150px;font-size:30px;font-weight:600;color:#5b6170}
+#s28 .tile{position:absolute;width:340px;height:360px;background:#E8F3E6;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:34px}
+#s28 .tile b{font-size:64px;font-weight:800;color:#F49D1A;line-height:1}
+#s28 .tile > span{font-size:24px;font-weight:600;color:#333;line-height:1.35}
+#s28 .foot{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-size:17px;color:#555}
+#s28 .bar{transform-box:fill-box;transform-origin:50% 100%}
+.slide.on#s28 .bar{animation:grow 1.1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.4s + var(--i)*.22s)}
+.slide.on#s28 .bv{opacity:0;animation:appear .5s forwards;animation-delay:calc(1.2s + var(--i)*.22s)}
+@keyframes grow{from{transform:scaleY(0)}}
+
+/* --- 29 desafios --- */
+#s29 .bg{left:-122px;top:0;width:2211px;height:1275px}
+#s29 .tx{position:absolute;left:918px;width:940px;font-size:46px;line-height:1.18;color:var(--cream)}
+#s29 .mk{position:absolute;left:808px;width:66px;height:24px;border:4px solid var(--cream);border-radius:14px}
+
+/* --- 32 gracias --- */
+#s32{background:#333}
+#s32 .big{position:absolute;left:-20px;top:-120px;font-size:468px;font-weight:900;line-height:1.2;color:transparent;-webkit-text-stroke:12px var(--o);letter-spacing:-.01em;white-space:nowrap}
+
+/* chrome */
+.prog{position:fixed;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.06);z-index:5}
+.prog i{display:block;height:100%;background:var(--o);transition:width .35s ease}
+.hud{position:fixed;right:18px;bottom:16px;z-index:6;display:flex;gap:8px;align-items:center;font:600 13px/1 var(--f);color:#d9cbb8;opacity:.0;transition:opacity .3s}
+body:hover .hud{opacity:1}
+.hud button{all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);color:#fff;font-size:16px}
+.hud button:hover{background:var(--o)}
+.hud .n{font-variant-numeric:tabular-nums;min-width:56px;text-align:center}
+.sync{width:8px;height:8px;border-radius:50%;background:#4cc38a}
+.blackout{position:fixed;inset:0;background:#000;z-index:20;cursor:none}
+:fullscreen .hud{opacity:0}
+
+@media (prefers-reduced-motion:reduce){
+  .slide,.slide.on{transition:none}
+  .slide.on *{animation-duration:.01s!important;animation-delay:0s!important}
+  .chat .m.typing i{animation:none}
+}
+
+/* ---- print / still mode: every slide one 16:9 page, final state ---- */
+html.still body{overflow:visible;background:#fff}
+html.still .viewport{height:auto}
+html.still .deck{position:relative;left:0;top:0;transform:none!important;width:1920px;height:auto;overflow:visible;background:none}
+html.still .slide{position:relative;width:1920px;height:1080px;opacity:1;visibility:visible;page-break-after:always;break-after:page;transition:none}
+html.still .slide *,html.still .slide *::before,html.still .slide *::after{animation:none!important;transition:none!important}
+html.still .slide.on .cv-main{stroke-dasharray:none}
+html.still .cv-lab,html.still .cv-alt,html.still .cv-note,html.still .cv-hl,html.still .bv{opacity:1!important}
+html.still video{display:none!important}
+html.still .vposter{display:block}
+html.still .prog,html.still .hud,html.still .blackout{display:none!important}
+html.still .rumiapp .float.is-on{transition:none}
+@page{size:1920px 1080px;margin:0}
+</style>
+</head>
+<body>
+<div class="viewport" id="vp">
+<div class="deck" id="deck">
+
+<!-- 1 · Portada -->
+<section class="slide on" id="s1" aria-label="Portada">
+  <img class="ph bg kb" src="img/cover.jpg" alt="">
+  <div class="tint"></div>
+  <img class="fog af" src="img/blob.webp" alt="" style="left:185px;top:-456px;width:1550px;height:877px;--d:.2s">
+  <img class="fog af" src="img/blob.webp" alt="" style="left:755px;top:444px;width:1278px;height:850px;--d:.4s">
+  <img class="abs a" src="img/logo.png" alt="Innogando" style="left:743px;top:100px;width:435px;--d:.15s">
+  <h1 class="a" style="--d:.35s">Desde el rural y para el rural</h1>
+  <p class="sub a" style="--d:.55s">El papel de Innogando empoderando la vida rural</p>
+  <div class="who a" style="--d:.8s"><b>Daniel Rus</b><span>CTO &amp; Co-Founder</span></div>
+</section>
+
+<!-- 2 · ¿Qué hacemos? -->
+<section class="slide" id="s2" aria-label="¿Qué hacemos?">
+  <div class="panel"></div>
+  <img class="abs a" src="img/logo.png" alt="Innogando" style="left:208px;top:100px;width:550px">
+  <img class="bul a" src="img/lungs.svg" alt="" style="top:306px;--d:.2s"><p class="tx a" style="top:279px;--d:.2s">Hemos nacido porque es necesario y urgente la <b>tecnificación de la ganadería.</b></p>
+  <img class="bul a" src="img/lungs.svg" alt="" style="top:472px;--d:.35s"><p class="tx a" style="top:446px;--d:.35s">Desarrollamos <b>herramientas tecnológicas</b> para mejorar la gestión de las ganaderías.</p>
+  <div class="pill az" style="left:197px;--d:.5s">EXTENSIVO</div>
+  <div class="pill az" style="left:532px;--d:.6s">INTENSIVO</div>
+  <img class="bul a" src="img/lungs.svg" alt="" style="top:776px;--d:.7s"><p class="tx a" style="top:770px;--d:.7s"><b>Monitorización del ganado y alertas.</b></p>
+  <img class="bul a" src="img/lungs.svg" alt="" style="top:922px;--d:.85s"><p class="tx a" style="top:893px;--d:.85s"><b>Recolección de datos específicos y de valor</b> para optimizar procesos.</p>
+  <video class="render vid az" style="left:1060px;top:300px;--d:.5s" src="media/rumi-carne-giro-blanco60.mp4" poster="media/rumi-carne-giro-blanco60.jpg" muted loop playsinline preload="auto"></video>
+  <img class="render vposter" style="left:1060px;top:300px" src="media/rumi-carne-giro-blanco60.jpg" alt="">
+  <video class="render vid az" style="left:1420px;top:300px;--d:.7s" src="media/rumi-dairy-giro-blanco60.mp4" poster="media/rumi-dairy-giro-blanco60.jpg" muted loop playsinline preload="auto"></video>
+  <img class="render vposter" style="left:1420px;top:300px" src="media/rumi-dairy-giro-blanco60.jpg" alt="">
+  <img class="abs a" src="img/pin_outline.svg" alt="" style="left:1540px;top:95px;width:50px;filter:brightness(.25);--d:.3s">
+  <p class="loc a" style="--d:.3s">Abadín,<br><b>LUGO</b></p>
+  <h2 class="a" style="--d:.5s">¿QUÉ<br>HACEMOS?</h2>
+</section>
+
+<!-- 3 · ¿Cómo empezar? -->
+<section class="slide" id="s3" aria-label="¿Cómo empezar un proyecto en el rural?">
+  <img class="ph bg kb" src="img/farm.jpg" alt="">
+  <h2 class="a" style="--d:.3s"><span class="w9">¿Cómo empezar un</span><br><span class="w5">proyecto en el rural</span><span class="w9">?</span></h2>
+</section>
+
+<!-- 4 · Primer prototipo -->
+<section class="slide glowbg" id="s4" aria-label="Primer prototipo">
+  <img class="ph r30 a" src="img/proto_board.jpg" alt="" style="left:190px;top:58px;width:644px;height:467px;--d:.1s">
+  <img class="ph r30 a" src="img/proto_strap.jpg" alt="" style="left:190px;top:540px;width:644px;height:482px;--d:.3s">
+  <img class="ph r30 a" src="img/proto_cow.jpg" alt="" style="left:919px;top:60px;width:717px;height:960px;--d:.2s">
+</section>
+
+<!-- 5 · Hitos -->
+<section class="slide" id="s5" aria-label="Hitos">
+  <div class="lp"></div><div class="rp"></div>
+  <h2 class="a">Hitos</h2>
+  <div class="ms a" style="top:316px;--d:.25s">Explorer</div>
+  <div class="ms a" style="top:440px;--d:.4s;font-size:58px">Via Galicia</div>
+  <div class="ms a" style="top:564px;--d:.55s;font-size:58px">Inversión</div>
+  <img class="abs a" src="img/explorer.png" alt="Explorer" style="left:905px;top:40px;width:300px;--d:.2s">
+  <img class="abs a" src="img/viagalicia.png" alt="Vía Galicia" style="left:1430px;top:70px;width:400px;--d:.3s">
+  <img class="ph r24 a" src="img/goldengate.jpg" alt="" style="left:774px;top:255px;width:556px;height:700px;z-index:1;object-position:40% 50%;--d:.35s">
+  <img class="ph r24 a" src="img/android.jpg" alt="" style="left:1352px;top:255px;width:522px;height:700px;z-index:1;--d:.5s">
+</section>
+
+<!-- 6 · Evolución de una startup -->
+<section class="slide cvslide" id="s6" aria-label="Evolución de una startup" style="background:var(--o)">
+  <h2 class="cr a">Evolución de una startup</h2>
+  <div class="curvebox az" style="--d:.15s"><svg viewBox="0 0 969 436" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Curva de evolución de una startup"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L10 5 L0 9z" fill="#222"/></marker></defs><path class="cv-ax" d="M101 386 V 22" marker-end="url(#ar)"/><path class="cv-ax" d="M101 386 H 858" marker-end="url(#ar)"/><path class="cv-dot" d="M101 197 H 822"/><path class="cv-main" pathLength="1" d="M103 384 C 150 362 205 335 228 295 C 248 262 268 246 300 232 C 360 208 430 196 470 186 C 540 170 590 160 640 152 C 690 144 715 128 745 108 C 765 94 778 84 788 75"/><path class="cv-alt" d="M548 190 C 585 200 610 214 650 220 C 690 226 715 224 740 214 C 765 202 785 186 800 178 C 812 172 820 168 828 165"/><text class="cv-t cv-big" x="108" y="30">CAC &lt; LTV</text><text class="cv-t cv-big" x="108" y="230">LTV &lt; CAC</text><text class="cv-t cv-big" x="835" y="360" style="font-size:14px">Madurez</text><text class="cv-t cv-lab" style="--i:0" x="108" y="352">Product dev</text><text class="cv-t cv-lab" style="--i:1" x="183" y="306">Product-market fit</text><text class="cv-t cv-lab" style="--i:2" x="248" y="261">Automation - operations</text><text class="cv-t cv-lab" style="--i:3" x="321" y="215">Efficient business model</text><text class="cv-t cv-lab" style="--i:4" x="448" y="185">Product prep for first internal.</text><text class="cv-t cv-lab" style="--i:5" x="618" y="167">First international tests</text><text class="cv-t cv-lab" style="--i:6" x="745" y="133">Scale international</text><g class="cv-note"><rect class="cv-box" x="594" y="243" width="221" height="134"/><text class="cv-t" x="601" y="264">Puede suceder que CAC &gt; LTV si:</text><text class="cv-t" x="601" y="290">-</text><text class="cv-t" x="624" y="290">Crecimiento muy acelerado</text><text class="cv-t" x="601" y="316">-</text><text class="cv-t" x="624" y="316">Momentum sector</text><text class="cv-t" x="601" y="342">-</text><text class="cv-t" x="624" y="342">Foco en market dominance</text><text class="cv-t" x="601" y="368">-</text><text class="cv-t" x="624" y="368">Equipo top</text></g><text class="cv-t cv-big" x="108" y="414">Pre-seed</text><text class="cv-t cv-big" x="318" y="414">Seed</text><text class="cv-t cv-big" x="510" y="414">Pre-Series A</text><text class="cv-t cv-big" x="695" y="414">Series A</text></svg></div>
+</section>
+
+<!-- 7 · MVP -->
+<section class="slide ograd" id="s7" aria-label="MVP">
+  <h2 class="abs cr w9 a" style="left:300px;top:105px;font-size:118px">MVP</h2>
+  <img class="ph r40 a" src="img/mvp_field.jpg" alt="" style="left:61px;top:307px;width:735px;height:707px;--d:.15s">
+  <img class="ph r40 a" src="img/mvp_cows.jpg" alt="" style="left:817px;top:53px;width:323px;height:640px;--d:.3s">
+  <img class="ph r40 a" src="img/mvp_lab.jpg" alt="" style="left:1156px;top:53px;width:380px;height:640px;--d:.4s">
+  <img class="ph r40 a" src="img/mvp_hand.jpg" alt="" style="left:1561px;top:53px;width:262px;height:641px;--d:.5s">
+  <div class="abs a" style="left:817px;top:722px;width:1006px;height:327px;background:#fff;border-radius:40px;overflow:hidden;--d:.6s"><img src="img/mvp_chart.png" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+</section>
+
+<!-- 8 · Eliter -->
+<section class="slide ograd" id="s8" aria-label="Eliter">
+  <h2 class="abs w9 a" style="left:0;right:0;top:78px;text-align:center;font-size:132px;color:#fff">Eliter</h2>
+  <p class="abs w5 a" style="left:0;right:0;top:262px;text-align:center;font-size:40px;color:#fff;--d:.2s">Trazabilidad y revalorización con blockchain</p>
+  <div class="circ az" style="left:310px;top:415px;--d:.3s"></div>
+  <div class="circ az" style="left:1135px;top:415px;--d:.5s"></div>
+  <img class="abs az" src="img/eliter_tag.png" alt="" style="left:336px;top:399px;width:445px;--d:.45s">
+  <img class="abs a" src="img/arrow.svg" alt="" style="left:916px;top:629px;width:88px;--d:.7s">
+  <img class="abs az" src="img/eliter_phone.png" alt="" style="left:1005px;top:290px;width:760px;transform:rotate(12deg);--d:.65s">
+</section>
+
+<!-- 9 · rumi -->
+<!-- s9 (rumi GPS/actividad/batería) dropped 2026-11-12 at Rus's request -->
+<section class="slide" id="s10" aria-label="rumi en el campo" style="background:linear-gradient(120deg,#FDEFDF 0%,#FDEFDF 35%,#FFC27A 70%,#FFA233 100%)">
+  <img class="abs a" src="img/rumi_logo.png" alt="Innogando rumi" style="left:108px;top:108px;width:455px">
+  <img class="ph r40 a" src="img/m_feeder.jpg" alt="" style="left:679px;top:28px;width:367px;height:420px;--d:.15s">
+  <img class="ph r40 a" src="img/m_green.jpg" alt="" style="left:1071px;top:28px;width:806px;height:578px;--d:.25s">
+  <img class="ph r40 a" src="img/m_bale.jpg" alt="" style="left:70px;top:466px;width:977px;height:585px;--d:.35s">
+  <img class="ph r40 a" src="img/m_snow.jpg" alt="" style="left:1071px;top:631px;width:806px;height:419px;--d:.45s">
+</section>
+
+<!-- 11 · rumi AI Core -->
+<section class="slide" id="s11" aria-label="rumi AI Core">
+  <img class="ph bg" src="img/aicore_bg.jpg" alt="rumi Ai Core">
+  <p class="abs a" style="left:319px;top:749px;width:343px;text-align:center;font-size:34px;font-style:italic;font-weight:700;color:var(--cream);--d:.3s">desarrollado en casa</p>
+  <div class="par a" style="--d:.2s"><p>En el núcleo de nuestra tecnología se encuentra <b>Rumi AI Core</b>, un sistema innovador diseñado meticulosamente en nuestras instalaciones. Construido desde cero, aprovecha una inteligencia artificial propietaria para identificar sin esfuerzo actividades como la rumia, el pastoreo y el descanso, reconociendo patrones de movimiento complejos.</p><p style="margin-top:46px">Esta innovación redefine la manera en que se recolectan y analizan los datos, proporcionando información sin igual sobre el comportamiento animal.</p></div>
+  <p class="act a" style="left:340px;--d:.5s">Rumiar</p>
+  <p class="act a" style="left:653px;--d:.6s">Pastar</p>
+  <p class="act a" style="left:946px;--d:.7s">Descansar</p>
+  <p class="act a" style="left:1280px;--d:.8s">Comer / jugar</p>
+  <p class="act a" style="left:1600px;--d:.9s">Caminar</p>
+</section>
+
+<!-- 12 · Rumi app (port of the innogando.com app block) -->
+<section class="slide" id="s12" aria-label="Rumi app">
+  <div class="appwrap"><style>
+.rumiapp{
+--bg:#F6F6F6; --surface:#FFFFFF; --ink:#141414; --muted:#5d5a55; --orange:#FFA234; --orange-dk:#FFA234; --cream:#fff7ed; --line:#e7e2da;
+--app-font:"Noto Sans",system-ui,sans-serif; --web-font:Montserrat,system-ui,sans-serif;
+--c-rest:#03A9F4; --c-graze:#1DAA3C; --c-walk:#A33BEA; --c-rum:#FFA234; --c-eat:#F0C42B;
+color-scheme:light;
+}
+.rumiapp, .rumiapp *{box-sizing:border-box}
+.rumiapp{color:var(--ink);font-family:var(--web-font);font-size:17px;line-height:28px}
+.rumiapp{display:flex;flex-direction:column;gap:30px;width:100%}
+.rumiapp .head{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.rumiapp .eyebrow{font-size:13px;line-height:20px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange-dk)}
+.rumiapp h1,.rumiapp h2{margin:0;font-size:36px;line-height:1.2;font-weight:700;letter-spacing:-2px;text-wrap:balance}
+
+.rumiapp .tabs{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.rumiapp .tab{font:600 15px/20px var(--web-font);padding:12px 20px;border:0;border-radius:10px;background:var(--surface);color:var(--ink);cursor:pointer;position:relative;overflow:hidden}
+.rumiapp .tab:hover{background:var(--cream)}
+.rumiapp .tab[aria-selected="true"]{background:var(--orange);color:#fff}
+.rumiapp .tab .prog{position:absolute;left:0;bottom:0;height:3px;width:0;background:rgba(255,255,255,.7)}
+.rumiapp .tab[aria-selected="true"] .prog{animation:ra-prog var(--dur,6s) linear forwards}
+.rumiapp .paused .tab .prog{animation-play-state:paused}
+@keyframes ra-prog{to{width:100%}}
+.rumiapp .tab:focus-visible,.rumiapp .copy:focus-visible,.rumiapp .ctrl:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.rumiapp .grid{display:flex;flex-wrap:wrap;gap:30px;align-items:stretch}
+.rumiapp .copycard{flex:1 1 380px;min-width:0;background:var(--surface);border-radius:20px;padding:28px;display:flex;flex-direction:column;justify-content:flex-start;gap:10px;align-self:center;min-height:250px}
+.rumiapp .label{font-size:11px;line-height:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--orange-dk)}
+.rumiapp h3{margin:0;font-size:28px;line-height:1.2;font-weight:600;letter-spacing:-1.5px;text-wrap:balance}
+.rumiapp .copycard p{margin:0;max-width:52ch}
+.rumiapp .ctrl{align-self:flex-start;margin-top:8px;font:600 13px/18px var(--web-font);padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.rumiapp .stagebox{flex:1 1 460px;min-width:0;background:var(--surface);border-radius:20px;display:flex;justify-content:center;align-items:center;padding:28px 12px;overflow:hidden}
+.rumiapp .stage{position:relative;width:480px;max-width:100%;height:660px;perspective:1400px}
+.rumiapp .rig{position:absolute;inset:0}
+.rumiapp .halo{position:absolute;left:50%;top:50%;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;background:radial-gradient(circle,#ffe2bd 0,#fff3e2 45%,rgba(255,255,255,0) 70%)}
+.rumiapp .phone{position:absolute;left:50%;top:14px;width:308px;height:632px;margin-left:-154px;border-radius:52px;padding:4px;
+background:linear-gradient(135deg,#f4f4f4 0%,#c9c9cc 22%,#eeeeee 48%,#b9b9bd 76%,#e8e8e8 100%);
+box-shadow:0 40px 70px -20px rgba(60,40,10,.35),0 16px 30px -12px rgba(0,0,0,.25),inset 0 0 0 1px rgba(255,255,255,.7)}
+.rumiapp .phone::before,.rumiapp .phone::after{content:"";position:absolute;width:4px;border-radius:2px;background:#bdbdc1}
+.rumiapp .phone::before{left:-3px;top:150px;height:60px;box-shadow:0 80px 0 #bdbdc1}
+.rumiapp .phone::after{right:-3px;top:190px;height:96px}
+.rumiapp .bezel{width:100%;height:100%;border-radius:48px;background:#0d0d0f;padding:9px;position:relative}
+.rumiapp .screen{width:100%;height:100%;border-radius:40px;overflow:hidden;position:relative;background:#fff;font-family:var(--app-font);color:#222}
+.rumiapp .island{position:absolute;top:10px;left:50%;width:92px;height:27px;margin-left:-46px;background:#000;border-radius:16px;z-index:20}
+.rumiapp .status{height:44px;display:flex;justify-content:space-between;align-items:center;padding:6px 26px 0;font:600 13px/1 var(--app-font);color:#111;position:relative;z-index:5}
+.rumiapp .status .icons{display:flex;gap:5px;align-items:center}
+.rumiapp .appbar{margin-top:44px;height:46px;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid #eee;background:#fff;position:relative;z-index:4}
+.rumiapp .logo{font:700 26px/1 Montserrat,sans-serif;color:#FF8A00;letter-spacing:-1px;margin-right:auto}
+.rumiapp .bell{position:relative}
+.rumiapp .bell b{position:absolute;top:-8px;right:-9px;background:#F5A623;color:#fff;font:600 9px/1 var(--app-font);padding:3px 4px;border-radius:9px}
+.rumiapp .avatar{width:30px;height:30px;border-radius:50%;background:#FF8A00;color:#fff;font:600 12px/30px var(--app-font);text-align:center}
+.rumiapp .nav{position:absolute;left:0;right:0;bottom:0;height:62px;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding-top:8px;z-index:6}
+.rumiapp .nav span{display:flex;flex-direction:column;align-items:center;gap:2px;font:500 10px/1.2 var(--app-font);color:#333}
+.rumiapp .nav span.on{color:#FF8A00;font-weight:600;font-size:11px}
+.rumiapp .nav span svg{width:22px;height:22px;display:block}
+.rumiapp .nav span{color:#333}
+.rumiapp .nav::after{content:"";position:absolute;bottom:6px;left:50%;width:100px;height:4px;margin-left:-50px;border-radius:3px;background:#111}
+.rumiapp .view{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s}
+.rumiapp .view.is-on{opacity:1;visibility:visible}
+.rumiapp .body{position:absolute;top:90px;left:0;right:0;bottom:62px;overflow:hidden;background:#fafafa}
+.rumiapp .card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.07);padding:12px}
+.rumiapp .ctitle{font:600 15px/1.2 var(--app-font);color:#FF8A00}
+.rumiapp .map{position:absolute;inset:0;background:#6d7d4a}
+.rumiapp .map svg{position:absolute;inset:0;width:100%;height:100%}
+.rumiapp .search{position:absolute;top:10px;left:10px;right:92px;height:36px;border-radius:18px;background:#fff;border:1.5px solid #222;display:flex;align-items:center;justify-content:space-between;gap:4px;padding:0 10px 0 12px;font:12.5px var(--app-font);color:#888;z-index:3;white-space:nowrap;overflow:hidden}
+.rumiapp .search svg{flex:none}
+.rumiapp .search.wide{right:52px}
+.rumiapp .wandb{position:absolute;top:8px;right:50px;width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.rumiapp .wandb em{position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:#4a2a8a;color:#fff;font:600 7.5px/1 var(--app-font);font-style:normal;letter-spacing:.5px;padding:2px 4px;border-radius:6px}
+.rumiapp .filter{position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.rumiapp .chips{position:absolute;top:54px;left:8px;right:0;display:flex;gap:6px;z-index:3;white-space:nowrap}
+.rumiapp .chip{background:#fff;border-radius:16px;padding:5px 9px;font:500 11px/1 var(--app-font);color:#222;box-shadow:0 1px 4px rgba(0,0,0,.15);display:inline-flex;align-items:center;gap:4px}
+.rumiapp .chip.sel{background:#e9e9e9}
+.rumiapp .pin{position:absolute;z-index:2;font:600 11px/1 var(--app-font);color:#fff;padding:5px 8px;border-radius:7px;transform:translate(-50%,-100%)}
+.rumiapp .pin::after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:inherit}
+.rumiapp .pin.b{background:#1E9BF0;border-color:#1E9BF0}
+.rumiapp .pin.o{background:#F59A23;border-color:#F59A23}
+@keyframes ra-drift{0%{margin:0}50%{margin:6px 0 0 8px}100%{margin:-4px 0 0 -6px}}
+.rumiapp .fab{position:absolute;right:10px;width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;z-index:3;color:#fff;font-size:26px}
+.rumiapp .sidebtns{position:absolute;right:10px;top:150px;display:flex;flex-direction:column;gap:9px;z-index:3}
+.rumiapp .sidebtns i{width:34px;height:34px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+.rumiapp .sidebtns svg{width:18px;height:18px}
+.rumiapp .ping{position:absolute;width:12px;height:12px;border-radius:50%;background:#1E9BF0;z-index:2}
+.rumiapp .is-on .ping::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #1E9BF0;animation:ra-ping 2s ease-out infinite}
+@keyframes ra-ping{from{opacity:1;transform:scale(.4)}to{opacity:0;transform:scale(1.8)}}
+.rumiapp .donut circle{fill:none;stroke-width:34}
+.rumiapp .is-on .donut .seg{animation:ra-draw 1.2s cubic-bezier(.3,.7,.3,1) both}
+@keyframes ra-draw{from{stroke-dasharray:0 999}}
+.rumiapp .legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;font:12px/1.3 var(--app-font);color:#444}
+.rumiapp .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.rumiapp .hgroup{display:flex;gap:6px;padding:10px 10px 0}
+.rumiapp .hgroup .chip{box-shadow:none;border:1px solid #ddd}
+.rumiapp .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+.rumiapp .rcard{border-radius:12px;border:2px solid;padding:12px 12px 10px;font:500 13px/1.2 var(--app-font);color:#333}
+.rumiapp .rcard strong{display:block;font:500 30px/1.2 var(--app-font);color:#222;margin-top:6px}
+.rumiapp .is-on .rcard{animation:ra-pop .5s ease both}
+.rumiapp .is-on .rcard:nth-child(2){animation-delay:.07s}
+.rumiapp .is-on .rcard:nth-child(3){animation-delay:.14s}
+.rumiapp .is-on .rcard:nth-child(4){animation-delay:.21s}
+.rumiapp .is-on .rcard:nth-child(5){animation-delay:.28s}
+.rumiapp .is-on .rcard:nth-child(6){animation-delay:.35s}
+.rumiapp .is-on .rcard:nth-child(7){animation-delay:.42s}
+.rumiapp .is-on .rcard:nth-child(8){animation-delay:.49s}
+@keyframes ra-pop{from{opacity:0;transform:translateY(10px) scale(.96)}}
+.rumiapp .calhead{margin-top:44px;height:46px;background:#fdf0dc;display:flex;align-items:center;justify-content:center;font:600 16px var(--app-font);color:#FF8A00;border-bottom:1px solid #f4dcb7}
+.rumiapp .cal{display:grid;grid-template-columns:repeat(7,1fr);row-gap:8px;text-align:center;font:13px/1 var(--app-font);color:#333;padding:4px 4px 8px}
+.rumiapp .cal .dow{font-weight:600;color:#333}
+.rumiapp .cal .we{color:#FF8A00}
+.rumiapp .cal span{position:relative;padding-top:10px}
+.rumiapp .cal em{position:absolute;top:-4px;left:58%;background:#E53935;color:#fff;font:600 8.5px/1 var(--app-font);font-style:normal;padding:2px 3px;border-radius:3px}
+.rumiapp .cal .today{background:#1DAA3C;color:#fff;border-radius:50%;width:26px;height:26px;line-height:26px;padding:0;margin:0 auto;align-self:center}
+.rumiapp .cal .dim{color:#bbb}
+.rumiapp .alertcard{background:#fff2f2;border:1px solid #f5c2c2;border-radius:12px;padding:10px;display:flex;gap:10px;align-items:flex-start}
+.rumiapp .is-on .alertcard{animation:ra-slideup .6s .5s ease both}
+@keyframes ra-slideup{from{opacity:0;transform:translateY(16px)}}
+.rumiapp .radar .area{transform-origin:150px 150px}
+.rumiapp .is-on .radar .area{animation:ra-grow 1.1s cubic-bezier(.3,.7,.3,1) both}
+.rumiapp .is-on .radar .area.b{animation-delay:.3s}
+@keyframes ra-grow{from{transform:scale(0);opacity:0}}
+.rumiapp .subtabs{display:flex;background:#fdf0dc;font:500 13px/1 var(--app-font)}
+.rumiapp .subtabs span{flex:1;text-align:center;padding:12px 0;color:#333}
+.rumiapp .subtabs span.on{color:#FF8A00;border-bottom:3px solid #FF8A00}
+.rumiapp .sheet{position:absolute;left:0;right:0;bottom:0;top:96px;background:#fff;border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.18);padding:16px 14px;z-index:8}
+.rumiapp .is-on .sheet{animation:ra-sheet .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ra-sheet{from{transform:translateY(100%)}}
+.rumiapp .wand{width:44px;height:44px;border-radius:50%;background:#efe6fd;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.rumiapp .qbox{border:2px solid #d9c6fb;border-radius:16px;padding:12px;min-height:96px;display:flex;gap:8px;margin-top:14px;font:15px/1.35 var(--app-font);color:#222}
+.rumiapp .qbox .txt{flex:1}
+.rumiapp .caret{display:inline-block;width:2px;height:17px;background:#7c3aed;vertical-align:-3px;animation:ra-blink 1s steps(1) infinite}
+@keyframes ra-blink{50%{opacity:0}}
+.rumiapp .mic{width:46px;height:46px;border-radius:50%;background:#f3edfe;border:1.5px solid #d9c6fb;display:flex;align-items:center;justify-content:center;flex:0 0 auto;position:relative}
+.rumiapp .is-on .mic::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid #a78bfa;animation:ra-ping 1.6s ease-out infinite}
+.rumiapp .ex{display:inline-flex;gap:6px;align-items:center;background:#f3edfe;border-radius:18px;padding:7px 11px;font:13px/1.2 var(--app-font);margin:0 6px 8px 0}
+.rumiapp .result{margin-top:10px;display:flex;flex-direction:column;gap:6px;opacity:0;transition:opacity .4s}
+.rumiapp .result.show{opacity:1}
+.rumiapp .ritem{display:flex;justify-content:space-between;align-items:center;background:#fafafa;border-radius:10px;padding:8px 10px;font:13px/1.2 var(--app-font)}
+.rumiapp .drow{display:flex;gap:10px;align-items:center;padding:10px 12px;background:#fbf7ec;border-bottom:1px solid #e5e0d4;border-left:4px solid #F5A623}
+.rumiapp .drow .meta{flex:1;min-width:0;font:12px/1.35 var(--app-font);color:#444}
+.rumiapp .drow .meta b{display:block;font:600 15px/1.3 var(--app-font);color:#222}
+.rumiapp .drow .meta u{text-decoration:none;color:#FF8A00}
+.rumiapp .pro{display:inline-block;background:#fdeac6;color:#e6a019;font:600 11px/1 var(--app-font);padding:3px 6px;border-radius:6px;margin-left:5px;vertical-align:2px}
+.rumiapp .batt{width:42px;text-align:center;font:600 12px/1.2 var(--app-font)}
+.rumiapp .batt i{display:block;width:14px;height:24px;margin:0 auto 3px;border-radius:3px;border:2px solid currentColor;position:relative;overflow:hidden}
+.rumiapp .batt i::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--lvl);background:currentColor}
+.rumiapp .is-on .batt i::after{animation:ra-fill 1.2s ease both}
+@keyframes ra-fill{from{height:0}}
+.rumiapp .dthumb{width:44px;height:44px;flex:0 0 auto}
+.rumiapp .float{position:absolute;z-index:30;background:#fff;border-radius:16px;box-shadow:0 18px 40px -10px rgba(40,25,5,.28),0 4px 12px rgba(0,0,0,.08);font-family:var(--app-font);opacity:0;transform:translateY(14px) scale(.96);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+.rumiapp .float.is-on{opacity:1;transform:none;transition-delay:.35s}
+@keyframes ra-bob{50%{transform:translateY(-6px)}}
+.rumiapp .push{left:50%;width:286px;margin-left:-143px;top:52px;padding:12px 14px;display:flex;gap:10px;align-items:center;background:rgba(250,250,250,.96)}
+.rumiapp .push .ic{width:34px;height:34px;border-radius:9px;background:#FF8A00;color:#fff;font:700 15px/34px Montserrat,sans-serif;text-align:center;flex:0 0 auto}
+.rumiapp .f-24h{width:250px;right:0;bottom:70px;padding:12px}
+.rumiapp .strip{height:34px;border-radius:6px;overflow:hidden;display:flex;margin-top:8px}
+.rumiapp .strip i{display:block;height:100%}
+.rumiapp .f-info{width:210px;right:-6px;bottom:40px;padding:14px;font-size:12.5px;line-height:1.5;color:#333}
+.rumiapp .f-info b{display:block;font:600 15px/1.3 var(--app-font);color:#FF8A00;margin-bottom:4px}
+.rumiapp .f-stat{left:-4px;bottom:120px;padding:14px 16px;display:flex;gap:10px;align-items:center}
+.rumiapp .f-stat strong{font:600 26px/1 var(--app-font)}
+.rumiapp .f-line{width:240px;left:-10px;bottom:90px;padding:12px}
+
+@media (prefers-reduced-motion:reduce){.rumiapp, .rumiapp *,.rumiapp *::before,.rumiapp *::after{animation:none!important;transition:none!important}}
+.rumiapp .icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.rumiapp .icon{background:var(--surface);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.rumiapp .icon svg{width:36px;height:36px;color:var(--orange)}
+.rumiapp .icon .n{font:600 14px/1.3 var(--web-font)}
+.rumiapp .copy{font:600 12px/1 var(--web-font);border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:8px;padding:7px 9px;cursor:pointer}
+.rumiapp .note{font-size:14px;line-height:22px;color:var(--muted);text-align:center;max-width:70ch;margin:0 auto}
+.rumiapp .fhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px 10px 14px;border-bottom:3px solid #FF8A00}
+.rumiapp .fhead b{font:600 14px/1.2 var(--app-font);color:#FF8A00}
+.rumiapp .fx{width:30px;height:30px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;flex:none}
+.rumiapp .act24{margin:8px 10px;padding:10px 10px 8px}
+.rumiapp .act24 .t{font:600 14px var(--app-font);color:#222;margin-bottom:8px}
+.rumiapp .srow{display:flex;align-items:center;gap:6px}
+.rumiapp .strip2{flex:1;height:30px;border-radius:0 4px 4px 0;margin:0}
+.rumiapp .is-on .strip2{animation:ra-reveal 1.3s .8s var(--ios) both}
+@keyframes ra-reveal{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.rumiapp .hrs{display:flex;justify-content:space-between;padding:4px 0 4px 26px;font:10.5px var(--app-font);color:#333}
+.rumiapp .leg{display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;font:10px/1.4 var(--app-font);color:#444}
+.rumiapp .leg i{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:4px}
+.rumiapp .vermapa{margin:8px 10px;border-radius:10px;background:#FFE3C4;border:1px solid #f3c48f;padding:7px 10px;display:flex;align-items:center;font:500 12px var(--app-font);color:#222}
+.rumiapp .vermapa span{flex:1;text-align:center;margin-right:16px}
+.rumiapp .gauges{margin:4px 10px;background:#f4f4f4;border:1px solid #e8e8e8;border-radius:10px;display:grid;grid-template-columns:repeat(3,1fr);padding:8px 0 0}
+.rumiapp .g{display:flex;flex-direction:column;align-items:center;gap:2px;padding-bottom:8px;border-right:1px solid #e3e3e3}
+.rumiapp .g:nth-child(3){border-right:0}
+.rumiapp .g2{grid-column:span 1;border-top:1px solid #e3e3e3;padding-top:8px}
+.rumiapp .g2:nth-child(4){grid-column:1 / span 1;margin-left:50%}
+.rumiapp .g2:nth-child(5){grid-column:3 / span 1;margin-right:50%;border-right:0}
+.rumiapp .gwrap{position:relative;width:44px;height:44px;display:block}
+.rumiapp .gwrap .ring{width:44px;height:44px;display:block}
+.rumiapp .gwrap strong{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 15px var(--app-font)}
+.rumiapp .g .lbl{font:10.5px var(--app-font);color:#666;display:flex;gap:3px;align-items:center}
+.rumiapp .is-on .ring .arc{animation:ra-arc 1.2s 1.3s var(--ios) both}
+@keyframes ra-arc{from{stroke-dasharray:0 100}}
+.rumiapp .donut circle{fill:none;stroke-width:34}
+.rumiapp .pie circle{fill:none;stroke-width:62}
+.rumiapp .piewrap{display:flex;align-items:center;justify-content:center;gap:18px;margin:8px 0 6px;padding-left:24px}
+.rumiapp .is-on .pie .seg{animation:ra-draw .9s var(--ios) both}
+.rumiapp .is-on .pie .seg:nth-of-type(2){animation-delay:.5s}
+.rumiapp .is-on .pie .seg:nth-of-type(3){animation-delay:.9s}
+.rumiapp .is-on .pie .pl{animation:ra-fadein .4s 1.7s both}
+.rumiapp .hgroup .chip{display:inline-flex;align-items:center;gap:5px}
+.rumiapp .segbar{position:absolute;left:8px;right:8px;bottom:68px;height:38px;background:#f1f1f1;border-radius:8px;display:flex;align-items:center;padding:3px;z-index:6;font:500 12.5px var(--app-font);color:#333}
+.rumiapp .segbar span{flex:1;height:100%;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:6px}
+.rumiapp .segbar span.on{background:#FFE3C4;color:#FF8A00}
+.rumiapp .alertcard{background:#FCEEE2!important;border:0!important;border-radius:16px!important;padding:12px 12px 12px 14px!important;position:relative;gap:10px!important;align-items:center!important}
+.rumiapp .abadge{width:34px;height:34px;border-radius:50%;background:linear-gradient(#5cc08a,#2f9a63);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 0 0 3px #fff}
+.rumiapp .atxt{display:flex;flex-direction:column;font:12px/1.3 var(--app-font);color:#333;flex:1}
+.rumiapp .atxt small{align-self:flex-end;font-size:10.5px;color:#555}
+.rumiapp .atxt b{font:600 14px/1.25 Montserrat,sans-serif;color:#222}
+.rumiapp .grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,500px);gap:56px;align-items:center}
+
+.rumiapp .left{display:flex;flex-direction:column;gap:28px;min-width:0}
+.rumiapp .grid .head{align-items:flex-start;text-align:left;gap:10px}
+.rumiapp .intro{margin:0;color:var(--muted);max-width:56ch}
+.rumiapp .tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;justify-content:stretch}
+
+.rumiapp .tab{display:flex;align-items:center;gap:12px;padding:16px 16px;border:1px solid var(--line);background:var(--surface);border-radius:12px;text-align:left;font:600 15px/20px var(--web-font);color:var(--ink)}
+.rumiapp .tab svg{width:22px;height:22px;flex:none;fill:var(--orange)}
+.rumiapp .tab:hover{background:var(--cream)}
+.rumiapp .tab[aria-selected="true"]{background:#FFEBD2;border-color:#FFD29C;color:var(--ink)}
+.rumiapp .tab .prog{background:var(--orange)!important}
+.rumiapp .copycard{background:transparent!important;padding:0!important;border-radius:0!important;min-height:200px!important;align-self:stretch!important;gap:10px}
+.rumiapp .copycard h3{font-size:26px}
+.rumiapp .cta{align-self:flex-start;margin-top:10px;display:inline-flex;align-items:center;background:var(--orange);color:#fff;font:600 15px/20px Montserrat,sans-serif;padding:13px 24px;border-radius:10px;text-decoration:none}
+.rumiapp .cta:hover{background:#f39419}
+.rumiapp .cta:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.rumiapp .stagebox{align-self:stretch}
+.rumiapp .tabs{display:flex!important;flex-wrap:wrap;gap:10px!important}
+.rumiapp .tab{display:inline-flex!important;align-items:center;gap:10px!important;border:0!important;border-radius:999px!important;background:var(--surface)!important;padding:11px 20px 11px 12px!important;font:600 15px/20px var(--web-font)!important;color:var(--ink)!important;box-shadow:0 1px 2px rgba(20,20,20,.06)}
+.rumiapp .tab em{font-style:normal;font:700 12px/1 var(--web-font);color:var(--orange-dk);background:var(--cream);border-radius:999px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;flex:none;transition:background .3s,color .3s}
+.rumiapp .tab:hover{background:var(--cream)!important}
+.rumiapp .tab[aria-selected="true"]{background:var(--orange)!important;color:#fff!important}
+.rumiapp .tab[aria-selected="true"] em{background:#fff;color:var(--orange-dk)}
+.rumiapp .tab .prog{display:block;left:20px!important;right:20px;width:auto!important;max-width:0;background:rgba(255,255,255,.75)!important;height:2px!important;bottom:5px!important;border-radius:2px}
+.rumiapp .tab[aria-selected="true"] .prog{animation:ra-pillprog var(--dur,7s) linear forwards!important}
+@keyframes ra-pillprog{to{max-width:calc(100% - 40px)}}
+.rumiapp{--spring:cubic-bezier(.34,1.56,.64,1);--ios:cubic-bezier(.2,.8,.2,1)}
+@keyframes ra-idle{50%{transform:translateY(-7px)}}
+@keyframes ra-buzz{10%,50%,90%{transform:translateX(-2px) rotate(-.4deg)}30%,70%{transform:translateX(2px) rotate(.4deg)}}
+.rumiapp .view{opacity:1;transform:translateX(100%);visibility:hidden;transition:transform .6s var(--ios),visibility 0s .6s,filter .6s;z-index:1}
+.rumiapp .view.is-on{transform:none;visibility:visible;transition:transform .6s var(--ios),visibility 0s;z-index:2}
+.rumiapp .view.leave{transform:translateX(-30%);visibility:hidden;filter:brightness(.8);transition:transform .6s var(--ios),filter .6s,visibility 0s .6s;z-index:1}
+.rumiapp .touch{position:absolute;left:50%;top:80%;width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;background:rgba(40,40,40,.18);border:2px solid rgba(255,255,255,.9);box-shadow:0 3px 10px rgba(0,0,0,.25);z-index:50;opacity:0;pointer-events:none;transition:left .8s cubic-bezier(.45,0,.2,1),top .8s cubic-bezier(.45,0,.2,1),opacity .3s,transform .18s}
+.rumiapp .touch.show{opacity:1}
+.rumiapp .touch.tap{transform:scale(.78)}
+.rumiapp .touch::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(255,255,255,.9);opacity:0}
+.rumiapp .touch.tap::after{animation:ra-rip .6s ease-out}
+@keyframes ra-rip{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(2.4)}}
+@keyframes ra-kb{from{transform:scale(1)}to{transform:scale(1.1)}}
+.rumiapp .is-on .pin{animation:ra-pinIn .7s var(--spring) both,ra-walk 11s ease-in-out .8s infinite alternate}
+.rumiapp .is-on .pin:nth-child(2){animation-delay:.12s,1s;animation-duration:.7s,13s}
+.rumiapp .is-on .pin:nth-child(3){animation-delay:.24s,1.2s;animation-duration:.7s,10s}
+.rumiapp .is-on .pin:nth-child(4){animation-delay:.36s,.9s;animation-duration:.7s,14s}
+.rumiapp .is-on .pin:nth-child(5){animation-delay:.48s,1.1s;animation-duration:.7s,12s}
+.rumiapp .is-on .pin:nth-child(6){animation-delay:.6s,1.3s;animation-duration:.7s,15s}
+@keyframes ra-pinIn{from{opacity:0;transform:translate(-50%,-60%) scale(.3)}}
+@keyframes ra-walk{0%{margin:0}30%{margin:5px 0 0 9px}65%{margin:-3px 0 0 14px}100%{margin:8px 0 0 4px}}
+.rumiapp .pin.sel{background:#FF8A00;border-color:#FF8A00;box-shadow:0 0 0 4px rgba(255,138,0,.25);z-index:4}
+.rumiapp .bubble{position:absolute;z-index:6;left:20px;right:60px;top:120px;background:#fff;border-radius:14px;padding:10px 12px;box-shadow:0 10px 26px rgba(0,0,0,.25);font:12.5px/1.4 var(--app-font);color:#333;opacity:0;transform:translateY(12px) scale(.94);transition:opacity .35s,transform .5s var(--spring)}
+.rumiapp .bubble.show{opacity:1;transform:none}
+.rumiapp .bubble b{font:600 14px var(--app-font);color:#FF8A00}
+.rumiapp .scroller{transition:transform 1.3s cubic-bezier(.45,0,.2,1)}
+.rumiapp .scroller.down{transform:translateY(-170px)}
+.rumiapp .is-on .donut .seg{animation:ra-draw 1s var(--ios) both}
+.rumiapp .is-on .donut .seg:nth-of-type(2){animation-delay:.1s}
+.rumiapp .is-on .donut .seg:nth-of-type(3){animation-delay:.7s}
+.rumiapp .is-on .donut .seg:nth-of-type(4){animation-delay:1.2s}
+.rumiapp .minirep{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.rumiapp .minirep div{border:2px solid;border-radius:10px;padding:8px;font:12px/1.2 var(--app-font)}
+.rumiapp .minirep b{display:block;font:500 22px/1.2 var(--app-font)}
+.rumiapp .is-on .rcard{animation:ra-pop .6s var(--spring) both}
+.rumiapp .f-stat,.rumiapp .f-info,.rumiapp .f-24h,.rumiapp .f-line{transform:translateY(18px) scale(.9)}
+.rumiapp .float{transition:opacity .45s ease,transform .7s var(--spring)}
+.rumiapp .float.is-on{transform:none;transition-delay:.9s}
+.rumiapp .push{transform:translateY(-40px) scale(.6);transform-origin:50% 0}
+.rumiapp .push.is-on{transform:translateZ(70px);transition-delay:.5s}
+.rumiapp .push.gone{opacity:0!important;transform:translateY(-30px) scale(.9)!important;transition:opacity .35s,transform .4s ease-in!important;transition-delay:0s!important}
+.rumiapp .cal .hit{animation:ra-hit 1.2s ease-out 2}
+@keyframes ra-hit{0%{box-shadow:0 0 0 0 rgba(229,57,53,.6)}100%{box-shadow:0 0 0 12px rgba(229,57,53,0)}}
+.rumiapp .is-on .alertcard{animation:none;opacity:0}
+.rumiapp .alertcard.show{animation:ra-slideup .6s var(--spring) both;opacity:1}
+.rumiapp .ficha{position:absolute;left:0;right:0;bottom:0;top:120px;background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.2);overflow:hidden;z-index:5}
+.rumiapp .ficha::before{content:"";display:block;width:44px;height:5px;border-radius:3px;background:#ddd;margin:8px auto 0}
+.rumiapp .is-on .ficha{animation:ra-sheet .7s var(--ios) both}
+.rumiapp .scrim{position:absolute;left:0;right:0;top:90px;bottom:0;background:rgba(0,0,0,.35);z-index:4}
+.rumiapp .is-on .scrim{animation:ra-fadein .5s both}
+@keyframes ra-fadein{from{opacity:0}}
+.rumiapp .radar .area{stroke-dasharray:600;stroke-dashoffset:600;fill-opacity:0;transform:none}
+.rumiapp .is-on .radar .area{animation:ra-trace 1.4s ease .8s forwards}
+.rumiapp .is-on .radar .area.b{animation-delay:1.4s}
+@keyframes ra-trace{70%{stroke-dashoffset:0;fill-opacity:0}100%{stroke-dashoffset:0;fill-opacity:1}}
+.rumiapp .wave{display:none;gap:3px;align-items:center;height:22px;margin-left:auto}
+.rumiapp .wave.on{display:flex}
+.rumiapp .wave i{width:3px;border-radius:2px;background:#7c3aed;height:6px;animation:ra-eq .9s ease-in-out infinite}
+.rumiapp .wave i:nth-child(2){animation-delay:.15s}
+.rumiapp .wave i:nth-child(3){animation-delay:.3s}
+.rumiapp .wave i:nth-child(4){animation-delay:.45s}
+.rumiapp .wave i:nth-child(5){animation-delay:.6s}
+@keyframes ra-eq{50%{height:20px}}
+.rumiapp .mic.rec{background:#7c3aed}
+.rumiapp .mic.rec svg{fill:#fff}
+.rumiapp .mic.rec svg path{stroke:#fff}
+.rumiapp .ritem{opacity:0;transform:translateY(8px)}
+.rumiapp .result.show .ritem{animation:ra-rowIn .5s var(--spring) forwards}
+.rumiapp .result.show .ritem:nth-child(3){animation-delay:.12s}
+.rumiapp .result.show .ritem:nth-child(4){animation-delay:.24s}
+@keyframes ra-rowIn{to{opacity:1;transform:none}}
+.rumiapp .is-on .drow{animation:ra-rowIn2 .55s var(--spring) both}
+.rumiapp .is-on .drow:nth-of-type(2){animation-delay:.1s}
+.rumiapp .is-on .drow:nth-of-type(3){animation-delay:.2s}
+.rumiapp .is-on .drow:nth-of-type(4){animation-delay:.3s}
+.rumiapp .is-on .drow:nth-of-type(5){animation-delay:.4s}
+@keyframes ra-rowIn2{from{opacity:0;transform:translateX(30px)}}
+.rumiapp .ptr{height:0;overflow:hidden;display:flex;justify-content:center;align-items:center;transition:height .4s var(--ios)}
+.rumiapp .ptr.on{height:40px}
+.rumiapp .spin{width:18px;height:18px;border-radius:50%;border:2.5px solid #eee;border-top-color:#FF8A00;animation:ra-spin .8s linear infinite}
+@keyframes ra-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.rumiapp .view{transition:none}
+.rumiapp .touch{display:none}}
+
+
+.rumiapp button{text-transform:none;letter-spacing:normal}.rumiapp h3{color:var(--ink)}.rumiapp p{margin:0}.rumiapp img{max-width:100%}
+</style><div class="rumiapp" id="ra-root">
+<div class="grid">
+<div class="left">
+<div class="head">
+<span class="eyebrow">Rumi App</span>
+<h2 id="app-h">Tu ganadería, en la palma de la mano</h2>
+<p class="intro">Mucho más que un localizador: la app te dice dónde está cada vaca, cómo está tu rebaño y te avisa cuando algo no va bien.</p>
+</div>
+<div class="tabs" role="tablist" aria-label="Funciones de la app" id="ra-tabs"></div>
+<div class="copycard" aria-live="polite">
+<span class="label" id="ra-c-label" hidden>Mapa</span>
+<h3 id="ra-c-title">De un vistazo sabes dónde está cada vaca</h3>
+<p id="ra-c-text">Tus animales y tus fincas en el mapa, en tiempo real. Filtra por «Para hoy» o por actividad y ve directo al que te interesa.</p>
+</div>
+</div>
+<div class="stagebox">
+<div class="stage" id="ra-stage">
+<div class="rig" id="ra-rig">
+<div class="halo"></div>
+<div class="phone" aria-hidden="true">
+<div class="bezel"><div class="screen" id="ra-screen">
+<div class="island"></div><div class="touch" id="ra-touch"></div>
+<div class="status"><span>9:41</span><span class="icons"><svg width="17" height="11" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#111"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#111"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#111"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#bbb"/></svg><svg width="24" height="11" viewBox="0 0 24 11"><rect x=".5" y=".5" width="20" height="10" rx="3" fill="none" stroke="#111"/><rect x="2" y="2" width="15" height="7" rx="1.5" fill="#111"/><rect x="21.5" y="3.5" width="1.5" height="4" rx=".7" fill="#111"/></svg></span></div>
+<!-- 0 Mapa -->
+<div class="view" data-v="0"><div class="appbar"><svg width="20" height="16" viewBox="0 0 20 16"><path d="M1 2h18M1 8h18M1 14h18" stroke="#111" stroke-width="2"/></svg><span class="logo">rumi</span><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#222"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg><span class="bell"><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><b>40</b></span><span class="avatar">GE</span></div>
+<div class="body" style="top:90px;bottom:62px">
+<div class="map">
+<svg viewBox="0 0 290 500" preserveAspectRatio="xMidYMid slice"><rect width="290" height="500" fill="#7c7a52"/><path d="M0 0h140l-20 140H0z" fill="#8a6e4b"/><path d="M140 0h150v120l-170 30z" fill="#9a9a86"/><path d="M200 130h90v120h-70z" fill="#5f6b5b"/><rect x="214" y="150" width="20" height="90" fill="#7d7f80"/><rect x="242" y="150" width="20" height="90" fill="#8b8d8e"/><path d="M0 300h290v200H0z" fill="#5e7340"/><circle cx="60" cy="420" r="26" fill="#425c2c"/><circle cx="110" cy="360" r="18" fill="#3f5a2a"/><circle cx="230" cy="430" r="22" fill="#4a632f"/><path d="M30 160 L150 150 L240 340 L248 500 L36 500 Z" fill="rgba(46,204,64,.42)" stroke="rgba(46,204,64,.9)" stroke-width="1.5"/></svg>
+</div>
+<div class="search wide">Buscar animales, fincas, antenas…<svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div><div class="filter"><svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.998.998 0 0018.95 4H5.04c-.83 0-1.3.95-.79 1.61z"/></svg></div>
+<div class="chips"><span class="chip sel"><svg width="13" height="13" viewBox="0 0 24 24" fill="#555"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>Todos (10)</span><span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="#7E57C2"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>Para hoy (2)</span><span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1E88E5"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>Actividad (0)</span></div>
+<div class="sidebtns"><i><svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg></i><i><svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></i><i><svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></i><i><svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"/></svg></i><i><svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg></i></div>
+<div class="pins">
+<span class="pin b" style="left:44%;top:46%">Milky</span>
+<span class="pin o" style="left:52%;top:52%">Lola</span>
+<span class="pin b" style="left:57%;top:57%">Lis</span>
+<span class="pin o" id="ra-pin-reina" style="left:46%;top:63%">Reina</span>
+<span class="pin b" style="left:60%;top:66%">Milipili</span>
+<span class="pin o" style="left:38%;top:72%">Cereixa</span>
+</div>
+<span class="ping" style="left:120px;top:260px"></span><div class="bubble" id="ra-bubble"><b>Reina</b> · comiendo<br>Última posición hace 1 min · Finca Olimpo</div>
+<div class="fab" style="bottom:74px;background:#F5A623">+</div>
+<div class="fab" style="bottom:20px;background:#1DAA3C"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+</div>
+<div class="nav"><span>Vallado</span><span>Animales</span><span class="on">Mapa</span><span>Dispositivos</span></div>
+</div>
+<!-- 1 Rebaño -->
+<div class="view" data-v="1"><div class="appbar"><svg width="20" height="16" viewBox="0 0 20 16"><path d="M1 2h18M1 8h18M1 14h18" stroke="#111" stroke-width="2"/></svg><span class="logo">rumi</span><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#222"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg><span class="bell"><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><b>40</b></span><span class="avatar">GE</span></div>
+<div class="body" style="bottom:110px"><div class="scroller" id="ra-scroller">
+<div class="hgroup"><span class="chip sel"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7.5C6.2 7.3 5 6.2 4.6 4.5M16 7.5c1.8-.2 3-1.3 3.4-3"/><path d="M7.3 9.5H4.5c.3 1.2 1.2 1.9 2.6 1.9M16.7 9.5h2.8c-.3 1.2-1.2 1.9-2.6 1.9"/><path d="M8.8 7.2h6.4c1 0 1.8.8 1.8 1.8v4.2c0 .5-.1 1-.4 1.4M7.4 14.6c-.3-.4-.4-.9-.4-1.4V9c0-1 .8-1.8 1.8-1.8"/><rect x="6.6" y="14" width="10.8" height="6.3" rx="3.1"/></svg>Todo</span><span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="#444"><path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/></svg>Olimpo</span><span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="#444"><path d="M12 20H2v-2h5.75c-.73-2.81-2.94-5.01-5.75-5.74.64-.16 1.31-.26 2-.26 4.42 0 8 3.58 8 8zm10-7.74c-.64-.16-1.31-.26-2-.26-2.93 0-5.48 1.58-6.88 3.93.29.66.53 1.35.67 2.07.13.65.2 1.32.21 2h6v-2h-5.75c.73-2.81 2.94-5.01 5.75-5.74zm-6.69-1.26c.77-2.07 2.37-3.75 4.38-4.72-2.42.22-4.48 1.69-5.48 3.76.39.27.76.59 1.1.96zM10.78 8.13C9.68 5.71 7.26 4 4.42 4c2.16 1.07 3.79 3.04 4.41 5.43.61-.47 1.27-.91 1.95-1.3z"/></svg>La Almudena</span></div>
+<div class="card" style="margin:10px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #eee;padding-bottom:8px"><span class="ctitle">Rebaño en tiempo real</span><span style="font:600 13px var(--app-font)">10 animales</span></div>
+<div class="piewrap"><svg class="pie" viewBox="0 0 200 200" width="170" height="170"><g transform="rotate(-90 100 100)"><circle class="seg" cx="100" cy="100" r="31" stroke="var(--c-rest)" stroke-dasharray="19.5 194.8" stroke-dashoffset="0"/><circle class="seg" cx="100" cy="100" r="31" stroke="var(--c-rum)" stroke-dasharray="58.4 194.8" stroke-dashoffset="-19.5"/><circle class="seg" cx="100" cy="100" r="31" stroke="var(--c-eat)" stroke-dasharray="116.9 194.8" stroke-dashoffset="-77.9"/></g><g class="pl" font-family="Noto Sans" font-size="14" fill="#222" text-anchor="middle"><text x="112" y="68">1</text><text x="140" y="105">3</text><text x="64" y="118">6</text></g></svg><svg class="chev" width="14" height="22" viewBox="0 0 14 22"><path d="M3 3l8 8-8 8" fill="none" stroke="#333" stroke-width="2.4"/></svg></div>
+<div class="legend"><span><i style="background:var(--c-rest)"></i>Descansando</span><span><i style="background:var(--c-graze)"></i>Pastando</span><span><i style="background:#A33BEA"></i>Caminando</span><span><i style="background:var(--c-rum)"></i>Rumiando</span><span><i style="background:var(--c-eat)"></i>Comiendo/jugando</span></div>
+</div>
+<div class="card" style="margin:10px"><span class="ctitle">Estado reproductivo</span><div class="minirep"><div style="border-color:#D32F2F;background:#fde0e0">Vacías<b>3</b></div><div style="border-color:#8E2FC9;background:#efdcfb">Novilla<b>1</b></div><div style="border-color:#1E88E5;background:#d6ecfc">Inseminadas<b>3</b></div><div style="border-color:#2E9E3C;background:#d9f2dc">Preñadas<b>2</b></div></div></div></div>
+</div>
+<div class="segbar"><span class="on"><svg width="22" height="16" viewBox="0 0 30 20" fill="currentColor"><path d="M9.6 4.2Q10.4 3.3 12 3.3H24.6Q27.3 3.3 27.7 5.6L28 10.4Q28 12.2 26.6 12.6V18H25.1L24.7 13.4H23.9L23.6 18H22.1V12.8H14.6L14.3 18H12.8L12.5 13.6H12.1L11.8 18H10.3V11.6L7.4 13.9L6.6 15.9Q6.2 16.9 5.1 16.8L3.4 16.6Q2.4 16.4 2.5 15.4L2.8 13.2L1.4 12.4L1.8 11.6L3.4 11.9L4.4 10.2ZM27.6 5.2Q29 7.5 28.9 12.6L29.5 13.6L28.6 14.2L28.1 12.6Q28.2 8 27.3 6Z"/></svg>Rebaño</span><span>Animales</span><span>Lotes</span></div>
+<div class="nav"><span>Vallado</span><span class="on">Animales</span><span>Mapa</span><span>Dispositivos</span></div>
+</div>
+<!-- 2 Reproducción -->
+<div class="view" data-v="2"><div class="appbar"><svg width="20" height="16" viewBox="0 0 20 16"><path d="M1 2h18M1 8h18M1 14h18" stroke="#111" stroke-width="2"/></svg><span class="logo">rumi</span><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#222"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg><span class="bell"><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><b>40</b></span><span class="avatar">GE</span></div>
+<div class="body">
+<div class="card" style="margin:10px 10px 0;padding:10px 12px"><span class="ctitle">Estado reproductivo</span></div>
+<div class="rgrid">
+<div class="rcard" style="border-color:#D32F2F;background:#fde0e0">Vacías<strong data-count="3">3</strong></div>
+<div class="rcard" style="border-color:#8E2FC9;background:#efdcfb">Novillas<strong data-count="1">1</strong></div>
+<div class="rcard" style="border-color:#0F5B57;background:#d3e6e4">Postparto<strong data-count="0">0</strong></div>
+<div class="rcard" style="border-color:#1E88E5;background:#d6ecfc">Inseminadas<strong data-count="3">3</strong></div>
+<div class="rcard" style="border-color:#C9861A;background:#fdecd0">Montadas<strong data-count="0">0</strong></div>
+<div class="rcard" style="border-color:#2E9E3C;background:#d9f2dc">Preñadas<strong data-count="2">2</strong></div>
+<div class="rcard" style="border-color:#D2861A;background:#feead2">Preparto<strong data-count="1">1</strong></div>
+<div class="rcard" style="border-color:#D06A1E;background:#fde4d6">Parto &lt;1 sem.<strong data-count="2">2</strong></div>
+</div>
+</div>
+<div class="nav"><span>Vallado</span><span class="on">Animales</span><span>Mapa</span><span>Dispositivos</span></div>
+</div>
+<!-- 3 Alertas -->
+<div class="view" data-v="3">
+<div class="calhead">Calendario</div>
+<div class="body" style="top:90px;bottom:62px;padding:10px;background:#fff">
+<div class="card" style="padding:10px 6px">
+<div style="text-align:center;font:600 15px var(--app-font);color:#FF8A00;margin-bottom:8px">junio de 2026</div>
+<div class="cal" id="ra-cal"></div>
+</div>
+<div class="card" style="margin-top:10px">
+<div style="font:600 14px var(--app-font);margin-bottom:8px">1 evento</div>
+<div class="alertcard" id="ra-alertcard"><span class="abadge"><svg width="18" height="14" viewBox="0 0 30 20" fill="#fff"><path d="M9.6 4.2Q10.4 3.3 12 3.3H24.6Q27.3 3.3 27.7 5.6L28 10.4Q28 12.2 26.6 12.6V18H25.1L24.7 13.4H23.9L23.6 18H22.1V12.8H14.6L14.3 18H12.8L12.5 13.6H12.1L11.8 18H10.3V11.6L7.4 13.9L6.6 15.9Q6.2 16.9 5.1 16.8L3.4 16.6Q2.4 16.4 2.5 15.4L2.8 13.2L1.4 12.4L1.8 11.6L3.4 11.9L4.4 10.2ZM27.6 5.2Q29 7.5 28.9 12.6L29.5 13.6L28.6 14.2L28.1 12.6Q28.2 8 27.3 6Z"/></svg></span><div class="atxt"><small>Hace 1 min</small><b>Vaca separada del rebaño</b><span>Reina (0238)</span></div></div>
+</div>
+</div>
+<div class="nav"><span>Vallado</span><span>Animales</span><span>Mapa</span><span>Dispositivos</span></div>
+</div>
+<!-- 4 Ficha -->
+<div class="view" data-v="4"><div class="appbar"><svg width="20" height="16" viewBox="0 0 20 16"><path d="M1 2h18M1 8h18M1 14h18" stroke="#111" stroke-width="2"/></svg><span class="logo">rumi</span><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#222"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg><span class="bell"><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><b>40</b></span><span class="avatar">GE</span></div>
+<div class="body" style="top:90px;filter:brightness(.6)"><div class="map"><svg viewBox="0 0 290 500" preserveAspectRatio="xMidYMid slice"><rect width="290" height="500" fill="#7c7a52"/><path d="M30 160 L150 150 L240 340 L248 500 L36 500 Z" fill="rgba(46,204,64,.42)"/></svg></div><div class="search">Buscar por nombre, crotal, r…<svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div><div class="wandb"><em>BETA</em><svg width="17" height="17" viewBox="0 0 24 24" fill="#222"><path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29a.996.996 0 00-1.41 0L1.29 18.96a.996.996 0 000 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05a.996.996 0 000-1.41l-2.33-2.35zm-1.03 5.49l-2.12-2.12 2.44-2.44 2.12 2.12-2.44 2.44z"/></svg></div><div class="filter"><svg width="18" height="18" viewBox="0 0 24 24" fill="#222"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.998.998 0 0018.95 4H5.04c-.83 0-1.3.95-.79 1.61z"/></svg></div><div class="chips"><span class="chip sel"><svg width="13" height="13" viewBox="0 0 24 24" fill="#555"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>Todos (10)</span><span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="#7E57C2"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>Para hoy (2)</span><span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1E88E5"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>Actividad (0)</span></div></div>
+<div class="ficha" style="top:178px;bottom:62px">
+<div class="fhead"><b>Cereixa (ES051113010238)</b><span class="fx"><svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span></div>
+<div class="subtabs"><span class="on">Actividad</span><span>Eventos</span><span>Perfil</span></div>
+<div class="card act24"><div class="t">Últimas actividades 24h</div><div class="srow"><svg width="10" height="14" viewBox="0 0 10 14"><path d="M7 2 2 7l5 5" fill="none" stroke="#555" stroke-width="1.6"/></svg><div class="strip strip2" id="ra-strip2"></div></div><div class="hrs"><span>08:03</span><span>10:03</span><span>12:03</span><span>14:03</span></div><div class="leg"><span><i style="background:#03A9F4"></i>Descansando</span><span><i style="background:#1DAA3C"></i>Pastando</span><span><i style="background:#A33BEA"></i>Caminando</span><span><i style="background:#FFA234"></i>Rumiando</span><span><i style="background:#F0C42B"></i>Comiendo / jugando</span></div></div>
+<div class="vermapa"><svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg><span>Ver en el mapa</span></div>
+<div class="gauges"><div class="g"><span class="gwrap"><svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#dbe9f7" stroke-width="3"/><circle class="arc" cx="22" cy="22" r="18" fill="none" stroke="#1E88E5" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="28 100" transform="rotate(-90 22 22)"/></svg><strong data-count="28" style="color:#1E88E5">28</strong></span><span class="lbl"><svg width="12" height="12" viewBox="0 0 24 24" fill="#1E88E5"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>Actividad</span></div><div class="g"><span class="gwrap"><svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#f7ddd5" stroke-width="3"/><circle class="arc" cx="22" cy="22" r="18" fill="none" stroke="#E64A19" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 22 22)"/></svg><strong data-count="0" style="color:#E64A19">0</strong></span><span class="lbl"><svg width="12" height="12" viewBox="0 0 24 24" fill="#E64A19"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>Celo</span></div><div class="g"><span class="gwrap"><svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#e6def5" stroke-width="3"/><circle class="arc" cx="22" cy="22" r="18" fill="none" stroke="#7E57C2" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="87 100" transform="rotate(-90 22 22)"/></svg><strong data-count="87" style="color:#7E57C2">87</strong></span><span class="lbl"><svg width="12" height="12" viewBox="0 0 24 24" fill="#7E57C2"><path d="M15.5 9.5m-1.5 0a1.5 1.5 0 103 0 1.5 1.5 0 10-3 0M8.5 9.5m-1.5 0a1.5 1.5 0 103 0 1.5 1.5 0 10-3 0M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-6c-2.33 0-4.32 1.45-5.12 3.5h1.67c.69-1.19 1.97-2 3.45-2s2.75.81 3.45 2h1.67c-.8-2.05-2.79-3.5-5.12-3.5z"/></svg>Incomodidad</span></div><div class="g g2"><span class="gwrap"><svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#f8dce5" stroke-width="3"/><circle class="arc" cx="22" cy="22" r="18" fill="none" stroke="#EC6F95" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="8 100" transform="rotate(-90 22 22)"/></svg><strong data-count="8" style="color:#EC6F95">8</strong></span></div><div class="g g2"><span class="gwrap"><svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#d3ece8" stroke-width="3"/><circle class="arc" cx="22" cy="22" r="18" fill="none" stroke="#14907f" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="11 100" transform="rotate(-90 22 22)"/></svg><strong data-count="11" style="color:#14907f">11</strong></span></div></div>
+</div>
+<div class="nav"><span>Vallado</span><span class="on">Animales</span><span>Mapa</span><span>Dispositivos</span></div>
+</div>
+<!-- 5 Filtro IA -->
+<div class="view" data-v="5">
+<div class="body" style="top:44px;filter:brightness(.55)">
+<div class="map"><svg viewBox="0 0 290 500" preserveAspectRatio="xMidYMid slice"><rect width="290" height="500" fill="#7c7a52"/><path d="M30 160 L150 150 L240 340 L248 500 L36 500 Z" fill="rgba(46,204,64,.42)"/></svg></div>
+</div>
+<div class="sheet">
+<div style="display:flex;gap:10px;align-items:center">
+<div class="wand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"><path d="M4 20 15 9"/><path d="M17 3v3M15.5 4.5h3M20 8v2M19 9h2M10 3v2M9 4h2"/></svg></div>
+<div><div style="font:600 20px/1.1 var(--app-font);color:#FF8A00">Filtro IA</div><div style="font:12px/1.3 var(--app-font);color:#777">Escríbelo o dilo en voz alta</div></div>
+</div>
+<div class="qbox"><div class="txt"><span id="ra-typed"></span><span class="caret"></span></div><div class="wave" id="ra-wave"><i></i><i></i><i></i><i></i><i></i></div><div class="mic" id="ra-mic"><svg width="18" height="18" viewBox="0 0 24 24" fill="#7c3aed"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" stroke="#7c3aed" stroke-width="2" fill="none"/></svg></div></div>
+<div class="result" id="ra-result">
+<div style="font:600 13px var(--app-font);color:#1DAA3C">4 animales encontrados</div>
+<div class="ritem"><span>Reina · limusina · 4 años</span><span style="color:#888">3 partos</span></div>
+<div class="ritem"><span>Cereixa · limusina · 5 años</span><span style="color:#888">2 partos</span></div>
+<div class="ritem"><span>Lola · limusina · 3 años</span><span style="color:#888">2 partos</span></div>
+</div>
+</div>
+</div>
+<!-- 6 Dispositivos -->
+<div class="view" data-v="6"><div class="appbar"><svg width="20" height="16" viewBox="0 0 20 16"><path d="M1 2h18M1 8h18M1 14h18" stroke="#111" stroke-width="2"/></svg><span class="logo">rumi</span><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="#222"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg><span class="bell"><svg width="21" height="21" viewBox="0 0 24 24" fill="#222"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg><b>40</b></span><span class="avatar">GE</span></div>
+<div class="body" style="background:#fff">
+<div class="ptr" id="ra-ptr"><span class="spin"></span></div><div style="padding:10px 12px;font:13px var(--app-font);color:#666">Hay 10 Rumis (10 asociados)</div>
+<div class="drow"><svg class="dthumb" viewBox="0 0 44 44"><rect x="17" y="4" width="10" height="36" rx="5" fill="#222" transform="rotate(35 22 22)"/></svg><div class="meta"><b>RP0107<span class="pro">Pro</span></b>Lora<br><u>Última recepción:</u> hace 1 min</div><div class="batt" style="color:#1DAA3C;--lvl:93%"><i></i>93%</div></div>
+<div class="drow"><svg class="dthumb" viewBox="0 0 44 44"><rect x="6" y="8" width="32" height="28" rx="6" fill="#E9A43A"/><rect x="11" y="13" width="22" height="18" rx="3" fill="#2c3e57"/></svg><div class="meta"><b>RS0024</b>Cereixa<br><u>Última recepción:</u> hace 1 min</div><div class="batt" style="color:#1DAA3C;--lvl:100%"><i></i>100%</div></div>
+<div class="drow"><svg class="dthumb" viewBox="0 0 44 44"><rect x="17" y="4" width="10" height="36" rx="5" fill="#222" transform="rotate(35 22 22)"/></svg><div class="meta"><b>RP0110<span class="pro">Pro</span></b>Milky<br><u>Última recepción:</u> hace 2 min</div><div class="batt" style="color:#1DAA3C;--lvl:89%"><i></i>89%</div></div>
+<div class="drow"><svg class="dthumb" viewBox="0 0 44 44"><rect x="6" y="8" width="32" height="28" rx="6" fill="#E9A43A"/><rect x="11" y="13" width="22" height="18" rx="3" fill="#2c3e57"/></svg><div class="meta"><b>RS0031</b>Lis<br><u>Última recepción:</u> hace 2 min</div><div class="batt" style="color:#1DAA3C;--lvl:100%"><i></i>100%</div></div>
+</div>
+<div class="nav"><span>Vallado</span><span>Animales</span><span>Mapa</span><span class="on">Dispositivos</span></div>
+</div>
+</div></div>
+</div>
+<!-- floating cards, one per view -->
+<div class="float f-info" data-f="0"><div class="bob"><b>Información</b>10 animales en el mapa<br>6 fincas · 23,58 ha<br><span style="color:#1E9BF0">●</span> 3 descansando &nbsp;<span style="color:#F0C42B">●</span> 4 comiendo</div></div>
+<div class="float f-24h" data-f="1"><div class="bob"><div style="font:600 14px var(--app-font)">Últimas actividades 24h</div><div class="strip" id="ra-strip"></div><div style="display:flex;justify-content:space-between;font:11px var(--app-font);color:#666;margin-top:4px"><span>08:00</span><span>11:00</span><span>14:00</span></div></div></div>
+<div class="float f-stat" data-f="2"><div class="bob" style="display:flex;gap:10px;align-items:center"><span style="width:38px;height:38px;border-radius:10px;background:#d9f2dc;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E9E3C" stroke-width="2"><path d="m5 12 4 4 10-10"/></svg></span><span><strong style="color:#2E9E3C">2</strong> <span style="font-size:13px;color:#333">preñadas<br>confirmadas</span></span></div></div>
+<div class="float push" data-f="3"><div class="bob" style="display:flex;gap:10px;align-items:center"><span class="ic" style="background:none;overflow:hidden"><img loading="lazy" decoding="async" src="data:image/webp;base64,UklGRmwEAABXRUJQVlA4IGAEAAAwGwCdASpmAGYAPj0cjUQiIaGU6ZzwIAPEoA1i2N/sGp7dO/gH7H/lH0CG23SJyxB9fRr2e/Wfyr8jvqB6M/MA/RX/M/xP+49hjzAftJ+2/u6egD9RPYA/l/+O///YUegB5YX7efBr+1X7Ae0P//4uRUFvgywGB+lxmh+S5w4vqNJjZrWWol3pQHUuSrkaOPobRndjJpsuX+AHH3oTGfCLszpIutsR8JB3+03RcsVL+/5VUSyTSe8mCtGs56B8ENEnI6TqmzFKkVBOLTu0SJ6oxyUUeImk8JF4AmV9MemPTF4AAP79dxX80tgoU6XoRYAV3ShrXDLXy/s97lhPKb/kSKrU4E+Ssj0o2lJgdxrKBPCRE5YzIRK7XtTKMiu+qKN8Wj/EBtia6Nb5xFbKX5XAHSwt/Ld/6eK9GuUCt7orByiuP9f6QRrr72IlCV3/3htVtQHKlKsmHUmEGs6ksmAQcQccnpcjMcDW3kgxnIKlSESI9Wta0wNiQX+zlx8pxH+tkwR+3RQ5MZQ/Y/6uEf0QfZhsri30C/MtFzWMkeSNf+HW+Pk9OpSVwUTT+WnZdQIuPehs51ttYWBy2cnMlghlmkTKh0Sy5SZmzmnoalsbl4I/NIdkaogyUQ7Fe3jAB9J7HcXTqRIYRYB2SzkIOnXT9pZyxY2nWbVDPzGY519KVoy9IGcBNHnzRnSRR2CtUQzXoOw4qHd7tghX+9Wb7zUuPMIyA63463riE/zUyXIvavFGHvf5mTjlojf3q+Wa6Z+/Gx9d+80A8xhezBZrqXYd3e9z9w1t9rL8DW1Ks04GL0diah5RNsvGlC1KG1akDHUnb026d/pSzDJ7U0SWKWtC3NMf2WX+KPp4opguwRC1f8Cehu9xlwzAk+4Wr8hllBes5erFzUMMJK3IHAgFSvBLAtOI3s2CeaYvoybmyyzU+VVajLnvvuq2Ib+y6e4zUIOi5I9dJWplbAYCUE26XrGpUAtDDs6QFAaqGrjCdneGUcM72beOSFaBoWelg0kazW7uKaMEdtMvDmW50SfuoDvh9480eyhcm7YIZ9v3MJciWtUwxnuiS2+aRhPcmrwr8vGPMPRfTpxZKf4SkO8K/lTQ1/hAdVJ/zu4AvlIYek/fm8Tugj3s1h7TZD8BfG5XTnxDEwpa1cY1YiRZ8Y5gVf/UlRm+rdApY3i2/i75uQ+sVT26+U/WXNe7ngZvM8Jq3/xoI29oE6ZJlMkILBUBUlmQFpi2Ya5TWy/eYc8w5L4bEJUdsf3AjgeOsAkVXO1h/flIjEjkZsH7CuhaLmlJaeMViUHR4aSYG+rZqvk+6wHxVYhj+B2n27/CuuTX0r54AvzLRrStQhDGVQMNxdf/d63fkhoqx/O4JVyx8CZZbmn+DHuJ8cbA2LFQfUDM423HUKuKHn5DWSNdvC10RU9B9sAe91R+dxhYaR72dcah3nDXzMIBZcxP/ArCRdyIx+POocb6fdfSMBB8EIAAAAAAAAAA" alt="Rumi" width="34" height="34" style="display:block;width:34px;height:34px;border-radius:9px"></span><span style="font:13px/1.35 var(--app-font)"><b>Rumi</b> · ahora<br>Vaca separada del rebaño: Reina (0238)</span></div></div>
+<div class="float f-line" data-f="4"><div class="bob"><div style="font:600 13px var(--app-font);color:#FF8A00">Índice de actividad (%)</div><svg viewBox="0 0 220 70" width="216" height="70"><polyline points="0,50 15,30 25,12 35,40 50,20 62,8 75,45 90,30 100,55 115,35 130,50 140,18 152,10 165,45 180,30 195,52 210,40 220,44" fill="none" stroke="#1E88E5" stroke-width="2"/><polyline points="0,40 12,18 22,10 30,52 45,58 58,6 70,30 85,14 98,50 110,58 125,20 138,52 150,8 162,26 176,56 190,40 205,60 220,50" fill="none" stroke="#14907f" stroke-width="2" opacity=".8"/></svg></div></div>
+<div class="float f-stat" data-f="6"><div class="bob" style="display:flex;gap:10px;align-items:center"><span style="width:38px;height:38px;border-radius:10px;background:#fff1dc;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span style="font-size:13px;line-height:1.3;color:#333"><b>Carga solar</b><br>sin cambiar pilas</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div><style id="rumiapp-type">.rumiapp .copycard h3{font-size:28px;line-height:1.2;letter-spacing:-1.5px}</style>
+<style id="rumiapp-mobile-gap"></style>				</div>
+</section>
+
+<!-- 13 · Conectividad -->
+<section class="slide" id="s13" aria-label="Conectividad de largo alcance">
+  <div class="abs a" style="left:0;top:108px;width:627px;height:877px;border-radius:0 50px 50px 0;overflow:hidden"><img class="ph" src="img/coverage.jpg" alt="" style="left:-213px;top:0;width:840px;height:884px"></div>
+  <img class="abs a" src="img/ant1.png" alt="" style="left:568px;top:76px;width:1049px;--d:.2s">
+  <img class="abs a" src="img/ant2.png" alt="" style="left:1463px;top:241px;width:1093px;--d:.35s">
+  <h2 class="abs cr a" style="left:1113px;top:62px;line-height:1.05"><span class="w9" style="font-size:106px">Conectividad</span><br><span class="w5" style="font-size:88px">de largo alcance</span></h2>
+</section>
+
+<!-- 14 · Datos de valor -->
+<section class="slide divi glowc" id="s14" aria-label="Datos de valor">
+  <h2 class="w9 az" style="top:300px;font-size:210px;line-height:1">Datos</h2>
+  <h2 class="w5 az" style="top:478px;font-size:210px;line-height:1;--d:.3s">de valor</h2>
+</section>
+
+<!-- 15 · El camino del dato -->
+<section class="slide" id="s15" aria-label="El camino del dato">
+  <h2 class="abs cr a" style="left:108px;top:62px;font-size:108px"><span class="w9">El camino</span><span class="w5"> del dato</span></h2>
+  <svg class="lines" viewBox="0 0 1920 1080">
+    <path class="ln" d="M262 395 H 300"/>
+    <path class="ln" d="M200 700 H 470 Q 490 700 490 720 V 760 H 560"/>
+    <path class="ln" d="M820 625 H 860"/>
+    <path class="ln" d="M995 560 V 385"/>
+    <path class="ln" d="M1150 315 H 1175"/>
+    <path class="ln" d="M1510 420 H 1530 V 225 Q 1530 205 1550 205 H 1560"/>
+    <path class="ln" d="M1530 420 V 450 H 1560"/>
+    <path class="ln" d="M1670 205 H 1690"/>
+    <path class="ln" d="M1660 450 H 1675"/>
+    <path class="ln" d="M1610 500 V 790 H 1556"/>
+    <circle class="dt" cx="262" cy="395" r="6"/><circle class="dt" cx="200" cy="700" r="6"/><circle class="dt" cx="820" cy="625" r="6"/><circle class="dt" cx="1510" cy="420" r="6"/><circle class="dt" cx="1610" cy="500" r="6"/>
+  </svg>
+  <span class="arc" style="left:70px;top:240px">COLLAR</span>
+  <img class="abs a" src="img/collar_strap.png" alt="" style="left:110px;top:300px;height:640px;--d:.15s">
+  <div class="lab a" style="left:300px;top:325px;width:280px;height:140px;--d:.25s">2,2 mill.<br>muestras</div>
+  <span class="arc" style="left:575px;top:405px;z-index:2">LORAWAN</span>
+  <img class="ph r40 a" src="img/ant_tree.jpg" alt="" style="left:560px;top:465px;width:260px;height:525px;--d:.35s">
+  <div class="lab a" style="left:860px;top:560px;width:270px;height:140px;--d:.45s">220 paq.<br>x collar</div>
+  <div class="lab a" style="left:860px;top:245px;width:290px;height:140px;--d:.55s">8,6 mill.<br>paquetes</div>
+  <img class="abs a" src="img/sql.svg" alt="" style="left:1170px;top:230px;width:220px;--d:.6s">
+  <div class="abs a" style="left:1250px;top:290px;width:260px;height:260px;border-radius:50%;background:#333;--d:.65s"></div>
+  <img class="abs a" src="img/pg.png" alt="PostgreSQL" style="left:1300px;top:340px;width:160px;--d:.7s">
+  <span class="arc a" style="left:1262px;top:572px;--d:.72s">BASE DE DATOS</span>
+  <div class="abs a" style="left:1560px;top:150px;width:110px;height:110px;border-radius:50%;background:#333;display:grid;place-items:center;--d:.8s"><img src="img/chip.svg" alt="" style="width:90px"></div>
+  <div class="lab a" style="left:1690px;top:160px;width:200px;height:90px;--d:.85s">IA</div>
+  <div class="lab a" style="left:1700px;top:270px;width:190px;height:90px;--d:.9s">24 paq</div>
+  <div class="abs a" style="left:1560px;top:400px;width:100px;height:100px;border-radius:50%;background:#333;display:grid;place-items:center;--d:.95s"><img src="img/pin_cream.svg" alt="" style="width:46px"></div>
+  <div class="lab a" style="left:1672px;top:405px;width:236px;height:90px;font-size:34px;--d:1s">Ubicaciones</div>
+  <div class="lab a" style="left:1700px;top:515px;width:190px;height:90px;--d:1.05s">8,2 mill</div>
+  <div class="ph r40 a" style="left:1320px;top:640px;width:236px;height:400px;overflow:hidden;--d:1.1s;border:4px solid var(--cream)"><img src="img/phone_heat.png" alt="" style="width:100%;margin-top:-52px"></div>
+</section>
+
+<!-- 16 · Enfermedad -->
+<section class="slide" id="s16" aria-label="Enfermedad">
+  <img class="abs" src="img/shape_cream.svg" alt="" style="left:420px;top:-160px;width:1600px;height:1460px">
+  <div class="abs" style="left:85px;top:0;width:1100px;height:1080px;background:var(--cream);border-radius:0 0 0 0"></div>
+  <img class="abs" src="img/shape_brown.svg" alt="" style="left:1180px;top:500px;width:1100px;height:1100px">
+  <h2 class="abs w9 a" style="left:340px;top:85px;width:414px;text-align:center;font-size:72px;color:#C97300">Enfermedad</h2>
+  <p class="abs a" style="left:185px;top:225px;width:760px;font-size:40px;line-height:1.5;letter-spacing:.02em;color:#333;font-weight:500;--d:.15s"><b class="w8">Indigestión:</b> Se aprecia que la vaca no <b class="w9 or">rumia</b> nada, <b class="w9" style="color:#1E9BF0">descansa</b> mucho y tiene finas líneas de <b class="w9" style="color:#FFDE59;letter-spacing:.12em">comer/jugar</b> que indican incomodidad.</p>
+  <div class="tablet a" style="left:1047px;top:185px;width:803px;height:611px;--d:.35s"><div style="width:100%;height:100%;overflow:hidden;border-radius:16px;background:#e3f1f1"><img src="img/tab_screen2.png" alt="" style="width:1281px;max-width:none;height:auto;margin:-117px 0 0 -256px;border-radius:0"></div></div>
+  <div class="abs a" style="left:1529px;top:271px;width:265px;height:440px;border:4px solid #C97300;border-radius:22px;--d:1s"></div>
+  <div class="tablet a" style="left:76px;top:535px;width:932px;height:447px;--d:.55s"><div style="width:100%;height:100%;overflow:hidden;border-radius:16px;background:#e3f1f1"><img src="img/tab_screen1.png" alt="" style="width:1225px;max-width:none;height:auto;margin:0 0 0 -163px;border-radius:0"></div></div>
+  <div class="abs a" style="left:290px;top:718px;width:500px;height:90px;border:4px solid #C97300;border-radius:30px;--d:1.1s"></div>
+</section>
+
+<!-- 17 · Parto -->
+<section class="slide" id="s17" aria-label="Parto">
+  <div class="abs" style="left:887px;top:0;width:1100px;height:1080px;overflow:hidden;border-radius:120px 0 0 0"><img class="ph kb" src="img/field_bg.jpg" alt="" style="left:0;top:0;width:1536px;height:1084px"></div>
+  <img class="abs" src="img/shape_cream.svg" alt="" style="left:-260px;top:330px;width:1150px;height:1000px;transform:scaleY(-1);opacity:1;filter:brightness(1)">
+  <img class="abs a" src="img/cows_cut.png" alt="" style="left:540px;top:-40px;width:1630px;--d:.2s">
+  <div class="abs a" style="left:1165px;top:-30px;width:665px;height:395px;background:var(--cream);border-radius:0 0 50px 50px;--d:.1s"></div>
+  <h2 class="abs w9 a" style="left:1165px;top:30px;width:665px;text-align:center;font-size:96px;color:#C77200;--d:.15s">Parto</h2>
+  <p class="abs a" style="left:1185px;top:190px;width:624px;text-align:center;font-size:33px;line-height:1.4;letter-spacing:.03em;font-weight:600;color:#333;--d:.25s">Muy complicado y no es atendido.<br>La vaca pasa <b class="w8">muchas horas intranquila.</b></p>
+  <div class="abs a" style="left:76px;top:66px;width:700px;height:400px;border-radius:50px;background:#fff;border:4px solid #333;overflow:hidden;--d:.35s"><img src="img/app_card.png" alt="" style="width:100%;margin-top:-6px"></div>
+  <div class="abs a" style="left:742px;top:244px;width:96px;height:96px;border:3px solid #333;border-radius:50%;--d:1s;display:none"></div>
+  <div class="phoneF a" style="left:186px;top:505px;width:480px;height:640px;--d:.5s"><img class="scr" src="img/phone_radar.png" alt=""></div>
+</section>
+
+<!-- 18 · Otros sensores -->
+<section class="slide divi glowc" id="s18" aria-label="Otros sensores y mejoras de producto">
+  <h2 class="w9 az" style="top:390px;font-size:190px;line-height:1">Otros sensores</h2>
+  <h2 class="w5 a" style="top:600px;left:auto;right:267px;text-align:right;font-size:78px;--d:.35s">y mejoras de producto</h2>
+</section>
+
+<!-- 19 · Rumi Partos -->
+<section class="slide" id="s19" aria-label="Rumi Partos" style="background:var(--o)">
+  <div class="abs" style="left:40px;top:-40px;width:1825px;height:985px;background:var(--cream);border-radius:0 0 80px 80px"></div>
+  <h2 class="abs w9 or a" style="left:177px;top:78px;font-size:142px;line-height:1.05">Rumi Partos</h2>
+  <p class="abs w5 a" style="left:182px;top:255px;font-size:37px;color:#333;--d:.1s">El parto en tiempo real desde la palma de tu mano</p>
+  <img class="abs az" src="img/partos_sensor.png" alt="" style="left:150px;top:370px;width:420px;--d:.25s">
+  <img class="abs a" src="img/partos_icon_map.png" alt="" style="left:723px;top:318px;width:168px;--d:.35s">
+  <img class="abs a" src="img/i_cow.svg" alt="" style="left:1103px;top:326px;width:205px;height:153px;--d:.45s">
+  <img class="abs a" src="img/i_cow2.svg" alt="" style="left:1032px;top:417px;width:62px;--d:.5s">
+  <img class="abs a" src="img/i_batt.svg" alt="" style="left:1484px;top:326px;width:175px;height:167px;--d:.55s">
+  <p class="abs w8 a" style="left:672px;top:555px;width:270px;text-align:center;font-size:50px;color:#333;--d:.4s">GPS</p>
+  <p class="abs w8 a" style="left:1000px;top:545px;width:410px;text-align:center;font-size:40px;line-height:1;color:#333;--d:.5s">Monitoreo del parto en tiempo real</p>
+  <p class="abs w8 a" style="left:1505px;top:545px;width:235px;text-align:center;font-size:40px;line-height:1;color:#333;--d:.6s">Carga inalámbrica</p>
+  <p class="abs w8 or a" style="left:672px;top:665px;width:270px;text-align:center;font-size:29px;line-height:1.2;--d:.55s">En el momento del parto</p>
+  <p class="abs w8 or a" style="left:672px;top:778px;width:270px;text-align:center;font-size:29px;line-height:1.2;--d:.6s">Si el dispositivo cae al suelo</p>
+  <p class="abs w8 or a" style="left:1070px;top:665px;width:270px;text-align:center;font-size:29px;line-height:1.2;--d:.65s">Alerta de inicio de parto</p>
+  <p class="abs w8 or a" style="left:1070px;top:790px;width:270px;text-align:center;font-size:29px;line-height:1.2;--d:.7s">Seguimiento del<br>parto desde APP</p>
+  <p class="abs w8 or a" style="left:1488px;top:675px;width:270px;text-align:center;font-size:29px;line-height:1.2;--d:.75s">Batería recargable</p>
+</section>
+
+<!-- 20 · Rumi Partos app -->
+<section class="slide" id="s20" aria-label="Rumi Partos app">
+  <img class="ph bg kb" src="img/partos_bg.jpg" alt="" style="left:0;top:-372px;width:2279px;height:1823px">
+  <div class="abs" style="inset:0;background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,0) 50%)"></div>
+  <h2 class="abs cr w9 a" style="left:177px;top:55px;font-size:142px;line-height:1.1">Rumi Partos</h2>
+  <p class="abs cr w9 a" style="left:183px;top:245px;font-size:37px;--d:.1s">El parto en tiempo real desde la palma de tu mano</p>
+  <img class="ph a" src="img/partos_photo.jpg" alt="" style="left:207px;top:400px;width:675px;height:717px;border-radius:50px;--d:.25s">
+  <img class="abs a" src="img/tail.png" alt="" style="left:108px;top:424px;width:744px;--d:.4s">
+  <div class="phoneF a" style="left:1239px;top:108px;width:548px;height:1111px;--d:.35s"><img class="scr" src="img/partos_screen.jpg" alt=""></div>
+</section>
+
+<!-- 21 · Primeras etapas -->
+<section class="slide cvslide" id="s21" aria-label="Product-market fit y Automatización" style="background:var(--cream)">
+  <h2 class="or a">Product-market fit y Automatización</h2>
+  <div class="curvebox az" style="--d:.15s"><svg viewBox="0 0 969 436" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Curva de evolución de una startup"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L10 5 L0 9z" fill="#222"/></marker></defs><rect class="cv-hl" x="196" y="-8" width="196" height="432" rx="14"/><path class="cv-ax" d="M101 386 V 22" marker-end="url(#ar)"/><path class="cv-ax" d="M101 386 H 858" marker-end="url(#ar)"/><path class="cv-dot" d="M101 197 H 822"/><path class="cv-main" pathLength="1" d="M103 384 C 150 362 205 335 228 295 C 248 262 268 246 300 232 C 360 208 430 196 470 186 C 540 170 590 160 640 152 C 690 144 715 128 745 108 C 765 94 778 84 788 75"/><path class="cv-alt" d="M548 190 C 585 200 610 214 650 220 C 690 226 715 224 740 214 C 765 202 785 186 800 178 C 812 172 820 168 828 165"/><text class="cv-t cv-big" x="108" y="30">CAC &lt; LTV</text><text class="cv-t cv-big" x="108" y="230">LTV &lt; CAC</text><text class="cv-t cv-big" x="835" y="360" style="font-size:14px">Madurez</text><text class="cv-t cv-lab" style="--i:0" x="108" y="352">Product dev</text><text class="cv-t cv-lab" style="--i:1" x="183" y="306">Product-market fit</text><text class="cv-t cv-lab" style="--i:2" x="248" y="261">Automation - operations</text><text class="cv-t cv-lab" style="--i:3" x="321" y="215">Efficient business model</text><text class="cv-t cv-lab" style="--i:4" x="448" y="185">Product prep for first internal.</text><text class="cv-t cv-lab" style="--i:5" x="618" y="167">First international tests</text><text class="cv-t cv-lab" style="--i:6" x="745" y="133">Scale international</text><g class="cv-note"><rect class="cv-box" x="594" y="243" width="221" height="134"/><text class="cv-t" x="601" y="264">Puede suceder que CAC &gt; LTV si:</text><text class="cv-t" x="601" y="290">-</text><text class="cv-t" x="624" y="290">Crecimiento muy acelerado</text><text class="cv-t" x="601" y="316">-</text><text class="cv-t" x="624" y="316">Momentum sector</text><text class="cv-t" x="601" y="342">-</text><text class="cv-t" x="624" y="342">Foco en market dominance</text><text class="cv-t" x="601" y="368">-</text><text class="cv-t" x="624" y="368">Equipo top</text></g><text class="cv-t cv-big" x="108" y="414">Pre-seed</text><text class="cv-t cv-big" x="318" y="414">Seed</text><text class="cv-t cv-big" x="510" y="414">Pre-Series A</text><text class="cv-t cv-big" x="695" y="414">Series A</text></svg></div>
+</section>
+
+<!-- 22 · Business Model -->
+<section class="slide" id="s22" aria-label="Business Model">
+  <h2 class="abs w9 a" style="left:0;right:0;top:58px;text-align:center;font-size:96px;color:#333">Business Model</h2>
+  <div class="arch a" style="left:210px;--d:.1s"></div>
+  <div class="arch a" style="left:1027px;--d:.2s"></div>
+  <img class="abs az" src="img/rumi_collar.png" alt="rumi" style="left:206px;top:105px;width:700px;--d:.35s">
+  <img class="abs a" src="img/rumi_green.png" alt="rumi" style="left:387px;top:650px;width:334px;--d:.45s">
+  <div class="price a" style="left:361px;--d:.55s"><b>40€*</b><small>*Dtos. por volumen</small></div>
+  <div class="phoneF az" style="left:1158px;top:206px;width:197px;height:398px;padding:6px;border-radius:30px"><img class="scr" src="img/bm_phone1.png" alt="" style="border-radius:24px"></div>
+  <div class="phoneF az" style="left:1331px;top:178px;width:244px;height:491px;padding:7px;border-radius:36px;--d:.3s"><img class="scr" src="img/bm_phone2.jpg" alt="" style="border-radius:29px"></div>
+  <p class="abs w9 a" style="left:1100px;top:650px;width:540px;text-align:center;font-size:126px;line-height:1.1;color:var(--green);--d:.45s">SaaS</p>
+  <div class="price a" style="left:1178px;--d:.6s"><b>2,35€</b><small>/mes</small></div>
+</section>
+
+<!-- 23 · Plan Estratégico -->
+<section class="slide" id="s23" aria-label="Plan Estratégico">
+  <div class="bigc"></div>
+  <h2 class="abs cr w9 a shadow-t" style="left:124px;top:150px;width:722px;text-align:center;font-size:88px;line-height:1.15">Plan Estratégico</h2>
+  <p class="lb a" style="left:190px;top:442px;width:250px;font-size:56px;--d:.2s">Revenue<br><span style="font-size:42px">SaaS (ARR)</span></p>
+  <div class="dk a" style="left:490px;top:450px;width:230px;height:104px;font-size:66px;--d:.25s"><span data-count="1269" data-fmt="eur0">1.269€</span></div>
+  <p class="lb a" style="left:180px;top:625px;width:290px;font-size:53px;--d:.3s">Necklaces<br><span style="font-size:37px">per customer</span></p>
+  <div class="dk a" style="left:490px;top:620px;width:230px;height:104px;font-size:66px;--d:.35s"><span data-count="45">45</span></div>
+  <p class="lb a" style="left:200px;top:808px;width:230px;font-size:66px;--d:.4s">LTV</p>
+  <div class="dk a" style="left:490px;top:790px;width:230px;height:104px;font-size:66px;--d:.45s"><span><span data-count="10">10</span><span style="font-size:38px"> years</span></span></div>
+  <div class="box af" style="--d:.2s"></div>
+  <div class="dk a" style="left:1060px;top:175px;width:270px;height:62px;font-size:50px;--d:.3s">LTV</div>
+  <div class="ol a" style="left:1060px;top:250px;width:270px;height:86px;font-size:60px;--d:.35s"><span data-count="12690" data-fmt="eur0">12.690€</span></div>
+  <div class="dk a" style="left:1430px;top:182px;width:300px;height:56px;font-size:34px;--d:.4s">Ratio LTV/CAC</div>
+  <div class="ol a" style="left:1430px;top:250px;width:300px;height:86px;font-size:60px;--d:.45s"><span data-count="3.21" data-fmt="x2">3,21x</span></div>
+  <div class="dk a" style="left:1060px;top:352px;width:270px;height:62px;font-size:50px;--d:.5s">CAC</div>
+  <div class="ol a" style="left:1060px;top:426px;width:270px;height:86px;font-size:60px;--d:.55s"><span data-count="3954" data-fmt="eur0">3.954€</span></div>
+  <div class="dk a" style="left:1430px;top:360px;width:300px;height:52px;font-size:28px;--d:.6s">Total customer cost</div>
+  <div class="ol a" style="left:1430px;top:426px;width:300px;height:86px;font-size:60px;--d:.65s"><span data-count="5473" data-fmt="eur0">5.473€</span></div>
+  <div class="dk a" style="left:1215px;top:598px;width:350px;height:62px;font-size:50px;--d:.7s">Gross Margin</div>
+  <div class="ol a" style="left:1255px;top:668px;width:270px;height:86px;font-size:60px;--d:.75s"><span data-count="87.26" data-fmt="pct2">87,26%</span></div>
+  <div class="dk a" style="left:1215px;top:775px;width:350px;height:62px;font-size:50px;--d:.8s"><span>Pay-Back <span style="font-size:22px;font-weight:600">(years)</span></span></div>
+  <div class="ol a" style="left:1255px;top:850px;width:270px;height:86px;font-size:60px;--d:.85s"><span data-count="1.39" data-fmt="n2">1,39</span></div>
+</section>
+
+<!-- 25 · Pre-Series A -->
+<section class="slide cvslide" id="s25" aria-label="Pre-Series A" style="background:var(--cream)">
+  <h2 class="or a">Pre-Series A</h2>
+  <div class="curvebox az" style="--d:.15s"><svg viewBox="0 0 969 436" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Curva de evolución de una startup"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L10 5 L0 9z" fill="#222"/></marker></defs><rect class="cv-hl" x="400" y="-8" width="260" height="432" rx="14"/><path class="cv-ax" d="M101 386 V 22" marker-end="url(#ar)"/><path class="cv-ax" d="M101 386 H 858" marker-end="url(#ar)"/><path class="cv-dot" d="M101 197 H 822"/><path class="cv-main" pathLength="1" d="M103 384 C 150 362 205 335 228 295 C 248 262 268 246 300 232 C 360 208 430 196 470 186 C 540 170 590 160 640 152 C 690 144 715 128 745 108 C 765 94 778 84 788 75"/><path class="cv-alt" d="M548 190 C 585 200 610 214 650 220 C 690 226 715 224 740 214 C 765 202 785 186 800 178 C 812 172 820 168 828 165"/><text class="cv-t cv-big" x="108" y="30">CAC &lt; LTV</text><text class="cv-t cv-big" x="108" y="230">LTV &lt; CAC</text><text class="cv-t cv-big" x="835" y="360" style="font-size:14px">Madurez</text><text class="cv-t cv-lab" style="--i:0" x="108" y="352">Product dev</text><text class="cv-t cv-lab" style="--i:1" x="183" y="306">Product-market fit</text><text class="cv-t cv-lab" style="--i:2" x="248" y="261">Automation - operations</text><text class="cv-t cv-lab" style="--i:3" x="321" y="215">Efficient business model</text><text class="cv-t cv-lab" style="--i:4" x="448" y="185">Product prep for first internal.</text><text class="cv-t cv-lab" style="--i:5" x="618" y="167">First international tests</text><text class="cv-t cv-lab" style="--i:6" x="745" y="133">Scale international</text><g class="cv-note"><rect class="cv-box" x="594" y="243" width="221" height="134"/><text class="cv-t" x="601" y="264">Puede suceder que CAC &gt; LTV si:</text><text class="cv-t" x="601" y="290">-</text><text class="cv-t" x="624" y="290">Crecimiento muy acelerado</text><text class="cv-t" x="601" y="316">-</text><text class="cv-t" x="624" y="316">Momentum sector</text><text class="cv-t" x="601" y="342">-</text><text class="cv-t" x="624" y="342">Foco en market dominance</text><text class="cv-t" x="601" y="368">-</text><text class="cv-t" x="624" y="368">Equipo top</text></g><text class="cv-t cv-big" x="108" y="414">Pre-seed</text><text class="cv-t cv-big" x="318" y="414">Seed</text><text class="cv-t cv-big" x="510" y="414">Pre-Series A</text><text class="cv-t cv-big" x="695" y="414">Series A</text></svg></div>
+</section>
+
+<!-- 24 · Market -->
+<section class="slide" id="s24" aria-label="Market">
+  <img class="ph" src="img/topo.png" alt="" style="inset:0;width:100%;height:100%;opacity:.9">
+  <img class="abs af" src="img/worldmap.svg" alt="" style="left:524px;top:298px;width:1288px;height:673px;--d:.3s">
+  <h2 class="abs w9 or a" style="left:960px;top:62px;width:440px;text-align:center;font-size:68px">- Market -</h2>
+  <p class="abs w9 a" style="left:600px;top:160px;width:1140px;text-align:center;font-size:44px;color:var(--green);--d:.15s">1.5 BILLION HEAD OF &nbsp;COWS IN THE WORLD</p>
+  <div class="card a" style="--d:.25s">
+    <p class="abs w9 or" style="left:28px;top:22px;font-size:58px;line-height:1.05">Cows<br><span style="font-size:52px">per country</span></p>
+    <img class="abs" src="img/flags.png" alt="" style="left:26px;top:172px;width:84px;height:304px">
+    <p class="abs w8" style="left:26px;top:470px;font-size:21px;line-height:1.05;color:var(--green)">Rest of<br>America</p>
+    <div class="abs" style="left:150px;right:24px;top:178px;height:330px">
+      <p class="num" style="top:0">218,500,000</p><p class="num" style="top:60px">93,595,000</p><p class="num" style="top:121px">85,545,000</p><p class="num" style="top:182px">54,460,000</p><p class="num" style="top:242px">23,500,00</p><p class="num" style="top:300px">161.930.000</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- 26 · Rumi PRO -->
+<section class="slide" id="s26" aria-label="Rumi PRO">
+  <h2 class="a">Rumi PRO</h2>
+  <p class="lede a" style="--d:.15s">Vallado virtual y monitorización de actividades en un solo collar.</p>
+  <div class="stat a" style="top:560px;--d:.35s"><b data-count="20000" data-fmt="int">20.000</b><span>reservas en<br>preventa</span></div>
+  <div class="stat a" style="top:760px;--d:.55s"><b>≈&nbsp;5&nbsp;M€</b><span>de facturación</span></div>
+  <div class="rcard az" style="--d:.2s">
+    <video class="vid" style="left:110px;top:0;width:600px;height:600px" src="media/rumipro-giro-blanco60.mp4" poster="media/rumipro-giro-blanco60.jpg" muted loop playsinline preload="auto"></video>
+    <img class="vid vposter" style="left:110px;top:0;width:600px;height:600px" src="media/rumipro-giro-blanco60.jpg" alt="">
+  </div>
+  <div class="field a" style="--d:.6s">
+    <video class="vid" style="inset:0;width:100%;height:100%" src="media/rumipro-campo.mp4" poster="media/rumipro-campo.jpg" muted loop playsinline preload="auto"></video>
+    <img class="vid vposter" style="inset:0;width:100%;height:100%" src="media/rumipro-campo.jpg" alt="">
+  </div>
+</section>
+
+<!-- 25b · Business Model con Rumi PRO -->
+<section class="slide" id="s26b" aria-label="Business Model Rumi PRO">
+  <h2 class="abs w9 a" style="left:0;right:0;top:58px;text-align:center;font-size:96px;color:#333">Business Model</h2>
+  <div class="arch a" style="left:210px;--d:.1s"></div>
+  <div class="arch a" style="left:1027px;--d:.2s"></div>
+  <video class="vid az" style="left:283px;top:150px;width:540px;height:540px;mix-blend-mode:multiply;--d:.35s" src="media/rumipro-giro-blanco60.mp4" poster="media/rumipro-giro-blanco60.jpg" muted loop playsinline preload="auto"></video>
+  <img class="vid vposter" style="left:283px;top:150px;width:540px;height:540px;mix-blend-mode:multiply" src="media/rumipro-giro-blanco60.jpg" alt="Rumi PRO">
+  <p class="abs w9 a" style="left:210px;top:650px;width:686px;text-align:center;font-size:110px;line-height:1.1;color:var(--green);--d:.45s">Rumi PRO</p>
+  <div class="price a" style="left:361px;--d:.55s"><b>250€</b><small>por collar</small></div>
+  <div class="phoneF az" style="left:1158px;top:206px;width:197px;height:398px;padding:6px;border-radius:30px"><img class="scr" src="img/bm_phone1.png" alt="" style="border-radius:24px"></div>
+  <div class="phoneF az" style="left:1331px;top:178px;width:244px;height:491px;padding:7px;border-radius:36px;--d:.3s"><img class="scr" src="img/bm_phone2.jpg" alt="" style="border-radius:29px"></div>
+  <p class="abs w9 a" style="left:1100px;top:650px;width:540px;text-align:center;font-size:126px;line-height:1.1;color:var(--green);--d:.45s">SaaS</p>
+  <div class="price a" style="left:1178px;--d:.6s"><b>2,86€</b><small>/mes</small></div>
+</section>
+
+<!-- 25c · Plan Estratégico con Rumi PRO. 55 collares/cliente, 2,86 €/mes, 10 años, collar a 180 € de media, coste del collar 70 €, CAC 3.954 € (igual que Rumi), coste SaaS 10 %. ARR=55*2,86*12; LTV=ARR*10; coste total=CAC+55*70; margen=(LTV+55*180-55*70-0,1*LTV)/(LTV+55*180); payback=(coste total-55*180)/(ARR*0,9), negativo -> 0: el hardware cubre CAC y coste -->
+<section class="slide" id="s26c" aria-label="Plan Estratégico Rumi PRO">
+  <div class="bigc"></div>
+  <h2 class="abs cr w9 a shadow-t" style="left:124px;top:120px;width:722px;text-align:center;font-size:88px;line-height:1.15">Plan Estratégico<br><span style="font-size:72px">con Rumi PRO</span></h2>
+  <p class="lb a" style="left:190px;top:442px;width:250px;font-size:56px;--d:.2s">Revenue<br><span style="font-size:42px">SaaS (ARR)</span></p>
+  <div class="dk a" style="left:490px;top:450px;width:230px;height:104px;font-size:66px;--d:.25s"><span data-count="1888" data-fmt="eur0">1.888€</span></div>
+  <p class="lb a" style="left:180px;top:625px;width:290px;font-size:53px;--d:.3s">Necklaces<br><span style="font-size:37px">per customer</span></p>
+  <div class="dk a" style="left:490px;top:620px;width:230px;height:104px;font-size:66px;--d:.35s"><span data-count="55">55</span></div>
+  <p class="lb a" style="left:200px;top:808px;width:230px;font-size:66px;--d:.4s">LTV</p>
+  <div class="dk a" style="left:490px;top:790px;width:230px;height:104px;font-size:66px;--d:.45s"><span><span data-count="10">10</span><span style="font-size:38px"> years</span></span></div>
+  <div class="box af" style="--d:.2s"></div>
+  <div class="dk a" style="left:1060px;top:175px;width:270px;height:62px;font-size:50px;--d:.3s">LTV</div>
+  <div class="ol a" style="left:1060px;top:250px;width:270px;height:86px;font-size:60px;--d:.35s"><span data-count="18876" data-fmt="eur0">18.876€</span></div>
+  <div class="dk a" style="left:1430px;top:182px;width:300px;height:56px;font-size:34px;--d:.4s">Ratio LTV/CAC</div>
+  <div class="ol a" style="left:1430px;top:250px;width:300px;height:86px;font-size:60px;--d:.45s"><span data-count="4.77" data-fmt="x2">4,77x</span></div>
+  <div class="dk a" style="left:1060px;top:352px;width:270px;height:62px;font-size:50px;--d:.5s">CAC</div>
+  <div class="ol a" style="left:1060px;top:426px;width:270px;height:86px;font-size:60px;--d:.55s"><span data-count="3954" data-fmt="eur0">3.954€</span></div>
+  <div class="dk a" style="left:1430px;top:360px;width:300px;height:52px;font-size:28px;--d:.6s">Total customer cost</div>
+  <div class="ol a" style="left:1430px;top:426px;width:300px;height:86px;font-size:60px;--d:.65s"><span data-count="7804" data-fmt="eur0">7.804€</span></div>
+  <div class="dk a" style="left:1215px;top:598px;width:350px;height:62px;font-size:50px;--d:.7s">Gross Margin</div>
+  <div class="ol a" style="left:1255px;top:668px;width:270px;height:86px;font-size:60px;--d:.75s"><span data-count="80.06" data-fmt="pct2">80,06%</span></div>
+  <div class="dk a" style="left:1215px;top:775px;width:350px;height:62px;font-size:50px;--d:.8s"><span>Pay-Back <span style="font-size:22px;font-weight:600">(years)</span></span></div>
+  <div class="ol a" style="left:1255px;top:850px;width:270px;height:86px;font-size:60px;--d:.85s"><span>0</span></div>
+</section>
+
+
+<!-- 27 · Agente de IA para ganaderos (animated chat; fictional data) -->
+<section class="slide" id="s27" aria-label="Agente de IA para ganaderos">
+  <p class="kick a">App rumi · Agente de IA</p>
+  <h2 class="a" style="--d:.1s">Pregúntale <em>a tu ganadería</em></h2>
+  <p class="lede a" style="--d:.25s">El ganadero pregunta con sus palabras, por escrito o por voz, y el agente consulta los collares por él.</p>
+  <p class="fict">Conversación de ejemplo · datos ficticios</p>
+  <div class="chatphone az" style="--d:.2s">
+    <div class="chat" id="chat">
+      <div class="st"></div>
+      <div class="hd"><span class="av">r</span><span><b>Asistente rumi</b><small>● en línea</small></span></div>
+      <div class="msgs">
+        <div class="m u" data-t="900"><div class="vo">🎙 Nota de voz · 0:04</div>¿Cuántas vacas tengo en la finca de O Souto?</div>
+        <div class="m b" data-t="1600">En <b>O Souto</b> tienes <b>23 vacas</b>: 19 pastando, 3 descansando y 1 rumiando.<div class="mini"><span>Ver en el mapa</span></div></div>
+        <div class="m u" data-t="1500">¿Alguna está rara hoy?</div>
+        <div class="m b" data-t="2000"><b>Estrela</b> lleva 6 h casi sin rumiar y descansa mucho más que el resto. Puede ser una indigestión: conviene echarle un ojo.</div>
+        <div class="m u" data-t="1400">Avísame si sigue igual por la tarde.</div>
+        <div class="m b" data-t="1600">Hecho. Si a las <b>19:00</b> no ha vuelto a rumiar, te mando una alerta.</div>
+      </div>
+      <div class="in"><span class="fld">Pregunta lo que quieras…</span><span class="mic"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 28 · Where We Are Today -->
+<section class="slide" id="s28" aria-label="Dónde estamos hoy">
+  <h2 class="a">Dónde estamos hoy</h2>
+  <p class="sub a" style="--d:.1s">Crecimiento de la facturación (M€): 2024 a 2027E, a junio de 2026</p>
+  <svg class="abs" style="left:0;top:0;width:1920px;height:1080px;overflow:visible" viewBox="0 0 1920 1080" aria-label="Crecimiento de la facturación"><line x1="130" x2="1130" y1="990.0" y2="990.0" stroke="#eceff1" stroke-width="2"/><text x="114" y="999.0" text-anchor="end" font-family="Nunito" font-weight="600" font-size="27" fill="#666">0</text><line x1="130" x2="1130" y1="852.7" y2="852.7" stroke="#eceff1" stroke-width="2"/><text x="114" y="861.7" text-anchor="end" font-family="Nunito" font-weight="600" font-size="27" fill="#666">2</text><line x1="130" x2="1130" y1="715.5" y2="715.5" stroke="#eceff1" stroke-width="2"/><text x="114" y="724.5" text-anchor="end" font-family="Nunito" font-weight="600" font-size="27" fill="#666">4</text><line x1="130" x2="1130" y1="578.2" y2="578.2" stroke="#eceff1" stroke-width="2"/><text x="114" y="587.2" text-anchor="end" font-family="Nunito" font-weight="600" font-size="27" fill="#666">6</text><line x1="130" x2="1130" y1="440.9" y2="440.9" stroke="#eceff1" stroke-width="2"/><text x="114" y="449.9" text-anchor="end" font-family="Nunito" font-weight="600" font-size="27" fill="#666">8</text><line x1="130" x2="1130" y1="303.6" y2="303.6" stroke="#eceff1" stroke-width="2"/><text x="114" y="312.6" text-anchor="end" font-family="Nunito" font-weight="600" font-size="27" fill="#666">10</text><line x1="130" x2="130" y1="235" y2="990" stroke="#999" stroke-width="2"/><line x1="130" x2="1130" y1="990" y2="990" stroke="#999" stroke-width="2"/><rect class="bar" style="--i:0" x="165" y="907.6" width="130" height="82.4" fill="#4A7A58"/><text class="bv" style="--i:0" x="230" y="893.6" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="32" fill="#333">1,2</text><text x="230" y="1034" text-anchor="middle" font-family="Nunito" font-weight="600" font-size="30" fill="#666">2024</text><line x1="330" x2="330" y1="990" y2="1000" stroke="#999" stroke-width="2"/><rect class="bar" style="--i:1" x="365" y="852.7" width="130" height="137.3" fill="#4A7A58"/><text class="bv" style="--i:1" x="430" y="838.7" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="32" fill="#333">2</text><text x="430" y="1034" text-anchor="middle" font-family="Nunito" font-weight="600" font-size="30" fill="#666">2025</text><line x1="530" x2="530" y1="990" y2="1000" stroke="#999" stroke-width="2"/><rect class="bar" style="--i:2" x="565" y="804.7" width="130" height="185.3" fill="#4A7A58"/><text class="bv" style="--i:2" x="630" y="790.7" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="32" fill="#333">2,7</text><text x="630" y="1034" text-anchor="middle" font-family="Nunito" font-weight="600" font-size="26" fill="#666">Últ. 12 meses</text><line x1="730" x2="730" y1="990" y2="1000" stroke="#999" stroke-width="2"/><rect class="bar" style="--i:3" x="765" y="715.5" width="130" height="274.5" fill="#F39C12"/><text class="bv" style="--i:3" x="830" y="701.5" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="32" fill="#333">4</text><text x="830" y="1034" text-anchor="middle" font-family="Nunito" font-weight="600" font-size="30" fill="#666">2026E</text><line x1="930" x2="930" y1="990" y2="1000" stroke="#999" stroke-width="2"/><rect class="bar" style="--i:4" x="965" y="303.6" width="130" height="686.4" fill="#F7B955"/><text class="bv" style="--i:4" x="1030" y="289.6" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="32" fill="#333">10</text><text x="1030" y="1034" text-anchor="middle" font-family="Nunito" font-weight="600" font-size="30" fill="#666">2027E</text><line x1="1130" x2="1130" y1="990" y2="1000" stroke="#999" stroke-width="2"/></svg>
+  <div class="tile a" style="left:1205px;top:215px;--d:.5s"><b data-count="100000" data-fmt="intc">100.000</b><span>Collares Rumi<br>desplegados</span></div>
+  <div class="tile a" style="left:1565px;top:215px;--d:.6s"><b><span data-count="4">4</span> M€</b><span>Facturación<br>2026E</span></div>
+  <div class="tile a" style="left:1205px;top:600px;--d:.7s"><b><span data-count="30000" data-fmt="intc">30.000</span>+</b><span>Reservas de<br>Rumi PRO<br>(vallado virtual)</span></div>
+  <div class="tile a" style="left:1565px;top:600px;--d:.8s"><b><span data-count="233">233</span>%</b><span>Crecimiento de la<br>facturación<br>2024→2026E</span></div>
+  <img class="abs" src="img/logo.png" alt="Innogando" style="left:22px;top:1036px;width:170px">
+</section>
+
+<!-- 29 · Desafíos -->
+<section class="slide" id="s29" aria-label="Desafíos presentes y futuros" style="background:#A4661C">
+  <img class="ph bg kb" src="img/desafios_bg.jpg" alt="" style="filter:sepia(.7) saturate(1.3) hue-rotate(-8deg) brightness(.95)"><div class="abs" style="inset:0;background:rgba(170,105,30,.35)"></div>
+  <img class="abs a" src="img/jacket.png" alt="" style="left:-62px;top:0;width:870px;height:1294px;object-fit:cover;object-position:left top">
+  <h2 class="abs cr a" style="right:98px;top:95px;text-align:right;line-height:1.1"><span class="w5" style="font-size:96px">Desafíos</span><br><span class="w8" style="font-size:96px">Presentes y futuros</span></h2>
+  <span class="mk a" style="top:470px;left:778px;--d:.3s"></span><p class="tx w8 a" style="top:435px;--d:.3s">¿Por qué dejar el sitio que queremos?</p>
+  <span class="mk a" style="top:628px;--d:.5s"></span><p class="tx w5 a" style="top:589px;--d:.5s">Necesitamos cubrir las necesidades básicas del rural para asegurar una buena vida en él.</p>
+  <span class="mk a" style="top:827px;--d:.7s"></span><p class="tx w8 a" style="top:798px;--d:.7s">Desde Innogando creemos que el futuro es rural.</p>
+</section>
+
+<!-- 30 · Equipo -->
+<section class="slide" id="s30" aria-label="Equipo" style="background:#e9e4dc">
+  <img class="ph bg kb" src="img/team.jpg" alt="Equipo de Innogando" style="left:0;top:-27px;width:1920px;height:1134px">
+</section>
+
+<!-- 31 · Mosaico -->
+<section class="slide" id="s31" aria-label="En el campo" style="background:linear-gradient(110deg,#FDEFDF 0%,#FDEFDF 30%,#FFCB8C 70%,#FFA233 100%)">
+  <img class="ph r40 a" src="img/mvp_field.jpg" alt="" style="left:51px;top:55px;width:735px;height:969px;--d:.1s">
+  <img class="ph r40 a" src="img/stick.jpg" alt="" style="left:803px;top:55px;width:597px;height:969px;--d:.25s">
+  <img class="ph r40 a" src="img/dog_river.jpg" alt="" style="left:1418px;top:55px;width:451px;height:499px;--d:.4s">
+  <img class="ph r40 a" src="img/dog.jpg" alt="" style="left:1418px;top:574px;width:451px;height:450px;--d:.55s">
+</section>
+
+<!-- 32 · Gracias -->
+<section class="slide" id="s32" aria-label="Gracias">
+  <img class="abs af" src="img/blob.webp" alt="" style="left:268px;top:415px;width:1680px;height:1118px;opacity:.55">
+  <div class="big a">¡Gracias!</div>
+  <p class="abs cr w9 a" style="left:60px;top:560px;width:680px;white-space:nowrap;text-align:center;font-size:108px;line-height:1.2;--d:.2s">Daniel Rus</p>
+  <p class="abs cr w5 a" style="left:60px;top:735px;width:680px;white-space:nowrap;text-align:center;font-size:60px;--d:.3s">CTO &amp; Co-Founder</p>
+  <img class="abs a" src="img/i_mail.svg" alt="" style="left:135px;top:882px;width:59px;--d:.4s">
+  <p class="abs cr w5 a" style="left:220px;top:866px;font-size:47px;--d:.4s"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a484f497a535454555d5b545e5514595557">[email&#160;protected]</a></p>
+  <img class="abs a" src="img/i_phone.svg" alt="" style="left:142px;top:942px;width:46px;--d:.5s">
+  <p class="abs cr w5 a" style="left:224px;top:930px;font-size:47px;--d:.5s">+34 654 657 975</p>
+  <img class="abs a" src="img/logo.png" alt="Innogando" style="left:1377px;top:904px;width:435px;--d:.6s">
+</section>
+
+</div>
+</div>
+
+<div class="prog"><i id="prog"></i></div>
+<div id="blackout" class="blackout" hidden></div>
+<div class="hud">
+  <button id="prev" aria-label="Anterior">‹</button>
+  <span id="sync" class="sync" title="Mando del móvil conectado" hidden></span>
+  <span class="n" id="count">1 / 32</span>
+  <button id="next" aria-label="Siguiente">›</button>
+  <button id="fs" aria-label="Pantalla completa">⤢</button>
+</div>
+
+<script>
+(function(){
+var DUR=4500;
+var data=[
+['Mapa','De un vistazo sabes dónde está cada vaca','Tus animales y tus fincas en el mapa, en tiempo real. Filtra por «Para hoy» o por actividad y ve directo al que te interesa.'],
+['Rebaño','Qué está haciendo tu rebaño ahora mismo','Descansando, pastando, caminando, rumiando o comiendo: el rebaño en tiempo real y el estado reproductivo de tus vacas.'],
+['Reproducción','El estado reproductivo, de un vistazo','Vacías, inseminadas, preñadas, preparto o recién paridas: sabes en qué punto está cada vaca.'],
+['Alertas','Te avisa cuando algo no va bien','Si una vaca se separa del rebaño te llega la alerta al móvil, la ves en el calendario y la localizas en el mapa.'],
+['Ficha de cada vaca','Cada animal, comparado con su rebaño','Su actividad del día frente a la del rebaño y su índice de actividad para detectar cambios de comportamiento.'],
+['Filtro IA','Pídele a la app lo que quieres ver','Escríbelo o dilo en voz alta y la app te muestra solo esos animales.'],
+['Dispositivos','Todos tus collares bajo control','Batería y última recepción de cada collar Rumi y Rumi PRO, en una lista.']
+];
+var tabs=document.getElementById('ra-tabs'),cur=0,timer=null,paused=false,typeT=null;
+var ORDER=[0,1,3,4],TI={0:'<path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>',1:'<path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>',3:'<path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>',4:'<path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>',5:'<path d="M7.5 5.6L10 7 8.6 4.5 10 2 7.5 3.4 5 2l1.4 2.5L5 7zm12 9.8L17 14l1.4 2.5L17 19l2.5-1.4L22 19l-1.4-2.5L22 14zM22 2l-2.5 1.4L17 2l1.4 2.5L17 7l2.5-1.4L22 7l-1.4-2.5zm-7.63 5.29a.996.996 0 00-1.41 0L1.29 18.96a.996.996 0 000 1.41l2.34 2.34c.39.39 1.02.39 1.41 0L16.7 11.05a.996.996 0 000-1.41l-2.33-2.35zm-1.03 5.49l-2.12-2.12 2.44-2.44 2.12 2.12-2.44 2.44z"/>',6:'<path d="M19.07 4.93l-1.41 1.41C19.1 7.79 20 9.79 20 12c0 4.42-3.58 8-8 8s-8-3.58-8-8c0-4.08 3.05-7.44 7-7.93v2.02C8.16 6.57 6 9.03 6 12c0 3.31 2.69 6 6 6s6-2.69 6-6c0-1.66-.67-3.16-1.76-4.24l-1.41 1.41C15.55 9.9 16 10.9 16 12c0 2.21-1.79 4-4 4s-4-1.79-4-4c0-1.86 1.28-3.41 3-3.86v2.14c-.6.35-1 .98-1 1.72 0 1.1.9 2 2 2s2-.9 2-2c0-.74-.4-1.38-1-1.72V2h-1C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-2.76-1.12-5.26-2.93-7.07z"/>'};
+ORDER.forEach(function(i){var d=data[i];var b=document.createElement('button');b.className='tab';b.type='button';b.setAttribute('role','tab');b.id='ra-tab-'+i;b.dataset.v=i;b.innerHTML='<em>'+('0'+(ORDER.indexOf(i)+1))+'</em><span>'+d[0]+'</span><span class="prog"></span>';b.style.setProperty('--dur',DUR+'ms');b.addEventListener('click',function(){show(i);});tabs.appendChild(b);});
+// calendar
+var cal=document.getElementById('ra-cal'),badges={1:1,6:2,7:2,10:1,12:1,13:2,15:1,17:2,18:2,20:2,22:2,23:1,24:2,25:1,26:2,27:2,28:1,29:2,30:3},h='';
+['lun','mar','mié','jue','vie','sáb','dom'].forEach(function(d,i){h+='<span class="dow'+(i>4?' we':'')+'">'+d+'</span>';});
+for(var d=1;d<=30;d++){h+='<span>'+(badges[d]?'<em>'+badges[d]+'</em>':'')+d+'</span>';}
+h+='<span class="dim">1</span><span class="today">2</span><span class="dim">3</span><span class="dim">4</span><span class="dim">5</span>';
+cal.innerHTML=h;
+// 24h strip
+var cols=['#03A9F4','#F0C42B','#FFA234','#1DAA3C','#A33BEA'],strip=document.getElementById('ra-strip'),s='',seed=7;
+for(var k=0;k<46;k++){seed=(seed*9301+49297)%233280;var r=seed/233280;var c=r<.38?cols[0]:r<.78?cols[1]:r<.9?cols[2]:r<.97?cols[3]:cols[4];var w=(k%9==3)?10:2+Math.round(r*4);s+='<i style="background:'+c+';flex:'+w+'"></i>';}
+strip.innerHTML=s;var strip2=document.getElementById('ra-strip2');if(strip2)strip2.innerHTML=s;
+// bottom nav icons
+var NI={Vallado:'<path d="M12 20H2v-2h5.75c-.73-2.81-2.94-5.01-5.75-5.74.64-.16 1.31-.26 2-.26 4.42 0 8 3.58 8 8zm10-7.74c-.64-.16-1.31-.26-2-.26-2.93 0-5.48 1.58-6.88 3.93.29.66.53 1.35.67 2.07.13.65.2 1.32.21 2h6v-2h-5.75c.73-2.81 2.94-5.01 5.75-5.74zm-6.69-1.26c.77-2.07 2.37-3.75 4.38-4.72-2.42.22-4.48 1.69-5.48 3.76.39.27.76.59 1.1.96zM10.78 8.13C9.68 5.71 7.26 4 4.42 4c2.16 1.07 3.79 3.04 4.41 5.43.61-.47 1.27-.91 1.95-1.3z"/>',Animales:'<g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7.5C6.2 7.3 5 6.2 4.6 4.5M16 7.5c1.8-.2 3-1.3 3.4-3"/><path d="M7.3 9.5H4.5c.3 1.2 1.2 1.9 2.6 1.9M16.7 9.5h2.8c-.3 1.2-1.2 1.9-2.6 1.9"/><path d="M8.8 7.2h6.4c1 0 1.8.8 1.8 1.8v4.2c0 .5-.1 1-.4 1.4"/><path d="M7.4 14.6c-.3-.4-.4-.9-.4-1.4V9c0-1 .8-1.8 1.8-1.8"/><rect x="6.6" y="14" width="10.8" height="6.3" rx="3.1"/></g><circle cx="10" cy="10.6" r="1" fill="currentColor"/><circle cx="14" cy="10.6" r="1" fill="currentColor"/><circle cx="10.2" cy="17.1" r=".9" fill="currentColor"/><circle cx="13.8" cy="17.1" r=".9" fill="currentColor"/>',Mapa:'<path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>',Dispositivos:'<path d="M19.07 4.93l-1.41 1.41C19.1 7.79 20 9.79 20 12c0 4.42-3.58 8-8 8s-8-3.58-8-8c0-4.08 3.05-7.44 7-7.93v2.02C8.16 6.57 6 9.03 6 12c0 3.31 2.69 6 6 6s6-2.69 6-6c0-1.66-.67-3.16-1.76-4.24l-1.41 1.41C15.55 9.9 16 10.9 16 12c0 2.21-1.79 4-4 4s-4-1.79-4-4c0-1.86 1.28-3.41 3-3.86v2.14c-.6.35-1 .98-1 1.72 0 1.1.9 2 2 2s2-.9 2-2c0-.74-.4-1.38-1-1.72V2h-1C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-2.76-1.12-5.26-2.93-7.07z"/>'};[].forEach.call(document.querySelectorAll('#ra-root .nav span'),function(x){var k=x.textContent.trim();if(NI[k])x.insertAdjacentHTML('afterbegin','<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'+NI[k]+'</svg>');});
+// views + scenes
+var views=[].slice.call(document.querySelectorAll('#ra-root .view')),floats=[].slice.call(document.querySelectorAll('#ra-root .float'));
+var screen=document.getElementById('ra-screen'),touch=document.getElementById('ra-touch'),phone=document.querySelector('#ra-root .phone'),T=[];
+var RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches||/[?&](print|still)\b/.test(location.search);
+function later(fn,ms){T.push(setTimeout(fn,RM?0:ms));}
+function clearScene(){T.forEach(clearTimeout);T=[];clearInterval(typeT);touch.className='touch';}
+function restart(el){el.classList.remove('is-on');void el.offsetWidth;el.classList.add('is-on');}
+function pos(el){var r=el.getBoundingClientRect(),sr=screen.getBoundingClientRect(),k=screen.offsetWidth/sr.width;return{x:(r.left+r.width/2-sr.left)*k,y:(r.top+r.height/2-sr.top)*k};}
+function moveTo(el,ms){var p=pos(el);touch.classList.add('show');touch.style.left=p.x+'px';touch.style.top=p.y+'px';}
+function tap(fn){touch.classList.remove('tap');void touch.offsetWidth;touch.classList.add('tap');later(function(){touch.classList.remove('tap');if(fn)fn();},220);}
+function hide(){touch.classList.remove('show');}
+function countUp(root){[].forEach.call(root.querySelectorAll('[data-count]'),function(el){var to=+el.dataset.count,t0=null;if(RM||!to){el.textContent=to;return;}function f(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/900),v=Math.round(to*(1-Math.pow(1-p,3)));el.textContent=v;if(p<1)requestAnimationFrame(f);}el.textContent=0;requestAnimationFrame(f);});}
+var scenes={
+0:function(v){var b=document.getElementById('ra-bubble'),pr=document.getElementById('ra-pin-reina');b.classList.remove('show');pr.classList.remove('sel');touch.style.left='70%';touch.style.top='88%';
+later(function(){moveTo(pr);},1800);later(function(){tap(function(){pr.classList.add('sel');b.classList.add('show');});},2700);later(hide,3600);},
+1:function(v){var sc=document.getElementById('ra-scroller');sc.classList.remove('down');countUp(v);touch.style.left='60%';touch.style.top='80%';
+later(function(){touch.classList.add('show');},2600);later(function(){touch.style.top='45%';sc.classList.add('down');},2900);later(hide,4000);},
+2:function(v){countUp(v);},
+3:function(v){var push=document.querySelector('#ra-root .push'),card=document.getElementById('ra-alertcard'),d2=v.querySelector('.cal .today');push.classList.remove('gone');card.classList.remove('show');d2.classList.remove('hit');
+later(function(){touch.style.left='50%';touch.style.top='60%';touch.classList.add('show');},1800);
+later(function(){moveTo(push);},2000);later(function(){tap(function(){push.classList.add('gone');d2.classList.add('hit');card.classList.add('show');});},2900);later(hide,3600);},
+4:function(v){countUp(v);},
+5:function(v){var mic=document.getElementById('ra-mic'),wave=document.getElementById('ra-wave'),el=document.getElementById('ra-typed'),res=document.getElementById('ra-result');el.textContent='';res.classList.remove('show');mic.classList.remove('rec');wave.classList.remove('on');touch.style.left='30%';touch.style.top='85%';
+later(function(){moveTo(mic);},900);later(function(){tap(function(){mic.classList.add('rec');wave.classList.add('on');hide();
+var words='Vacas limusinas, de 3 a 5 años, con 2 o más partos'.split(' '),i=0;typeT=setInterval(function(){i++;el.textContent=words.slice(0,i).join(' ');if(i>=words.length){clearInterval(typeT);later(function(){mic.classList.remove('rec');wave.classList.remove('on');res.classList.add('show');},500);}},260);});},1800);},
+6:function(v){var p=document.getElementById('ra-ptr');p.classList.remove('on');later(function(){p.classList.add('on');},2600);later(function(){p.classList.remove('on');[].forEach.call(v.querySelectorAll('.drow'),function(r){r.style.animation='none';void r.offsetWidth;r.style.animation='';});},3800);}
+};
+var prev=-1;
+function show(i,auto){clearScene();
+[].forEach.call(tabs.children,function(b){var j=+b.dataset.v;b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1;if(j===i){if(tabs.scrollWidth>tabs.clientWidth){tabs.scrollTo({left:b.offsetLeft-tabs.offsetLeft-16,behavior:auto?'smooth':'auto'});}var p=b.querySelector('.prog');p.style.animation='none';void p.offsetWidth;p.style.animation='';}});
+views.forEach(function(v){v.classList.remove('leave');if(+v.dataset.v===i)restart(v);else if(+v.dataset.v===prev){v.classList.remove('is-on');v.classList.add('leave');}else v.classList.remove('is-on');});
+floats.forEach(function(f){f.classList.remove('gone');if(+f.dataset.f===i)restart(f);else f.classList.remove('is-on');});
+document.getElementById('ra-c-label').textContent=data[i][0];document.getElementById('ra-c-title').textContent=data[i][1];document.getElementById('ra-c-text').textContent=data[i][2];
+cur=i;prev=i;var v=views[i];if(scenes[i])scenes[i](v);schedule();}
+function schedule(){clearTimeout(timer);if(!paused)timer=setTimeout(function(){show(ORDER[(ORDER.indexOf(cur)+1)%ORDER.length],true);},DUR);}
+tabs.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var k=(ORDER.indexOf(cur)+(e.key==='ArrowRight'?1:-1)+ORDER.length)%ORDER.length;show(ORDER[k]);tabs.children[k].focus();}});
+if(RM){paused=true;}
+// Deck hooks (added for the slide): start when the slide is shown, stop when it is left, still frame for the PDF.
+window.RA={start:function(i){paused=RM;show(i==null?0:i,true);},stop:function(){paused=true;clearTimeout(timer);clearScene();},
+  still:function(i){paused=true;show(i,true);clearTimeout(timer);}};
+})();
+</script>
+<script>
+(function(){
+  const STILL=/[?&](print|still)\b/.test(location.search);
+  if(STILL)document.documentElement.classList.add('still');
+  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const deck=document.getElementById('deck'),vp=document.getElementById('vp');
+  const slides=[...deck.querySelectorAll('.slide')];
+  const black=document.getElementById('blackout');
+  const params=new URLSearchParams(location.search);
+  const KEY=params.get('k')||'';
+  const SYNC=false;
+  let i=0, ignoreUntil=0;
+
+  // number formats for count-ups (final text is already in the HTML: print/no-JS shows it as is)
+  const nf={
+    int:v=>Math.round(v).toLocaleString('es-ES').replace(/\s/g,'.'),
+    intc:v=>Math.round(v).toLocaleString('es-ES',{useGrouping:'always'}).replace(/\s/g,'.'),
+    eur0:v=>Math.round(v).toLocaleString('es-ES',{useGrouping:'always'}).replace(/\s/g,'.')+'€',
+    x2:v=>v.toFixed(2).replace('.',',')+'x',
+    pct2:v=>v.toFixed(2).replace('.',',')+'%',
+    n2:v=>v.toFixed(2).replace('.',','),
+    '':v=>String(Math.round(v))
+  };
+  function countUp(s){
+    s.querySelectorAll('[data-count]').forEach(el=>{
+      const end=parseFloat(el.dataset.count),fmt=nf[el.dataset.fmt||'']||nf[''];
+      const final=el.dataset.final||(el.dataset.final=el.textContent);
+      if(RM||STILL){el.textContent=final;return}
+      const t0=performance.now()+500,dur=1500;
+      cancelAnimationFrame(el._raf);
+      const step=t=>{const p=Math.min(1,Math.max(0,(t-t0)/dur)),e=1-Math.pow(1-p,3);
+        el.textContent=p>=1?final:fmt(end*e); if(p<1)el._raf=requestAnimationFrame(step)};
+      el.textContent=fmt(0); el._raf=requestAnimationFrame(step);
+    });
+  }
+
+  // chat (slide 27): messages appear one by one with a typing indicator; loops while the slide is shown
+  const chat=document.getElementById('chat'),msgs=[...chat.querySelectorAll('.m')];
+  let chatT=[];
+  function chatStop(){chatT.forEach(clearTimeout);chatT=[];const ty=chat.querySelector('.typing');if(ty)ty.remove()}
+  function chatAll(){chatStop();msgs.forEach(m=>{m.classList.remove('hide','pop')})}
+  function chatPlay(){
+    chatStop(); if(RM){chatAll();return}
+    msgs.forEach(m=>m.classList.add('hide'));
+    let t=600;
+    msgs.forEach(m=>{
+      if(m.classList.contains('b')){
+        chatT.push(setTimeout(()=>{const ty=document.createElement('div');ty.className='m b typing pop';ty.innerHTML='<i></i><i></i><i></i>';m.before(ty)},t));
+        t+=1100;
+      }
+      chatT.push(setTimeout(()=>{const ty=chat.querySelector('.typing');if(ty)ty.remove();m.classList.remove('hide');m.classList.add('pop')},t));
+      t+=+m.dataset.t||1500;
+    });
+    chatT.push(setTimeout(chatPlay,t+5000));
+  }
+
+  function enter(s){
+    s.querySelectorAll('video').forEach(v=>{try{v.currentTime=0}catch(e){} v.play().catch(()=>{})});
+    countUp(s);
+    if(s.id==='s12'&&window.RA)RA.start(0);
+    if(s.id==='s27')chatPlay();
+  }
+  function leave(s){
+    s.querySelectorAll('video').forEach(v=>v.pause());
+    if(s.id==='s12'&&window.RA)RA.stop();
+    if(s.id==='s27')chatStop();
+  }
+
+  if(STILL){
+    slides.forEach(s=>s.classList.add('on'));
+    chatAll();
+    if(window.RA)RA.still(0);
+    const only=parseInt(params.get('only')||'',10);   // ?still&only=N: just slide N (per-slide capture for the PDF)
+    if(only>0)slides.forEach((s,k)=>{if(k!==only-1)s.style.display='none'});
+    return;
+  }
+
+  function fit(){
+    const w=vp.clientWidth,h=vp.clientHeight;
+    const s=Math.min(w/1920,h/1080);
+    deck.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+  function render(prev){
+    slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    if(prev!=null&&prev!==i)leave(slides[prev]);
+    enter(slides[i]);
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';
+    
+    // warm up the next slide's media
+    const nx=slides[i+1]; if(nx)nx.querySelectorAll('video').forEach(v=>{if(v.readyState<2)v.load()});
+  }
+  function post(body){
+    if(!SYNC)return;
+    fetch('api/go',{method:'POST',headers:{'Content-Type':'application/json','X-Key':KEY},body:JSON.stringify(body)}).catch(()=>{});
+  }
+  function show(n,fromServer){
+    const j=Math.max(0,Math.min(slides.length-1,n));
+    if(j===i&&!fromServer)return;
+    const prev=i; i=j; render(prev);
+    if(!fromServer){ignoreUntil=Date.now()+600;post({slide:i})}
+  }
+  function setBlack(on,fromServer){black.hidden=!on;if(!fromServer)post({black:on})}
+  function fs(){const d=document.documentElement;try{if(!document.fullscreenElement){d.requestFullscreen&&d.requestFullscreen().catch(()=>{})}else{document.exitFullscreen()}}catch(e){}}
+  document.getElementById('prev').onclick=e=>{e.stopPropagation();show(i-1)};
+  document.getElementById('next').onclick=e=>{e.stopPropagation();show(i+1)};
+  document.getElementById('fs').onclick=e=>{e.stopPropagation();fs()};
+  addEventListener('keydown',e=>{
+    if(e.altKey||e.ctrlKey||e.metaKey)return;
+    const k=e.key;
+    if(['ArrowRight','ArrowDown','PageDown',' ','Enter','n','N'].includes(k)){e.preventDefault();show(i+1)}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace','p','P'].includes(k)){e.preventDefault();show(i-1)}
+    else if(k==='Home'){e.preventDefault();show(0)}
+    else if(k==='End'){e.preventDefault();show(slides.length-1)}
+    else if(k==='f'||k==='F'||k==='F5'){e.preventDefault();fs()}
+    else if(k==='.'||k==='b'||k==='B'){e.preventDefault();setBlack(black.hidden)}
+    else if(k==='Escape'&&!black.hidden){setBlack(false)}
+  });
+  black.addEventListener('click',()=>setBlack(false));
+  deck.addEventListener('click',e=>{if(e.target.closest('.rumiapp button'))return;const r=deck.getBoundingClientRect();show(e.clientX>r.left+r.width/3?i+1:i-1)});
+  let x0=null;
+  addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+  addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)show(dx<0?i+1:i-1);x0=null});
+  addEventListener('resize',fit);
+  document.addEventListener('fullscreenchange',fit);
+  fit();
+  const m=/^#s(\d+)$/.exec(location.hash); i=m?Math.max(0,Math.min(slides.length-1,parseInt(m[1],10)-1)):0; render(null);
+  if(SYNC&&window.EventSource){
+    const dot=document.getElementById('sync');
+    const es=new EventSource('api/events');
+    es.onopen=()=>{dot.hidden=false};
+    es.onerror=()=>{dot.hidden=true};
+    es.onmessage=ev=>{
+      let s; try{s=JSON.parse(ev.data)}catch(e){return}
+      if(Date.now()>ignoreUntil&&typeof s.slide==='number'&&s.slide!==i)show(s.slide,true);
+      if(black.hidden===!!s.black)setBlack(!!s.black,true);
+    };
+  }
+})();
+</script>
+</body>
+</html>

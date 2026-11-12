@@ -8,23 +8,20 @@
 <style>
   :root { --bg: #000; --fg: #f5f5f5; --muted: #8a8a8a; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; background: var(--bg); color: var(--fg); overflow: hidden;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  html { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-  .slide { cursor: pointer; }
-  body.idle, body.idle .slide { cursor: none; }
   .slide { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-    flex-direction: column; padding: 4vh 4vw; opacity: 0; visibility: hidden;
+    flex-direction: column; padding: 4vh 4vw; opacity: 0; visibility: hidden; cursor: pointer;
     transition: opacity .35s ease, visibility 0s linear .35s; background: var(--bg); }
   .slide.active { opacity: 1; visibility: visible; transition: opacity .35s ease; }
+  body.idle, body.idle .slide { cursor: none; }
   .slide img.full { max-width: 100%; max-height: 92vh; object-fit: contain; display: block; }
 
-  /* Presentaciones incrustadas */
+  /* Presentaciones incrustadas (copias locales en teimas/ e innogando/, mismo origen) */
   .slide.deck { padding: 0; }
-  .slide.deck iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
-    background: #000; visibility: hidden; }
-  .slide.deck iframe.front { visibility: visible; }
-  /* Capa transparente: el foco se queda siempre en esta página y las flechas las gestiona ella */
+  .slide.deck iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+  /* Capa transparente: el foco se queda siempre en esta página y ella decide a dónde va cada paso */
   .catcher { position: absolute; inset: 0; z-index: 2; }
 
   /* pdepablo */
@@ -38,10 +35,6 @@
     text-decoration: none; font-size: clamp(16px, 2.2vw, 28px); }
   .pdp .socials a:hover { color: var(--fg); }
   .pdp .socials svg { width: 1.3em; height: 1.3em; flex: none; }
-
-  .hud { position: fixed; right: 16px; bottom: 12px; font-size: 13px; color: #555; z-index: 5;
-    font-variant-numeric: tabular-nums; opacity: 0; transition: opacity .3s; user-select: none; pointer-events: none; }
-  body.show-hud .hud { opacity: 1; }
 </style>
 </head>
 <body>
@@ -68,19 +61,18 @@
   </div>
 </section>
 
-<!-- 3: Teimas (responde a cambios de #N) -->
-<section class="slide deck" data-deck="hash" data-src="https://elizechea.github.io/teimas/" data-n="9" data-hash="#{n}">
-  <iframe class="front" title="La transformación de TEIMAS" allow="fullscreen; autoplay"></iframe>
+<!-- 3: Teimas (copia de elizechea.github.io/teimas) -->
+<section class="slide deck" data-counter="counter">
+  <iframe src="teimas/index.html" title="La transformación de TEIMAS" allow="fullscreen; autoplay"></iframe>
   <div class="catcher"></div>
 </section>
 
 <!-- 4: meme -->
 <section class="slide"><img class="full" src="meme.webp?v=2" alt="Mi trabajo soñado hace 10 años: Microsoft. Hace 2 años: Anthropic. Ahora: una granja con vacas."></section>
 
-<!-- 5: Innogando (solo lee #sN al cargar: se recarga en un segundo marco y se intercambia) -->
-<section class="slide deck" data-deck="reload" data-src="https://talks.getrus.xyz/3miu6z89x6/" data-n="33" data-hash="#s{n}">
-  <iframe class="front" title="Desde el rural y para el rural · Innogando" allow="fullscreen; autoplay"></iframe>
-  <iframe title="" aria-hidden="true" allow="fullscreen; autoplay"></iframe>
+<!-- 5: Innogando (copia de talks.getrus.xyz, sin sincronización con su servidor) -->
+<section class="slide deck" data-counter="count">
+  <iframe src="innogando/index.html" title="Desde el rural y para el rural · Innogando" allow="fullscreen; autoplay"></iframe>
   <div class="catcher"></div>
 </section>
 
@@ -90,99 +82,53 @@
 <!-- 7: cierre en negro -->
 <section class="slide"></section>
 
-<div class="hud" id="hud"></div>
-
 <script>
 (function () {
   var slides = [].slice.call(document.querySelectorAll('.slide'));
-  var hud = document.getElementById('hud');
-  var i = 0, hudTimer, idleTimer;
+  var i = 0, idleTimer;
 
-  // ---- Presentaciones incrustadas ----
+  // ---- Presentaciones incrustadas: se manejan enviándoles teclas y leyendo su contador ("3 / 9") ----
   function Deck(el) {
-    this.el = el;
-    this.kind = el.dataset.deck;
-    this.src = el.dataset.src;
-    this.n = parseInt(el.dataset.n, 10);
-    this.hash = el.dataset.hash;
-    this.frames = [].slice.call(el.querySelectorAll('iframe'));
-    this.pos = 0;
-    this.token = 0;
     var self = this;
-    // Carga inicial en la primera diapositiva, para que esté lista al llegar
-    this.frames[0].src = this.url(0);
-    this.frames[0].dataset.pos = '0';
-    if (this.kind === 'reload') {
-      this.frames[1].addEventListener('load', function () { self.onLoad(this); });
-      this.frames[0].addEventListener('load', function () { self.onLoad(this); });
-    }
+    this.frame = el.querySelector('iframe');
+    this.counterId = el.dataset.counter;
+    this.pending = null; // tecla a enviar en cuanto cargue
+    this.frame.addEventListener('load', function () {
+      if (self.pending) { var k = self.pending; self.pending = null; self.key(k); }
+    });
   }
-  Deck.prototype.url = function (p) {
-    var h = this.hash.replace('{n}', p + 1);
-    if (this.kind === 'reload') return this.src + '?p=' + (p + 1) + '&t=' + Date.now() + h;
-    return this.src + h;
+  Deck.prototype.state = function () {
+    try {
+      var c = this.frame.contentDocument.getElementById(this.counterId);
+      var m = /(\d+)\s*\/\s*(\d+)/.exec(c.textContent);
+      return m ? { pos: +m[1] - 1, n: +m[2] } : null;
+    } catch (e) { return null; }
   };
-  Deck.prototype.front = function () { return this.el.querySelector('iframe.front'); };
-  Deck.prototype.set = function (p) {
-    p = Math.max(0, Math.min(this.n - 1, p));
-    this.pos = p;
-    if (this.kind === 'hash') {
-      var f = this.frames[0];
-      var u = this.url(p);
-      try { f.contentWindow.location.replace(u); } catch (e) { f.src = u; }
-      return;
-    }
-    var front = this.front();
-    if (front.dataset.pos === String(p) && !front.dataset.loading) return;
-    var back = this.frames[0] === front ? this.frames[1] : this.frames[0];
-    this.token++;
-    back.dataset.token = String(this.token);
-    back.dataset.pos = String(p);
-    back.dataset.loading = '1';
-    back.src = this.url(p);
-  };
-  Deck.prototype.onLoad = function (f) {
-    if (!f.dataset.loading) return;
-    delete f.dataset.loading;
-    if (f.dataset.token !== String(this.token)) return; // ya se pidió otra diapositiva
-    var old = this.front();
-    if (old === f) return;
-    f.classList.add('front');
-    old.classList.remove('front');
-    // Vaciar el marco oculto para que no siga sonando ningún vídeo
-    setTimeout(function () { if (!old.classList.contains('front')) { old.removeAttribute('src'); delete old.dataset.pos; } }, 300);
+  Deck.prototype.key = function (k) {
+    var w = this.frame.contentWindow, d = this.frame.contentDocument;
+    if (!d || d.readyState !== 'complete' || !this.state()) { this.pending = k; return; }
+    d.dispatchEvent(new w.KeyboardEvent('keydown', { key: k, bubbles: true, cancelable: true }));
   };
 
   var decks = slides.map(function (s) { return s.classList.contains('deck') ? new Deck(s) : null; });
 
-  // ---- Navegación ----
+  // ---- Navegación (la URL de la página no cambia nunca) ----
   function show(n, fromEnd) {
     var prev = i;
     i = Math.max(0, Math.min(slides.length - 1, n));
     var d = decks[i];
-    if (d && i !== prev) d.set(fromEnd ? d.n - 1 : 0);
+    if (d && i !== prev) d.key(fromEnd ? 'End' : 'Home');
     slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
-    hud.textContent = (i + 1) + ' / ' + slides.length;
-    if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
   }
   function next() {
-    var d = decks[i];
-    if (d && d.pos < d.n - 1) d.set(d.pos + 1);
+    var d = decks[i], st = d && d.state();
+    if (st && st.pos < st.n - 1) d.key('ArrowRight');
     else if (i < slides.length - 1) show(i + 1, false);
-    flashHud();
   }
   function prev() {
-    var d = decks[i];
-    if (d && d.pos > 0) d.set(d.pos - 1);
+    var d = decks[i], st = d && d.state();
+    if (st && st.pos > 0) d.key('ArrowLeft');
     else if (i > 0) show(i - 1, true);
-    flashHud();
-  }
-  function flashHud() {
-    var d = decks[i];
-    hud.textContent = (i + 1) + ' / ' + slides.length + (d ? '  ·  ' + (d.pos + 1) + ' / ' + d.n : '');
-    document.body.classList.add('show-hud');
-    clearTimeout(hudTimer);
-    hudTimer = setTimeout(function () { document.body.classList.remove('show-hud'); }, 1200);
   }
   function fullscreen() {
     var de = document.documentElement;
@@ -203,10 +149,10 @@
     if (e.target.closest('a')) return;
     if (e.clientX < window.innerWidth / 3) prev(); else next();
   });
-  var x0 = null;
+
   // Táctil: toque (tercio izquierdo atrás, resto adelante) y deslizar.
   // iOS (Safari y Chrome, ambos WebKit) no manda 'click' al tocar fondos o imágenes, así que el toque se detecta aquí.
-  var y0 = null;
+  var x0 = null, y0 = null;
   document.addEventListener('touchstart', function (e) {
     if (e.touches.length !== 1) { x0 = null; return; }
     x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
@@ -222,6 +168,7 @@
       if (sx < window.innerWidth / 3) prev(); else next();
     }
   }, { passive: false });
+
   // Si el foco se va a un marco, recuperarlo para que las flechas sigan llegando aquí
   window.addEventListener('blur', function () { setTimeout(function () { window.focus(); }, 0); });
   document.addEventListener('mousemove', function () {
@@ -230,8 +177,7 @@
     idleTimer = setTimeout(function () { document.body.classList.add('idle'); }, 2000);
   });
 
-  var start = parseInt(location.hash.slice(1), 10);
-  show(isNaN(start) ? 0 : start - 1);
+  show(0);
 })();
 </script>
 </body>
