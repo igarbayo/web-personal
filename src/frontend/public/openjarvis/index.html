@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>OpenJarvis</title>
+<style>html,body,#app{margin:0;height:100%;background:#fff}</style>
+<script>window.EXCALIDRAW_ASSET_PATH="https://unpkg.com/@excalidraw/excalidraw@0.17.6/dist/";</script>
+<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@excalidraw/excalidraw@0.17.6/dist/excalidraw.production.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const SCENE = [{"type": "rectangle", "id": "zl", "x": 40, "y": 20, "width": 330, "height": 420, "backgroundColor": "#dbe4ff", "fillStyle": "solid", "roundness": {"type": 3}, "strokeColor": "#4a9eed", "strokeWidth": 1, "opacity": 40}, {"type": "text", "id": "zlt", "x": 60, "y": 32, "text": "Al principio: 3 piezas", "fontSize": 20, "strokeColor": "#2563eb"}, {"type": "rectangle", "id": "g1", "x": 75, "y": 80, "width": 260, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#fff3bf", "fillStyle": "solid", "strokeColor": "#f59e0b", "label": {"text": "Gestor", "fontSize": 20}}, {"type": "rectangle", "id": "e1", "x": 75, "y": 190, "width": 260, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#ffd8a8", "fillStyle": "solid", "strokeColor": "#f59e0b", "label": {"text": "Eyetracking\n+ headtracking", "fontSize": 20}}, {"type": "rectangle", "id": "c1", "x": 75, "y": 300, "width": 260, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#d0bfff", "fillStyle": "solid", "strokeColor": "#8b5cf6", "label": {"text": "Cerebro", "fontSize": 20}}, {"type": "rectangle", "id": "zr", "x": 590, "y": 20, "width": 380, "height": 530, "backgroundColor": "#e5dbff", "fillStyle": "solid", "roundness": {"type": 3}, "strokeColor": "#8b5cf6", "strokeWidth": 1, "opacity": 40}, {"type": "text", "id": "zrt", "x": 610, "y": 32, "text": "Después", "fontSize": 20, "strokeColor": "#6d28d9"}, {"type": "arrow", "id": "a1", "x": 340, "y": 115, "width": 280, "height": 0, "points": [[0, 0], [280, 0]], "strokeStyle": "dashed", "strokeColor": "#757575", "endArrowhead": "arrow", "label": {"text": "¿se mantiene?", "fontSize": 16}}, {"type": "rectangle", "id": "g2", "x": 625, "y": 80, "width": 310, "height": 70, "roundness": {"type": 3}, "strokeStyle": "dashed", "strokeColor": "#757575", "label": {"text": "Gestor", "fontSize": 20}}, {"type": "arrow", "id": "a2", "x": 340, "y": 225, "width": 280, "height": 0, "points": [[0, 0], [280, 0]], "strokeColor": "#ef4444", "endArrowhead": "arrow", "label": {"text": "se descarta", "fontSize": 16}}, {"type": "rectangle", "id": "e2", "x": 625, "y": 190, "width": 310, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#ffc9c9", "fillStyle": "solid", "strokeColor": "#ef4444", "opacity": 60, "label": {"text": "Eyetracking", "fontSize": 20}}, {"type": "line", "id": "x1", "x": 650, "y": 205, "width": 260, "height": 40, "points": [[0, 0], [260, 40]], "strokeColor": "#ef4444", "strokeWidth": 3}, {"type": "arrow", "id": "a3", "x": 340, "y": 335, "width": 280, "height": 0, "points": [[0, 0], [280, 0]], "strokeColor": "#8b5cf6", "strokeWidth": 3, "endArrowhead": "arrow", "label": {"text": "pasa a ser", "fontSize": 16}}, {"type": "rectangle", "id": "c2", "x": 625, "y": 300, "width": 310, "height": 90, "roundness": {"type": 3}, "backgroundColor": "#d0bfff", "fillStyle": "solid", "strokeColor": "#8b5cf6", "strokeWidth": 3, "label": {"text": "Claude", "fontSize": 20}}, {"type": "text", "id": "ty", "x": 770, "y": 400, "text": "y", "fontSize": 24}, {"type": "rectangle", "id": "v2", "x": 625, "y": 440, "width": 310, "height": 80, "roundness": {"type": 3}, "backgroundColor": "#a5d8ff", "fillStyle": "solid", "strokeColor": "#4a9eed", "strokeWidth": 3, "label": {"text": "Voz\nSTT + TTS", "fontSize": 20}}, {"type": "text", "id": "tn", "x": 420, "y": 465, "text": "nuevo", "fontSize": 20, "strokeColor": "#2563eb"}, {"type": "arrow", "id": "a4", "x": 490, "y": 480, "width": 130, "height": 0, "points": [[0, 0], [130, 0]], "strokeColor": "#4a9eed", "endArrowhead": "arrow"}];
+const { Excalidraw, convertToExcalidrawElements } = ExcalidrawLib;
+const elements = convertToExcalidrawElements(SCENE);
+ReactDOM.createRoot(document.getElementById("app")).render(
+  React.createElement(Excalidraw, {
+    initialData: { elements, appState: { viewBackgroundColor: "#ffffff" }, scrollToContent: true },
+    viewModeEnabled: true,
+    UIOptions: { canvasActions: { export: { saveFileToDisk: true }, saveToActiveFile: false, loadScene: false, clearCanvas: false } },
+  })
+);
+</script>
+</body>
+</html>
