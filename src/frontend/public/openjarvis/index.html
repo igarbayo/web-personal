@@ -5,25 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>OpenJarvis</title>
-<style>html,body,#app{margin:0;height:100%;background:#fff}</style>
+<style>
+  html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:system-ui,sans-serif}
+  .slide{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+  .slide.on{opacity:1;pointer-events:auto}
+  .bg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(30px) brightness(.45)}
+  .fg{position:relative;max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}
+  #s2{background:#fff}
+  #diagram{width:94vw;height:92vh;display:flex;align-items:center;justify-content:center}
+  #diagram svg{width:100%;height:100%}
+  #hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:#fff;background:rgba(0,0,0,.6);padding:8px 14px;border-radius:8px;font-size:14px;transition:opacity .5s}
+  #n{position:fixed;bottom:12px;right:16px;color:#888;font-size:13px}
+</style>
 <script>window.EXCALIDRAW_ASSET_PATH="https://unpkg.com/@excalidraw/excalidraw@0.17.6/dist/";</script>
 <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@excalidraw/excalidraw@0.17.6/dist/excalidraw.production.min.js"></script>
 </head>
 <body>
-<div id="app"></div>
+<section class="slide on" id="s1">
+  <video class="bg" src="/openjarvis/tony-jarvis.mp4" autoplay loop muted playsinline></video>
+  <video class="fg" src="/openjarvis/tony-jarvis.mp4" autoplay loop muted playsinline></video>
+</section>
+<section class="slide" id="s2"><div id="diagram"></div></section>
+<section class="slide" id="s3">
+  <img class="bg" src="/openjarvis/tony-triste.png" alt="">
+  <img class="fg" src="/openjarvis/tony-triste.png" alt="Tony Stark triste: Jarvis I can't do this anymore">
+</section>
+<div id="hint">Pulsa una tecla o haz clic para pantalla completa · ← → para pasar</div>
+<div id="n"></div>
 <script>
 const SCENE = [{"type": "rectangle", "id": "zl", "x": 40, "y": 20, "width": 330, "height": 420, "backgroundColor": "#dbe4ff", "fillStyle": "solid", "roundness": {"type": 3}, "strokeColor": "#4a9eed", "strokeWidth": 1, "opacity": 40}, {"type": "text", "id": "zlt", "x": 60, "y": 32, "text": "Al principio: 3 piezas", "fontSize": 20, "strokeColor": "#2563eb"}, {"type": "rectangle", "id": "g1", "x": 75, "y": 80, "width": 260, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#fff3bf", "fillStyle": "solid", "strokeColor": "#f59e0b", "label": {"text": "Gestor", "fontSize": 20}}, {"type": "rectangle", "id": "e1", "x": 75, "y": 190, "width": 260, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#ffd8a8", "fillStyle": "solid", "strokeColor": "#f59e0b", "label": {"text": "Eyetracking\n+ headtracking", "fontSize": 20}}, {"type": "rectangle", "id": "c1", "x": 75, "y": 300, "width": 260, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#d0bfff", "fillStyle": "solid", "strokeColor": "#8b5cf6", "label": {"text": "Cerebro", "fontSize": 20}}, {"type": "rectangle", "id": "zr", "x": 590, "y": 20, "width": 380, "height": 530, "backgroundColor": "#e5dbff", "fillStyle": "solid", "roundness": {"type": 3}, "strokeColor": "#8b5cf6", "strokeWidth": 1, "opacity": 40}, {"type": "text", "id": "zrt", "x": 610, "y": 32, "text": "Después", "fontSize": 20, "strokeColor": "#6d28d9"}, {"type": "arrow", "id": "a1", "x": 340, "y": 115, "width": 280, "height": 0, "points": [[0, 0], [280, 0]], "strokeStyle": "dashed", "strokeColor": "#757575", "endArrowhead": "arrow", "label": {"text": "¿se mantiene?", "fontSize": 16}}, {"type": "rectangle", "id": "g2", "x": 625, "y": 80, "width": 310, "height": 70, "roundness": {"type": 3}, "strokeStyle": "dashed", "strokeColor": "#757575", "label": {"text": "Gestor", "fontSize": 20}}, {"type": "arrow", "id": "a2", "x": 340, "y": 225, "width": 280, "height": 0, "points": [[0, 0], [280, 0]], "strokeColor": "#ef4444", "endArrowhead": "arrow", "label": {"text": "se descarta", "fontSize": 16}}, {"type": "rectangle", "id": "e2", "x": 625, "y": 190, "width": 310, "height": 70, "roundness": {"type": 3}, "backgroundColor": "#ffc9c9", "fillStyle": "solid", "strokeColor": "#ef4444", "opacity": 60, "label": {"text": "Eyetracking", "fontSize": 20}}, {"type": "line", "id": "x1", "x": 650, "y": 205, "width": 260, "height": 40, "points": [[0, 0], [260, 40]], "strokeColor": "#ef4444", "strokeWidth": 3}, {"type": "arrow", "id": "a3", "x": 340, "y": 335, "width": 280, "height": 0, "points": [[0, 0], [280, 0]], "strokeColor": "#8b5cf6", "strokeWidth": 3, "endArrowhead": "arrow", "label": {"text": "pasa a ser", "fontSize": 16}}, {"type": "rectangle", "id": "c2", "x": 625, "y": 300, "width": 310, "height": 90, "roundness": {"type": 3}, "backgroundColor": "#d0bfff", "fillStyle": "solid", "strokeColor": "#8b5cf6", "strokeWidth": 3, "label": {"text": "Claude", "fontSize": 20}}, {"type": "text", "id": "ty", "x": 770, "y": 400, "text": "y", "fontSize": 24}, {"type": "rectangle", "id": "v2", "x": 625, "y": 440, "width": 310, "height": 80, "roundness": {"type": 3}, "backgroundColor": "#a5d8ff", "fillStyle": "solid", "strokeColor": "#4a9eed", "strokeWidth": 3, "label": {"text": "Voz\nSTT + TTS", "fontSize": 20}}, {"type": "text", "id": "tn", "x": 420, "y": 465, "text": "nuevo", "fontSize": 20, "strokeColor": "#2563eb"}, {"type": "arrow", "id": "a4", "x": 490, "y": 480, "width": 130, "height": 0, "points": [[0, 0], [130, 0]], "strokeColor": "#4a9eed", "endArrowhead": "arrow"}];
-const { Excalidraw, convertToExcalidrawElements } = ExcalidrawLib;
-const elements = convertToExcalidrawElements(SCENE);
-ReactDOM.createRoot(document.getElementById("app")).render(
-  React.createElement(Excalidraw, {
-    initialData: { elements, appState: { viewBackgroundColor: "#ffffff" }, scrollToContent: true },
-    viewModeEnabled: true,
-    UIOptions: { canvasActions: { export: { saveFileToDisk: true }, saveToActiveFile: false, loadScene: false, clearCanvas: false } },
-  })
-);
+const slides=[...document.querySelectorAll('.slide')];
+let i=Math.min(Math.max((parseInt(location.hash.slice(1))||1)-1,0),slides.length-1);
+function show(k){i=Math.min(Math.max(k,0),slides.length-1);slides.forEach((s,j)=>s.classList.toggle('on',j===i));document.getElementById('n').textContent=(i+1)+' / '+slides.length;history.replaceState(null,'','#'+(i+1));}
+function fs(){const d=document.documentElement;if(!document.fullscreenElement&&d.requestFullscreen){d.requestFullscreen().then(()=>{document.getElementById('hint').style.opacity=0}).catch(()=>{});}}
+addEventListener('keydown',e=>{
+  fs();
+  if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(i+1);}
+  else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1);}
+  else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+});
+addEventListener('click',e=>{const wasFs=!!document.fullscreenElement;fs();if(wasFs)show(e.clientX<innerWidth/3?i-1:i+1);});
+let tx=null;addEventListener('touchstart',e=>tx=e.touches[0].clientX);addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)show(dx<0?i+1:i-1);tx=null;});
+document.addEventListener('fullscreenchange',()=>{document.getElementById('hint').style.opacity=document.fullscreenElement?0:1});
+fs();show(i);setTimeout(()=>{document.getElementById('hint').style.opacity=0},5000);
+const L=window.ExcalidrawLib;
+L.exportToSvg({elements:L.convertToExcalidrawElements(SCENE),appState:{exportBackground:true,viewBackgroundColor:'#ffffff'},files:null,exportPadding:20})
+ .then(svg=>{svg.removeAttribute('width');svg.removeAttribute('height');document.getElementById('diagram').appendChild(svg);});
 </script>
 </body>
 </html>
